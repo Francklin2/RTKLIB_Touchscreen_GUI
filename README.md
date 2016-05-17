@@ -2,7 +2,7 @@
 Gui based for RTKLIB for Raspberry Pi  made with Qt by the ENSG student 
 
 
-To build tuis you will need :
+To build this project you will need :
 
 - Raspberry pi 2 and a 8gb SD
 
@@ -21,7 +21,7 @@ http://www.csgshop.com/product.php?id_product=205
 - a standart rectangular on/off power switch
 http://www.ebay.fr/itm/5Pcs-2-Pin-Snap-in-On-Off-Position-Snap-Boat-Rocker-Switch-12V-110V-250V-K0TG-/311562995499?hash=item488a9a072b:g:zbAAAOSwxp9W39wh
 
-- R�gulator Ubec 5V , you can found them in any RC-model shop
+- Régulator Ubec 5V , you can found them in any RC-model shop
 http://www.ebay.fr/itm/5V-3A-Mini-UBEC-BEC-Converter-Step-Down-Module-For-RC-Plane-FPV-DIY-Aircraft-Fly-/131676464873?hash=item1ea88766e9:g:zmQAAOSwvUlWsgG4 
 
 - Battery Adapter Mounting Plate for NP-F970
@@ -33,5 +33,9 @@ http://www.ebay.fr/itm/6600mAh-NP-F960-NP-F970-Batteries-pour-NP-F930-F330-F550-
 - Charger for battery NP-F Sony 
 http://www.ebay.fr/itm/Dual-Channel-Battery-Charger-For-SONY-NP-F970-F750-F960-FM50-FM500H-FM55H-QM91D-/371008913548?hash=item5661dac08c:g:9UUAAOxyLm9TAttp
 
-- mini USB angled 
+- mini USB angled for wiring the GNSS
 http://www.ebay.fr/itm/Court-20cm-Angle-Droit-USB-A-a-90-degres-Angle-Droit-Mini-B-USB-Data-Cable-Cable-/221683667935?hash=item339d6053df:g:dDoAAOSwPhdU1PcB
+
+ - Dérial RF link, 2 units needed to link a rover too a base like a Xbeepro or a cheaper 3DR télémetry module(Half duplex only !)
+ https://www.sparkfun.com/products/10419
+http://www.ebay.fr/itm/3DRobotics-Radio-3DR-Kit-Telemetry-433Mhz-Module-for-APM-APM2-5-2-6-Pixhawk-PX4-/221852845151?hash=item33a775c45f:g:0YgAAOSwgQ9V0Un~
