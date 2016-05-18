@@ -1,5 +1,5 @@
 # RTKLIB_Touchscreen_GUI
-Gui based for RTKLIB for Raspberry Pi  made with Qt by the ENSG student 
+RTKLIB GUI for Raspberry Pi with touchscreen made with Qt by the ENSG students 
 
 
 To build this project you will need :
