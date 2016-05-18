@@ -46,7 +46,7 @@ http://www.ebay.fr/itm/3DRobotics-Radio-3DR-Kit-Telemetry-433Mhz-Module-for-APM-
 
 To install system on a raspberry pi 2 with the touchscreen you can download a raspian image with all the touchscreen drivers preinstalled here :
 https://drive.google.com/file/d/0B2SuLGFxizpVMzRtODVkN0tZVjA/view?usp=sharing
-Copy them on a SD card, ou can use Rufus for that :
+Copy them on a SD card, you can use Rufus for that :
 https://rufus.akeo.ie/
 Copy the RTKBASE folder in the /home/pi folder (still have problem with absolute path), lauch the RTKBASE file in the RTKBASE folder to lauch the GUI, the is also a RTKBASE.sh script , you can use it to lauch the GUI at startup in  the autostart file of raspian 
 
