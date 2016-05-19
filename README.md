@@ -48,5 +48,8 @@ To install system on a raspberry pi 2 with the touchscreen you can download a ra
 https://drive.google.com/file/d/0B2SuLGFxizpVMzRtODVkN0tZVjA/view?usp=sharing
 Copy them on a SD card, you can use Rufus for that :
 https://rufus.akeo.ie/
-Copy the RTKBASE folder in the /home/pi folder (still have problem with absolute path), lauch the RTKBASE file in the RTKBASE folder to lauch the GUI, the is also a RTKBASE.sh script , you can use it to lauch the GUI at startup in  the autostart file of raspian 
+Copy the RTKBASE folder in the /home/pi folder (still have problem with absolute path), lauch the RTKBASE file in the RTKBASE folder to lauch the GUI, the is also a RTKBASE.sh script , you can use it to lauch the GUI at startup in  the autostart file of raspian in the folder /etc/xdg/lxsession/LXDE-pi/ , edit the autostart file and add the path of the RTKBASE.sh :
+@/etc/xdg/lxsession/LXDE-pi/RTKBASE.sh
+Before switch off the power you still have to close GUI and shutdown the raspberry by the menu , I will  add a button for that in the next version
+
 
