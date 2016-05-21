@@ -50,6 +50,6 @@ Copy them on a SD card, you can use Rufus for that :
 https://rufus.akeo.ie/
 Copy the RTKBASE folder in the /home/pi folder (still have problem with absolute path), lauch the RTKBASE file in the RTKBASE folder to lauch the GUI, the is also a RTKBASE.sh script , you can use it to lauch the GUI at startup in  the autostart file of raspian in the folder /etc/xdg/lxsession/LXDE-pi/ , edit the autostart file and add the path of the RTKBASE.sh :
 @/etc/xdg/lxsession/LXDE-pi/RTKBASE.sh                                                                              
-If you dont use the RTKBASE.sh script to lauch the GUI the power off button will not work if you don't lauch the GUI as root(still looking for the good trick to to a clean shutdown)
+If you dont use the RTKBASE.sh script to launch the GUI, the power off button will not work. you have to lauch the GUI as root to make it work for the moment (I'm still looking for the good trick to to a clean shutdown)
 
 
