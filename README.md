@@ -44,6 +44,9 @@ http://www.ebay.fr/itm/3DRobotics-Radio-3DR-Kit-Telemetry-433Mhz-Module-for-APM-
 - Wifi dongle to for internet Ntrip GNSS correction
 -http://www.ebay.fr/itm/Wireless-USB-Adapter-LAN-Wifi-Dongle-for-Raspberry-Pi-802-11-b-g-n-150Mbps-PK-/311440828311?hash=item488351e797:g:UJIAAOSwWnFV7mJy
 
+- A 1/4 to 3/8 inch screw adapter to mount the RTKBASE on any stands
+http://www.ebay.fr/itm/2PCS-3-8-to-1-4-inch-convert-screw-thread-adapter-tripod-ball-head-/231677594811?hash=item35f10f8cbb:g:qYoAAOSwqv9V6u21
+
 To install system on a raspberry pi 2 with the touchscreen you can download a raspian image with all the touchscreen drivers preinstalled here :
 https://drive.google.com/file/d/0B2SuLGFxizpVMzRtODVkN0tZVjA/view?usp=sharing
 Copy them on a SD card, you can use Rufus for that :
