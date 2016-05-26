@@ -36,17 +36,17 @@ AfficheSolutions::AfficheSolutions(QWidget *parent) :
 
 {
 
-        if (choixcalcul==1) { m_fileName1 = "../RTKBASEV3/ConfFiles/Single.ubx";}
+        if (choixcalcul==1) { m_fileName1 = "../RTKBASE/ConfFiles/Single.ubx";}
 
-        if (choixcalcul==2) { m_fileName1 = "../RTKBASEV3/ConfFiles/SBAS.ubx";}
+        if (choixcalcul==2) { m_fileName1 = "../RTKBASE/ConfFiles/SBAS.ubx";}
 
-        if (choixcalcul==3) { m_fileName1 = "../RTKBASEV3/ConfFiles/DGPS.ubx";}
+        if (choixcalcul==3) { m_fileName1 = "../RTKBASE/ConfFiles/DGPS.ubx";}
 
-        if (choixcalcul==4) { m_fileName1 = "../RTKBASEV3/ConfFiles/PPP-Static.ubx";}
+        if (choixcalcul==4) { m_fileName1 = "../RTKBASE/ConfFiles/PPP-Static.ubx";}
 
-        if (choixcalcul==5) {m_fileName1 = "../RTKBASEV3/ConfFiles/RTK-Static.ubx";}
+        if (choixcalcul==5) { m_fileName1 = "../RTKBASE/ConfFiles/RTK-Static.ubx";}
 
-        if (choixcalcul==6) { m_fileName1 = "../RTKBASEV3/ConfFiles/RTK-Kinematic.ubx";}
+        if (choixcalcul==6) { m_fileName1 = "../RTKBASE/ConfFiles/RTK-Kinematic.ubx";}
 
 
 }
