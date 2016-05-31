@@ -22,7 +22,7 @@ CORES=`grep -c processor /proc/cpuinfo`
 LC_ALL=C
 ## removing old stuff
 rm -Rf "$LOG_PATH"
-## create needed directorie
+## create needed directory
 mkdir -p "$LOG_PATH"
 ## output sys info
 echo "System info:" > "$LOG_PATH/sysinfo.txt"
