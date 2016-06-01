@@ -129,5 +129,5 @@ void MainWindow::OuvreHelp()
 {
     QDesktopServices::openUrl(QUrl("../RTKBASE/doc/manual_RTKBASE.pdf"));
     //this->hide();
-    qApp->quit();
+    //qApp->quit();//Removed : quit button close RTKBASE
 }
