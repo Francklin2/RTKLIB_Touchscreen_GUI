@@ -31,7 +31,7 @@ echo
 echo "  > building required static lib rtklib"
 cd ./lib/rtklib
 chmod +x make_library.sh > "$LOG_PATH/rtklib_rights.log" 2>&1
-sh make_library.sh > "$LOG_PATH/rtklib.log" 2>&1
+./make_library.sh > "$LOG_PATH/rtklib.log" 2>&1
 echo "  < done - `date`"
 echo
 echo "  > building RTKBASE"
