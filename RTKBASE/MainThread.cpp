@@ -1,4 +1,4 @@
-// RTKBASE is a GUI interface for RTKLIB made for the Raspberry î and a touchscreen  
+// RTKBASE is a GUI interface for RTKLIB made for the Raspberry pî and a touchscreen  
 //   Copyright (C) 2016  
 //   David ENSG PPMD-15  
 //   Francklin N'guyen van <francklin2@wanadoo.fr>
