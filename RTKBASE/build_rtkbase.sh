@@ -28,6 +28,9 @@ mkdir -p "$LOG_PATH"
 echo "System info:" > "$LOG_PATH/sysinfo.txt"
 uname -a > "$LOG_PATH/sysinfo.txt"
 echo
+echo "  > Install dependencies : "
+echo "  > Script will ask your passwork to install it"
+sudo apt-get install libxtst-dev build-essential libqt4-dev qt4-qmake > "$LOG_PATH/apt.log"
 echo "  > building required static lib rtklib"
 cd ./lib/rtklib
 chmod +x make_library.sh > "$LOG_PATH/rtklib_rights.log" 2>&1
