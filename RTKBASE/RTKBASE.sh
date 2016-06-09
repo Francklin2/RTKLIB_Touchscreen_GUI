@@ -1,2 +1,2 @@
 cd /home/pi/RTKBASE
-./RTKBASE
+sudo ./RTKBASE
