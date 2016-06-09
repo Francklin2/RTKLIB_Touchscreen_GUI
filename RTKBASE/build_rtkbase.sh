@@ -9,7 +9,8 @@ echo "     Attribution"
 echo
 echo "     if the script doesn't finish properly"
 echo "     (i.e. it doesn't print \"script finished\" at the end)"
-echo "     please email me the content of the logs folder"
+echo "     please open an issue on giithub at : "
+echo "    https://github.com/Francklin2/RTKLIB_Touchscreen_GUI "
 echo
 echo
 echo "  - script started - `date`"
