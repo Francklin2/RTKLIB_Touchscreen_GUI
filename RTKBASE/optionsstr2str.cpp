@@ -1,7 +1,6 @@
 #include "optionsstr2str.h"
 #include "ui_optionsstr2str.h"
 #include "affichestr2str.h"
-
 #include <QTextStream>
 #include <QFile>
 
@@ -21,12 +20,81 @@ QString InFormatext;
 QString RtcmMsgext;
 
 
+
 OptionsStr2str::OptionsStr2str(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::OptionsStr2str)
 {
     ui->setupUi(this);
     QObject::connect(ui->pushButtonDefault1,SIGNAL(clicked()),this,SLOT(OuvreDefault1()));
+    QObject::connect(ui->radioButtonPositionAuto,SIGNAL(checked() ),this,SLOT(on_radioButtonPositionAuto_clicked(bool checked)()) );
+    QObject::connect(ui->radioButtonPositionManual,SIGNAL(checked() ),this,SLOT(on_radioButtonPositionManual_clicked(bool checked)()) );
+
+
+ // Set défault Base position mode (if not set it crashes at server start
+ ui->radioButtonPositionAuto->setChecked(true);
+ if (ui->radioButtonPositionAuto->isChecked())
+ {
+    PositionMode=1;
+ }
+
+   /* Load base position in files to display in ui
+      Open, read line by line and then close file*/
+{
+int i=1;
+QStringList list;
+QString fileName = "sauvegardepourbaseManual.txt";
+QFile fichier1(fileName);
+fichier1.open(QIODevice::ReadOnly | QIODevice::Text);
+//---------verifier ouverture fichier......
+QTextStream flux(&fichier1);
+QString ligne;
+while(! flux.atEnd())
+{
+   ligne = flux.readLine();
+   //traitement de la ligne
+   qDebug()<<ligne;
+   list<<ligne;
+   i=i+1;
+}
+
+//  Display manual position
+   ui->LongManualLine->setText(QString(list[0]));
+   ui->LatManualLine->setText(QString(list[1]));
+   ui->AltiManualLine->setText(QString(list[2]));
+
+fichier1.close();
+
+    }
+{
+
+
+/*Open, read line by line and then close file*/
+int i=1;
+QStringList list;
+QString fileName = "sauvegardepourbase.txt";
+QFile fichier1(fileName);
+fichier1.open(QIODevice::ReadOnly | QIODevice::Text);
+//---------verifier ouverture fichier......
+QTextStream flux(&fichier1);
+QString ligne;
+while(! flux.atEnd())
+{
+ligne = flux.readLine();
+//traitement de la ligne
+qDebug()<<ligne;
+list<<ligne;
+i=i+1;
+}
+
+//  Display manual position
+ui->LongAutoLine->setText(QString(list[0]));
+ui->LatAutoLine->setText(QString(list[1]));
+ui->AltiAutoLine->setText(QString(list[2]));
+
+fichier1.close();
+
+ }
 
 
 }
@@ -73,131 +141,25 @@ void OptionsStr2str::OuvreDefault1()
     affichesolutionsStr2str.exec();
 
 
-
 }
 
 
 
 
-void OptionsStr2str::on_LongManualLine_textChanged()
-{
-
-}
-
-
-void OptionsStr2str::on_LatManualLine_textChanged()
-{
-
-}
-
-void OptionsStr2str::on_AltiManualLine_textChanged()
-{
-
-}
 
 
 void OptionsStr2str::on_radioButtonPositionAuto_clicked()
 {
-
-
- //   ui->textEditDefault2->setText(QString("LAT = %1 deg   LONG = %2 deg   ALTI= %3 m"));
-
-
     PositionMode=1;
-
-{
-    /*Open, read line by line and then close file*/
-int i=1;
-QStringList list;
-QString fileName = "sauvegardepourbaseManual.txt";
-QFile fichier1(fileName);
-fichier1.open(QIODevice::ReadOnly | QIODevice::Text);
-//---------verifier ouverture fichier......
-QTextStream flux(&fichier1);
-QString ligne;
-while(! flux.atEnd())
-{
-   ligne = flux.readLine();
-   //traitement de la ligne
-   qDebug()<<ligne;
-   list<<ligne;
-   i=i+1;
-}
-
-//  Display manual position
-   ui->LongManualLine->setText(QString(list[0]));
-   ui->LatManualLine->setText(QString(list[1]));
-   ui->AltiManualLine->setText(QString(list[2]));
-
-fichier1.close();
-
-}
-
-{
-
-/*Open, read line by line and then close file*/
-int i=1;
-QStringList list;
-QString fileName = "sauvegardepourbase.txt";
-QFile fichier1(fileName);
-fichier1.open(QIODevice::ReadOnly | QIODevice::Text);
-//---------verifier ouverture fichier......
-QTextStream flux(&fichier1);
-QString ligne;
-while(! flux.atEnd())
-{
-ligne = flux.readLine();
-//traitement de la ligne
-qDebug()<<ligne;
-list<<ligne;
-i=i+1;
-}
-
-//  Display manual position
-ui->LongAutoLine->setText(QString(list[0]));
-ui->LatAutoLine->setText(QString(list[1]));
-ui->AltiAutoLine->setText(QString(list[2]));
-
-fichier1.close();
-
 }
 
 
-}
 
 void OptionsStr2str::on_radioButtonPositionManual_clicked()
 {
-
-     PositionMode=2;
-
-
-     /*Open, read line by line and then close file */
- int i=1;
- QStringList list;
- QString fileName = "sauvegardepourbaseManual.txt";
- QFile fichier1(fileName);
- fichier1.open(QIODevice::ReadOnly | QIODevice::Text);
- //---------verifier ouverture fichier......
- QTextStream flux(&fichier1);
- QString ligne;
- while(! flux.atEnd())
- {
-    ligne = flux.readLine();
-    //traitement de la ligne
-    qDebug()<<ligne;
-    list<<ligne;
-    i=i+1;
- }
-
-//  Display manual position
-
-    ui->LongManualLine->setText(QString(list[0]));
-    ui->LatManualLine->setText(QString(list[1]));
-    ui->AltiManualLine->setText(QString(list[2]));
-
- fichier1.close();
-
+    PositionMode=2;
 }
+
 
 void OptionsStr2str::on_pushButtonManual_clicked()
 {

@@ -43,11 +43,6 @@ public slots:
 private slots:
 
 
-    void on_LatManualLine_textChanged();
-    void on_LongManualLine_textChanged();
-    void on_AltiManualLine_textChanged();
-
-
     void on_pushButtonManual_clicked();
     void on_radioButtonPositionAuto_clicked();
     void on_radioButtonPositionManual_clicked();
