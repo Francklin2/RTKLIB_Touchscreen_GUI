@@ -447,12 +447,18 @@
     <rect>
      <x>650</x>
      <y>380</y>
-     <width>91</width>
+     <width>131</width>
      <height>51</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="text">
-    <string>SAVE</string>
+    <string>SAVE POSITION</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEditSolutionStatus1">
@@ -572,6 +578,12 @@
      <height>51</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="text">
     <string>XYZ</string>
    </property>
@@ -588,8 +600,14 @@
      <height>51</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="text">
-    <string>llh</string>
+    <string>LLH</string>
    </property>
    <attribute name="buttonGroup">
     <string notr="true">buttonGroup</string>

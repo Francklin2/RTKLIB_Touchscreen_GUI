@@ -74,6 +74,12 @@
      <height>27</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
   </widget>
   <widget class="QLineEdit" name="Msg2lineEdit">
    <property name="geometry">
@@ -83,6 +89,12 @@
      <width>701</width>
      <height>27</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
    </property>
   </widget>
   <widget class="QLineEdit" name="Msg3lineEdit">
@@ -94,6 +106,12 @@
      <height>27</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
   </widget>
   <widget class="QLineEdit" name="Msg4lineEdit">
    <property name="geometry">
@@ -104,6 +122,12 @@
      <height>27</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
   </widget>
   <widget class="QTextBrowser" name="textBrowser">
    <property name="geometry">
@@ -113,6 +137,12 @@
      <width>381</width>
      <height>241</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
    </property>
   </widget>
  </widget>
