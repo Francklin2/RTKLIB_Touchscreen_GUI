@@ -75,9 +75,10 @@ AfficheStr2str::AfficheStr2str(std::vector<string> arga, QWidget *parent) :
     string Inbaudstr=Inbaudext.toStdString() ;
     string InSerialPortstr=InSerialPortext.toStdString() ;
     string InFormatstr=InFormatext.toStdString() ;
+    string RtcmMsgstr=RtcmMsgext.toStdString() ;
 
 
-    std::vector<std::string> args={"carlepremierargesttoujorsleprog","-in",InSerialPortstr+":"+Inbaudstr+":8:n:1:#"+InFormatstr,"-out",OutSerialPortstr+":"+Outbaudstr+":8:n:1:#"+OutFormatstr,"-msg","1004,1019,1012,1020,1006,1008","-p",latstr,lonstr,hstr};
+    std::vector<std::string> args={"carlepremierargesttoujorsleprog","-in",InSerialPortstr+":"+Inbaudstr+":8:n:1:#"+InFormatstr,"-out",OutSerialPortstr+":"+Outbaudstr+":8:n:1:#"+OutFormatstr,"-msg",RtcmMsgstr,"-p",latstr,lonstr,hstr};
 
 
     /*Str2str.c opening options*/
@@ -110,7 +111,7 @@ AfficheStr2str::AfficheStr2str(std::vector<string> arga, QWidget *parent) :
      */
 
 
-    m_tstr2str->setArgcArgvStr2str(args);
+   m_tstr2str->setArgcArgvStr2str(args);
     m_tstr2str->start();
 
     m_readfile->start();

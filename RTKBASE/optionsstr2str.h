@@ -9,6 +9,8 @@ extern QString OutFormatext;
 extern QString Inbaudext;
 extern QString InSerialPortext;
 extern QString InFormatext;
+extern QString RtcmMsgext;
+
 
 
 

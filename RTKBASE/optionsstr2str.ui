@@ -43,7 +43,7 @@
    <property name="geometry">
     <rect>
      <x>660</x>
-     <y>290</y>
+     <y>310</y>
      <width>121</width>
      <height>71</height>
     </rect>
@@ -63,7 +63,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>290</y>
+     <y>310</y>
      <width>601</width>
      <height>71</height>
     </rect>
@@ -82,11 +82,11 @@ p, li { white-space: pre-wrap; }
      <x>30</x>
      <y>50</y>
      <width>731</width>
-     <height>221</height>
+     <height>241</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -432,7 +432,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>550</x>
-       <y>110</y>
+       <y>100</y>
        <width>81</width>
        <height>32</height>
       </rect>
@@ -471,7 +471,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>400</x>
-       <y>110</y>
+       <y>100</y>
        <width>141</width>
        <height>32</height>
       </rect>
@@ -505,7 +505,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>640</x>
-       <y>110</y>
+       <y>100</y>
        <width>71</width>
        <height>32</height>
       </rect>
@@ -534,7 +534,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>400</x>
-       <y>80</y>
+       <y>70</y>
        <width>141</width>
        <height>32</height>
       </rect>
@@ -559,7 +559,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>550</x>
-       <y>80</y>
+       <y>70</y>
        <width>81</width>
        <height>32</height>
       </rect>
@@ -584,7 +584,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>640</x>
-       <y>80</y>
+       <y>70</y>
        <width>71</width>
        <height>32</height>
       </rect>
@@ -878,6 +878,55 @@ p, li { white-space: pre-wrap; }
      <property name="readOnly">
       <bool>true</bool>
      </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_15">
+     <property name="geometry">
+      <rect>
+       <x>400</x>
+       <y>140</y>
+       <width>311</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>RTCM MESSAGES</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="RtcmMsgcomboBox">
+     <property name="geometry">
+      <rect>
+       <x>400</x>
+       <y>170</y>
+       <width>311</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>1004,1006,1008,1012,1019,1020</string>
+      </property>
+     </item>
     </widget>
    </widget>
   </widget>

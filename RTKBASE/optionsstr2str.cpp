@@ -18,6 +18,7 @@ QString OutFormatext;
 QString Inbaudext;
 QString InSerialPortext;
 QString InFormatext;
+QString RtcmMsgext;
 
 
 OptionsStr2str::OptionsStr2str(QWidget *parent) :
@@ -55,6 +56,8 @@ void OptionsStr2str::OuvreDefault1()
     InSerialPortext = InSerialPort;
     QString InFormat = ui->InFormatcomboBox ->currentText();
     InFormatext = InFormat;
+    QString RtcmMsg = ui->RtcmMsgcomboBox ->currentText();
+    RtcmMsgext = RtcmMsg;
 
 
     arga={"carlep,remierargtoujorsleprog","-in","serial://ttyACM0:115200:8:n:1:#ubx","-out","serial://ttyUSB0:38400:8:n:1:#rtcm3","-p","48.2","2.2","120.23","-msg","1004,1019,1012,1020,1006,1008"};
