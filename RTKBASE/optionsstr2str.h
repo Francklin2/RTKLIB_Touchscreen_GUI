@@ -1,7 +1,9 @@
 #ifndef OPTIONSSTR2STR_H
 #define OPTIONSSTR2STR_H
-
 #include <QDialog>
+
+#include "affichestr2str.h"
+
 extern int PositionMode;
 extern QString Outbaudext;
 extern QString OutSerialPortext;
@@ -39,7 +41,6 @@ public slots:
     void OuvreDefault1();
 
 
-
 private slots:
 
 
@@ -47,6 +48,7 @@ private slots:
     void on_radioButtonPositionAuto_clicked();
     void on_radioButtonPositionManual_clicked();
 
+    void on_UpdateOptionspushButton_clicked();
 };
 
 #endif // OPTIONSSTR2STR_H
