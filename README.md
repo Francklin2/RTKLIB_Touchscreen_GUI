@@ -51,9 +51,26 @@ http://www.ebay.fr/itm/2PCS-3-8-to-1-4-inch-convert-screw-thread-adapter-tripod-
 
 To install system on a raspberry pi 2 with the touchscreen you can download a raspian image with all the touchscreen drivers preinstalled here :
 https://drive.google.com/file/d/0B2SuLGFxizpVMzRtODVkN0tZVjA/view?usp=sharing
-Copy them on a SD card, you can use Rufus for that :
-https://rufus.akeo.ie/
-Copy the RTKBASE folder in the /home/pi folder (still have problem with absolute path), lauch the RTKBASE file in the RTKBASE folder to lauch the GUI, the is also a RTKBASE.sh script , you can use it to lauch the GUI at startup in  the autostart file of raspian in the folder /etc/xdg/lxsession/LXDE-pi/ , edit the autostart file and add the path of the RTKBASE.sh :
+- Copy this image on a SD card, you can use Rufus for that : https://rufus.akeo.ie/
+- Insert the SD card in your Raspberry Pi and start it.
+- Open the terminal and clone the repository:
+```
+git clone https://github.com/Francklin2/RTKLIB_Touchscreen_GUI
+```
+- Go to the RTKBASE directory: 
+```
+cd  RTKLIB_Touchscreen_GUI/RTKBASE/
+```
+- Run the script to compil:
+```
+./build_rtkbase.sh
+```
+- Launch RTKBASE:
+```
+./RTKBASE
+```
+
+There is also a RTKBASE.sh script , you can use it to launch the GUI at startup in  the autostart file of raspian in the folder /etc/xdg/lxsession/LXDE-pi/ , edit the autostart file and add the path of the RTKBASE.sh :
 @/etc/xdg/lxsession/LXDE-pi/RTKBASE.sh                                                                              
 If you dont use the RTKBASE.sh script to launch the GUI, the power off button will not work. you have to lauch the GUI as root to make it work for the moment (I'm still looking for the good trick to to a clean shutdown)
 
