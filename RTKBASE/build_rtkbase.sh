@@ -9,7 +9,7 @@ echo "     Attribution"
 echo
 echo "     if the script doesn't finish properly"
 echo "     (i.e. it doesn't print \"script finished\" at the end)"
-echo "     please open an issue on giithub at : "
+echo "     please open an issue on github at : "
 echo "    https://github.com/Francklin2/RTKLIB_Touchscreen_GUI "
 echo
 echo
@@ -31,7 +31,7 @@ uname -a > "$LOG_PATH/sysinfo.txt"
 echo
 echo "  > Install dependencies : "
 echo "  > Script will ask your passwork to install it"
-sudo apt-get install libxtst-dev build-essential libqt4-dev qt4-qmake > "$LOG_PATH/apt.log" 2>&1
+sudo apt-get install --assume-yes libxtst-dev build-essential libqt4-dev qt4-qmake > "$LOG_PATH/apt.log" 2>&1
 echo "  > building required static lib rtklib"
 cd ./lib/rtklib
 chmod +x make_library.sh > "$LOG_PATH/rtklib_rights.log" 2>&1
