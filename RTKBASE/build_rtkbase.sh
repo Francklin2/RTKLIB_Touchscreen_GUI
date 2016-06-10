@@ -9,7 +9,7 @@ echo "     Attribution"
 echo
 echo "     if the script doesn't finish properly"
 echo "     (i.e. it doesn't print \"script finished\" at the end)"
-echo "     please open an issue on giithub at : "
+echo "     please open an issue on github at : "
 echo "    https://github.com/Francklin2/RTKLIB_Touchscreen_GUI "
 echo
 echo
