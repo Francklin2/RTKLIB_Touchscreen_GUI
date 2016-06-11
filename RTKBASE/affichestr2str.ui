@@ -32,6 +32,11 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+</string>
+   </property>
    <property name="text">
     <string>BASE STATION STATUS</string>
    </property>
@@ -60,6 +65,11 @@
      <weight>75</weight>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
    </property>
    <property name="text">
     <string>CLOSE</string>

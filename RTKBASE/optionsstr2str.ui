@@ -13,32 +13,6 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLineEdit" name="InStreamlineEdit">
-   <property name="geometry">
-    <rect>
-     <x>250</x>
-     <y>10</y>
-     <width>251</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>14</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>BASE STATION CONFIG</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButtonDefault1">
    <property name="geometry">
     <rect>
@@ -54,6 +28,11 @@
      <weight>75</weight>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
    </property>
    <property name="text">
     <string>START BASE</string>
@@ -80,7 +59,7 @@
       <rect>
        <x>20</x>
        <y>20</y>
-       <width>111</width>
+       <width>121</width>
        <height>22</height>
       </rect>
      </property>
@@ -108,7 +87,7 @@
       <rect>
        <x>440</x>
        <y>20</y>
-       <width>131</width>
+       <width>151</width>
        <height>22</height>
       </rect>
      </property>
@@ -127,8 +106,8 @@
       <rect>
        <x>620</x>
        <y>90</y>
-       <width>71</width>
-       <height>61</height>
+       <width>81</width>
+       <height>51</height>
       </rect>
      </property>
      <property name="font">
@@ -137,6 +116,12 @@
        <weight>75</weight>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);
+</string>
      </property>
      <property name="text">
       <string>WRITE</string>
@@ -160,13 +145,16 @@
      <property name="text">
       <string>01.00</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_2">
      <property name="geometry">
       <rect>
-       <x>380</x>
+       <x>370</x>
        <y>100</y>
-       <width>101</width>
+       <width>111</width>
        <height>32</height>
       </rect>
      </property>
@@ -180,7 +168,7 @@
       <string>      LONGITUDE :</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="readOnly">
       <bool>true</bool>
@@ -189,9 +177,9 @@
     <widget class="QLineEdit" name="lineEdit_3">
      <property name="geometry">
       <rect>
-       <x>380</x>
+       <x>370</x>
        <y>140</y>
-       <width>101</width>
+       <width>111</width>
        <height>32</height>
       </rect>
      </property>
@@ -205,7 +193,7 @@
       <string>ALTITUDE :</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="readOnly">
       <bool>true</bool>
@@ -214,9 +202,9 @@
     <widget class="QLineEdit" name="lineEdit">
      <property name="geometry">
       <rect>
-       <x>380</x>
+       <x>370</x>
        <y>60</y>
-       <width>101</width>
+       <width>111</width>
        <height>32</height>
       </rect>
      </property>
@@ -230,7 +218,7 @@
       <string>LATITUDE :</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="readOnly">
       <bool>true</bool>
@@ -254,6 +242,9 @@
      <property name="text">
       <string>01,00</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
     <widget class="QLineEdit" name="AltiManualLine">
      <property name="geometry">
@@ -273,13 +264,16 @@
      <property name="text">
       <string>1.00</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_12">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>60</y>
-       <width>101</width>
+       <width>111</width>
        <height>32</height>
       </rect>
      </property>
@@ -293,7 +287,7 @@
       <string>LATITUDE :</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="readOnly">
       <bool>true</bool>
@@ -304,7 +298,7 @@
       <rect>
        <x>12</x>
        <y>140</y>
-       <width>101</width>
+       <width>111</width>
        <height>32</height>
       </rect>
      </property>
@@ -318,7 +312,7 @@
       <string>ALTITUDE :</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="readOnly">
       <bool>true</bool>
@@ -329,7 +323,7 @@
       <rect>
        <x>10</x>
        <y>100</y>
-       <width>101</width>
+       <width>111</width>
        <height>32</height>
       </rect>
      </property>
@@ -343,7 +337,7 @@
       <string>      LONGITUDE :</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="readOnly">
       <bool>true</bool>
@@ -352,7 +346,7 @@
     <widget class="QLineEdit" name="LatAutoLine">
      <property name="geometry">
       <rect>
-       <x>120</x>
+       <x>130</x>
        <y>60</y>
        <width>111</width>
        <height>32</height>
@@ -367,11 +361,14 @@
      <property name="text">
       <string>01,00</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
     <widget class="QLineEdit" name="LongAutoLine">
      <property name="geometry">
       <rect>
-       <x>120</x>
+       <x>130</x>
        <y>100</y>
        <width>113</width>
        <height>32</height>
@@ -386,11 +383,14 @@
      <property name="text">
       <string>01.00</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
     <widget class="QLineEdit" name="AltiAutoLine">
      <property name="geometry">
       <rect>
-       <x>120</x>
+       <x>130</x>
        <y>140</y>
        <width>111</width>
        <height>32</height>
@@ -404,6 +404,9 @@
      </property>
      <property name="text">
       <string>1.00</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>
@@ -453,9 +456,9 @@
     <widget class="QComboBox" name="OutSerialPortcomboBox">
      <property name="geometry">
       <rect>
-       <x>400</x>
+       <x>390</x>
        <y>100</y>
-       <width>141</width>
+       <width>151</width>
        <height>32</height>
       </rect>
      </property>
@@ -516,9 +519,9 @@
     <widget class="QLineEdit" name="lineEdit_4">
      <property name="geometry">
       <rect>
-       <x>400</x>
+       <x>390</x>
        <y>70</y>
-       <width>141</width>
+       <width>151</width>
        <height>32</height>
       </rect>
      </property>
@@ -554,7 +557,7 @@
       </font>
      </property>
      <property name="text">
-      <string>BAUDRATE</string>
+      <string>BAUDS</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -604,6 +607,10 @@
        <bold>true</bold>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius: 15px;
+border: 1px solid black;</string>
+     </property>
      <property name="text">
       <string>OUTPUT STREAM</string>
      </property>
@@ -617,7 +624,7 @@
     <widget class="QLineEdit" name="lineEdit_8">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>80</x>
        <y>20</y>
        <width>201</width>
        <height>32</height>
@@ -629,6 +636,10 @@
        <weight>75</weight>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius: 15px;
+border: 1px solid black;</string>
      </property>
      <property name="text">
       <string>INPUT STREAM</string>
@@ -643,9 +654,9 @@
     <widget class="QComboBox" name="InSerialPortcomboBox">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>10</x>
        <y>110</y>
-       <width>141</width>
+       <width>151</width>
        <height>32</height>
       </rect>
      </property>
@@ -815,9 +826,9 @@
     <widget class="QLineEdit" name="lineEdit_10">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>10</x>
        <y>80</y>
-       <width>141</width>
+       <width>151</width>
        <height>32</height>
       </rect>
      </property>
@@ -853,7 +864,7 @@
       </font>
      </property>
      <property name="text">
-      <string>BAUDRATE</string>
+      <string>BAUDS</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -926,6 +937,11 @@
        <bold>true</bold>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+     </property>
      <property name="text">
       <string>UPDATE STREAM  CONFIGURATION</string>
      </property>
@@ -940,6 +956,45 @@
      <width>591</width>
      <height>81</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: 1px solid grey;</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_16">
+   <property name="geometry">
+    <rect>
+     <x>222</x>
+     <y>10</y>
+     <width>281</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::WheelFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;</string>
+   </property>
+   <property name="text">
+    <string>BASE CONFIGURATION</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>

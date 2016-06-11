@@ -50,10 +50,10 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>242</x>
      <y>30</y>
-     <width>113</width>
-     <height>27</height>
+     <width>251</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
@@ -63,8 +63,13 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+</string>
+   </property>
    <property name="text">
-    <string>Status</string>
+    <string>STATUS</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -330,6 +335,9 @@
      <height>27</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <property name="text">
     <string/>
    </property>
@@ -349,7 +357,7 @@
      <x>240</x>
      <y>30</y>
      <width>251</width>
-     <height>27</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
@@ -359,8 +367,13 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+</string>
+   </property>
    <property name="text">
-    <string>Available satellites</string>
+    <string> SATELLITES</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -413,6 +426,11 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+</string>
+   </property>
    <property name="text">
     <string>STREAM</string>
    </property>
@@ -456,6 +474,11 @@
      <weight>75</weight>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
    </property>
    <property name="text">
     <string>SAVE POSITION</string>
@@ -584,6 +607,11 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
    <property name="text">
     <string>XYZ</string>
    </property>
@@ -606,6 +634,11 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
    <property name="text">
     <string>LLH</string>
    </property>
@@ -616,7 +649,7 @@
   <widget class="QPushButton" name="pushButtonSat1">
    <property name="geometry">
     <rect>
-     <x>500</x>
+     <x>510</x>
      <y>30</y>
      <width>81</width>
      <height>61</height>
@@ -628,6 +661,11 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
    <property name="text">
     <string>GENERAL</string>
    </property>
@@ -635,7 +673,7 @@
   <widget class="QPushButton" name="pushButtonSat2">
    <property name="geometry">
     <rect>
-     <x>590</x>
+     <x>600</x>
      <y>30</y>
      <width>91</width>
      <height>61</height>
@@ -647,6 +685,11 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
    <property name="text">
     <string>ELEVATION</string>
    </property>
@@ -654,7 +697,7 @@
   <widget class="QPushButton" name="pushButtonSat3">
    <property name="geometry">
     <rect>
-     <x>690</x>
+     <x>700</x>
      <y>30</y>
      <width>81</width>
      <height>61</height>
@@ -665,6 +708,11 @@
      <weight>75</weight>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
    </property>
    <property name="text">
     <string>AZIMUTH</string>
@@ -679,7 +727,7 @@
      <x>240</x>
      <y>30</y>
      <width>251</width>
-     <height>27</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
@@ -689,8 +737,13 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+</string>
+   </property>
    <property name="text">
-    <string>Position evolution</string>
+    <string>EVOLUTION</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -717,7 +770,6 @@
   <zorder>lineEditPositioningMode</zorder>
   <zorder>lineEditModePosition</zorder>
   <zorder>lineEditSatRover</zorder>
-  <zorder>progressBarSatellites</zorder>
   <zorder>lineEditSolutionStatus1</zorder>
   <zorder>lineEditSolutionStatus2</zorder>
   <zorder>MessageUserlineEdit</zorder>
@@ -733,6 +785,7 @@
   <zorder>pushButtonSat1</zorder>
   <zorder>pushButtonSat2</zorder>
   <zorder>pushButtonSat3</zorder>
+  <zorder>progressBarSatellites</zorder>
  </widget>
  <customwidgets>
   <customwidget>

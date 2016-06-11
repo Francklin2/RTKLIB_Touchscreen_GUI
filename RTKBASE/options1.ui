@@ -13,6 +13,11 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">border-radius: 15px;
+border: 1px solid black;
+</string>
+  </property>
   <widget class="QPushButton" name="SingleButton">
    <property name="geometry">
     <rect>
@@ -27,6 +32,11 @@
      <weight>75</weight>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
    </property>
    <property name="text">
     <string>SINGLE</string>
@@ -47,6 +57,11 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
    <property name="text">
     <string>PPP STATIC</string>
    </property>
@@ -66,6 +81,11 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
    <property name="text">
     <string>DGPS</string>
    </property>
@@ -84,6 +104,11 @@
      <weight>75</weight>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
    </property>
    <property name="text">
     <string>RTK STATIC</string>
@@ -105,6 +130,11 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
    <property name="text">
     <string>RTK KINEMATIC</string>
    </property>
@@ -123,6 +153,11 @@
      <weight>75</weight>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
    </property>
    <property name="text">
     <string>SBAS</string>

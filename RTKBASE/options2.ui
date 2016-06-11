@@ -16,6 +16,11 @@
   <property name="windowTitle">
    <string>Options Choice</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">border-radius: 15px;
+border: 1px solid black;
+</string>
+  </property>
   <property name="modal">
    <bool>true</bool>
   </property>
@@ -33,6 +38,11 @@
      <weight>75</weight>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
    </property>
    <property name="text">
     <string>SATELLITES</string>
@@ -53,8 +63,13 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
    <property name="text">
-    <string>COORD</string>
+    <string>STATUS</string>
    </property>
   </widget>
   <widget class="QPushButton" name="NavidataButton">
@@ -72,8 +87,13 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
    <property name="text">
-    <string>EVOLUTION POS</string>
+    <string>EVOLUTION</string>
    </property>
   </widget>
   <widget class="QPushButton" name="StreamButton">
@@ -90,6 +110,11 @@
      <weight>75</weight>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
    </property>
    <property name="text">
     <string>STREAM</string>
@@ -116,6 +141,11 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
    <property name="text">
     <string>STOP</string>
    </property>
@@ -135,8 +165,13 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
    <property name="text">
-    <string>COORD 2</string>
+    <string>POSITION</string>
    </property>
   </widget>
  </widget>

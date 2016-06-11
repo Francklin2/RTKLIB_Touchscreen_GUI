@@ -25,10 +25,14 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>16</pointsize>
+      <pointsize>18</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 20px;
+border: 1px solid black;</string>
     </property>
     <property name="text">
      <string>ROVER</string>
@@ -37,18 +41,22 @@
    <widget class="QPushButton" name="BasestationButton">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>310</x>
       <y>100</y>
-      <width>251</width>
+      <width>271</width>
       <height>171</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>16</pointsize>
+      <pointsize>18</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 20px;
+border: 1px solid black;</string>
     </property>
     <property name="text">
      <string>BASESTATION</string>
@@ -106,9 +114,9 @@
    <widget class="QPushButton" name="QuitterButton">
     <property name="geometry">
      <rect>
-      <x>620</x>
+      <x>610</x>
       <y>145</y>
-      <width>141</width>
+      <width>151</width>
       <height>81</height>
      </rect>
     </property>
@@ -119,38 +127,13 @@
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+    </property>
     <property name="text">
      <string>CLOSE GUI</string>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="textEdit">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>30</y>
-      <width>211</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>14</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-    <property name="html">
-     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Oxygen-Sans'; font-size:14pt; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:20pt;&quot;&gt;RTKLIB&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="textInteractionFlags">
-     <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
    <widget class="QLabel" name="Rtkliblabel">
@@ -195,9 +178,9 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="HelpButton">
     <property name="geometry">
      <rect>
-      <x>620</x>
+      <x>610</x>
       <y>240</y>
-      <width>141</width>
+      <width>151</width>
       <height>81</height>
      </rect>
     </property>
@@ -207,6 +190,11 @@ p, li { white-space: pre-wrap; }
       <weight>75</weight>
       <bold>true</bold>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
     </property>
     <property name="text">
      <string>HELP</string>
@@ -228,21 +216,53 @@ p, li { white-space: pre-wrap; }
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+    </property>
     <property name="text">
      <string>POWER OFF</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>30</y>
+      <width>211</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>25</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 15px;
+border: 1px solid black;</string>
+    </property>
+    <property name="text">
+     <string>RTKLIB</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <zorder>RoverButton</zorder>
    <zorder>BasestationButton</zorder>
    <zorder>TimeRetourEdit</zorder>
    <zorder>QuitterButton</zorder>
-   <zorder>textEdit</zorder>
    <zorder>Rtkliblabel</zorder>
    <zorder>ensglabel</zorder>
    <zorder>ensgIconlabel</zorder>
    <zorder>HelpButton</zorder>
    <zorder>PowerOFFButton</zorder>
    <zorder>TimeEdit</zorder>
+   <zorder>lineEdit</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
