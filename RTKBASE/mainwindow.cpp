@@ -103,6 +103,10 @@ void MainWindow::OuvreRover()
     Options1 OptionsRover;
     OptionsRover.exec();*/
     Options1 afficheOptions1;
+
+    afficheOptions1.setModal(true);
+    afficheOptions1.setWindowFlags(Qt::FramelessWindowHint);
+
     afficheOptions1.exec();
 
 
@@ -111,6 +115,9 @@ void MainWindow::OuvreRover()
 void MainWindow::OuvreAfficheSolutiosStr2str()
 {
     OptionsStr2str afficheOptionsStr2str;
+    afficheOptionsStr2str.setModal(true);
+    afficheOptionsStr2str.setWindowFlags(Qt::FramelessWindowHint);
+
     afficheOptionsStr2str.exec();
 
    /* AfficheStr2str affichesolutionsStr2str;

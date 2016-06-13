@@ -96,7 +96,16 @@ AfficheSolutions::~AfficheSolutions()
 void AfficheSolutions::OuvreOptions2()
 {
     QObject::connect(&Options2Rover,SIGNAL(Options2emit(int)),this,SLOT(choixVue(int)));
+
     Options2Rover.setModal(true);
+    Options2Rover.setWindowFlags(Qt::FramelessWindowHint);
+
+ //   QSize Options2RoverSize = Options2Rover.sizeHint();
+ //   QRect screenRect = QDesktopWidget().screen()->rect();
+ //   Options2Rover.move( QPoint( screenRect.width()/2 - Options2RoverSize.width()/2,
+   //                               screenRect.height()/2 - Options2RoverSize.height()/2 ) );
+
+
     Options2Rover.exec();
 }
 
