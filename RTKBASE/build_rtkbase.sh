@@ -20,7 +20,7 @@ LOG_PATH="$PWD/logs"
 ARCH=`uname -m`
 CORES=`grep -c processor /proc/cpuinfo`
 ## prevents different (localized) output
-LC_ALL=C
+#LC_ALL=C #>>>> TEST MODIF pour build pi2
 ## removing old stuff
 rm -Rf "$LOG_PATH"
 ## create needed directory
