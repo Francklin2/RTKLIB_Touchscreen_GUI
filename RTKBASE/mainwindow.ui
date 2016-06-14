@@ -84,6 +84,9 @@ border: 1px solid black;</string>
     <property name="text">
      <string>TIME:</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QLineEdit" name="TimeRetourEdit">
     <property name="enabled">
@@ -109,6 +112,9 @@ border: 1px solid black;</string>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QPushButton" name="QuitterButton">
