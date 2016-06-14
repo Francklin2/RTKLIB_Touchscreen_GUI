@@ -68,9 +68,9 @@ border: 1px solid black;</string>
     </property>
     <property name="geometry">
      <rect>
-      <x>300</x>
+      <x>290</x>
       <y>-1</y>
-      <width>61</width>
+      <width>71</width>
       <height>27</height>
      </rect>
     </property>
@@ -93,7 +93,7 @@ border: 1px solid black;</string>
      <rect>
       <x>380</x>
       <y>-1</y>
-      <width>151</width>
+      <width>171</width>
       <height>27</height>
      </rect>
     </property>
@@ -270,7 +270,7 @@ border: 1px solid black;</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>29</height>
+     <height>30</height>
     </rect>
    </property>
   </widget>
