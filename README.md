@@ -2,7 +2,7 @@
 
 RTKLIB GUI for Raspberry Pi with touchscreen made with Qt by the ENSG students 
 
-Take a look to the wiki pages for installation instrucrions and user manual
+Take a look to the wiki pages for installation instructions and user manual
 
 To build this project you will need :
 
@@ -38,7 +38,7 @@ http://www.ebay.fr/itm/Dual-Channel-Battery-Charger-For-SONY-NP-F970-F750-F960-F
 - mini USB angled for wiring the GNSS
 http://www.ebay.fr/itm/Court-20cm-Angle-Droit-USB-A-a-90-degres-Angle-Droit-Mini-B-USB-Data-Cable-Cable-/221683667935?hash=item339d6053df:g:dDoAAOSwPhdU1PcB
 
- - Dérial RF link, 2 units needed to link a rover too a base like a Xbeepro or a cheaper 3DR télémetry module(Half duplex only !)
+ - Serial RF link, 2 units needed to link a rover too a base like a Xbeepro or a cheaper 3DR télémetry module(Half duplex only !)
  https://www.sparkfun.com/products/10419
 and
 http://www.ebay.fr/itm/3DRobotics-Radio-3DR-Kit-Telemetry-433Mhz-Module-for-APM-APM2-5-2-6-Pixhawk-PX4-/221852845151?hash=item33a775c45f:g:0YgAAOSwgQ9V0Un~
@@ -70,8 +70,43 @@ cd  RTKLIB_Touchscreen_GUI/RTKBASE/
 ./RTKBASE
 ```
 
-There is also a RTKBASE.sh script , you can use it to launch the GUI at startup in  the autostart file of raspian in the folder /etc/xdg/lxsession/LXDE-pi/ , edit the autostart file and add the path of the RTKBASE.sh :
-@/etc/xdg/lxsession/LXDE-pi/RTKBASE.sh                                                                              
-If you dont use the RTKBASE.sh script to launch the GUI, the power off button will not work. you have to lauch the GUI as root to make it work for the moment (I'm still looking for the good trick to to a clean shutdown)
+-Autostart RTKBASE at boot :                                                                          
+
+Very simple but many method to do it :
+
+1) Add software to rc.local 
+Run : 
+sed -i -e '$i \cd /home/pi/RTKLIB_Touchscreen_GUI/RTKBASE/ && RTKBASE\n' rc.local
+
+2) Use system root LXDE autostart : 
+Run : 
+sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
+Add this :
+
+@/home/pi/RTKLIB_Touchscreen_GUI/RTKBASE/
+@RTKBASE
+3) Use user LXDE autostart : 
+Run : 
+nano ~/.config/lxsession/LXDE/autostart
+Add this :
+
+@/home/pi/RTKLIB_Touchscreen_GUI/RTKBASE/
+@RTKBASE
+4) Add desktop entry to user config : 
+Run : 
+nano ~/.config/autostart/rtkbase
+Copy paste entry below :
+
+[Desktop Entry]
+Name=RTKBASE
+Type=Application
+Comment=RTKLIB Touchscreen : graphic interface to use GNSS.
+Exec=/home/pi/RTKLIB_Touchscreen_GUI/RTKBASE/RTKBASE
+Make it executable : 
+chmod +x ~/.config/autostart/rtkbase
+
+Best way for me is option 4 because I do not use LXDE
+
+Source : http://www.raspberrypi-spy.co.uk/2014/05/how-to-autostart-apps-in-rasbian-lxde-desktop/ and Kikislater
 
 
