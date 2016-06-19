@@ -171,6 +171,9 @@ Source : http://www.raspberrypi-spy.co.uk/2014/05/how-to-autostart-apps-in-rasbi
 
 ![Github Logo](https://github.com/Francklin2/RTKLIB_Touchscreen_GUI/blob/master/3D%20Printing/RTK_DW.JPG)
 
+Vidéo of beta build :
+[linkname](https://www.youtube.com/watch?v=-d_Dm6mLMMQ)
+
 # How to process data : 
 
 Go to Wiki
