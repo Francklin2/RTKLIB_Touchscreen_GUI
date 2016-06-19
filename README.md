@@ -181,3 +181,4 @@ Go to Wiki
 # What precision and accuracy will I get ?
 
 Work in progress ... Stay tuned !
+You can watch some information here : http://marcotte-ag.no-ip.org:8080/geomatic/index.html
