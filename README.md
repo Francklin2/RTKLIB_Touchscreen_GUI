@@ -80,8 +80,14 @@ http://www.ebay.fr/itm/2PCS-3-8-to-1-4-inch-convert-screw-thread-adapter-tripod-
 
 
 # Installation
-To install system on a raspberry pi 2 with the touchscreen you can download a raspian image with all the touchscreen drivers preinstalled here :
+To install system on a raspberry pi 2 with the touchscreen you can download a raspian image with all the touchscreen drivers, Qt4 and all compilation dependencies preinstalled here :
+
+https://drive.google.com/file/d/0B5xmVAi4jATOcXE3a3BWS0VDUUk/view?usp=sharing
+
+It was based on this original image with only the library for the touchscreen:
+
 https://drive.google.com/file/d/0B2SuLGFxizpVMzRtODVkN0tZVjA/view?usp=sharing
+
 - Copy this image on a SD card, you can use Rufus for that : https://rufus.akeo.ie/
 - Insert the SD card in your Raspberry Pi and start it.
 - Open the terminal and clone the repository:
