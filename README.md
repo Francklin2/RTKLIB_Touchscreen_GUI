@@ -164,3 +164,17 @@ Best way for me is option 4 because I do not use LXDE
 Source : http://www.raspberrypi-spy.co.uk/2014/05/how-to-autostart-apps-in-rasbian-lxde-desktop/ and kikislater
 
 
+# What will you get :
+
+![Github Logo](https://raw.githubusercontent.com/Francklin2/RTKLIB_Touchscreen_GUI/master/3D%20Printing/Francklin.jpg)
+
+
+![Github Logo](https://github.com/Francklin2/RTKLIB_Touchscreen_GUI/blob/master/3D%20Printing/RTK_DW.JPG)
+
+# How to process data : 
+
+Go to Wiki
+
+# What precision and accuracy will I get ?
+
+Work in progress ... Stay tuned !
