@@ -644,7 +644,7 @@ extern void setbits(unsigned char *buff, int pos, int len, int data)
 * return : crc-32 parity
 * notes  : see NovAtel OEMV firmware manual 1.7 32-bit CRC
 *-----------------------------------------------------------------------------*/
-extern unsigned int rtk_crc32(const unsigned char *buff, int len)
+extern unsigned int crc32(const unsigned char *buff, int len)
 {
     unsigned int crc=0;
     int i,j;

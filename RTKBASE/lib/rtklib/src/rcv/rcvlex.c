@@ -54,7 +54,7 @@ static double R8(unsigned char *p)
     return buff.r8;
 }
 /* crc-32 parity (ref [2] 15) ------------------------------------------------*/
-static unsigned int rtk_crc32r(const unsigned char *buff, int len)
+static unsigned int crc32r(const unsigned char *buff, int len)
 {
     static unsigned int crcs[256]={0};
     unsigned int crc;
