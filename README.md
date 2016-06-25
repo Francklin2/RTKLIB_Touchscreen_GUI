@@ -84,9 +84,14 @@ To install system on a raspberry pi 2 with the touchscreen you can download a ra
 
 https://drive.google.com/file/d/0B5xmVAi4jATOcXE3a3BWS0VDUUk/view?usp=sharing
 
-It was based on this original image with only the library for the touchscreen:
+It was based on this original image with only the library for the touchscreen: https://drive.google.com/file/d/0B2SuLGFxizpVMzRtODVkN0tZVjA/view?usp=sharing
 
-https://drive.google.com/file/d/0B2SuLGFxizpVMzRtODVkN0tZVjA/view?usp=sharing
+
+
+You can also download this Pré-installed image of RTKbase, this contain a master version (june 2016) with autoload and custom splash screen
+
+https://drive.google.com/open?id=0B5xmVAi4jATOcEQ1TWxaOXprMk0
+
 
 - Copy this image on a SD card, you can use Rufus for that : https://rufus.akeo.ie/
 - Insert the SD card in your Raspberry Pi and start it.
