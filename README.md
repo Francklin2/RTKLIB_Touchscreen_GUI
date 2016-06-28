@@ -195,4 +195,11 @@ Go to Wiki
 # What precision and accuracy will I get ?
 
 Work in progress ... Stay tuned !
-You can watch some information here : http://marcotte-ag.no-ip.org:8080/geomatic/index.html
+
+You can watch some information here : 
+
+http://marcotte-ag.no-ip.org:8080/geomatic/index.html
+
+http://www.afhy.fr/images/pdf/Rapports/UV54_2016/poster_gnss_PPP_GTX.pdf
+
+http://www.gps.gov/cgsic/meetings/2012/lyle.pdf
