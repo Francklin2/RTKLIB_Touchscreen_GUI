@@ -203,8 +203,9 @@ http://ananddrs.com/2013/09/18/rpi-hide-boot-msg/
 
 # What will you get :
 
-![Github Logo](https://raw.githubusercontent.com/Francklin2/RTKLIB_Touchscreen_GUI/master/3D%20Printing/Francklin.jpg)
+![Github Logo](http://z1300clubdefrance.pagesperso-orange.fr/wiki/RTKbase1.JPG)
 
+![Github Logo](http://z1300clubdefrance.pagesperso-orange.fr/wiki/RTKbase4.JPG)
 
 ![Github Logo](https://github.com/Francklin2/RTKLIB_Touchscreen_GUI/blob/master/3D%20Printing/RTK_DW.JPG)
 
