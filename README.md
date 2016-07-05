@@ -175,6 +175,32 @@ Best way for me is option 4 because I do not use LXDE
 Source : http://www.raspberrypi-spy.co.uk/2014/05/how-to-autostart-apps-in-rasbian-lxde-desktop/ and kikislater
 
 
+
+#  **Add a custom splash screen at boot**
+
+ Install fbi
+
+
+`sudo apt-get install fbi`
+
+Copy the splash image splash.png from /Splashscreen to /etc/  
+Copy the asplashscreen file in /Splashscreen to  /etc/init.d/
+Make the script executable and install it for init mode:
+
+`sudo chmod a+x /etc/init.d/asplashscreen`
+`sudo insserv /etc/init.d/asplashscreen`
+ 
+To remove text message edit /boot/cmdline.txt change console=tty1 to console=tty3  and add loglevel=3 at the end of file 
+
+
+Based on these tutos:
+
+http://www.raspberry-projects.com/pi/pi-operating-systems/raspbian/custom-boot-up-screen
+
+http://ananddrs.com/2013/09/18/rpi-hide-boot-msg/
+
+
+
 # What will you get :
 
 ![Github Logo](https://raw.githubusercontent.com/Francklin2/RTKLIB_Touchscreen_GUI/master/3D%20Printing/Francklin.jpg)
