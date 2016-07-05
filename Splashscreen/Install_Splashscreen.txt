@@ -1,0 +1,25 @@
+Add a custom splash screen at boot
+
+Install fbi
+
+sudo apt-get install fbi
+
+Copy the splashscreen image to be used
+
+Copy your custom splash image splash.png from this folder into: /etc/
+Copy the asplashscreen file in /etc/init.d/ Make the script executable and install it for init mode:
+
+sudo chmod a+x /etc/init.d/asplashscreen
+sudo insserv /etc/init.d/asplashscreen
+
+To remove text message edit /boot/cmdline.txt change console=tty1 to console=tty3 and add loglevel=3 at the end of file 
+
+
+Based on these tutos:
+
+http://www.raspberry-projects.com/pi/pi-operating-systems/raspbian/custom-boot-up-screen
+
+http://ananddrs.com/2013/09/18/rpi-hide-boot-msg/
+
+
+
