@@ -1,6 +1,7 @@
 #!/bin/bash
 # Script to build RTKBASE in one command
 ## build packages
+set -e
 echo 
 echo "     Script created by"
 echo "     Sylvain POULAIN <sylvain.poulain@giscan.com>"
@@ -31,7 +32,7 @@ uname -a > "$LOG_PATH/sysinfo.txt"
 echo
 echo "  > Install dependencies : "
 echo "  > Script will ask your passwork to install it"
-sudo apt-get install --assume-yes libxtst-dev build-essential libqt4-dev qt4-qmake libqt4-core libqt4-gui install libqt4-xml libqt4-opengl > "$LOG_PATH/apt.log" 2>&1
+sudo apt-get install --assume-yes libxtst-dev build-essential libqt4-dev qt4-qmake libqt4-core libqt4-gui libqt4-xml libqt4-opengl > "$LOG_PATH/apt.log" 2>&1
 echo "  > building required static lib rtklib"
 cd ./lib/rtklib
 chmod +x make_library.sh > "$LOG_PATH/rtklib_rights.log" 2>&1
