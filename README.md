@@ -6,12 +6,11 @@ Take a look to the wiki pages for installation instructions and user manual :  h
 
 Look a the Beta version in Branch, some new features and some bugs to solve before release:
 
-- new pages in the wiki : tips and tools, test resulst by the ENG students
+- new pages in the wiki : tips and tools, test results by the ENG students
 - added save position option, you are able to save several point with choosen timing
 - added 8 custom configuration files to the original preset
-- added you can edit edit most of the RTKlib parameter for the custom config
-- new bug : position button crash the software
-- new bug : a keyboard appears when you save position option, click ok and saved parameters are good anyway
+- added you can edit edit most of the RTKlib parameter with the gui for the 8 custom config
+- new bug : position button gives less position information than before 
 - new bug : return button in edit interface may crash the software, alway lauch a configuration you edited then stop to avoid that
 
 # Material : To build this project you will need :
