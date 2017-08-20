@@ -4,14 +4,16 @@ RTKLIB GUI (Graphic User Interface) for Raspberry Pi with touchscreen made with 
 
 Take a look to the wiki pages for installation instructions and user manual :  https://github.com/Francklin2/RTKLIB_Touchscreen_GUI/wiki
 
-Look a the Beta version in Branch, some new features and some bugs to solve before release:
+Look a the Beta version in Branch, some new features and 2 bugs to solve before release:
 
 - new pages in the wiki : tips and tools, test results by the ENG students
 - added save position option, you are able to save several point with choosen timing
 - added 8 custom configuration files to the original preset
 - added you can edit edit most of the RTKlib parameter with the gui for the 8 custom config
+- added display of system and GP time and date in solution status windows
+- added Push button to set PI system date and time with GPS date and time
 - new bug : position button gives less position information than before 
-- new bug : return button in edit interface may crash the software, alway lauch a configuration you edited then stop to avoid that
+- new bug : return button in edit interface may crash the software, allway lauch a configuration after you edited then stop to avoid that
 
 # Material : To build this project you will need :
 
