@@ -26,9 +26,15 @@ It was based on this original image with only the library for the touchscreen: h
 
 
 
-You can also download this Pré-installed image of RTKbase, this contain a master version (june 2016) with autoload and custom splash screen
+You can also download this Pré-installed image of RTKbase, this contain a master version (june 2016) with autoload and custom splash screen, the version for RPI3 contains the Beta version(august 2017)
 
+For raspberry PI 2
 https://drive.google.com/open?id=0B5xmVAi4jATOcEQ1TWxaOXprMk0
+
+For raspberry PI 3
+https://drive.google.com/open?id=0B5xmVAi4jATOS0hIRHpYMEg2MXM
+
+
 
 
 - Copy this image on a SD card, you can use Rufus for that : https://rufus.akeo.ie/
