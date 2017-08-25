@@ -1,7 +1,7 @@
 /*------------------------------------------------------------------------------
 * sbas.c : sbas functions
 *
-*          Copyright (C) 2007-2011 by T.TAKASU, All rights reserved.
+*          Copyright (C) 2007-2016 by T.TAKASU, All rights reserved.
 *
 * option : -DRRCENA  enable rrc correction
 *          
@@ -34,6 +34,7 @@
 *                           (2.4.0_p4)
 *           2011/01/15 1.8  use api ionppp()
 *                           add prn mask of qzss for qzss L1SAIF
+*           2016/07/29 1.9  crc24q() -> rtk_crc24q()
 *-----------------------------------------------------------------------------*/
 #include "rtklib.h"
 
@@ -65,7 +66,7 @@ x6[]={-180,-170,-160,-150,-140,-130,-120,-110,-100,- 90,- 80,- 70,- 60,- 50,
 x7[]={-180,-150,-120,- 90,- 60,- 30,   0,  30,  60,  90, 120, 150},
 x8[]={-170,-140,-110,- 80,- 50,- 20,  10,  40,  70, 100, 130, 160};
 
-const sbsigpband_t igpband1[9][8]={ /* band 0-8 */
+EXPORT const sbsigpband_t igpband1[9][8]={ /* band 0-8 */
     {{-180,x1,  1, 28},{-175,x2, 29, 51},{-170,x3, 52, 78},{-165,x2, 79,101},
      {-160,x3,102,128},{-155,x2,129,151},{-150,x3,152,178},{-145,x2,179,201}},
     {{-140,x4,  1, 28},{-135,x2, 29, 51},{-130,x3, 52, 78},{-125,x2, 79,101},
@@ -85,7 +86,7 @@ const sbsigpband_t igpband1[9][8]={ /* band 0-8 */
     {{ 140,x3,  1, 27},{ 145,x2, 28, 50},{ 150,x3, 51, 77},{ 155,x2, 78,100},
      { 160,x3,101,127},{ 165,x2,128,150},{ 170,x3,151,177},{ 175,x2,178,200}}
 };
-const sbsigpband_t igpband2[2][5]={ /* band 9-10 */
+EXPORT const sbsigpband_t igpband2[2][5]={ /* band 9-10 */
     {{  60,x5,  1, 72},{  65,x6, 73,108},{  70,x6,109,144},{  75,x6,145,180},
      {  85,x7,181,192}},
     {{- 60,x5,  1, 72},{- 65,x6, 73,108},{- 70,x6,109,144},{- 75,x6,145,180},
@@ -912,5 +913,5 @@ extern int sbsdecodemsg(gtime_t time, int prn, const unsigned int *words,
     for (i=28;i>0;i--) f[i]=(sbsmsg->msg[i]>>6)+(sbsmsg->msg[i-1]<<2);
     f[0]=sbsmsg->msg[0]>>6;
     
-    return crc24q(f,29)==(words[7]&0xFFFFFF); /* check crc */
+    return rtk_crc24q(f,29)==(words[7]&0xFFFFFF); /* check crc */
 }
