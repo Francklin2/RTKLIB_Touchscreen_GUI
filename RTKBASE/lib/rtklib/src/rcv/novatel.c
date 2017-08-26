@@ -1,7 +1,7 @@
 /*------------------------------------------------------------------------------
 * notvatel.c : NovAtel OEM6/OEM5/OEM4/OEM3 receiver functions
 *
-*          Copyright (C) 2007-2017 by T.TAKASU, All rights reserved.
+*          Copyright (C) 2007-2014 by T.TAKASU, All rights reserved.
 *
 * reference :
 *     [1] NovAtel, OM-20000094 Rev6 OEMV Family Firmware Reference Manual, 2008
@@ -44,11 +44,6 @@
 *           2014/07/01 1.17 fix problem on decoding of bdsephemerisb
 *                           fix bug on beidou tracking codes
 *           2014/10/20 1.11 fix bug on receiver option -GL*,-RL*,-EL*
-*           2016/01/28 1.12 precede I/NAV for galileo ephemeris
-*                           add option -GALINAV and -GALFNAV
-*           2016/07/31 1.13 add week number check to decode oem4 messages
-*           2017/04/11 1.14 (char *) -> (signed char *)
-*                           improve unchange-test of beidou ephemeris
 *-----------------------------------------------------------------------------*/
 #include "rtklib.h"
 
@@ -105,7 +100,7 @@ static const char rcsid[]="$Id: novatel.c,v 1.2 2008/07/14 00:05:05 TTAKA Exp $"
 
 /* get fields (little-endian) ------------------------------------------------*/
 #define U1(p) (*((unsigned char *)(p)))
-#define I1(p) (*((signed char *)(p)))
+#define I1(p) (*((char *)(p)))
 static unsigned short U2(unsigned char *p) {unsigned short u; memcpy(&u,p,2); return u;}
 static unsigned int   U4(unsigned char *p) {unsigned int   u; memcpy(&u,p,4); return u;}
 static int            I4(unsigned char *p) {int            i; memcpy(&i,p,4); return i;}
@@ -726,7 +721,7 @@ static int decode_galephemerisb(raw_t *raw)
     double tow,sqrtA,af0_fnav,af1_fnav,af2_fnav,af0_inav,af1_inav,af2_inav,tt;
     char *msg;
     int prn,rcv_fnav,rcv_inav,svh_e1b,svh_e5a,svh_e5b,dvs_e1b,dvs_e5a,dvs_e5b;
-    int toc_fnav,toc_inav,week,sel_nav=0;
+    int toc_fnav,toc_inav,week;
     
     trace(3,"decode_galephemerisb: len=%d\n",raw->len);
     
@@ -774,17 +769,11 @@ static int decode_galephemerisb(raw_t *raw)
     eph.iodc  =eph.iode;
     eph.svh   =(svh_e5b<<7)|(dvs_e5b<<6)|(svh_e5a<<4)|(dvs_e5a<<3)|
                (svh_e1b<<1)|dvs_e1b;
-    
-    /* ephemeris selection (0:INAV,1:FNAV) */
-    if      (strstr(raw->opt,"-GALINAV")) sel_nav=0;
-    else if (strstr(raw->opt,"-GALFNAV")) sel_nav=1;
-    else if (!rcv_inav&&rcv_fnav) sel_nav=1;
-    
+    eph.code  =rcv_fnav?1:0;       /* 0:INAV,1:FNAV */
     eph.A     =sqrtA*sqrtA;
-    eph.f0    =sel_nav?af0_fnav:af0_inav;
-    eph.f1    =sel_nav?af1_fnav:af1_inav;
-    eph.f2    =sel_nav?af2_fnav:af2_inav;
-    eph.code  =sel_nav?2:1; /* data source 1:I/NAV E1B,2:F/NAV E5a-I */
+    eph.f0    =rcv_fnav?af0_fnav:af0_inav;
+    eph.f1    =rcv_fnav?af1_fnav:af1_inav;
+    eph.f2    =rcv_fnav?af2_fnav:af2_inav;
     
     if (raw->outtype) {
         msg=raw->msgtype+strlen(raw->msgtype);
@@ -795,7 +784,7 @@ static int decode_galephemerisb(raw_t *raw)
         return -1;
     }
     tow=time2gpst(raw->time,&week);
-    eph.week=week; /* gps-week = gal-week */
+    eph.week=week; /* gps week */
     eph.toe=gpst2time(eph.week,eph.toes);
     
     /* for week-handover problem */
@@ -803,7 +792,7 @@ static int decode_galephemerisb(raw_t *raw)
     if      (tt<-302400.0) eph.week++;
     else if (tt> 302400.0) eph.week--;
     eph.toe=gpst2time(eph.week,eph.toes);
-    eph.toc=adjweek(eph.toe,sel_nav?toc_fnav:toc_inav);
+    eph.toc=adjweek(eph.toe,rcv_fnav?toc_fnav:toc_inav);
     eph.ttr=adjweek(eph.toe,tow);
     
     if (!strstr(raw->opt,"-EPHALL")) {
@@ -1062,9 +1051,7 @@ static int decode_bdsephemerisb(raw_t *raw)
     eph.ttr=raw->time;
     
     if (!strstr(raw->opt,"-EPHALL")) {
-        if (timediff(raw->nav.eph[eph.sat-1].toe,eph.toe)==0.0&&
-            raw->nav.eph[eph.sat-1].iode==eph.iode&&
-            raw->nav.eph[eph.sat-1].iodc==eph.iodc) return 0; /* unchanged */
+        if (timediff(raw->nav.eph[eph.sat-1].toe,eph.toe)==0.0) return 0; /* unchanged */
     }
     raw->nav.eph[eph.sat-1]=eph;
     raw->ephsat=eph.sat;
@@ -1300,10 +1287,7 @@ static int decode_oem4(raw_t *raw)
         return -1;
     }
     msg =(U1(raw->buff+6)>>4)&0x3;
-    if (!(week=U2(raw->buff+14))) {
-        return -1;
-    }
-    week=adjgpsweek(week);
+    week=adjgpsweek(U2(raw->buff+14));
     tow =U4(raw->buff+16)*0.001;
     raw->time=gpst2time(week,tow);
     
@@ -1387,8 +1371,6 @@ static int sync_oem3(unsigned char *buff, unsigned char data)
 *          -GL2X   : select 2X for GPS L2 (default 2W)
 *          -RL2C   : select 2C for GLO L2 (default 2P)
 *          -EL2C   : select 2C for GAL L2 (default 2C)
-*          -GALINAV: use I/NAV for GAL ephemeris
-*          -GALFNAV: use F/NAV for GAL ephemeris
 *
 *-----------------------------------------------------------------------------*/
 extern int input_oem4(raw_t *raw, unsigned char data)
