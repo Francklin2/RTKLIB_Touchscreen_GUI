@@ -2,9 +2,7 @@
 
 RTKLIB GUI (Graphic User Interface) for Raspberry Pi with touchscreen made with Qt4 by the ENSG students 
 
-Take a look to the wiki pages for installation instructions and user manual :  https://github.com/Francklin2/RTKLIB_Touchscreen_GUI/wiki
-
-Look a the Beta version in Branch, some new features and 2 bugs to solve before release:
+New features in this version :
 
 - new pages in the wiki : tips and tools, test results by the ENG students
 - added you can record "raw" data from the GNSS for post processing, just choose file in output of the basestation and it's done
@@ -13,9 +11,10 @@ Look a the Beta version in Branch, some new features and 2 bugs to solve before 
 - added you can edit edit most of the RTKlib parameter with the gui for the 8 custom config
 - added display of system and GNSS time and date in solution status windows
 - added Push button to set PI system date and time with GPS date and time
-- new bug : position button gives less position information than before 
-- new bug : return button in edit interface may freeze the software sometimes, allway lauch a configuration after you edited one then stop to avoid that
+- issue : return button in edit interface may freeze the software sometimes, allway lauch a configuration after you edited one then stop to avoid that
 
+
+Take a look to the wiki pages for installation instructions and user manual :  https://github.com/Francklin2/RTKLIB_Touchscreen_GUI/wiki
 
 # Installation
 To install system on a raspberry pi 2 with the touchscreen you can download a raspian image with all the touchscreen drivers, Qt4 and all compilation dependencies preinstalled here :
