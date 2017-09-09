@@ -5,7 +5,7 @@ RTKLIB GUI (Graphic User Interface) for Raspberry Pi with touchscreen made with 
 New features in this version :
 
 - new pages in the wiki : tips and tools, test results by the ENG students
-- added you can record "raw" data from the GNSS for post processing, just choose file in output of the basestation and it's done
+- added data logging from the GNSS for post processing, just choose file in output of the basestation and it's done
 - added save position option, you are able to save X points ypu want to record with choosen timing
 - added 8 custom configuration files to the original preset
 - added you can edit edit most of the RTKlib parameter with the gui for the 8 custom config
