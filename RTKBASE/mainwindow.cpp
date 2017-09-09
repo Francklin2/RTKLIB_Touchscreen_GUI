@@ -17,6 +17,7 @@
 #include "optionsstr2str.h"
 #include "affichesolutions.h"
 #include <QGridLayout>
+#include "choixconfig.h"
 
 
 
@@ -102,12 +103,17 @@ void MainWindow::OuvreRover()
     /*
     Options1 OptionsRover;
     OptionsRover.exec();*/
-    Options1 afficheOptions1;
+    /*Options1 afficheOptions1;
 
     afficheOptions1.setModal(true);
     afficheOptions1.setWindowFlags(Qt::FramelessWindowHint);
 
-    afficheOptions1.exec();
+    afficheOptions1.exec();*/
+
+    ChoixConfig FenetreChoixConfigRover(0);
+    //FenetreChoixConfigRover->setModal(true);
+    //FenetreChoixConfigRover.setWindowFlags(Qt::FramelessWindowHint);
+    FenetreChoixConfigRover.exec();
 
 
 }

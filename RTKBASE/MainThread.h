@@ -41,6 +41,12 @@ public:
    void setArgcArgv(std::vector<std::string> args);
    void stop();
 
+   QString _filePath = QString("");
+   QString _pointName = QString("");
+   int _numOfMeasures = 1;
+   float _cycleLength = 1;
+   bool _addMeasures = false;
+
 private:
    //-------------------suite aux conseils de Jean-Michael
    int argc;
@@ -52,6 +58,7 @@ private:
    int m_k=0;
    QString NomFichier;
 
+
 public slots:
     void afficheRtkrcvsatellite(int i);
     void etatsatellite();
@@ -59,7 +66,9 @@ public slots:
     void etatNaviData();
     void etatStream();
     void saveposition();
-    void sauvegardedansfichier();
+    void sauvegardedansfichier(QString filePath = QString("testSauvegarde.txt"), QString pointName = QString(""), int numOfMeasures = 1, float cycleLong = 1,bool addMeasures = false);
+    void changeSaveOptions(QStringList options);
+    void setSYStime();
 
 
 
@@ -69,7 +78,7 @@ signals:
     void emitinterne(int i);
     void emitdonneesStream(QStringList,int);
     void save(int);
-    void savePointNbr(int);
+    void savePointNbr(QString);
     void etatFermetureVT(bool);
 
 protected:

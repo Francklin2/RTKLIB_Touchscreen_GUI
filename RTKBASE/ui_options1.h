@@ -1,8 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'options1.ui'
 **
-** Created: Thu May 26 23:29:45 2016
-**      by: Qt User Interface Compiler version 4.8.2
+** Created by: Qt User Interface Compiler version 5.9.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -11,12 +10,12 @@
 #define UI_OPTIONS1_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QDialog>
-#include <QtGui/QHeaderView>
-#include <QtGui/QPushButton>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPushButton>
 
 QT_BEGIN_NAMESPACE
 
@@ -33,39 +32,60 @@ public:
     void setupUi(QDialog *Options1)
     {
         if (Options1->objectName().isEmpty())
-            Options1->setObjectName(QString::fromUtf8("Options1"));
+            Options1->setObjectName(QStringLiteral("Options1"));
         Options1->resize(800, 152);
+        Options1->setStyleSheet(QLatin1String("border-radius: 15px;\n"
+"border: 1px solid black;\n"
+""));
         SingleButton = new QPushButton(Options1);
-        SingleButton->setObjectName(QString::fromUtf8("SingleButton"));
+        SingleButton->setObjectName(QStringLiteral("SingleButton"));
         SingleButton->setGeometry(QRect(10, 20, 121, 111));
         QFont font;
         font.setBold(true);
         font.setWeight(75);
         SingleButton->setFont(font);
+        SingleButton->setStyleSheet(QLatin1String("border-radius: 15px;\n"
+"border: 1px solid black;\n"
+"background-color: rgb(230, 230, 230);"));
         PPPButton = new QPushButton(Options1);
-        PPPButton->setObjectName(QString::fromUtf8("PPPButton"));
+        PPPButton->setObjectName(QStringLiteral("PPPButton"));
         PPPButton->setGeometry(QRect(400, 20, 121, 111));
         PPPButton->setFont(font);
+        PPPButton->setStyleSheet(QLatin1String("border-radius: 15px;\n"
+"border: 1px solid black;\n"
+"background-color: rgb(230, 230, 230);"));
         DGPSButton = new QPushButton(Options1);
-        DGPSButton->setObjectName(QString::fromUtf8("DGPSButton"));
+        DGPSButton->setObjectName(QStringLiteral("DGPSButton"));
         DGPSButton->setGeometry(QRect(270, 20, 121, 111));
         DGPSButton->setFont(font);
+        DGPSButton->setStyleSheet(QLatin1String("border-radius: 15px;\n"
+"border: 1px solid black;\n"
+"background-color: rgb(230, 230, 230);"));
         RTKButton = new QPushButton(Options1);
-        RTKButton->setObjectName(QString::fromUtf8("RTKButton"));
+        RTKButton->setObjectName(QStringLiteral("RTKButton"));
         RTKButton->setGeometry(QRect(530, 20, 121, 111));
         RTKButton->setFont(font);
+        RTKButton->setStyleSheet(QLatin1String("border-radius: 15px;\n"
+"border: 1px solid black;\n"
+"background-color: rgb(230, 230, 230);"));
         RTKButton_2 = new QPushButton(Options1);
-        RTKButton_2->setObjectName(QString::fromUtf8("RTKButton_2"));
+        RTKButton_2->setObjectName(QStringLiteral("RTKButton_2"));
         RTKButton_2->setGeometry(QRect(660, 20, 131, 111));
         QFont font1;
-        font1.setPointSize(12);
+        font1.setPointSize(10);
         font1.setBold(true);
         font1.setWeight(75);
         RTKButton_2->setFont(font1);
+        RTKButton_2->setStyleSheet(QLatin1String("border-radius: 15px;\n"
+"border: 1px solid black;\n"
+"background-color: rgb(230, 230, 230);"));
         SBASButton = new QPushButton(Options1);
-        SBASButton->setObjectName(QString::fromUtf8("SBASButton"));
-        SBASButton->setGeometry(QRect(140, 22, 121, 111));
+        SBASButton->setObjectName(QStringLiteral("SBASButton"));
+        SBASButton->setGeometry(QRect(140, 20, 121, 111));
         SBASButton->setFont(font);
+        SBASButton->setStyleSheet(QLatin1String("border-radius: 15px;\n"
+"border: 1px solid black;\n"
+"background-color: rgb(230, 230, 230);"));
 
         retranslateUi(Options1);
 
@@ -74,13 +94,13 @@ public:
 
     void retranslateUi(QDialog *Options1)
     {
-        Options1->setWindowTitle(QApplication::translate("Options1", "Dialog", 0, QApplication::UnicodeUTF8));
-        SingleButton->setText(QApplication::translate("Options1", "SINGLE", 0, QApplication::UnicodeUTF8));
-        PPPButton->setText(QApplication::translate("Options1", "PPP STATIC", 0, QApplication::UnicodeUTF8));
-        DGPSButton->setText(QApplication::translate("Options1", "DGPS", 0, QApplication::UnicodeUTF8));
-        RTKButton->setText(QApplication::translate("Options1", "RTK STATIC", 0, QApplication::UnicodeUTF8));
-        RTKButton_2->setText(QApplication::translate("Options1", "RTK KINEMATIC", 0, QApplication::UnicodeUTF8));
-        SBASButton->setText(QApplication::translate("Options1", "SBAS", 0, QApplication::UnicodeUTF8));
+        Options1->setWindowTitle(QApplication::translate("Options1", "Dialog", Q_NULLPTR));
+        SingleButton->setText(QApplication::translate("Options1", "SINGLE", Q_NULLPTR));
+        PPPButton->setText(QApplication::translate("Options1", "PPP STATIC", Q_NULLPTR));
+        DGPSButton->setText(QApplication::translate("Options1", "DGPS", Q_NULLPTR));
+        RTKButton->setText(QApplication::translate("Options1", "RTK STATIC", Q_NULLPTR));
+        RTKButton_2->setText(QApplication::translate("Options1", "RTK KINEMATIC", Q_NULLPTR));
+        SBASButton->setText(QApplication::translate("Options1", "SBAS", Q_NULLPTR));
     } // retranslateUi
 
 };

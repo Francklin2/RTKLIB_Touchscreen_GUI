@@ -14,6 +14,9 @@
    <string>Rover Solutions</string>
   </property>
   <widget class="QGraphicsView" name="AfficheSolutionsgraphicsView">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -263,9 +266,9 @@ border: 1px solid black;
    </property>
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>70</y>
-     <width>113</width>
+     <x>40</x>
+     <y>80</y>
+     <width>91</width>
      <height>27</height>
     </rect>
    </property>
@@ -285,14 +288,20 @@ border: 1px solid black;
    </property>
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>70</y>
-     <width>191</width>
+     <x>140</x>
+     <y>80</y>
+     <width>71</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="maxLength">
+    <number>8</number>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
    <property name="dragEnabled">
     <bool>false</bool>
@@ -307,9 +316,9 @@ border: 1px solid black;
    </property>
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>110</y>
-     <width>113</width>
+     <x>60</x>
+     <y>120</y>
+     <width>81</width>
      <height>27</height>
     </rect>
    </property>
@@ -329,9 +338,9 @@ border: 1px solid black;
    </property>
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>110</y>
-     <width>191</width>
+     <x>150</x>
+     <y>120</y>
+     <width>131</width>
      <height>27</height>
     </rect>
    </property>
@@ -490,14 +499,17 @@ background-color: rgb(230, 230, 230);</string>
    </property>
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>110</y>
-     <width>113</width>
+     <x>300</x>
+     <y>120</y>
+     <width>121</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
     <string>Solution status:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
    <property name="dragEnabled">
     <bool>false</bool>
@@ -512,9 +524,9 @@ background-color: rgb(230, 230, 230);</string>
    </property>
    <property name="geometry">
     <rect>
-     <x>520</x>
-     <y>110</y>
-     <width>191</width>
+     <x>430</x>
+     <y>120</y>
+     <width>111</width>
      <height>27</height>
     </rect>
    </property>
@@ -596,7 +608,7 @@ background-color: rgb(230, 230, 230);</string>
    <property name="geometry">
     <rect>
      <x>670</x>
-     <y>30</y>
+     <y>20</y>
      <width>71</width>
      <height>51</height>
     </rect>
@@ -623,7 +635,7 @@ background-color: rgb(230, 230, 230);</string>
    <property name="geometry">
     <rect>
      <x>570</x>
-     <y>30</y>
+     <y>20</y>
      <width>71</width>
      <height>51</height>
     </rect>
@@ -755,6 +767,160 @@ border: 1px solid black;
     <bool>true</bool>
    </property>
   </widget>
+  <widget class="QPushButton" name="PushButtonSauveOptions">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>320</y>
+     <width>131</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
+   <property name="text">
+    <string>SAVE OPTIONS</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEditTimeGPS">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>80</y>
+     <width>161</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="maxLength">
+    <number>19</number>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="dragEnabled">
+    <bool>false</bool>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEditGPSTime">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>80</y>
+     <width>91</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>GPS Time :</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+   <property name="dragEnabled">
+    <bool>false</bool>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEditTimeSYS">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>80</y>
+     <width>161</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>System Time :</string>
+   </property>
+   <property name="maxLength">
+    <number>20</number>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="dragEnabled">
+    <bool>false</bool>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEditSYSTime">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>80</y>
+     <width>111</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>System Time :</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+   <property name="dragEnabled">
+    <bool>false</bool>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonSetSYSTime">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>120</y>
+     <width>221</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
+   <property name="text">
+    <string>Set system time with GPS</string>
+   </property>
+  </widget>
   <zorder>lineEditPosEvol</zorder>
   <zorder>widget</zorder>
   <zorder>lineEditPositionXYZ</zorder>
@@ -765,13 +931,7 @@ border: 1px solid black;
   <zorder>lineEditPositionLat</zorder>
   <zorder>lineEditPositionLong</zorder>
   <zorder>lineEditPositionLLH</zorder>
-  <zorder>lineEditRunningTime</zorder>
-  <zorder>lineEditTimeToRun</zorder>
-  <zorder>lineEditPositioningMode</zorder>
-  <zorder>lineEditModePosition</zorder>
   <zorder>lineEditSatRover</zorder>
-  <zorder>lineEditSolutionStatus1</zorder>
-  <zorder>lineEditSolutionStatus2</zorder>
   <zorder>MessageUserlineEdit</zorder>
   <zorder>lineEditSatBase</zorder>
   <zorder>lineEditSatValides</zorder>
@@ -786,6 +946,18 @@ border: 1px solid black;
   <zorder>pushButtonSat2</zorder>
   <zorder>pushButtonSat3</zorder>
   <zorder>progressBarSatellites</zorder>
+  <zorder>PushButtonSauveOptions</zorder>
+  <zorder>lineEditTimeGPS</zorder>
+  <zorder>lineEditGPSTime</zorder>
+  <zorder>lineEditTimeSYS</zorder>
+  <zorder>lineEditSYSTime</zorder>
+  <zorder>lineEditRunningTime</zorder>
+  <zorder>lineEditTimeToRun</zorder>
+  <zorder>lineEditPositioningMode</zorder>
+  <zorder>lineEditSolutionStatus1</zorder>
+  <zorder>lineEditSolutionStatus2</zorder>
+  <zorder>lineEditModePosition</zorder>
+  <zorder>pushButtonSetSYSTime</zorder>
  </widget>
  <customwidgets>
   <customwidget>

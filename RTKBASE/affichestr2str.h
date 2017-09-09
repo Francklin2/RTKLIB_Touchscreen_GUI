@@ -25,6 +25,7 @@ private:
     MainThreadReadFile* m_readfile=new MainThreadReadFile;
     QString m_str1, m_str2, m_str3;
     std::vector<std::string> args;
+    std::vector<std::string> args1;
 
 
 

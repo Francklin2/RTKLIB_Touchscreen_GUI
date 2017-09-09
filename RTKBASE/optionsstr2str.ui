@@ -44,7 +44,7 @@ background-color: rgb(230, 230, 230);</string>
      <x>30</x>
      <y>50</y>
      <width>731</width>
-     <height>241</height>
+     <height>251</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -127,7 +127,7 @@ background-color: rgb(230, 230, 230);
       <string>WRITE</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="LatManualLine">
+    <widget class="MyLineEdit" name="LatManualLine">
      <property name="geometry">
       <rect>
        <x>490</x>
@@ -224,7 +224,7 @@ background-color: rgb(230, 230, 230);
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="LongManualLine">
+    <widget class="MyLineEdit" name="LongManualLine">
      <property name="geometry">
       <rect>
        <x>490</x>
@@ -246,7 +246,7 @@ background-color: rgb(230, 230, 230);
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="AltiManualLine">
+    <widget class="MyLineEdit" name="AltiManualLine">
      <property name="geometry">
       <rect>
        <x>490</x>
@@ -269,6 +269,9 @@ background-color: rgb(230, 230, 230);
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEdit_12">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -343,7 +346,7 @@ background-color: rgb(230, 230, 230);
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="LatAutoLine">
+    <widget class="MyLineEdit" name="LatAutoLine">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -365,7 +368,7 @@ background-color: rgb(230, 230, 230);
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="LongAutoLine">
+    <widget class="MyLineEdit" name="LongAutoLine">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -387,7 +390,7 @@ background-color: rgb(230, 230, 230);
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLineEdit" name="AltiAutoLine">
+    <widget class="MyLineEdit" name="AltiAutoLine">
      <property name="geometry">
       <rect>
        <x>130</x>
@@ -414,11 +417,11 @@ background-color: rgb(230, 230, 230);
     <attribute name="title">
      <string>CONFIGURATION</string>
     </attribute>
-    <widget class="QComboBox" name="OutBaudRatecomboBox">
+    <widget class="MyComboBox" name="OutBaudRatecomboBox">
      <property name="geometry">
       <rect>
        <x>550</x>
-       <y>100</y>
+       <y>70</y>
        <width>81</width>
        <height>32</height>
       </rect>
@@ -453,11 +456,11 @@ background-color: rgb(230, 230, 230);
       </property>
      </item>
     </widget>
-    <widget class="QComboBox" name="OutSerialPortcomboBox">
+    <widget class="MyComboBox" name="OutSerialPortcomboBox">
      <property name="geometry">
       <rect>
        <x>390</x>
-       <y>100</y>
+       <y>70</y>
        <width>151</width>
        <height>32</height>
       </rect>
@@ -486,12 +489,17 @@ background-color: rgb(230, 230, 230);
        <string>serial://ttyACM0</string>
       </property>
      </item>
+     <item>
+      <property name="text">
+       <string>File</string>
+      </property>
+     </item>
     </widget>
-    <widget class="QComboBox" name="OutFormatcomboBox">
+    <widget class="MyComboBox" name="OutFormatcomboBox">
      <property name="geometry">
       <rect>
        <x>640</x>
-       <y>100</y>
+       <y>70</y>
        <width>71</width>
        <height>32</height>
       </rect>
@@ -520,9 +528,9 @@ background-color: rgb(230, 230, 230);
      <property name="geometry">
       <rect>
        <x>390</x>
-       <y>70</y>
+       <y>51</y>
        <width>151</width>
-       <height>32</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
@@ -532,7 +540,7 @@ background-color: rgb(230, 230, 230);
       </font>
      </property>
      <property name="text">
-      <string>SERIAL PORT</string>
+      <string>OUTPUT PORT</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -545,9 +553,9 @@ background-color: rgb(230, 230, 230);
      <property name="geometry">
       <rect>
        <x>550</x>
-       <y>70</y>
+       <y>51</y>
        <width>81</width>
-       <height>32</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
@@ -570,9 +578,9 @@ background-color: rgb(230, 230, 230);
      <property name="geometry">
       <rect>
        <x>640</x>
-       <y>70</y>
+       <y>51</y>
        <width>71</width>
-       <height>32</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
@@ -595,7 +603,7 @@ background-color: rgb(230, 230, 230);
      <property name="geometry">
       <rect>
        <x>460</x>
-       <y>20</y>
+       <y>10</y>
        <width>201</width>
        <height>32</height>
       </rect>
@@ -625,7 +633,7 @@ border: 1px solid black;</string>
      <property name="geometry">
       <rect>
        <x>80</x>
-       <y>20</y>
+       <y>10</y>
        <width>201</width>
        <height>32</height>
       </rect>
@@ -651,11 +659,11 @@ border: 1px solid black;</string>
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QComboBox" name="InSerialPortcomboBox">
+    <widget class="MyComboBox" name="InSerialPortcomboBox">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>110</y>
+       <y>80</y>
        <width>151</width>
        <height>32</height>
       </rect>
@@ -685,11 +693,11 @@ border: 1px solid black;</string>
       </property>
      </item>
     </widget>
-    <widget class="QComboBox" name="InBaudratecomboBox">
+    <widget class="MyComboBox" name="InBaudratecomboBox">
      <property name="geometry">
       <rect>
        <x>170</x>
-       <y>110</y>
+       <y>80</y>
        <width>81</width>
        <height>32</height>
       </rect>
@@ -724,11 +732,11 @@ border: 1px solid black;</string>
       </property>
      </item>
     </widget>
-    <widget class="QComboBox" name="InFormatcomboBox">
+    <widget class="MyComboBox" name="InFormatcomboBox">
      <property name="geometry">
       <rect>
        <x>260</x>
-       <y>110</y>
+       <y>80</y>
        <width>81</width>
        <height>32</height>
       </rect>
@@ -802,9 +810,9 @@ border: 1px solid black;</string>
      <property name="geometry">
       <rect>
        <x>260</x>
-       <y>80</y>
+       <y>61</y>
        <width>81</width>
-       <height>32</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
@@ -827,9 +835,9 @@ border: 1px solid black;</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>80</y>
+       <y>61</y>
        <width>151</width>
-       <height>32</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
@@ -839,7 +847,7 @@ border: 1px solid black;</string>
       </font>
      </property>
      <property name="text">
-      <string>SERIAL PORT</string>
+      <string>INPUT PORT</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -852,9 +860,9 @@ border: 1px solid black;</string>
      <property name="geometry">
       <rect>
        <x>170</x>
-       <y>80</y>
+       <y>61</y>
        <width>81</width>
-       <height>32</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
@@ -876,10 +884,10 @@ border: 1px solid black;</string>
     <widget class="QLineEdit" name="lineEdit_15">
      <property name="geometry">
       <rect>
-       <x>400</x>
-       <y>140</y>
-       <width>311</width>
-       <height>32</height>
+       <x>390</x>
+       <y>110</y>
+       <width>321</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="font">
@@ -898,12 +906,12 @@ border: 1px solid black;</string>
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QComboBox" name="RtcmMsgcomboBox">
+    <widget class="MyComboBox" name="RtcmMsgcomboBox">
      <property name="geometry">
       <rect>
-       <x>400</x>
-       <y>170</y>
-       <width>311</width>
+       <x>390</x>
+       <y>128</y>
+       <width>321</width>
        <height>32</height>
       </rect>
      </property>
@@ -946,13 +954,67 @@ background-color: rgb(230, 230, 230);</string>
       <string>UPDATE STREAM  CONFIGURATION</string>
      </property>
     </widget>
+    <widget class="QLineEdit" name="lineEdit_17">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>162</y>
+       <width>321</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>FILE PATH FOR RAW DATA</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="MyComboBox" name="OutFilePathcomboBox">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>180</y>
+       <width>321</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>../RTKBASE/PointsFiles/rover.ubx</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>/home/pi/rover.ubx</string>
+      </property>
+     </item>
+    </widget>
    </widget>
   </widget>
   <widget class="QTextBrowser" name="RtkrcvOptionstextBrowser">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>300</y>
+     <y>310</y>
      <width>591</width>
      <height>81</height>
     </rect>
@@ -997,7 +1059,71 @@ border: 1px solid black;</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButtonSave">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>10</y>
+     <width>91</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);
+</string>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonLoad">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>10</y>
+     <width>91</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);
+</string>
+   </property>
+   <property name="text">
+    <string>Load</string>
+   </property>
+  </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>mylineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>mycombobox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

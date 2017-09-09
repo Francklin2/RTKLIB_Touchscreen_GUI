@@ -28,7 +28,16 @@ SOURCES += main.cpp\
     affichestr2str.cpp \
     mainthreadreadfile.cpp \
     optionsstr2str.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    gestionconfig.cpp \
+    choixedite.cpp \
+    editeconfig.cpp \
+    choixstr2str.cpp \
+    choixconfig.cpp \
+    optionssauvepoints.cpp \
+    clavier.cpp \
+    mylineedit.cpp \
+    mycombobox.cpp
 
 HEADERS  += mainwindow.h \
     threadheuresysteme.h \
@@ -42,14 +51,32 @@ HEADERS  += mainwindow.h \
     affichestr2str.h \
     mainthreadreadfile.h \
     optionsstr2str.h \
-    qcustomplot.h
+    qcustomplot.h \
+    gestionconfig.h \
+    choixedite.h \
+    editeconfig.h \
+    choixstr2str.h \
+    choixconfig.h \
+    optionssauvepoints.h \
+    clavier.h \
+    mylineedit.h \
+    mycombobox.h
 
 FORMS    += mainwindow.ui \
     options1.ui \
     affichesolutions.ui \
     options2.ui \
     affichestr2str.ui \
-    optionsstr2str.ui
+    optionsstr2str.ui \
+    gestionconfig.ui \
+    choixedite.ui \
+    editeconfig.ui \
+    choixstr2str.ui \
+    choixconfig.ui \
+    optionssauvepoints.ui \
+    clavier.ui \
+    mylineedit.ui \
+    mycombobox.ui
 
 FORMS    += mainwindow.ui
 

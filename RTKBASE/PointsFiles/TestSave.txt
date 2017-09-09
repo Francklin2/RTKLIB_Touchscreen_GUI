@@ -1,0 +1,5 @@
+point  : Test_Point mesure : 0 heure rover : - latitude :0,000000 longitude :0,000000 hauteur :0,000000 X : 0,000000 Y :0,000000 Z : 0,000000
+point  : Test_Point mesure : 1 heure rover : - latitude :0,000000 longitude :0,000000 hauteur :0,000000 X : 0,000000 Y :0,000000 Z : 0,000000
+point  : Test_Point mesure : 2 heure rover : - latitude :0,000000 longitude :0,000000 hauteur :0,000000 X : 0,000000 Y :0,000000 Z : 0,000000
+point  : Test_Point mesure : 3 heure rover : - latitude :0,000000 longitude :0,000000 hauteur :0,000000 X : 0,000000 Y :0,000000 Z : 0,000000
+point  : Test_Point mesure : 4 heure rover : - latitude :0,000000 longitude :0,000000 hauteur :0,000000 X : 0,000000 Y :0,000000 Z : 0,000000

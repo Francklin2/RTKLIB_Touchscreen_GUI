@@ -2,7 +2,8 @@
 #define OPTIONS1_H
 
 #include <QDialog>
-extern int choixcalcul;
+extern int choixcalcul; // A supprimer et modifier les ouvrir...() -> rajouter dans le constructeur
+                        // de AfficheSolutions le chemin vers le fichier config correspondant
 
 
 namespace Ui {

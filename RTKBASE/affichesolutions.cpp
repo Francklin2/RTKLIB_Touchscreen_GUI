@@ -4,6 +4,7 @@
 #include "MainThread.h"
 #include "options1.h"
 #include "options2.h"
+#include "optionssauvepoints.h"
 #include <iostream>
 #include <stdlib.h>
 #include <QtCore>
@@ -15,6 +16,8 @@
 #include <QGraphicsTextItem>
 #include <cmath>
 #include <QMessageBox>
+#include <QTime>
+#include <QDate>
 
 
 
@@ -26,32 +29,17 @@ using namespace std;
 
 
 
-AfficheSolutions::AfficheSolutions(QWidget *parent) :
+AfficheSolutions::AfficheSolutions(QString _configFile, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AfficheSolutions),SatStatusSingleRover()
 {
 
 
 
+    configFile=_configFile;
 
-{
-
-        if (choixcalcul==1) { m_fileName1 = "../RTKBASE/ConfFiles/Single.ubx";}
-
-        if (choixcalcul==2) { m_fileName1 = "../RTKBASE/ConfFiles/SBAS.ubx";}
-
-        if (choixcalcul==3) { m_fileName1 = "../RTKBASE/ConfFiles/DGPS.ubx";}
-
-        if (choixcalcul==4) { m_fileName1 = "../RTKBASE/ConfFiles/PPP-Static.ubx";}
-
-        if (choixcalcul==5) {m_fileName1 = "../RTKBASE/ConfFiles/RTK-Static.ubx";}
-
-        if (choixcalcul==6) { m_fileName1 = "../RTKBASE/ConfFiles/RTK-Kinematic.ubx";}
-
-
-}
-
-    std::string str1 = m_fileName1.toStdString(); // transform to string.
+    std::string str1 = configFile.toStdString(); // transform to string.
+    //std::cout<<str1<<std::endl;
     ui->setupUi(this);
     ui->AfficheSolutionsgraphicsView->setScene(&SatStatusSingleRover);
     ui->AfficheSolutionsgraphicsView->setStyleSheet("background:transparent");
@@ -80,6 +68,14 @@ AfficheSolutions::AfficheSolutions(QWidget *parent) :
     QObject::connect(ui->pushButtonSat1,SIGNAL(clicked()),this,SLOT(satchoice1()));
     QObject::connect(ui->pushButtonSat2,SIGNAL(clicked()),this,SLOT(satchoice2()));
     QObject::connect(ui->pushButtonSat3,SIGNAL(clicked()),this,SLOT(satchoice3()));
+
+    QObject::connect(ui->pushButtonSetSYSTime,SIGNAL(clicked()),m_t,SLOT(setSYStime()));
+
+
+    QObject::connect(ui->PushButtonSauvegarde,SIGNAL(clicked()),m_t,SLOT(saveposition()));
+    QObject::connect(ui->PushButtonSauveOptions,SIGNAL(clicked()),this,SLOT(sauvegardeoptions()));
+    QObject::connect(m_t,SIGNAL(savePointNbr(QString)),this,SLOT(affichePointNbr(QString)));
+
 
     /*MainThread start*/
     m_t->start();
@@ -193,6 +189,7 @@ void AfficheSolutions::ChoixVueStream()
 
 void AfficheSolutions::recupedonneesStatus(QStringList i)
 {
+    std::cout<<"Status"<<std::endl;
     if (m_choix==1)
     {
         //ui->lineEditSatellites->hide();//car vue par défaut et donc ne passe pas par void AfficheSolutions::ChoixVueStatus()
@@ -208,16 +205,23 @@ void AfficheSolutions::recupedonneesStatus(QStringList i)
     ui->lineEditPositioningMode->show();
     ui->lineEditModePosition->show();
     ui->lineEditRunningTime->show();
+    ui->lineEditGPSTime->show();
+    ui->lineEditSYSTime->show();
     ui->lineEditTimeToRun->show();
+    ui->lineEditTimeGPS->show();
+    ui->lineEditTimeSYS->show();
+    ui->pushButtonSetSYSTime->show();
     ui->lineEditSolutionStatus1->show();
     ui->lineEditSolutionStatus2->show();
     ui->PushButtonSauvegarde->show();
+    ui->PushButtonSauveOptions->show();
     ui->MessageUserlineEdit->show();
     ui->lineEditSatRover->show();
     ui->lineEditSatBase->show();
     ui->lineEditSatValides->show();
     ui->pushButtonLLH->show();
     ui->pushButtonXYZ->show();
+
 
     if (m_UnitChoice==1)
     {
@@ -241,8 +245,21 @@ void AfficheSolutions::recupedonneesStatus(QStringList i)
     ui->lineEditPositionH->setText(QString("Z = %1 m").arg(i[20]));
     }
 
+
+
+
+    ui->lineEditTimeSYS->setText(QString("%1").arg(i[13]));
+
     ui->lineEditTimeToRun->setText(QString("%1").arg(i[7]));
-    ui->lineEditModePosition->setText(QString("%1").arg(i[8]));
+
+    ui->lineEditTimeGPS->setText(QString("%1").arg(i[13]));
+
+  QString TimeSYS = (QDate::currentDate().toString("yyyy/MM/dd"));
+  TimeSYS.append("  ");
+  TimeSYS.append(QTime::currentTime().toString("hh:mm:ss"));
+  ui->lineEditTimeSYS->setText(TimeSYS);
+
+  ui->lineEditModePosition->setText(QString("%1").arg(i[8]));
     ui->lineEditSolutionStatus2->setText(QString("%1").arg(i[9]));
     ui->lineEditSatRover->setText(QString("Sat Rover number: %1").arg(i[10]));
     ui->lineEditSatBase->setText(QString("Sat Base number: %1").arg(i[11]));
@@ -260,8 +277,6 @@ void AfficheSolutions::recupedonneesStatus(QStringList i)
     ui->MessageUserlineEdit->setText(QString(""));
     }
     ui->AfficheSolutionsgraphicsView->setScene(&SatStatusSingleRover);
-    QObject::connect(ui->PushButtonSauvegarde,SIGNAL(clicked()),m_t,SLOT(saveposition()));
-    QObject::connect(m_t,SIGNAL(savePointNbr(int)),this,SLOT(affichePointNbr(int)));
 
     QString str=i[4];
     QString str1=i[5];
@@ -289,7 +304,7 @@ void AfficheSolutions::recupedonneesStatus(QStringList i)
              SatStatusSingleRover.clear();
              QGraphicsTextItem *texta[10];
              int b=70;
-             for(int j = 0; j < 10; +j++)
+             for(int j = 0; j < 9; +j++)
              {
                   texta[j]=new QGraphicsTextItem;
                   texta[j]=SatStatusSingleRover.addText(i[14+j], QFont("Monospace",12));
@@ -471,13 +486,19 @@ void AfficheSolutions::initAffichage()
     ui->lineEditPositioningMode->hide();
     ui->lineEditModePosition->hide();
     ui->lineEditRunningTime->hide();
+    ui->lineEditGPSTime->hide();
+    ui->lineEditSYSTime->hide();
+    ui->pushButtonSetSYSTime->hide();
     ui->lineEditTimeToRun->hide();
+    ui->lineEditTimeGPS->hide();
+    ui->lineEditTimeSYS->hide();
     ui->lineEditSatellites->hide();
     ui->lineEditSolutionStatus1->hide();
     ui->lineEditSolutionStatus2->hide();
     ui->lineEditStream->hide();
     ui->progressBarSatellites->hide();
     ui->PushButtonSauvegarde->hide();
+    ui->PushButtonSauveOptions->hide();
     ui->widget->hide();
     ui->MessageUserlineEdit->hide();
     ui->lineEditSatRover->hide();
@@ -489,10 +510,12 @@ void AfficheSolutions::initAffichage()
     ui->pushButtonSat2->hide();
     ui->pushButtonSat3->hide();
     ui->lineEditPosEvol->hide();
+
+
 }
 
 
-void AfficheSolutions::affichePointNbr(int i)
+void AfficheSolutions::affichePointNbr(QString i)
 {
     ui->MessageUserlineEdit->setText(QString("Point %1 saved in file").arg(i));
 }
@@ -533,3 +556,35 @@ void AfficheSolutions::satchoice3()
     m_SatChoice=3;
 }
 
+void AfficheSolutions::sauvegardeoptions()
+{
+    optionssauvepoints *FenetreSaveOptions = new optionssauvepoints(m_t->_filePath,m_t->_pointName,m_t->_numOfMeasures,m_t->_cycleLength,m_t->_addMeasures);
+    QObject::connect(FenetreSaveOptions,SIGNAL(SaveOptions(QStringList)),m_t,SLOT(changeSaveOptions(QStringList)));
+    FenetreSaveOptions->setModal(true);
+    FenetreSaveOptions->setWindowFlags(Qt::FramelessWindowHint);
+    FenetreSaveOptions->exec();
+}
+
+//void AfficheSolutions::setSYSTime()
+//{
+//    m_UnitChoice=3;
+//    emit typeAffichageEmit(12);
+//    m_choix=1;
+//    QString getGPStime= (QString("%1").arg(i[13]));
+//    getGPStime.resize(10);
+//    getGPStime.left(10);
+//    getGPStime.remove(QRegExp("[/]."));
+//    QString getGPSdate = getGPStime;
+
+    //    QString getGPStimeset = getGPStime.right(8);
+//    QString setTimeSYS = getGPSdate;
+//    setTimeSYS.append(" ");
+//    setTimeSYS.append(getGPStimeset);
+//    getGPSdate.left(10);
+//    getGPSdate.remove(QRegExp("[/]."));
+//    QProcess setPIdate;
+//    setPIdate.startDetached("sudo date -s "+getGPSdate);
+//    setPIdate.startDetached("sudo date -s 20170817");
+//    QProcess setPItime;
+//    setPItime.startDetached("sudo timedatectl set-time HH:MM:SS 10:10:10");
+//}

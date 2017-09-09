@@ -748,8 +748,7 @@ static void prstatus(vt_t *vt)
                 rtk.Pa?SQRT(rtk.Pa[0]):0,rtk.Pa?SQRT(rtk.Pa[1+1*rtk.na]):0,rtk.Pa?SQRT(rtk.Pa[2+2*rtk.na]):0);
         fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz (m) base",
                 rtk.rb[0],rtk.rb[1],rtk.rb[2]);
-
-        fprintf(fichier,"%-15s %-9s: %s\n","# of rtcm messages",type[i],s);
+        /*fprintf(fichier,"%-15s %-9s: %s\n","# of rtcm messages",type[i],s);*/
 
 
         fclose(fichier);

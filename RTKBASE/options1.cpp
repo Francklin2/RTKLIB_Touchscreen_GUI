@@ -6,7 +6,8 @@
 #include "affichestr2str.h"
 #include "optionsstr2str.h"
 
-int choixcalcul;
+int choixcalcul;    // A mettre dans la classe et le remplir dans les ouvrir...() -> rajouter dans le constructeur
+                    // de AfficheSolutions
 
 Options1::Options1(QWidget *parent) :
     QDialog(parent),

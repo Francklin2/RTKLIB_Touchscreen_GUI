@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ChoixEdite</class>
+ <widget class="QDialog" name="ChoixEdite">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>360</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QPushButton" name="ReturnButton">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>310</y>
+     <width>780</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
+   <property name="text">
+    <string>RETURN</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Custom9Button">
+   <property name="geometry">
+    <rect>
+     <x>274</x>
+     <y>190</y>
+     <width>120</width>
+     <height>110</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
+   <property name="text">
+    <string>CUSTOM 9</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Custom5Button">
+   <property name="geometry">
+    <rect>
+     <x>538</x>
+     <y>70</y>
+     <width>120</width>
+     <height>110</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
+   <property name="text">
+    <string>CUSTOM 5</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Custom7Button">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>190</y>
+     <width>120</width>
+     <height>110</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
+   <property name="text">
+    <string>CUSTOM 7</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Custom11Button">
+   <property name="geometry">
+    <rect>
+     <x>538</x>
+     <y>190</y>
+     <width>120</width>
+     <height>110</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
+   <property name="text">
+    <string>CUSTOM 11</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Custom2Button">
+   <property name="geometry">
+    <rect>
+     <x>142</x>
+     <y>70</y>
+     <width>120</width>
+     <height>110</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
+   <property name="text">
+    <string>CUSTOM  2</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Custom6Button">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>70</y>
+     <width>120</width>
+     <height>110</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
+   <property name="text">
+    <string>CUSTOM 6</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Custom4Button">
+   <property name="geometry">
+    <rect>
+     <x>406</x>
+     <y>70</y>
+     <width>120</width>
+     <height>110</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
+   <property name="text">
+    <string>CUSTOM 4</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Custom8Button">
+   <property name="geometry">
+    <rect>
+     <x>142</x>
+     <y>190</y>
+     <width>120</width>
+     <height>110</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
+   <property name="text">
+    <string>CUSTOM 8</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Custom10Button">
+   <property name="geometry">
+    <rect>
+     <x>406</x>
+     <y>190</y>
+     <width>120</width>
+     <height>110</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
+   <property name="text">
+    <string>CUSTOM 10</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Custom1Button">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>70</y>
+     <width>120</width>
+     <height>110</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
+   <property name="text">
+    <string>CUSTOM  1</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Custom12Button">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>190</y>
+     <width>120</width>
+     <height>110</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
+   <property name="text">
+    <string>CUSTOM 12</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Custom3Button">
+   <property name="geometry">
+    <rect>
+     <x>274</x>
+     <y>70</y>
+     <width>120</width>
+     <height>110</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+   </property>
+   <property name="text">
+    <string>CUSTOM 3</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="WindowTitleEdit">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>15</y>
+     <width>280</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 15px;
+border: 1px solid black;
+</string>
+   </property>
+   <property name="text">
+    <string>SAVE SLOT</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

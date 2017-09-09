@@ -1,0 +1,5 @@
+filepath            =/home/pi/RTKLIB_Touchscreen_GUI/RTKBASE/PointsFiles/SavedPointsFile
+pointname           =Test_Point
+nummeas             =10
+cyclen              =2
+oldpoint            =0

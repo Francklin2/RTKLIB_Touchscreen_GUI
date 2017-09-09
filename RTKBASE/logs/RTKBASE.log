@@ -1,0 +1,6 @@
+Makefile:416: avertissement : surchargement de la recette pour la cible « ui_mainwindow.h »
+Makefile:371: avertissement : ancienne recette ignorée pour la cible « ui_mainwindow.h »
+/usr/lib/x86_64-linux-gnu/qt4/bin/uic mainwindow.ui -o ui_mainwindow.h
+make: /usr/lib/x86_64-linux-gnu/qt4/bin/uic : commande introuvable
+Makefile:416 : la recette pour la cible « ui_mainwindow.h » a échouée
+make: *** [ui_mainwindow.h] Erreur 127
