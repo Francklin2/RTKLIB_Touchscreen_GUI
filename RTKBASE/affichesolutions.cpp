@@ -304,7 +304,7 @@ void AfficheSolutions::recupedonneesStatus(QStringList i)
              SatStatusSingleRover.clear();
              QGraphicsTextItem *texta[10];
              int b=70;
-             for(int j = 0; j < 9; +j++)
+             for(int j = 0; j < 10; +j++)
              {
                   texta[j]=new QGraphicsTextItem;
                   texta[j]=SatStatusSingleRover.addText(i[14+j], QFont("Monospace",12));

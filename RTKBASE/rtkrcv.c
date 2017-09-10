@@ -737,7 +737,7 @@ static void prstatus(vt_t *vt)
         fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","vel enu (m/s) rover",d,e,f);
         fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz float (m) rover",
                 rtk.x?rtk.x[0]:0,rtk.x?rtk.x[1]:0,rtk.x?rtk.x[2]:0);
-        fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz float std (m) rover",
+        fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz float (m) rover",
                 rtk.P?SQRT(rtk.P[0]):0,rtk.P?SQRT(rtk.P[1+1*rtk.nx]):0,rtk.P?SQRT(rtk.P[2+2*rtk.nx]):0);
         fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz fixed (m) rover",
                 rtk.xa?rtk.xa[0]:0,rtk.xa?rtk.xa[1]:0,rtk.xa?rtk.xa[2]:0);
@@ -748,7 +748,7 @@ static void prstatus(vt_t *vt)
                 rtk.Pa?SQRT(rtk.Pa[0]):0,rtk.Pa?SQRT(rtk.Pa[1+1*rtk.na]):0,rtk.Pa?SQRT(rtk.Pa[2+2*rtk.na]):0);
         fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz (m) base",
                 rtk.rb[0],rtk.rb[1],rtk.rb[2]);
-        /*fprintf(fichier,"%-15s %-9s: %s\n","# of rtcm messages",type[i],s);*/
+        fprintf(fichier,"%-15s %-9s\n","rtcm mgs:",s);
 
 
         fclose(fichier);
