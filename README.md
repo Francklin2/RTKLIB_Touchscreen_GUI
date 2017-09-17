@@ -2,16 +2,8 @@
 
 RTKLIB GUI (Graphic User Interface) for Raspberry Pi with touchscreen made with Qt4 by the ENSG students 
 
-New features in this version :
+This branches use RTKlib 2.4.3, actually updated with 2.4.3n29.(/src folder, rtkrcv.c,str2str.c,vt.c,vt.h)
 
-- new pages in the wiki : tips and tools, test results by the ENG students
-- added data logging from the GNSS for post processing, just choose file in output of the basestation and it's done
-- added save position option, you are able to save X points ypu want to record with choosen timing
-- added 8 custom configuration files to the original preset
-- added you can edit edit most of the RTKlib parameter with the gui for the 8 custom config
-- added display of system and GNSS time and date in solution status windows
-- added Push button to set PI system date and time with GPS date and time
-- issue : return button in edit interface may freeze the software sometimes, allway lauch a configuration after you edited one then stop to avoid that
 
 
 Take a look to the wiki pages for installation instructions and user manual :  https://github.com/Francklin2/RTKLIB_Touchscreen_GUI/wiki
