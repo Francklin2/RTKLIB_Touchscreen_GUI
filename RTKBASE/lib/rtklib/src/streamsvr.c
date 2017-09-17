@@ -1,7 +1,7 @@
 /*------------------------------------------------------------------------------
 * streamsvr.c : stream server functions
 *
-*          Copyright (C) 2010-2012 by T.TAKASU, All rights reserved.
+*          Copyright (C) 2010-2017 by T.TAKASU, All rights reserved.
 *
 * options : -DWIN32    use WIN32 API
 *
@@ -13,10 +13,18 @@
 *                           suppress warnings
 *           2013/05/08 1.4  fix bug on 1 s offset for javad -> rtcm conversion
 *           2014/10/16 1.5  support input from stdout
+*           2015/12/05 1.6  support rtcm 3 mt 63 beidou ephemeris
+*           2016/07/23 1.7  change api strsvrstart(),strsvrstop()
+*                           support command for output streams
+*           2016/08/20 1.8  support api change of sendnmea()
+*           2016/09/03 1.9  support ntrip caster function
+*           2016/09/06 1.10 add api strsvrsetsrctbl()
+*           2016/09/17 1.11 add relay back function of output stream
+*                           fix bug on rtcm cyclic output of beidou ephemeris 
+*           2016/10/01 1.12 change api startstrserver()
+*           2017/04/11 1.13 fix bug on search of next satellite in nextsat()
 *-----------------------------------------------------------------------------*/
 #include "rtklib.h"
-
-static const char rcsid[]="$Id$";
 
 /* test observation data message ---------------------------------------------*/
 static int is_obsmsg(int msg)
@@ -29,7 +37,8 @@ static int is_obsmsg(int msg)
 /* test navigataion data message ---------------------------------------------*/
 static int is_navmsg(int msg)
 {
-    return msg==1019||msg==1020||msg==1044||msg==1045||msg==1046;
+    return msg==1019||msg==1020||msg==1044||msg==1045||msg==1046||
+           msg==1047||msg==63;
 }
 /* test station info message -------------------------------------------------*/
 static int is_stamsg(int msg)
@@ -44,8 +53,8 @@ static int is_tint(gtime_t time, double tint)
 }
 /* new stream converter --------------------------------------------------------
 * generate new stream converter
-* args   : int    itype     I   input stream type  (STR_???)
-*          int    otype     I   output stream type (STR_???)
+* args   : int    itype     I   input stream type  (STRFMT_???)
+*          int    otype     I   output stream type (STRFMT_???)
 *          char   *msgs     I   output message type and interval (, separated)
 *          int    staid     I   station id
 *          int    stasel    I   station info selection (0:remote,1:local)
@@ -84,7 +93,7 @@ extern strconv_t *strconvnew(int itype, int otype, const char *msgs, int staid,
         free(conv);
         return NULL;
     }
-    if (!init_raw(&conv->raw)) {
+    if (!init_raw(&conv->raw,itype)) {
         free_rtcm(&conv->rtcm);
         free_rtcm(&conv->out);
         free(conv);
@@ -242,12 +251,14 @@ static int nextsat(nav_t *nav, int sat, int msg)
         case 1044: sys=SYS_QZS; p1=MINPRNQZS; p2=MAXPRNQZS; break;
         case 1045:
         case 1046: sys=SYS_GAL; p1=MINPRNGAL; p2=MAXPRNGAL; break;
+        case   63:
+        case 1047: sys=SYS_CMP; p1=MINPRNCMP; p2=MAXPRNCMP; break;
         default: return 0;
     }
     if (satsys(sat,&p0)!=sys) return satno(sys,p1);
     
     /* search next valid ephemeris */
-    for (p=p0>p2?p1:p0+1;p!=p0;p=p>=p2?p1:p+1) {
+    for (p=p0>=p2?p1:p0+1;p!=p0;p=p>=p2?p1:p+1) {
         
         if (sys==SYS_GLO) {
             sat=satno(sys,p);
@@ -352,6 +363,30 @@ static void strconv(stream_t *str, strconv_t *conv, unsigned char *buff, int n)
     write_nav_cycle(str,conv);
     write_sta_cycle(str,conv);
 }
+/* periodic command ----------------------------------------------------------*/
+static void periodic_cmd(int cycle, const char *cmd, stream_t *stream)
+{
+    const char *p=cmd,*q;
+    char msg[1024],*r;
+    int n,period;
+    
+    for (p=cmd;;p=q+1) {
+        for (q=p;;q++) if (*q=='\r'||*q=='\n'||*q=='\0') break;
+        n=(int)(q-p); strncpy(msg,p,n); msg[n]='\0';
+        
+        period=0;
+        if ((r=strrchr(msg,'#'))) {
+            sscanf(r,"# %d",&period);
+            *r='\0';
+            while (*--r==' ') *r='\0'; /* delete tail spaces */
+        }
+        if (period<=0) period=1000;
+        if (*msg&&cycle%period==0) {
+            strsendcmd(stream,msg);
+        }
+        if (!*q) break;
+    }
+}
 /* stearm server thread ------------------------------------------------------*/
 #ifdef WIN32
 static DWORD WINAPI strsvrthread(void *arg)
@@ -360,41 +395,68 @@ static void *strsvrthread(void *arg)
 #endif
 {
     strsvr_t *svr=(strsvr_t *)arg;
-    unsigned int tick,ticknmea;
-    int i,n;
+    sol_t sol_nmea={{0}};
+    unsigned int tick,tick_nmea;
+    unsigned char buff[1024];
+    char sel[256];
+    int i,n,cyc;
     
     tracet(3,"strsvrthread:\n");
     
-    svr->state=1;
     svr->tick=tickget();
-    ticknmea=svr->tick-1000;
+    tick_nmea=svr->tick-1000;
     
-    while (svr->state) {
+    for (cyc=0;svr->state;cyc++) {
         tick=tickget();
         
         /* read data from input stream */
-        n=strread(svr->stream,svr->buff,svr->buffsize);
-        
-        /* write data to output streams */
+        while ((n=strread(svr->stream,svr->buff,svr->buffsize))>0&&svr->state) {
+            
+            /* get stream selection */
+            strgetsel(svr->stream,sel);
+            
+            /* write data to output streams */
+            for (i=1;i<svr->nstr;i++) {
+                
+                /* set stream selection */
+                strsetsel(svr->stream+i,sel);
+                
+                if (svr->conv[i-1]) {
+                    strconv(svr->stream+i,svr->conv[i-1],svr->buff,n);
+                }
+                else {
+                    strwrite(svr->stream+i,svr->buff,n);
+                }
+            }
+            lock(&svr->lock);
+            for (i=0;i<n&&svr->npb<svr->buffsize;i++) {
+                svr->pbuf[svr->npb++]=svr->buff[i];
+            }
+            unlock(&svr->lock);
+        }
         for (i=1;i<svr->nstr;i++) {
-            if (svr->conv[i-1]) {
-                strconv(svr->stream+i,svr->conv[i-1],svr->buff,n);
+            
+            /* read message from output stream */
+            while ((n=strread(svr->stream+i,buff,sizeof(buff)))>0) {
+                
+                /* relay back message from output stream to input stream */
+                if (i==svr->relayback) {
+                    strwrite(svr->stream,buff,n);
+                }
             }
-            else {
-                strwrite(svr->stream+i,svr->buff,n);
-            }
+        }
+        /* write periodic command to input stream */
+        for (i=0;i<svr->nstr;i++) {
+            periodic_cmd(cyc*svr->cycle,svr->cmds_periodic[i],svr->stream+i);
         }
         /* write nmea messages to input stream */
-        if (svr->nmeacycle>0&&(int)(tick-ticknmea)>=svr->nmeacycle) {
-            strsendnmea(svr->stream,svr->nmeapos);
-            ticknmea=tick;
+        if (svr->nmeacycle>0&&(int)(tick-tick_nmea)>=svr->nmeacycle) {
+            sol_nmea.stat=SOLQ_SINGLE;
+            sol_nmea.time=utc2gpst(timeget());
+            matcpy(sol_nmea.rr,svr->nmeapos,3,1);
+            strsendnmea(svr->stream,&sol_nmea);
+            tick_nmea=tick;
         }
-        lock(&svr->lock);
-        for (i=0;i<n&&svr->npb<svr->buffsize;i++) {
-            svr->pbuf[svr->npb++]=svr->buff[i];
-        }
-        unlock(&svr->lock);
-        
         sleepms(svr->cycle-(int)(tickget()-tick));
     }
     for (i=0;i<svr->nstr;i++) strclose(svr->stream+i);
@@ -420,7 +482,9 @@ extern void strsvrinit(strsvr_t *svr, int nout)
     svr->cycle=0;
     svr->buffsize=0;
     svr->nmeacycle=0;
+    svr->relayback=0;
     svr->npb=0;
+    for (i=0;i<16;i++) *svr->cmds_periodic[i]='\0';
     for (i=0;i<3;i++) svr->nmeapos[i]=0.0;
     svr->buff=svr->pbuf=NULL;
     svr->tick=0;
@@ -441,6 +505,7 @@ extern void strsvrinit(strsvr_t *svr, int nout)
 *              opts[4]= server cycle (ms)
 *              opts[5]= nmea request cycle (ms) (0:no)
 *              opts[6]= file swap margin (s)
+*              opts[7]= relay back of output stream (0:no)
 *          int    *strs     I   stream types (STR_???)
 *              strs[0]= input stream
 *              strs[1]= output stream 1
@@ -455,12 +520,22 @@ extern void strsvrinit(strsvr_t *svr, int nout)
 *              conv[0]= output stream 1 converter
 *              conv[1]= output stream 2 converter
 *              conv[2]= output stream 3 converter
-*          char   *cmd      I   input stream start command (NULL: no cmd)
+*          char   **cmds    I   start commands (NULL: no cmd)
+*              cmds[0]= input stream command
+*              cmds[1]= output stream 1 command
+*              cmds[2]= output stream 2 command
+*              cmds[3]= output stream 3 command
+*          char   **cmds_periodic I periodic commands (NULL: no cmd)
+*              cmds[0]= input stream command
+*              cmds[1]= output stream 1 command
+*              cmds[2]= output stream 2 command
+*              cmds[3]= output stream 3 command
 *          double *nmeapos  I   nmea request position (ecef) (m) (NULL: no)
 * return : status (0:error,1:ok)
 *-----------------------------------------------------------------------------*/
 extern int strsvrstart(strsvr_t *svr, int *opts, int *strs, char **paths,
-                       strconv_t **conv, const char *cmd, const double *nmeapos)
+                       strconv_t **conv, char **cmds, char **cmds_periodic,
+                       const double *nmeapos)
 {
     int i,rw,stropt[5]={0};
     char file1[MAXSTRPATH],file2[MAXSTRPATH],*p;
@@ -477,8 +552,11 @@ extern int strsvrstart(strsvr_t *svr, int *opts, int *strs, char **paths,
     svr->cycle=opts[4];
     svr->buffsize=opts[3]<4096?4096:opts[3]; /* >=4096byte */
     svr->nmeacycle=0<opts[5]&&opts[5]<1000?1000:opts[5]; /* >=1s */
+    svr->relayback=opts[7];
     for (i=0;i<3;i++) svr->nmeapos[i]=nmeapos?nmeapos[i]:0.0;
-    
+    for (i=0;i<4;i++) {
+        strcpy(svr->cmds_periodic[i],!cmds_periodic[i]?"":cmds_periodic[i]);
+    }
     for (i=0;i<svr->nstr-1;i++) svr->conv[i]=conv[i];
     
     if (!(svr->buff=(unsigned char *)malloc(svr->buffsize))||
@@ -495,14 +573,24 @@ extern int strsvrstart(strsvr_t *svr, int *opts, int *strs, char **paths,
             for (i--;i>=0;i--) strclose(svr->stream+i);
             return 0;
         }
-        rw=i==0?STR_MODE_R:STR_MODE_W;
-        if (strs[i]!=STR_FILE) rw|=STR_MODE_W;
+        if (strs[i]==STR_FILE) {
+            rw=i==0?STR_MODE_R:STR_MODE_W;
+        }
+        else {
+            rw=STR_MODE_RW;
+        }
         if (stropen(svr->stream+i,strs[i],rw,paths[i])) continue;
         for (i--;i>=0;i--) strclose(svr->stream+i);
         return 0;
     }
-    /* write start command to input stream */
-    if (cmd) strsendcmd(svr->stream,cmd);
+    /* write start commands to input streams */
+    for (i=0;i<svr->nstr;i++) {
+        if (!cmds[i]) continue;
+        strwrite(svr->stream+i,(unsigned char *)"",0); /* for connect */
+        sleepms(100);
+        strsendcmd(svr->stream+i,cmds[i]);
+    }
+    svr->state=1;
     
     /* create stream server thread */
 #ifdef WIN32
@@ -511,6 +599,7 @@ extern int strsvrstart(strsvr_t *svr, int *opts, int *strs, char **paths,
     if (pthread_create(&svr->thread,NULL,strsvrthread,svr)) {
 #endif
         for (i=0;i<svr->nstr;i++) strclose(svr->stream+i);
+        svr->state=0;
         return 0;
     }
     return 1;
@@ -518,15 +607,22 @@ extern int strsvrstart(strsvr_t *svr, int *opts, int *strs, char **paths,
 /* stop stream server ----------------------------------------------------------
 * start stream server
 * args   : strsvr_t *svr    IO  stream server struct
-*          char  *cmd       I   input stop command (NULL: no cmd)
+*          char  **cmds     I   stop commands (NULL: no cmd)
+*              cmds[0]= input stream command
+*              cmds[1]= output stream 1 command
+*              cmds[2]= output stream 2 command
+*              cmds[3]= output stream 3 command
 * return : none
 *-----------------------------------------------------------------------------*/
-extern void strsvrstop(strsvr_t *svr, const char *cmd)
+extern void strsvrstop(strsvr_t *svr, char **cmds)
 {
+    int i;
+    
     tracet(3,"strsvrstop:\n");
     
-    if (cmd) strsendcmd(svr->stream,cmd);
-    
+    for (i=0;i<svr->nstr;i++) {
+        if (cmds[i]) strsendcmd(svr->stream+i,cmds[i]);
+    }
     svr->state=0;
     
 #ifdef WIN32
@@ -548,7 +644,7 @@ extern void strsvrstop(strsvr_t *svr, const char *cmd)
 extern void strsvrstat(strsvr_t *svr, int *stat, int *byte, int *bps, char *msg)
 {
     char s[MAXSTRMSG]="",*p=msg;
-    int i;
+    int i,bps_in;
     
     tracet(4,"strsvrstat:\n");
     
@@ -558,7 +654,7 @@ extern void strsvrstat(strsvr_t *svr, int *stat, int *byte, int *bps, char *msg)
             stat[i]=strstat(svr->stream,s);
         }
         else {
-            strsum(svr->stream+i,NULL,NULL,byte+i,bps+i);
+            strsum(svr->stream+i,NULL,&bps_in,byte+i,bps+i);
             stat[i]=strstat(svr->stream+i,s);
         }
         if (*s) p+=sprintf(p,"(%d) %s ",i,s);
@@ -588,4 +684,18 @@ extern int strsvrpeek(strsvr_t *svr, unsigned char *buff, int nmax)
     svr->npb-=n;
     unlock(&svr->lock);
     return n;
+}
+/* set ntrip source table for stream server ------------------------------------
+* set ntrip source table for stream server
+* args   : strsvr_t *svr    IO  stream server struct
+*          char  *file      I   source table file
+* return : none
+*-----------------------------------------------------------------------------*/
+extern void strsvrsetsrctbl(strsvr_t *svr, const char *file)
+{
+    int i;
+    
+    for (i=0;i<svr->nstr;i++) {
+        strsetsrctbl(svr->stream+i,file);
+    }
 }

@@ -13,8 +13,6 @@
 
 #include "rtklib.h"
 
-static const char rcsid[]="$Id:$";
-
 #define NMAX_STA    2048            /* max number of stations */
 #define NMAX_TYPE   256             /* max number of data types */
 #define NMAX_URL    1024            /* max number of urls in opptions file */
@@ -480,7 +478,7 @@ static int exec_down(const path_t *path, char *remot_p, const char *usr,
         (!strcmp(p,".z")||!strcmp(p,".gz")||!strcmp(p,".zip")||
          !strcmp(p,".Z")||!strcmp(p,".GZ")||!strcmp(p,".ZIP"))) {
         
-        if (uncompress(path->local,tmpfile)) {
+        if (rtk_uncompress(path->local,tmpfile)) {
             remove(path->local);
         }
         else {

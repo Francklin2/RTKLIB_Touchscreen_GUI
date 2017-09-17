@@ -39,16 +39,18 @@
 *           2013/09/01  1.12 fix bug on presentation of nmea time tag
 *           2015/02/11  1.13 fix bug on checksum of $GLGSA and $GAGSA
 *                            fix bug on satellite id of $GAGSA
+*           2016/01/17  1.14 support reading NMEA GxZDA
+*                            ignore NMEA talker ID
+*           2016/07/30  1.15 suppress output if std is over opt->maxsolstd
+*           2017/06/13  1.16 support output/input of velocity solution
 *-----------------------------------------------------------------------------*/
 #include <ctype.h>
 #include "rtklib.h"
 
-static const char rcsid[]="$Id: solution.c,v 1.1 2008/07/17 21:48:06 ttaka Exp $";
-
 /* constants and macros ------------------------------------------------------*/
 
 #define SQR(x)     ((x)<0.0?-(x)*(x):(x)*(x))
-#define SQRT(x)    ((x)<0.0?0.0:sqrt(x))
+#define SQRT(x)    ((x)<0.0||(x)!=(x)?0.0:sqrt(x))
 
 #define MAXFIELD   64           /* max number of fields in a record */
 #define MAXNMEA    256          /* max length of nmea sentence */
@@ -121,7 +123,27 @@ static void covtosol(const double *P, sol_t *sol)
     sol->qr[4]=(float)P[5]; /* yz or nu */
     sol->qr[5]=(float)P[2]; /* zx or ue */
 }
-/* decode nmea gprmc: recommended minumum data for gps -----------------------*/
+/* solution to velocity covariance -------------------------------------------*/
+static void soltocov_vel(const sol_t *sol, double *P)
+{
+    P[0]     =sol->qv[0]; /* xx */
+    P[4]     =sol->qv[1]; /* yy */
+    P[8]     =sol->qv[2]; /* zz */
+    P[1]=P[3]=sol->qv[3]; /* xy */
+    P[5]=P[7]=sol->qv[4]; /* yz */
+    P[2]=P[6]=sol->qv[5]; /* zx */
+}
+/* velocity covariance to solution -------------------------------------------*/
+static void covtosol_vel(const double *P, sol_t *sol)
+{
+    sol->qv[0]=(float)P[0]; /* xx */
+    sol->qv[1]=(float)P[4]; /* yy */
+    sol->qv[2]=(float)P[8]; /* zz */
+    sol->qv[3]=(float)P[1]; /* xy */
+    sol->qv[4]=(float)P[5]; /* yz */
+    sol->qv[5]=(float)P[2]; /* zx */
+}
+/* decode nmea gxrmc: recommended minumum data for gps -----------------------*/
 static int decode_nmearmc(char **val, int n, sol_t *sol)
 {
     double tod=0.0,lat=0.0,lon=0.0,vel=0.0,dir=0.0,date=0.0,ang=0.0,ep[6];
@@ -169,9 +191,33 @@ static int decode_nmearmc(char **val, int n, sol_t *sol)
           time_str(sol->time,0),sol->rr[0],sol->rr[1],sol->rr[2],sol->stat,sol->ns,
           vel,dir,ang,mew,mode);
     
-    return 1;
+    return 2; /* update time */
 }
-/* decode nmea gpgga: fix information ----------------------------------------*/
+/* decode nmea gxzda: utc day,month,year and local time zone offset ----------*/
+static int decode_nmeazda(char **val, int n, sol_t *sol)
+{
+    double tod=0.0,ep[6]={0};
+    int i;
+    
+    trace(4,"decode_nmeazda: n=%d\n",n);
+    
+    for (i=0;i<n;i++) {
+        switch (i) {
+            case  0: tod  =atof(val[i]); break; /* time in utc (hhmmss) */
+            case  1: ep[2]=atof(val[i]); break; /* day (0-31) */
+            case  2: ep[1]=atof(val[i]); break; /* mon (1-12) */
+            case  3: ep[0]=atof(val[i]); break; /* year */
+        }
+    }
+    septime(tod,ep+3,ep+4,ep+5);
+    sol->time=utc2gpst(epoch2time(ep));
+    sol->ns=0;
+    
+    trace(5,"decode_nmeazda: %s\n",time_str(sol->time,0));
+    
+    return 2; /* update time */
+}
+/* decode nmea gxgga: fix information ----------------------------------------*/
 static int decode_nmeagga(char **val, int n, sol_t *sol)
 {
     gtime_t time;
@@ -229,6 +275,25 @@ static int decode_nmeagga(char **val, int n, sol_t *sol)
     
     return 1;
 }
+/* test nmea -----------------------------------------------------------------*/
+static int test_nmea(const char *buff)
+{
+    if (strlen(buff)<6||buff[0]!='$') return 0;
+    return !strncmp(buff+1,"GP",2)||!strncmp(buff+1,"GA",2)||
+           !strncmp(buff+1,"GL",2)||!strncmp(buff+1,"GN",2)||
+           !strncmp(buff+1,"GB",2)||!strncmp(buff+1,"BD",2)||
+           !strncmp(buff+1,"QZ",2);
+}
+/* test solution status ------------------------------------------------------*/
+static int test_solstat(const char *buff)
+{
+    if (strlen(buff)<7||buff[0]!='$') return 0;
+    return !strncmp(buff+1,"POS" ,3)||!strncmp(buff+1,"VELACC",6)||
+           !strncmp(buff+1,"CLK" ,3)||!strncmp(buff+1,"ION"   ,3)||
+           !strncmp(buff+1,"TROP",4)||!strncmp(buff+1,"HWBIAS",6)||
+           !strncmp(buff+1,"TRPG",4)||!strncmp(buff+1,"AMB"   ,3)||
+           !strncmp(buff+1,"SAT" ,3);
+}
 /* decode nmea ---------------------------------------------------------------*/
 static int decode_nmea(char *buff, sol_t *sol)
 {
@@ -244,11 +309,13 @@ static int decode_nmea(char *buff, sol_t *sol)
         }
         else break;
     }
-    /* decode nmea sentence */
-    if (!strcmp(val[0],"$GPRMC")) {
+    if (!strcmp(val[0]+3,"RMC")) { /* $xxRMC */
         return decode_nmearmc(val+1,n-1,sol);
     }
-    else if (!strcmp(val[0],"$GPGGA")) {
+    else if (!strcmp(val[0]+3,"ZDA")) { /* $xxZDA */
+        return decode_nmeazda(val+1,n-1,sol);
+    }
+    else if (!strcmp(val[0]+3,"GGA")) { /* $xxGGA */
         return decode_nmeagga(val+1,n-1,sol);
     }
     return 0;
@@ -266,6 +333,9 @@ static char *decode_soltime(char *buff, const solopt_t *opt, gtime_t *time)
     else if (*opt->sep) strcpy(s,opt->sep);
     len=(int)strlen(s);
     
+    if (opt->posf==SOLF_STAT) {
+        return buff;
+    }
     /* yyyy/mm/dd hh:mm:ss or yyyy mm dd hh:mm:ss */
     if (sscanf(buff,"%lf/%lf/%lf %lf:%lf:%lf",v,v+1,v+2,v+3,v+4,v+5)>=6) {
         if (v[0]<100.0) {
@@ -319,7 +389,27 @@ static int decode_solxyz(char *buff, const solopt_t *opt, sol_t *sol)
     }
     if (i<n) sol->stat=(unsigned char)val[i++];
     if (i<n) sol->ns  =(unsigned char)val[i++];
-    if (i+3<n) {
+    if (i+3<=n) {
+        P[0]=val[i]*val[i]; i++; /* sdx */
+        P[4]=val[i]*val[i]; i++; /* sdy */
+        P[8]=val[i]*val[i]; i++; /* sdz */
+        if (i+3<=n) {
+            P[1]=P[3]=SQR(val[i]); i++; /* sdxy */
+            P[5]=P[7]=SQR(val[i]); i++; /* sdyz */
+            P[2]=P[6]=SQR(val[i]); i++; /* sdzx */
+        }
+        covtosol(P,sol);
+    }
+    if (i<n) sol->age  =(float)val[i++];
+    if (i<n) sol->ratio=(float)val[i++];
+    
+    if (i+3<=n) { /* velocity */
+        for (j=0;j<3;j++) {
+            sol->rr[j+3]=val[i++]; /* xyz */
+        }
+    }
+    if (i+3<=n) {
+        for (j=0;j<9;j++) P[j]=0.0;
         P[0]=val[i]*val[i]; i++; /* sdx */
         P[4]=val[i]*val[i]; i++; /* sdy */
         P[8]=val[i]*val[i]; i++; /* sdz */
@@ -328,11 +418,8 @@ static int decode_solxyz(char *buff, const solopt_t *opt, sol_t *sol)
             P[5]=P[7]=SQR(val[i]); i++; /* sdyz */
             P[2]=P[6]=SQR(val[i]); i++; /* sdzx */
         }
-        covtosol(P,sol);
+        covtosol_vel(P,sol);
     }
-    if (i<n) sol->age  =(float)val[i++];
-    if (i<n) sol->ratio=(float)val[i];
-    
     sol->type=0; /* postion type = xyz */
     
     if (MAXSOLQ<sol->stat) sol->stat=SOLQ_NONE;
@@ -341,8 +428,8 @@ static int decode_solxyz(char *buff, const solopt_t *opt, sol_t *sol)
 /* decode lat/lon/height -----------------------------------------------------*/
 static int decode_solllh(char *buff, const solopt_t *opt, sol_t *sol)
 {
-    double val[MAXFIELD],pos[3],Q[9]={0},P[9];
-    int i=0,n;
+    double val[MAXFIELD],pos[3],vel[3],Q[9]={0},P[9];
+    int i=0,j,n;
     const char *sep=opt2sep(opt);
     
     trace(4,"decode_solllh:\n");
@@ -365,7 +452,7 @@ static int decode_solllh(char *buff, const solopt_t *opt, sol_t *sol)
     pos2ecef(pos,sol->rr);
     if (i<n) sol->stat=(unsigned char)val[i++];
     if (i<n) sol->ns  =(unsigned char)val[i++];
-    if (i+3<n) {
+    if (i+3<=n) {
         Q[4]=val[i]*val[i]; i++; /* sdn */
         Q[0]=val[i]*val[i]; i++; /* sde */
         Q[8]=val[i]*val[i]; i++; /* sdu */
@@ -378,8 +465,27 @@ static int decode_solllh(char *buff, const solopt_t *opt, sol_t *sol)
         covtosol(P,sol);
     }
     if (i<n) sol->age  =(float)val[i++];
-    if (i<n) sol->ratio=(float)val[i];
+    if (i<n) sol->ratio=(float)val[i++];
     
+    if (i+3<=n) { /* velocity */
+        vel[1]=val[i++]; /* vel-n */
+        vel[0]=val[i++]; /* vel-e */
+        vel[2]=val[i++]; /* vel-u */
+        enu2ecef(pos,vel,sol->rr+3);
+    }
+    if (i+3<=n) {
+        for (j=0;j<9;j++) Q[j]=0.0;
+        Q[4]=val[i]*val[i]; i++; /* sdn */
+        Q[0]=val[i]*val[i]; i++; /* sde */
+        Q[8]=val[i]*val[i]; i++; /* sdu */
+        if (i+3<=n) {
+            Q[1]=Q[3]=SQR(val[i]); i++; /* sdne */
+            Q[2]=Q[6]=SQR(val[i]); i++; /* sdeu */
+            Q[5]=Q[7]=SQR(val[i]); i++; /* sdun */
+        }
+        covecef(pos,Q,P);
+        covtosol_vel(P,sol);
+    }
     sol->type=0; /* postion type = xyz */
     
     if (MAXSOLQ<sol->stat) sol->stat=SOLQ_NONE;
@@ -401,11 +507,11 @@ static int decode_solenu(char *buff, const solopt_t *opt, sol_t *sol)
     }
     if (i<n) sol->stat=(unsigned char)val[i++];
     if (i<n) sol->ns  =(unsigned char)val[i++];
-    if (i+3<n) {
+    if (i+3<=n) {
         Q[0]=val[i]*val[i]; i++; /* sde */
         Q[4]=val[i]*val[i]; i++; /* sdn */
         Q[8]=val[i]*val[i]; i++; /* sdu */
-        if (i+3<n) {
+        if (i+3<=n) {
             Q[1]=Q[3]=SQR(val[i]); i++; /* sden */
             Q[5]=Q[7]=SQR(val[i]); i++; /* sdnu */
             Q[2]=Q[6]=SQR(val[i]); i++; /* sdue */
@@ -413,11 +519,38 @@ static int decode_solenu(char *buff, const solopt_t *opt, sol_t *sol)
         covtosol(Q,sol);
     }
     if (i<n) sol->age  =(float)val[i++];
-    if (i<n) sol->ratio=(float)val[i];
+    if (i<n) sol->ratio=(float)val[i++];
     
     sol->type=1; /* postion type = enu */
     
     if (MAXSOLQ<sol->stat) sol->stat=SOLQ_NONE;
+    return 1;
+}
+/* decode solution status ----------------------------------------------------*/
+static int decode_solsss(char *buff, sol_t *sol)
+{
+    double tow,pos[3],std[3]={0};
+    int i,week,solq;
+    
+    trace(4,"decode_solssss:\n");
+    
+    if (sscanf(buff,"$POS,%d,%lf,%d,%lf,%lf,%lf,%lf,%lf,%lf",&week,&tow,&solq,
+               pos,pos+1,pos+2,std,std+1,std+2)<6) {
+        return 0;
+    }
+    if (week<=0||norm(pos,3)<=0.0||solq==SOLQ_NONE) {
+        return 0;
+    }
+    sol->time=gpst2time(week,tow);
+    for (i=0;i<6;i++) {
+        sol->rr[i]=i<3?pos[i]:0.0;
+        sol->qr[i]=i<3?(float)SQR(std[i]):0.0f;
+        sol->dtr[i]=0.0;
+    }
+    sol->ns=0;
+    sol->age=sol->ratio=sol->thres=0.0f;
+    sol->type=0; /* position type = xyz */
+    sol->stat=solq;
     return 1;
 }
 /* decode gsi f solution -----------------------------------------------------*/
@@ -493,22 +626,20 @@ static int decode_sol(char *buff, const solopt_t *opt, sol_t *sol, double *rb)
     
     trace(4,"decode_sol: buff=%s\n",buff);
     
+    if (test_nmea(buff)) { /* decode nmea */
+        return decode_nmea(buff,sol);
+    }
+    else if (test_solstat(buff)) { /* decode solution status */
+        return decode_solsss(buff,sol);
+    }
     if (!strncmp(buff,COMMENTH,1)) { /* reference position */
         if (!strstr(buff,"ref pos")&&!strstr(buff,"slave pos")) return 0;
         if (!(p=strchr(buff,':'))) return 0;
         decode_refpos(p+1,opt,rb);
         return 0;
     }
-    if (!strncmp(buff,"$GP",3)) { /* decode nmea */
-        if (!decode_nmea(buff,sol)) return 0;
-        
-        /* for time update only */
-        if (opt->posf!=SOLF_NMEA&&!strncmp(buff,"$GPRMC",6)) return 2;
-    }
-    else { /* decode position record */
-        if (!decode_solpos(buff,opt,sol)) return 0;
-    }
-    return 1;
+    /* decode position record */
+    return decode_solpos(buff,opt,sol);
 }
 /* decode solution options ---------------------------------------------------*/
 static void decode_solopt(char *buff, solopt_t *opt)
@@ -603,8 +734,10 @@ extern int inputsol(unsigned char data, gtime_t ts, gtime_t te, double tint,
         return -1;
     }
     /* decode solution */
+    sol.time=solbuf->time;
     if ((stat=decode_sol((char *)solbuf->buff,opt,&sol,solbuf->rb))>0) {
-        solbuf->time=sol.time; /* update current time */
+        if (stat) solbuf->time=sol.time; /* update current time */
+        if (stat!=1) return 0;
     }
     if (stat!=1||!screent(sol.time,ts,te,tint)||(qflag&&sol.stat!=qflag)) {
         return 0;
@@ -679,7 +812,7 @@ extern int readsolt(char *files[], int nfile, gtime_t ts, gtime_t te,
     
     for (i=0;i<nfile;i++) {
         if (!(fp=fopen(files[i],"rb"))) {
-            trace(1,"readsolt: file open error %s\n",files[i]);
+            trace(2,"readsolt: file open error %s\n",files[i]);
             continue;
         }
         /* read solution options in header */
@@ -688,7 +821,7 @@ extern int readsolt(char *files[], int nfile, gtime_t ts, gtime_t te,
         
         /* read solution data */
         if (!readsoldata(fp,ts,te,tint,qflag,&opt,solbuf)) {
-            trace(1,"readsolt: no solution in %s\n",files[i]);
+            trace(2,"readsolt: no solution in %s\n",files[i]);
         }
         fclose(fp);
     }
@@ -762,14 +895,22 @@ extern sol_t *getsol(solbuf_t *solbuf, int index)
 *-----------------------------------------------------------------------------*/
 extern void initsolbuf(solbuf_t *solbuf, int cyclic, int nmax)
 {
+#if 0
     gtime_t time0={0};
+#endif
+    int i;
     
     trace(3,"initsolbuf: cyclic=%d nmax=%d\n",cyclic,nmax);
     
-    solbuf->n=solbuf->nmax=solbuf->start=solbuf->end=0;
+    solbuf->n=solbuf->nmax=solbuf->start=solbuf->end=solbuf->nb=0;
     solbuf->cyclic=cyclic;
+#if 0
     solbuf->time=time0;
+#endif
     solbuf->data=NULL;
+    for (i=0;i<3;i++) {
+        solbuf->rb[i]=0.0;
+    }
     if (cyclic) {
         if (nmax<=2) nmax=2;
         if (!(solbuf->data=malloc(sizeof(sol_t)*nmax))) {
@@ -786,11 +927,16 @@ extern void initsolbuf(solbuf_t *solbuf, int cyclic, int nmax)
 *-----------------------------------------------------------------------------*/
 extern void freesolbuf(solbuf_t *solbuf)
 {
+    int i;
+    
     trace(3,"freesolbuf: n=%d\n",solbuf->n);
     
     free(solbuf->data);
-    solbuf->n=solbuf->nmax=solbuf->start=solbuf->end=0;
+    solbuf->n=solbuf->nmax=solbuf->start=solbuf->end=solbuf->nb=0;
     solbuf->data=NULL;
+    for (i=0;i<3;i++) {
+        solbuf->rb[i]=0.0;
+    }
 }
 extern void freesolstatbuf(solstatbuf_t *solstatbuf)
 {
@@ -933,12 +1079,12 @@ extern int readsolstatt(char *files[], int nfile, gtime_t ts, gtime_t te,
     for (i=0;i<nfile;i++) {
         sprintf(path,"%s.stat",files[i]);
         if (!(fp=fopen(path,"r"))) {
-            trace(1,"readsolstatt: file open error %s\n",path);
+            trace(2,"readsolstatt: file open error %s\n",path);
             continue;
         }
         /* read solution status data */
         if (!readsolstatdata(fp,ts,te,tint,statbuf)) {
-            trace(1,"readsolt: no solution in %s\n",path);
+            trace(2,"readsolstatt: no solution in %s\n",path);
         }
         fclose(fp);
     }
@@ -961,18 +1107,27 @@ static int outecef(unsigned char *buff, const char *s, const sol_t *sol,
     
     trace(3,"outecef:\n");
     
-    p+=sprintf(p,"%s%s%14.4f%s%14.4f%s%14.4f%s%3d%s%3d%s%8.4f%s%8.4f%s%8.4f%s%8.4f%s%8.4f%s%8.4f%s%6.2f%s%6.1f\n",
+    p+=sprintf(p,"%s%s%14.4f%s%14.4f%s%14.4f%s%3d%s%3d%s%8.4f%s%8.4f%s%8.4f%s%8.4f%s%8.4f%s%8.4f%s%6.2f%s%6.1f",
                s,sep,sol->rr[0],sep,sol->rr[1],sep,sol->rr[2],sep,sol->stat,sep,
                sol->ns,sep,SQRT(sol->qr[0]),sep,SQRT(sol->qr[1]),sep,SQRT(sol->qr[2]),
                sep,sqvar(sol->qr[3]),sep,sqvar(sol->qr[4]),sep,sqvar(sol->qr[5]),
                sep,sol->age,sep,sol->ratio);
+    
+    if (opt->outvel) { /* output velocity */
+        p+=sprintf(p,"%s%10.5f%s%10.5f%s%10.5f%s%9.5f%s%8.5f%s%8.5f%s%8.5f%s%8.5f%s%8.5f",
+                   sep,sol->rr[3],sep,sol->rr[4],sep,sol->rr[5],sep,
+                   SQRT(sol->qv[0]),sep,SQRT(sol->qv[1]),sep,SQRT(sol->qv[2]),
+                   sep,sqvar(sol->qv[3]),sep,sqvar(sol->qv[4]),sep,
+                   sqvar(sol->qv[5]));
+    }
+    p+=sprintf(p,"\n");
     return p-(char *)buff;
 }
 /* output solution as the form of lat/lon/height -----------------------------*/
 static int outpos(unsigned char *buff, const char *s, const sol_t *sol,
                   const solopt_t *opt)
 {
-    double pos[3],dms1[3],dms2[3],P[9],Q[9];
+    double pos[3],vel[3],dms1[3],dms2[3],P[9],Q[9];
     const char *sep=opt2sep(opt);
     char *p=(char *)buff;
     
@@ -985,17 +1140,30 @@ static int outpos(unsigned char *buff, const char *s, const sol_t *sol,
         pos[2]-=geoidh(pos);
     }
     if (opt->degf) {
-        deg2dms(pos[0]*R2D,dms1);
-        deg2dms(pos[1]*R2D,dms2);
+        deg2dms(pos[0]*R2D,dms1,5);
+        deg2dms(pos[1]*R2D,dms2,5);
         p+=sprintf(p,"%s%s%4.0f%s%02.0f%s%08.5f%s%4.0f%s%02.0f%s%08.5f",s,sep,
                    dms1[0],sep,dms1[1],sep,dms1[2],sep,dms2[0],sep,dms2[1],sep,
                    dms2[2]);
     }
-    else p+=sprintf(p,"%s%s%14.9f%s%14.9f",s,sep,pos[0]*R2D,sep,pos[1]*R2D);
-    p+=sprintf(p,"%s%10.4f%s%3d%s%3d%s%8.4f%s%8.4f%s%8.4f%s%8.4f%s%8.4f%s%8.4f%s%6.2f%s%6.1f\n",
+    else {
+        p+=sprintf(p,"%s%s%14.9f%s%14.9f",s,sep,pos[0]*R2D,sep,pos[1]*R2D);
+    }
+    p+=sprintf(p,"%s%10.4f%s%3d%s%3d%s%8.4f%s%8.4f%s%8.4f%s%8.4f%s%8.4f%s%8.4f%s%6.2f%s%6.1f",
                sep,pos[2],sep,sol->stat,sep,sol->ns,sep,SQRT(Q[4]),sep,
                SQRT(Q[0]),sep,SQRT(Q[8]),sep,sqvar(Q[1]),sep,sqvar(Q[2]),
                sep,sqvar(Q[5]),sep,sol->age,sep,sol->ratio);
+    
+    if (opt->outvel) { /* output velocity */
+        soltocov_vel(sol,P);
+        ecef2enu(pos,sol->rr+3,vel);
+        covenu(pos,P,Q);
+        p+=sprintf(p,"%s%10.5f%s%10.5f%s%10.5f%s%9.5f%s%8.5f%s%8.5f%s%8.5f%s%8.5f%s%8.5f",
+                   sep,vel[1],sep,vel[0],sep,vel[2],sep,SQRT(Q[4]),sep,
+                   SQRT(Q[0]),sep,SQRT(Q[8]),sep,sqvar(Q[1]),sep,sqvar(Q[2]),
+                   sep,sqvar(Q[5]));
+    }
+    p+=sprintf(p,"\n");
     return p-(char *)buff;
 }
 /* output solution as the form of e/n/u-baseline -----------------------------*/
@@ -1047,9 +1215,11 @@ extern int outnmea_rmc(unsigned char *buff, const sol_t *sol)
         if (dir<0.0) dir+=360.0;
         dirp=dir;
     }
-    else dir=dirp;
-    deg2dms(fabs(pos[0])*R2D,dms1);
-    deg2dms(fabs(pos[1])*R2D,dms2);
+    else {
+        dir=dirp;
+    }
+    deg2dms(fabs(pos[0])*R2D,dms1,7);
+    deg2dms(fabs(pos[1])*R2D,dms2,7);
     p+=sprintf(p,"$GPRMC,%02.0f%02.0f%05.2f,A,%02.0f%010.7f,%s,%03.0f%010.7f,%s,%4.2f,%4.2f,%02.0f%02.0f%02d,%.1f,%s,%s",
                ep[3],ep[4],ep[5],dms1[0],dms1[1]+dms1[2]/60.0,pos[0]>=0?"N":"S",
                dms2[0],dms2[1]+dms2[2]/60.0,pos[1]>=0?"E":"W",vel/KNOT2M,dir,
@@ -1082,8 +1252,8 @@ extern int outnmea_gga(unsigned char *buff, const sol_t *sol)
     time2epoch(time,ep);
     ecef2pos(sol->rr,pos);
     h=geoidh(pos);
-    deg2dms(fabs(pos[0])*R2D,dms1);
-    deg2dms(fabs(pos[1])*R2D,dms2);
+    deg2dms(fabs(pos[0])*R2D,dms1,7);
+    deg2dms(fabs(pos[1])*R2D,dms2,7);
     p+=sprintf(p,"$GPGGA,%02.0f%02.0f%05.2f,%02.0f%010.7f,%s,%03.0f%010.7f,%s,%d,%02d,%.1f,%.3f,M,%.3f,M,%.1f,",
                ep[3],ep[4],ep[5],dms1[0],dms1[1]+dms1[2]/60.0,pos[0]>=0?"N":"S",
                dms2[0],dms2[1]+dms2[2]/60.0,pos[1]>=0?"E":"W",solq,
@@ -1271,7 +1441,7 @@ extern int outnmea_gsv(unsigned char *buff, const sol_t *sol,
 *-----------------------------------------------------------------------------*/
 extern int outprcopts(unsigned char *buff, const prcopt_t *opt)
 {
-    const int sys[]={SYS_GPS,SYS_GLO,SYS_GAL,SYS_QZS,SYS_SBS,0};
+    const int sys[]={SYS_GPS,SYS_GLO,SYS_GAL,SYS_QZS,SYS_CMP,SYS_IRN,SYS_SBS,0};
     const char *s1[]={"single","dgps","kinematic","static","moving-base","fixed",
                  "ppp-kinematic","ppp-static","ppp-fixed",""};
     const char *s2[]={"L1","L1+L2","L1+L2+L5","L1+L2+L5+L6","L1+L2+L5+L6+L7",
@@ -1282,7 +1452,7 @@ extern int outprcopts(unsigned char *buff, const prcopt_t *opt)
     const char *s5[]={"off","saastamoinen","sbas","est ztd","est ztd+grad",""};
     const char *s6[]={"broadcast","precise","broadcast+sbas","broadcast+ssr apc",
                       "broadcast+ssr com","qzss lex",""};
-    const char *s7[]={"gps","glonass","galileo","qzss","sbas",""};
+    const char *s7[]={"gps","glonass","galileo","qzss","beidou","irnss","sbas",""};
     const char *s8[]={"off","continuous","instantaneous","fix and hold",""};
     const char *s9[]={"off","on","auto calib","external calib",""};
     int i;
@@ -1351,8 +1521,9 @@ extern int outsolheads(unsigned char *buff, const solopt_t *opt)
     
     trace(3,"outsolheads:\n");
     
-    if (opt->posf==SOLF_NMEA) return 0;
-    
+    if (opt->posf==SOLF_NMEA||opt->posf==SOLF_STAT||opt->posf==SOLF_GSIF) {
+        return 0;
+    }
     if (opt->outhead) {
         p+=sprintf(p,"%s (",COMMENTH);
         if      (opt->posf==SOLF_XYZ) p+=sprintf(p,"x/y/z-ecef=WGS84");
@@ -1364,31 +1535,51 @@ extern int outsolheads(unsigned char *buff, const solopt_t *opt)
     
     if (opt->posf==SOLF_LLH) { /* lat/lon/hgt */
         if (opt->degf) {
-            p+=sprintf(p,"%16s%s%16s%s%10s%s%3s%s%3s%s%8s%s%8s%s%8s%s%8s%s%8s%s%8s%s%6s%s%6s\n",
+            p+=sprintf(p,"%16s%s%16s%s%10s%s%3s%s%3s%s%8s%s%8s%s%8s%s%8s%s%8s%s%8s%s%6s%s%6s",
                        "latitude(d'\")",sep,"longitude(d'\")",sep,"height(m)",sep,
                        "Q",sep,"ns",sep,"sdn(m)",sep,"sde(m)",sep,"sdu(m)",sep,
                        "sdne(m)",sep,"sdeu(m)",sep,"sdue(m)",sep,"age(s)",sep,"ratio");
         }
         else {
-            p+=sprintf(p,"%14s%s%14s%s%10s%s%3s%s%3s%s%8s%s%8s%s%8s%s%8s%s%8s%s%8s%s%6s%s%6s\n",
+            p+=sprintf(p,"%14s%s%14s%s%10s%s%3s%s%3s%s%8s%s%8s%s%8s%s%8s%s%8s%s%8s%s%6s%s%6s",
                        "latitude(deg)",sep,"longitude(deg)",sep,"height(m)",sep,
                        "Q",sep,"ns",sep,"sdn(m)",sep,"sde(m)",sep,"sdu(m)",sep,
                        "sdne(m)",sep,"sdeu(m)",sep,"sdun(m)",sep,"age(s)",sep,"ratio");
         }
+        if (opt->outvel) {
+            p+=sprintf(p,"%s%10s%s%10s%s%10s%s%9s%s%8s%s%8s%s%8s%s%8s%s%8s",
+                       sep,"vn(m/s)",sep,"ve(m/s)",sep,"vu(m/s)",sep,"sdvn",sep,
+                       "sdve",sep,"sdvu",sep,"sdvne",sep,"sdveu",sep,"sdvun");
+        }
     }
     else if (opt->posf==SOLF_XYZ) { /* x/y/z-ecef */
-        p+=sprintf(p,"%14s%s%14s%s%14s%s%3s%s%3s%s%8s%s%8s%s%8s%s%8s%s%8s%s%8s%s%6s%s%6s\n",
+        p+=sprintf(p,"%14s%s%14s%s%14s%s%3s%s%3s%s%8s%s%8s%s%8s%s%8s%s%8s%s%8s%s%6s%s%6s",
                    "x-ecef(m)",sep,"y-ecef(m)",sep,"z-ecef(m)",sep,"Q",sep,"ns",sep,
                    "sdx(m)",sep,"sdy(m)",sep,"sdz(m)",sep,"sdxy(m)",sep,
                    "sdyz(m)",sep,"sdzx(m)",sep,"age(s)",sep,"ratio");
+        
+        if (opt->outvel) {
+            p+=sprintf(p,"%s%10s%s%10s%s%10s%s%9s%s%8s%s%8s%s%8s%s%8s%s%8s",
+                       sep,"vx(m/s)",sep,"vy(m/s)",sep,"vz(m/s)",sep,"sdvx",sep,
+                       "sdvy",sep,"sdvz",sep,"sdvxy",sep,"sdvyz",sep,"sdvzx");
+        }
     }
     else if (opt->posf==SOLF_ENU) { /* e/n/u-baseline */
-        p+=sprintf(p,"%14s%s%14s%s%14s%s%3s%s%3s%s%8s%s%8s%s%8s%s%8s%s%8s%s%8s%s%6s%s%6s\n",
+        p+=sprintf(p,"%14s%s%14s%s%14s%s%3s%s%3s%s%8s%s%8s%s%8s%s%8s%s%8s%s%8s%s%6s%s%6s",
                    "e-baseline(m)",sep,"n-baseline(m)",sep,"u-baseline(m)",sep,
                    "Q",sep,"ns",sep,"sde(m)",sep,"sdn(m)",sep,"sdu(m)",sep,
                    "sden(m)",sep,"sdnu(m)",sep,"sdue(m)",sep,"age(s)",sep,"ratio");
     }
+    p+=sprintf(p,"\n");
     return p-(char *)buff;
+}
+/* std-dev of soltuion -------------------------------------------------------*/
+static double sol_std(const sol_t *sol)
+{
+    /* approximate as max std-dev of 3-axis std-devs */
+    if (sol->qr[0]>sol->qr[1]&&sol->qr[0]>sol->qr[2]) return SQRT(sol->qr[0]);
+    if (sol->qr[1]>sol->qr[2]) return SQRT(sol->qr[1]);
+    return SQRT(sol->qr[2]);
 }
 /* output solution body --------------------------------------------------------
 * output solution body to buffer
@@ -1410,6 +1601,10 @@ extern int outsols(unsigned char *buff, const sol_t *sol, const double *rb,
     
     trace(3,"outsols :\n");
     
+    /* suppress output if std is over opt->maxsolstd */
+    if (opt->maxsolstd>0.0&&sol_std(sol)>opt->maxsolstd) {
+        return 0;
+    }
     if (opt->posf==SOLF_NMEA) {
         if (opt->nmeaintv[0]<0.0) return 0;
         if (!screent(sol->time,ts,ts,opt->nmeaintv[0])) return 0;
@@ -1458,6 +1653,10 @@ extern int outsolexs(unsigned char *buff, const sol_t *sol, const ssat_t *ssat,
     
     trace(3,"outsolexs:\n");
     
+    /* suppress output if std is over opt->maxsolstd */
+    if (opt->maxsolstd>0.0&&sol_std(sol)>opt->maxsolstd) {
+        return 0;
+    }
     if (opt->posf==SOLF_NMEA) {
         if (opt->nmeaintv[1]<0.0) return 0;
         if (!screent(sol->time,ts,ts,opt->nmeaintv[1])) return 0;

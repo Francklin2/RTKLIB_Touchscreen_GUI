@@ -1,7 +1,7 @@
 /*------------------------------------------------------------------------------
 * binex.c : binex dependent functions
 *
-*          Copyright (C) 2013 by T.TAKASU, All rights reserved.
+*          Copyright (C) 2013-2017 by T.TAKASU, All rights reserved.
 *
 * reference :
 *     [1] UNAVCO, BINEX: Binary exchange format
@@ -12,10 +12,12 @@
 *           2013/04/15 1.1 support 0x01-05 beidou-2/compass ephemeris
 *           2013/05/18 1.2 fix bug on decoding obsflags in message 0x7f-05
 *           2014/04/27 1.3 fix bug on decoding iode for message 0x01-02
+*           2015/12/05 1.4 fix bug on decoding tgd for message 0x01-05
+*           2016/07/29 1.5 crc16() -> rtk_crc16()
+*           2017/04/11 1.6 (char *) -> (signed char *)
+*                          fix bug on unchange-test of beidou ephemeris
 *-----------------------------------------------------------------------------*/
 #include "rtklib.h"
-
-static const char rcsid[]="$Id:$";
 
 #define BNXSYNC1    0xC2    /* binex sync (little-endian,regular-crc) */
 #define BNXSYNC2    0xE2    /* binex sync (big-endian   ,regular-crc) */
@@ -36,7 +38,7 @@ static const double ura_eph[]={
 };
 /* get fields (big-endian) ---------------------------------------------------*/
 #define U1(p) (*((unsigned char *)(p)))
-#define I1(p) (*((char *)(p)))
+#define I1(p) (*((signed char *)(p)))
 
 static unsigned short U2(unsigned char *p)
 {
@@ -462,6 +464,13 @@ static int decode_bnx_01_01(raw_t *raw, unsigned char *buff, int len)
     eph.flag=(flag>>8)&0x01;
     eph.code=(flag>>9)&0x03;
     eph.sva=uraindex(ura);
+{
+char s1[32],s2[32],s3[32];
+time2str(raw->time,s1,0);
+time2str(eph.ttr,s2,0);
+time2str(eph.toe,s3,0);
+trace(1,"binex 0x01-01: sat=%02d time=%s ttr=%s toe=%s iod=%d %d\n",eph.sat,s1,s2,s3,eph.iode,eph.iodc);
+}
     
     if (!strstr(raw->opt,"-EPHALL")) {
         if (raw->nav.eph[eph.sat-1].iode==eph.iode&&
@@ -586,7 +595,7 @@ static int decode_bnx_01_04(raw_t *raw, unsigned char *buff, int len)
     
     if (len>=127) {
         prn       =U1(p)+1;      p+=1;
-        eph.week  =U2(p);        p+=2;
+        eph.week  =U2(p);        p+=2; /* gal-week = gps-week */
         tow       =I4(p);        p+=4;
         eph.toes  =I4(p);        p+=4;
         eph.tgd[0]=R4(p);        p+=4; /* BGD E5a/E1 */
@@ -641,7 +650,7 @@ static int decode_bnx_01_04(raw_t *raw, unsigned char *buff, int len)
 static double bds_tgd(int tgd)
 {
     tgd&=0x3FF;
-    return (tgd&0x200)?-1E10*((~tgd)&0x1FF):1E-10*(tgd&0x1FF);
+    return (tgd&0x200)?-1E-10*((~tgd)&0x1FF):1E-10*(tgd&0x1FF);
 }
 /* decode binex mesaage 0x01-05: decoded beidou-2/compass ephmemeris ---------*/
 static int decode_bnx_01_05(raw_t *raw, unsigned char *buff, int len)
@@ -703,7 +712,8 @@ static int decode_bnx_01_05(raw_t *raw, unsigned char *buff, int len)
         /* message source (0:unknown,1:B1I,2:B1Q,3:B2I,4:B2Q,5:B3I,6:B3Q)*/
     
     if (!strstr(raw->opt,"-EPHALL")) {
-        if (raw->nav.eph[eph.sat-1].iode==eph.iode&&
+        if (timediff(raw->nav.eph[eph.sat-1].toe,eph.toe)==0.0&&
+            raw->nav.eph[eph.sat-1].iode==eph.iode&&
             raw->nav.eph[eph.sat-1].iodc==eph.iodc) return 0; /* unchanged */
     }
     raw->nav.eph[eph.sat-1]=eph;
@@ -1140,7 +1150,7 @@ static int decode_bnx(raw_t *raw)
     }
     else {
         cs1=U2(raw->buff+raw->len);
-        cs2=crc16(raw->buff+1,raw->len-1);
+        cs2=rtk_crc16(raw->buff+1,raw->len-1);
     }
     if (cs1!=cs2) {
         trace(2,"binex 0x%02X parity error CS=%X %X\n",rec,cs1,cs2);

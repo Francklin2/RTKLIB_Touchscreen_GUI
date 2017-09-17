@@ -23,35 +23,64 @@
 *                           change file paths of solution status and debug trace
 *           2015/01/10 1.11 add line editting and command history
 *                           separate codes for virtual console to vt.c
+*           2015/05/22 1.12 fix bug on sp3 id in inpstr*-format options
+*           2015/07/31 1.13 accept 4:stat for outstr1-format or outstr2-format
+*                           add reading satellite dcb
+*           2015/12/14 1.14 add option -sta for station name (#339)
+*           2015/12/25 1.15 fix bug on -sta option (#339)
+*           2015/01/26 1.16 support septentrio
+*           2016/07/01 1.17 support CMR/CMR+
+*           2016/08/20 1.18 add output of patch level with version
+*           2016/09/05 1.19 support ntrip caster for output stream
+*           2016/09/19 1.20 support multiple remote console connections
+*                           add option -w
+*           2017/09/01 1.21 add command ssr
 *-----------------------------------------------------------------------------*/
-#include <signal.h>
-/*-----------------rajouté par moi----------------------*/
-#include "lib/rtklib/rtklib.h"
-#include "vt.h"
-/*-----------------rajouté par moi----------------------*/
 #include <stdlib.h>
+#include <signal.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/time.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+#include <errno.h>
+#include "vt.h"
+/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
+#include "lib/rtklib/rtklib.h"
 #include <stdio.h>
-
-static const char rcsid[]="$Id:$";
+/********************************************************************************************/
 
 #define PRGNAME     "rtkrcv"            /* program name */
 #define CMDPROMPT   "rtkrcv> "          /* command prompt */
+#define MAXCON      32                  /* max number of consoles */
 #define MAXARG      10                  /* max number of args in a command */
 #define MAXCMD      256                 /* max length of a command */
 #define MAXSTR      1024                /* max length of a stream */
-#define MAXRCVCMD   4096                /* max receiver command */
-#define OPTSDIR     ""                 /* default config directory */
+#define OPTSDIR     "."                 /* default config directory */
 #define OPTSFILE    "rtkrcv.conf"       /* default config file */
 #define NAVIFILE    "rtkrcv.nav"        /* navigation save file */
 #define STATFILE    "rtkrcv_%Y%m%d%h%M.stat"  /* solution status file */
 #define TRACEFILE   "rtkrcv_%Y%m%d%h%M.trace" /* debug trace file */
 #define INTKEEPALIVE 1000               /* keep alive interval (ms) */
 
-#define ESC_CLEAR   "\033[2J"           /* ansi/vt100: erase screen */
+#define ESC_CLEAR   "\033[H\033[2J"     /* ansi/vt100 escape: erase screen */
 #define ESC_RESET   "\033[0m"           /* ansi/vt100: reset attribute */
 #define ESC_BOLD    "\033[1m"           /* ansi/vt100: bold */
 
-#define SQRT(x)     ((x)<=0.0?0.0:sqrt(x))
+#define SQRT(x)     ((x)<=0.0||(x)!=(x)?0.0:sqrt(x))
+
+/* type defintions -----------------------------------------------------------*/
+
+typedef struct {                       /* console type */
+    int state;                         /* state (0:stop,1:run) */
+    vt_t *vt;                          /* virtual terminal */
+    pthread_t thread;                  /* console thread */
+} con_t;
 
 /* function prototypes -------------------------------------------------------*/
 extern FILE *popen(const char *, const char *);
@@ -70,7 +99,7 @@ static int solflag      =2;             /* sol flag (1:std+2:age/ratio/ns) */
 static int strtype[]={                  /* stream types */
     STR_SERIAL,STR_NONE,STR_NONE,STR_NONE,STR_NONE,STR_NONE,STR_NONE,STR_NONE
 };
-static char strpath[8][MAXSTR]={""};    /* stream paths */
+static char strpath[8][MAXSTR]={"","","","","","","",""}; /* stream paths */
 static int strfmt[]={                   /* stream formats */
     STRFMT_UBX,STRFMT_RTCM3,STRFMT_SP3,SOLF_LLH,SOLF_NMEA
 };
@@ -82,7 +111,7 @@ static int buffsize     =32768;         /* input buffer size (bytes) */
 static int navmsgsel    =0;             /* navigation mesaage select */
 static char proxyaddr[256]="";          /* http/ntrip proxy */
 static int nmeareq      =0;             /* nmea request type (0:off,1:lat/lon,2:single) */
-static double nmeapos[] ={0,0};         /* nmea position (lat/lon) (deg) */
+static double nmeapos[] ={0,0,0};       /* nmea position (lat/lon/height) (deg,m) */
 static char rcvcmds[3][MAXSTR]={""};    /* receiver commands files */
 static char startcmd[MAXSTR]="";        /* start command */
 static char stopcmd [MAXSTR]="";        /* stop command */
@@ -91,44 +120,61 @@ static int modflgs[256] ={0};           /* modified flags of system options */
 static int moniport     =0;             /* monitor port */
 static int keepalive    =0;             /* keep alive flag */
 static int fswapmargin  =30;            /* file swap margin (s) */
+static char sta_name[256]="";           /* station name */
 
 static prcopt_t prcopt;                 /* processing options */
 static solopt_t solopt[2]={{0}};        /* solution options */
 static filopt_t filopt  ={""};          /* file options */
 
 /* help text -----------------------------------------------------------------*/
+static const char *usage[]={
+    "usage: rtkrcv [-s][-p port][-d dev][-o file][-w pwd][-r level][-t level][-sta sta]",
+    "options",
+    "  -s         start RTK server on program startup",
+    "  -p port    port number for telnet console",
+    "  -m port    port number for monitor stream",
+    "  -d dev     terminal device for console",
+    "  -o file    processing options file",
+    "  -w pwd     login password for remote console (\"\": no password)",
+    "  -r level   output solution status file (0:off,1:states,2:residuals)",
+    "  -t level   debug trace level (0:off,1-5:on)",
+    "  -sta sta   station name for receiver dcb"
+};
 static const char *helptxt[]={
-    " start            : start rtk server",
-    " stop             : stop rtk server",
-    " restart          : restart rtk sever",
-    " solution [cycle] : show solution",
-    " status [cycle]   : show rtk status",
-    " satellite [-n] [cycle]: show satellite status",
-    " observ [-n] [cycle]   : show observation data",
-    " navidata [cycle] : show navigation data",
-    " stream [cycle]   : show stream status",
-    " error            : show error/warning messages",
-    " option [opt]     : show option(s)",
-    " set opt [val]    : set option",
-    " load [file]      : load options from file",
-    " save [file]      : save options to file",
-    " log [file|off]   : start/stop log to file",
-    " help|? [path]    : print help",
-    " exit             : exit and logout console",
-    " shutdown         : shutdown rtk server",
-    " !command [arg...]: execute command in shell",
+    "start                 : start rtk server",
+    "stop                  : stop rtk server",
+    "restart               : restart rtk sever",
+    "solution [cycle]      : show solution",
+    "status [cycle]        : show rtk status",
+    "satellite [-n] [cycle]: show satellite status",
+    "observ [-n] [cycle]   : show observation data",
+    "navidata [cycle]      : show navigation data",
+    "stream [cycle]        : show stream status",
+    "ssr [cycle]           : show ssr corrections",
+    "error                 : show error/warning messages",
+    "option [opt]          : show option(s)",
+    "set opt [val]         : set option",
+    "load [file]           : load options from file",
+    "save [file]           : save options to file",
+    "log [file|off]        : start/stop log to file",
+    "help|? [path]         : print help",
+    "exit|ctr-D            : logout console (only for telnet)",
+    "shutdown              : shutdown rtk server",
+    "!command [arg...]     : execute command in shell",
     ""
 };
 static const char *pathopts[]={         /* path options help */
     "stream path formats",
-    " serial   : port[:bit_rate[:byte[:parity(n|o|e)[:stopb[:fctr(off|on)]]]]]",
-    " file     : path[::T[::+offset][::xspeed]]",
-    " tcpsvr   : :port",
-    " tcpcli   : addr:port",
-    " ntripsvr : user:passwd@addr:port/mntpnt[:str]",
-    " ntripcli : user:passwd@addr:port/mntpnt",
-    " ftp      : user:passwd@addr/path[::T=poff,tint,off,rint]",
-    " http     : addr/path[::T=poff,tint,off,rint]",
+    "serial   : port[:bit_rate[:byte[:parity(n|o|e)[:stopb[:fctr(off|on)]]]]]",
+    "file     : path[::T[::+offset][::xspeed]]",
+    "tcpsvr   : :port",
+    "tcpcli   : addr:port",
+    "ntripsvr : user:passwd@addr:port/mntpnt[:str]",
+    "ntripcli : user:passwd@addr:port/mntpnt",
+    "ntripc_s : :passwd@:port",
+    "ntripc_c : user:passwd@:port",
+    "ftp      : user:passwd@addr/path[::T=poff,tint,off,rint]",
+    "http     : addr/path[::T=poff,tint,off,rint]",
     ""
 };
 /* receiver options table ----------------------------------------------------*/
@@ -136,10 +182,10 @@ static const char *pathopts[]={         /* path options help */
 #define CONOPT  "0:dms,1:deg,2:xyz,3:enu,4:pyl"
 #define FLGOPT  "0:off,1:std+2:age/ratio/ns"
 #define ISTOPT  "0:off,1:serial,2:file,3:tcpsvr,4:tcpcli,7:ntripcli,8:ftp,9:http"
-#define OSTOPT  "0:off,1:serial,2:file,3:tcpsvr,4:tcpcli,6:ntripsvr"
-#define FMTOPT  "0:rtcm2,1:rtcm3,2:oem4,3:oem3,4:ubx,5:ss2,6:hemis,7:skytraq,8:gw10,9:javad,10:nvs,11:binex,12:rt17,15:sp3"
+#define OSTOPT  "0:off,1:serial,2:file,3:tcpsvr,4:tcpcli,6:ntripsvr,11:ntripc_c"
+#define FMTOPT  "0:rtcm2,1:rtcm3,2:oem4,3:oem3,4:ubx,5:ss2,6:hemis,7:skytraq,8:gw10,9:javad,10:nvs,11:binex,12:rt17,13:sbf,14:cmr,15:tersus,18:sp3"
 #define NMEOPT  "0:off,1:latlon,2:single"
-#define SOLOPT  "0:llh,1:xyz,2:enu,3:nmea"
+#define SOLOPT  "0:llh,1:xyz,2:enu,3:nmea,4:stat"
 #define MSGOPT  "0:all,1:rover,2:base,3:corr"
 
 static opt_t rcvopts[]={
@@ -160,6 +206,7 @@ static opt_t rcvopts[]={
     {"inpstr2-nmeareq", 3,  (void *)&nmeareq,            NMEOPT },
     {"inpstr2-nmealat", 1,  (void *)&nmeapos[0],         "deg"  },
     {"inpstr2-nmealon", 1,  (void *)&nmeapos[1],         "deg"  },
+    {"inpstr2-nmeahgt", 1,  (void *)&nmeapos[2],         "m"    },
     {"outstr1-type",    3,  (void *)&strtype[3],         OSTOPT },
     {"outstr2-type",    3,  (void *)&strtype[4],         OSTOPT },
     {"outstr1-path",    2,  (void *)strpath [3],         ""     },
@@ -191,6 +238,15 @@ static opt_t rcvopts[]={
     
     {"",0,NULL,""}
 };
+/* print usage ---------------------------------------------------------------*/
+static void printusage(void)
+{
+    int i;
+    for (i=0;i<(int)(sizeof(usage)/sizeof(*usage));i++) {
+        fprintf(stderr,"%s\n",usage[i]);
+    }
+    exit(0);
+}
 /* external stop signal ------------------------------------------------------*/
 static void sigshut(int sig)
 {
@@ -269,12 +325,16 @@ static int login(vt_t *vt)
     if (!*passwd||!vt->type) return 1;
     
     while (!(intflg&2)) {
-        if (!vt_printf(vt,"password: ")) return 0;
-        if (!vt_gets(vt,buff,sizeof(buff))||vt->brk) return 0;
+        if (!vt_printf(vt,"password: ",PRGNAME)) return 0;
+        vt->blind=1;
+        if (!vt_gets(vt,buff,sizeof(buff))||vt->brk) {
+            vt->blind=0;
+            return 0;
+        }
+        vt->blind=0;
         if (!strcmp(buff,passwd)) break;
         vt_printf(vt,"\ninvalid password\n");
     }
-    vt_printf(vt,"\n");
     return 1;
 }
 /* read receiver commands ----------------------------------------------------*/
@@ -289,7 +349,7 @@ static int readcmd(const char *file, char *cmd, int type)
     if (!(fp=fopen(file,"r"))) return 0;
     
     while (fgets(buff,sizeof(buff),fp)) {
-        if (*buff=='@') i=1;
+        if (*buff=='@') i++;
         else if (i==type&&p+strlen(buff)+1<cmd+MAXRCVCMD) {
             p+=sprintf(p,"%s",buff);
         }
@@ -336,13 +396,16 @@ static void readant(vt_t *vt, prcopt_t *opt, nav_t *nav)
 /* start rtk server ----------------------------------------------------------*/
 static int startsvr(vt_t *vt)
 {
+    static sta_t sta[MAXRCV]={{""}};
     double pos[3],npos[3];
-    char s[3][MAXRCVCMD]={"","",""},*cmds[]={NULL,NULL,NULL};
+    char s1[3][MAXRCVCMD]={"","",""},*cmds[]={NULL,NULL,NULL};
+    char s2[3][MAXRCVCMD]={"","",""},*cmds_periodic[]={NULL,NULL,NULL};
     char *ropts[]={"","",""};
     char *paths[]={
         strpath[0],strpath[1],strpath[2],strpath[3],strpath[4],strpath[5],
         strpath[6],strpath[7]
     };
+    char errmsg[2048]="";
     int i,ret,stropt[8]={0};
     
     trace(3,"startsvr:\n");
@@ -350,10 +413,14 @@ static int startsvr(vt_t *vt)
     /* read start commads from command files */
     for (i=0;i<3;i++) {
         if (!*rcvcmds[i]) continue;
-        if (!readcmd(rcvcmds[i],s[i],0)) {
+        if (!readcmd(rcvcmds[i],s1[i],0)) {
             vt_printf(vt,"no command file: %s\n",rcvcmds[i]);
         }
-        else cmds[i]=s[i];
+        else cmds[i]=s1[i];
+        if (!readcmd(rcvcmds[i],s2[i],2)) {
+            vt_printf(vt,"no command file: %s\n",rcvcmds[i]);
+        }
+        else cmds_periodic[i]=s2[i];
     }
     /* confirm overwrite */
     for (i=3;i<8;i++) {
@@ -364,12 +431,17 @@ static int startsvr(vt_t *vt)
     }
     pos[0]=nmeapos[0]*D2R;
     pos[1]=nmeapos[1]*D2R;
-    pos[2]=0.0;
+    pos[2]=nmeapos[2];
     pos2ecef(pos,npos);
     
     /* read antenna file */
     readant(vt,&prcopt,&svr.nav);
     
+    /* read dcb file */
+    if (filopt.dcb) {
+        strcpy(sta[0].name,sta_name);
+        readdcb(filopt.dcb,&svr.nav,sta);
+    }
     /* open geoid data file */
     if (solopt[0].geoid>0&&!opengeoid(solopt[0].geoid,filopt.geoid)) {
         trace(2,"geoid data open error: %s\n",filopt.geoid);
@@ -402,9 +474,10 @@ static int startsvr(vt_t *vt)
     
     /* start rtk server */
     if (!rtksvrstart(&svr,svrcycle,buffsize,strtype,paths,strfmt,navmsgsel,
-                     cmds,ropts,nmeacycle,nmeareq,npos,&prcopt,solopt,&moni)) {
-        trace(2,"rtk server start error\n");
-        vt_printf(vt,"rtk server start error\n");
+                     cmds,cmds_periodic,ropts,nmeacycle,nmeareq,npos,&prcopt,
+                     solopt,&moni,errmsg)) {
+        trace(2,"rtk server start error (%s)\n",errmsg);
+        vt_printf(vt,"rtk server start error (%s)\n",errmsg);
         return 0;
     }
     return 1;
@@ -436,6 +509,8 @@ static void stopsvr(vt_t *vt)
         vt_printf(vt,"command exec error: %s (%d)\n",stopcmd,ret);
     }
     if (solopt[0].geoid>0) closegeoid();
+    
+    vt_printf(vt,"stop rtk server\n");
 }
 /* print time ----------------------------------------------------------------*/
 static void prtime(vt_t *vt, gtime_t time)
@@ -445,13 +520,13 @@ static void prtime(vt_t *vt, gtime_t time)
     char tstr[64]="";
     
     if (timetype==1) {
-        time2str(gpst2utc(time),tstr,1);
+        time2str(gpst2utc(time),tstr,2);
     }
     else if (timetype==2) {
-        time2str(timeadd(gpst2utc(time),9*3600.0),tstr,1);
+        time2str(timeadd(gpst2utc(time),9*3600.0),tstr,2);
     }
     else if (timetype==3) {
-        tow=time2gpst(time,&week); sprintf(tstr,"  %04d %8.1f",week,tow);
+        tow=time2gpst(time,&week); sprintf(tstr,"  %04d %9.2f",week,tow);
     }
     else time2str(time,tstr,1);
     vt_printf(vt,"%s ",tstr);
@@ -485,8 +560,8 @@ static void prsolution(vt_t *vt, const sol_t *sol, const double *rb)
         if (norm(sol->rr,3)>0.0) {
             ecef2pos(sol->rr,pos);
             covenu(pos,Qr,Qe);
-            deg2dms(pos[0]*R2D,dms1);
-            deg2dms(pos[1]*R2D,dms2);
+            deg2dms(pos[0]*R2D,dms1,4);
+            deg2dms(pos[1]*R2D,dms2,4);
             if (solopt[0].height==1) pos[2]-=geoidh(pos); /* geodetic */
         }       
         vt_printf(vt," %s:%2.0f %02.0f %07.4f",pos[0]<0?"S":"N",fabs(dms1[0]),dms1[1],dms1[2]);
@@ -550,9 +625,6 @@ static void prsolution(vt_t *vt, const sol_t *sol, const double *rb)
     }
     vt_printf(vt,"\n");
 }
-
-
-
 /* print status --------------------------------------------------------------*/
 static void prstatus(vt_t *vt)
 {
@@ -565,7 +637,7 @@ static void prstatus(vt_t *vt)
     };
     const char *freq[]={"-","L1","L1+L2","L1+L2+L5","","",""};
     rtcm_t rtcm[3];
-    int i,j,n,thread,cycle,state,rtkstat,nsat0,nsat1,prcout;
+    int i,j,n,thread,cycle,state,rtkstat,nsat0,nsat1,prcout,nave;
     int cputime,nb[3]={0},nmsg[3][10]={{0}};
     char tstr[64],s[1024],*p;
     double runtime,rt[3]={0},dop[4]={0},rr[3],bl1=0.0,bl2=0.0;
@@ -583,6 +655,7 @@ static void prstatus(vt_t *vt)
     nsat1=svr.obs[1][0].n;
     cputime=svr.cputime;
     prcout=svr.prcout;
+    nave=svr.nave;
     for (i=0;i<3;i++) nb[i]=svr.nb[i];
     for (i=0;i<3;i++) for (j=0;j<10;j++) {
         nmsg[i][j]=svr.nmsg[i][j];
@@ -605,7 +678,7 @@ static void prstatus(vt_t *vt)
     dops(n,azel,0.0,dop);
     
     vt_printf(vt,"\n%s%-28s: %s%s\n",ESC_BOLD,"Parameter","Value",ESC_RESET);
-    vt_printf(vt,"%-28s: %s\n","rtklib version",VER_RTKLIB);
+    vt_printf(vt,"%-28s: %s %s\n","rtklib version",VER_RTKLIB,PATCH_LEVEL);
     vt_printf(vt,"%-28s: %d\n","rtk server thread",thread);
     vt_printf(vt,"%-28s: %s\n","rtk server state",svrstate[state]);
     vt_printf(vt,"%-28s: %d\n","processing cycle (ms)",cycle);
@@ -642,7 +715,8 @@ static void prstatus(vt_t *vt)
     vt_printf(vt,"%-28s: %s\n","solution status",sol[rtkstat]);
     time2str(rtk.sol.time,tstr,9);
     vt_printf(vt,"%-28s: %s\n","time of receiver clock rover",rtk.sol.time.time?tstr:"-");
-    vt_printf(vt,"%-28s: %.9f\n","time sys offset (glo-gps)(s)",rtk.sol.dtr[1]);
+    vt_printf(vt,"%-28s: %.3f,%.3f,%.3f,%.3f\n","time sys offset (ns)",rtk.sol.dtr[1]*1e9,
+              rtk.sol.dtr[2]*1e9,rtk.sol.dtr[3]*1e9,rtk.sol.dtr[4]*1e9);
     vt_printf(vt,"%-28s: %.3f\n","solution interval (s)",rtk.tt);
     vt_printf(vt,"%-28s: %.3f\n","age of differential (s)",rtk.sol.age);
     vt_printf(vt,"%-28s: %.3f\n","ratio for ar validation",rtk.sol.ratio);
@@ -663,50 +737,63 @@ static void prstatus(vt_t *vt)
             double b=pos[1]*R2D;
             double c=pos[2];
 /*---------------------------------------------------------------------------------------------------*/
+    
     ecef2enu(pos,rtk.sol.rr+3,vel);
     vt_printf(vt,"%-28s: %.3f,%.3f,%.3f\n","vel enu (m/s) rover",vel[0],vel[1],vel[2]);
+    
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
             double d=vel[0];
             double e=vel[1];
             double f=vel[2];
 /*---------------------------------------------------------------------------------------------------*/
 
-
+    
+    
     vt_printf(vt,"%-28s: %.3f,%.3f,%.3f\n","pos xyz float (m) rover",
             rtk.x?rtk.x[0]:0,rtk.x?rtk.x[1]:0,rtk.x?rtk.x[2]:0);
     vt_printf(vt,"%-28s: %.3f,%.3f,%.3f\n","pos xyz float std (m) rover",
             rtk.P?SQRT(rtk.P[0]):0,rtk.P?SQRT(rtk.P[1+1*rtk.nx]):0,rtk.P?SQRT(rtk.P[2+2*rtk.nx]):0);
     vt_printf(vt,"%-28s: %.3f,%.3f,%.3f\n","pos xyz fixed (m) rover",
             rtk.xa?rtk.xa[0]:0,rtk.xa?rtk.xa[1]:0,rtk.xa?rtk.xa[2]:0);
+
+/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/    
             double Xroverfixed=rtk.xa?rtk.xa[0]:0;
             double Yroverfixed=rtk.xa?rtk.xa[1]:0;
             double Zroverfixed=rtk.xa?rtk.xa[2]:0;
+/********************************************************************************************/
+
+	    
+    
     vt_printf(vt,"%-28s: %.3f,%.3f,%.3f\n","pos xyz fixed std (m) rover",
             rtk.Pa?SQRT(rtk.Pa[0]):0,rtk.Pa?SQRT(rtk.Pa[1+1*rtk.na]):0,rtk.Pa?SQRT(rtk.Pa[2+2*rtk.na]):0);
     vt_printf(vt,"%-28s: %.3f,%.3f,%.3f\n","pos xyz (m) base",
             rtk.rb[0],rtk.rb[1],rtk.rb[2]);
-
+    if (norm(rtk.rb,3)>0.0) ecef2pos(rtk.rb,pos); else pos[0]=pos[1]=pos[2]=0.0;
+    vt_printf(vt,"%-28s: %.8f,%.8f,%.3f\n","pos llh (deg,m) base",
+            pos[0]*R2D,pos[1]*R2D,pos[2]);
+    vt_printf(vt,"%-28s: %d\n","# of average single pos base",nave);
     vt_printf(vt,"%-28s: %s\n","ant type rover",rtk.opt.pcvr[0].type);
     del=rtk.opt.antdel[0];
     vt_printf(vt,"%-28s: %.3f %.3f %.3f\n","ant delta rover",del[0],del[1],del[2]);
     vt_printf(vt,"%-28s: %s\n","ant type base" ,rtk.opt.pcvr[1].type);
     del=rtk.opt.antdel[1];
     vt_printf(vt,"%-28s: %.3f %.3f %.3f\n","ant delta base",del[0],del[1],del[2]);
-    if (norm(rtk.rb,3)>0.0) ecef2pos(rtk.rb,pos); else pos[0]=pos[1]=pos[2]=0.0;
-    vt_printf(vt,"%-28s: %.8f,%.8f,%.3f\n","pos llh (deg,m) base",
-            pos[0]*R2D,pos[1]*R2D,pos[2]);
     ecef2enu(pos,rtk.rb+3,vel);
     vt_printf(vt,"%-28s: %.3f,%.3f,%.3f\n","vel enu (m/s) base",
             vel[0],vel[1],vel[2]);
     if (rtk.opt.mode>0&&rtk.x&&norm(rtk.x,3)>0.0) {
-        for (i=0;i<3;i++) rr[i]=rtk.x[i]-rtk.rb[i]; bl1=norm(rr,3);
+        for (i=0;i<3;i++) rr[i]=rtk.x[i]-rtk.rb[i];
+        bl1=norm(rr,3);
     }
     if (rtk.opt.mode>0&&rtk.xa&&norm(rtk.xa,3)>0.0) {
-        for (i=0;i<3;i++) rr[i]=rtk.xa[i]-rtk.rb[i]; bl2=norm(rr,3);
+        for (i=0;i<3;i++) rr[i]=rtk.xa[i]-rtk.rb[i];
+        bl2=norm(rr,3);
     }
     vt_printf(vt,"%-28s: %.3f\n","baseline length float (m)",bl1);
     vt_printf(vt,"%-28s: %.3f\n","baseline length fixed (m)",bl2);
     vt_printf(vt,"%-28s: %d\n","monitor port",moniport);
+    
+    
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
 
     FILE* fichier = NULL;
@@ -737,7 +824,7 @@ static void prstatus(vt_t *vt)
         fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","vel enu (m/s) rover",d,e,f);
         fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz float (m) rover",
                 rtk.x?rtk.x[0]:0,rtk.x?rtk.x[1]:0,rtk.x?rtk.x[2]:0);
-        fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz float (m) rover",
+        fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz float std (m) rover",
                 rtk.P?SQRT(rtk.P[0]):0,rtk.P?SQRT(rtk.P[1+1*rtk.nx]):0,rtk.P?SQRT(rtk.P[2+2*rtk.nx]):0);
         fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz fixed (m) rover",
                 rtk.xa?rtk.xa[0]:0,rtk.xa?rtk.xa[1]:0,rtk.xa?rtk.xa[2]:0);
@@ -748,7 +835,7 @@ static void prstatus(vt_t *vt)
                 rtk.Pa?SQRT(rtk.Pa[0]):0,rtk.Pa?SQRT(rtk.Pa[1+1*rtk.na]):0,rtk.Pa?SQRT(rtk.Pa[2+2*rtk.na]):0);
         fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz (m) base",
                 rtk.rb[0],rtk.rb[1],rtk.rb[2]);
-        fprintf(fichier,"%-15s %-9s\n","rtcm mgs:",s);
+        /*fprintf(fichier,"%-15s %-9s: %s\n","# of rtcm messages",type[i],s);*/
 
 
         fclose(fichier);
@@ -767,6 +854,7 @@ void affichestatus(vt_t *vt)
 
 }
 
+
 /* print satellite -----------------------------------------------------------*/
 static void prsatellite(vt_t *vt, int nf)
 {
@@ -781,56 +869,56 @@ static void prsatellite(vt_t *vt, int nf)
     rtk=svr.rtk;
     rtksvrunlock(&svr);
     if (nf<=0||nf>NFREQ) nf=NFREQ;
-    vt_printf(vt,"\n%s%3s %2s",ESC_BOLD,"SAT","C1");
+    vt_printf(vt,"\n%s%3s %2s %5s %4s",ESC_BOLD,"SAT","C1","Az","El");
     for (j=0;j<nf;j++) vt_printf(vt," L%d"    ,frq[j]);
     for (j=0;j<nf;j++) vt_printf(vt,"  Fix%d" ,frq[j]);
+    for (j=0;j<nf;j++) vt_printf(vt,"  P%dRes",frq[j]);
+    for (j=0;j<nf;j++) vt_printf(vt,"   L%dRes",frq[j]);
     for (j=0;j<nf;j++) vt_printf(vt,"  Sl%d"  ,frq[j]);
     for (j=0;j<nf;j++) vt_printf(vt,"  Lock%d",frq[j]);
     for (j=0;j<nf;j++) vt_printf(vt," Rj%d"   ,frq[j]);
-    vt_printf(vt," ");
-    for (j=0;j<nf;j++) vt_printf(vt," P%dRes" ,frq[j]);
-    for (j=0;j<nf;j++) vt_printf(vt,"  L%dRes",frq[j]);
-    vt_printf(vt," %5s %4s%s\n","Az","El",ESC_RESET);
-
-
+    vt_printf(vt,"%s\n",ESC_RESET);
+    
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
 
         FILE* fichier = NULL;
         fichier = fopen("essaiprojet.txt", "w");
 /*--------------------------------------------------*/
     
+
+    
     for (i=0;i<MAXSAT;i++) {
-
         if (rtk.ssat[i].azel[1]<=0.0) continue;
-
         satno2id(i+1,id);
         vt_printf(vt,"%3s %2s",id,rtk.ssat[i].vs?"OK":"-");
-
+	
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
             fprintf(fichier,"%3s %2s\n",id,rtk.ssat[i].vs?"OK":"-");
 /*--------------------------------------------------*/
 
-
+	
+	az=rtk.ssat[i].azel[0]*R2D; if (az<0.0) az+=360.0;
+        el=rtk.ssat[i].azel[1]*R2D;
+        vt_printf(vt," %5.1f %4.1f",az,el);
         for (j=0;j<nf;j++) vt_printf(vt," %2s",rtk.ssat[i].vsat[j]?"OK":"-");
         for (j=0;j<nf;j++) {
             fix=rtk.ssat[i].fix[j];
             vt_printf(vt," %5s",fix==1?"FLOAT":(fix==2?"FIX":(fix==3?"HOLD":"-")));
         }
+        for (j=0;j<nf;j++) vt_printf(vt,"%7.3f",rtk.ssat[i].resp[j]);
+        for (j=0;j<nf;j++) vt_printf(vt,"%8.4f",rtk.ssat[i].resc[j]);
         for (j=0;j<nf;j++) vt_printf(vt," %4d",rtk.ssat[i].slipc[j]);
         for (j=0;j<nf;j++) vt_printf(vt," %6d",rtk.ssat[i].lock [j]);
         for (j=0;j<nf;j++) vt_printf(vt," %3d",rtk.ssat[i].rejc [j]);
-        vt_printf(vt," ");
-        for (j=0;j<nf;j++) vt_printf(vt,"%6.3f",rtk.ssat[i].resp[j]);
-        for (j=0;j<nf;j++) vt_printf(vt,"%7.4f",rtk.ssat[i].resc[j]);
-        az=rtk.ssat[i].azel[0]*R2D; if (az<0.0) az+=360.0;
-        el=rtk.ssat[i].azel[1]*R2D;
-        vt_printf(vt," %5.1f %4.1f\n",az,el);
+        vt_printf(vt,"\n");
 
-        /*---------------------RAJOUTE par MOI---------------*/
+/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
+
          /*   fprintf(fichier," Azimuth : %5.1f Elevation : %4.1f\n",az,el);*/
         /*--------------------------------------------------*/
 
-        /*---------------------RAJOUTE par MOI---------------*/
+/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
+
             fprintf(fichier,"%5.1f\n",az);
             fprintf(fichier,"%4.1f\n",el);
 
@@ -853,12 +941,13 @@ void affichesat(vt_t *vt)
 
     prsatellite(vt,nf);
 }
+
 /* print observation data ----------------------------------------------------*/
 static void probserv(vt_t *vt, int nf)
 {
     obsd_t obs[MAXOBS*2];
     char tstr[64],id[32];
-    int i,j,n=0,frq[]={1,2,5,7,8,6};
+    int i,j,n=0,frq[]={1,2,5,7,8,6,9};
     
     trace(4,"probserv:\n");
     
@@ -872,27 +961,24 @@ static void probserv(vt_t *vt, int nf)
     rtksvrunlock(&svr);
     
     if (nf<=0||nf>NFREQ) nf=NFREQ;
-    vt_printf(vt,"\n%s%10s %3s %s",ESC_BOLD,"TIME(GPST)","SAT","R");
-    for (i=0;i<nf;i++) vt_printf(vt,"       P%d(m)" ,frq[i]);
-    for (i=0;i<nf;i++) vt_printf(vt,"      L%d(cyc)",frq[i]);
-    for (i=0;i<nf;i++) vt_printf(vt,"  D%d(Hz)"     ,frq[i]);
-    for (i=0;i<nf;i++) vt_printf(vt," S%d"          ,frq[i]);
+    vt_printf(vt,"\n%s%-22s %3s %s",ESC_BOLD,"      TIME(GPST)","SAT","R");
+    for (i=0;i<nf;i++) vt_printf(vt,"        P%d(m)" ,frq[i]);
+    for (i=0;i<nf;i++) vt_printf(vt,"       L%d(cyc)",frq[i]);
+    for (i=0;i<nf;i++) vt_printf(vt,"  D%d(Hz)"      ,frq[i]);
+    for (i=0;i<nf;i++) vt_printf(vt," S%d"           ,frq[i]);
     vt_printf(vt," LLI%s\n",ESC_RESET);
     for (i=0;i<n;i++) {
-        time2str(obs[i].time,tstr,1);
+        time2str(obs[i].time,tstr,2);
         satno2id(obs[i].sat,id);
-        vt_printf(vt,"%s %3s %d",tstr+11,id,obs[i].rcv);
-        for (j=0;j<nf;j++) vt_printf(vt,"%12.2f",obs[i].P[j]);
-        for (j=0;j<nf;j++) vt_printf(vt,"%13.2f",obs[i].L[j]);
+        vt_printf(vt,"%s %3s %d",tstr,id,obs[i].rcv);
+        for (j=0;j<nf;j++) vt_printf(vt,"%13.3f",obs[i].P[j]);
+        for (j=0;j<nf;j++) vt_printf(vt,"%14.3f",obs[i].L[j]);
         for (j=0;j<nf;j++) vt_printf(vt,"%8.1f" ,obs[i].D[j]);
         for (j=0;j<nf;j++) vt_printf(vt,"%3.0f" ,obs[i].SNR[j]*0.25);
         for (j=0;j<nf;j++) vt_printf(vt,"%2d"   ,obs[i].LLI[j]);
         vt_printf(vt,"\n");
     }
 }
-
-
-
 /* print navigation data -----------------------------------------------------*/
 static void prnavidata(vt_t *vt)
 {
@@ -926,7 +1012,7 @@ static void prnavidata(vt_t *vt)
         if (eph[i].toe.time!=0) time2str(eph[i].toe,s1,0); else strcpy(s1,"-");
         if (eph[i].toc.time!=0) time2str(eph[i].toc,s2,0); else strcpy(s2,"-");
         if (eph[i].ttr.time!=0) time2str(eph[i].ttr,s3,0); else strcpy(s3,"-");
-        vt_printf(vt,"%3s %3s %3d %3d %3d %3d  %02X %19s %19s %19s %3d %3d\n",
+        vt_printf(vt,"%3s %3s %3d %3d %3d %3d %03X %19s %19s %19s %3d %3d\n",
                 id,valid?"OK":"-",eph[i].iode,eph[i].iodc,0,eph[i].sva,
                 eph[i].svh,s1,s2,s3,eph[i].code,eph[i].flag);
     }
@@ -948,6 +1034,7 @@ static void prnavidata(vt_t *vt)
 }
 
 
+
 void afficheNaviData(vt_t *vt)
 {
     int i=0;
@@ -957,6 +1044,8 @@ void afficheNaviData(vt_t *vt)
     prnavidata(vt);
 
 }
+
+
 
 
 /* print error/warning messages ----------------------------------------------*/
@@ -982,15 +1071,17 @@ static void prstream(vt_t *vt)
         "log rover","log base","log corr","monitor"
     };
     const char *type[]={
-        "-","serial","file","tcpsvr","tcpcli","udp","ntrips","ntripc","ftp","http"
+        "-","serial","file","tcpsvr","tcpcli","udp","ntrips","ntripc","ftp",
+        "http","ntripc_s","ntripc_c"
     };
     const char *fmt[]={"rtcm2","rtcm3","oem4","oem3","ubx","ss2","hemis","skytreq",
-                       "gw10","javad","nvs","binex","rt17","","","sp3","","",""};
-    const char *sol[]={"llh","xyz","enu","nmea"};
+                       "gw10","javad","nvs","binex","rt17","sbf","cmr","","","sp3",""};
+    const char *sol[]={"llh","xyz","enu","nmea","stat","-"};
     stream_t stream[9];
     int i,format[9]={0};
     
     trace(4,"prstream:\n");
+
 
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
     FILE* fichier = NULL;
@@ -999,6 +1090,7 @@ static void prstream(vt_t *vt)
     {
     /*---------------------------------------------------*/
 
+    
     rtksvrlock(&svr);
     for (i=0;i<8;i++) stream[i]=svr.stream[i];
     for (i=0;i<3;i++) format[i]=svr.format[i];
@@ -1007,9 +1099,10 @@ static void prstream(vt_t *vt)
     format[8]=SOLF_LLH;
     rtksvrunlock(&svr);
     
-    vt_printf(vt,"\n%s%-12s %-6s %-5s %s %9s %7s %9s %7s %s%s\n",ESC_BOLD,
+    vt_printf(vt,"\n%s%-12s %-8s %-5s %s %10s %7s %10s %7s %-24s %s%s\n",ESC_BOLD,
               "Stream","Type","Fmt","S","In-byte","In-bps","Out-byte","Out-bps",
-              "Message",ESC_RESET);
+              "Path","Message",ESC_RESET);
+
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
     fprintf(fichier,"%-12s %-6s %-5s %s %9s %7s %9s %7s %s\n",
                     "Stream","Type","Fmt","S","In-byte","In-bps","Out-byte","Out-bps",
@@ -1020,18 +1113,20 @@ static void prstream(vt_t *vt)
 /*---------------------------------------------------*/
 
     for (i=0;i<9;i++) {
-        vt_printf(vt,"%-12s %-6s %-5s %s %9d %7d %9d %7d %s\n",
+        vt_printf(vt,"%-12s %-8s %-5s %s %10d %7d %10d %7d %-24.24s %s\n",
             ch[i],type[stream[i].type],i<3?fmt[format[i]]:(i<5||i==8?sol[format[i]]:"-"),
             stream[i].state<0?"E":(stream[i].state?"C":"-"),
-            stream[i].inb,stream[i].inr,stream[i].outb,stream[i].outr,stream[i].msg);
+            stream[i].inb,stream[i].inr,stream[i].outb,stream[i].outr,
+	   stream[i].path,stream[i].msg);
+	
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
             fprintf(fichier,"%-12s %-6s %-5s %s %9d %7d %9d %7d %s\n",
                     ch[i],type[stream[i].type],i<3?fmt[format[i]]:(i<5||i==8?sol[format[i]]:"-"),
                     stream[i].state<0?"E":(stream[i].state?"C":"-"),
                     stream[i].inb,stream[i].inr,stream[i].outb,stream[i].outr,stream[i].msg);
 /*---------------------------------------------------*/
+	
     }
-
 
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
 
@@ -1055,6 +1150,42 @@ void afficheStream(vt_t *vt)
 
 
 
+
+/* print ssr correction ------------------------------------------------------*/
+static void prssr(vt_t *vt)
+{
+    static char buff[128*MAXSAT];
+    gtime_t time;
+    ssr_t ssr[MAXSAT];
+    int i,valid;
+    char tstr[64],id[32],*p=buff;
+    
+    rtksvrlock(&svr);
+    time=svr.rtk.sol.time;
+    for (i=0;i<MAXSAT;i++) {
+        ssr[i]=svr.nav.ssr[i];
+    }
+    rtksvrunlock(&svr);
+    
+    p+=sprintf(p,"\n%s%3s %3s %3s %3s %3s %19s %6s %6s %6s %6s %6s %6s %8s "
+               "%6s %6s %6s%s\n",
+               ESC_BOLD,"SAT","S","UDI","IOD","URA","T0","D0-A","D0-C","D0-R",
+               "D1-A","D1-C","D1-R","C0","C1","C2","C-HR",ESC_RESET);
+    for (i=0;i<MAXSAT;i++) {
+        if (!ssr[i].t0[0].time) continue;
+        satno2id(i+1,id);
+        valid=fabs(timediff(time,ssr[i].t0[0]))<=1800.0;
+        time2str(ssr[i].t0[0],tstr,0);
+        p+=sprintf(p,"%3s %3s %3.0f %3d %3d %19s %6.3f %6.3f %6.3f %6.3f %6.3f "
+                   "%6.3f %8.3f %6.3f %6.4f %6.3f\n",
+                   id,valid?"OK":"-",ssr[i].udi[0],ssr[i].iode,ssr[i].ura,tstr,
+                   ssr[i].deph[0],ssr[i].deph[1],ssr[i].deph[2],
+                   ssr[i].ddeph[0]*1E3,ssr[i].ddeph[1]*1E3,ssr[i].ddeph[2]*1E3,
+                   ssr[i].dclk[0],ssr[i].dclk[1]*1E3,ssr[i].dclk[2]*1E3,
+                   ssr[i].hrclk);
+    }
+    vt_puts(vt,buff);
+}
 /* start command -------------------------------------------------------------*/
 static void cmd_start(char **args, int narg, vt_t *vt)
 {
@@ -1196,6 +1327,22 @@ static void cmd_stream(char **args, int narg, vt_t *vt)
     }
     vt_printf(vt,"\n");
 }
+/* ssr command ---------------------------------------------------------------*/
+static void cmd_ssr(char **args, int narg, vt_t *vt)
+{
+    int cycle=0;
+    
+    trace(3,"cmd_ssr:\n");
+    
+    if (narg>1) cycle=(int)(atof(args[1])*1000.0);
+    
+    while (!vt_chkbrk(vt)) {
+        if (cycle>0) vt_printf(vt,ESC_CLEAR);
+        prssr(vt);
+        if (cycle>0) sleepms(cycle); else return;
+    }
+    vt_printf(vt,"\n");
+}
 /* option command ------------------------------------------------------------*/
 static void cmd_option(char **args, int narg, vt_t *vt)
 {
@@ -1313,7 +1460,7 @@ static void cmd_save(char **args, int narg, vt_t *vt)
     }
     if (!confwrite(vt,file)) return;
     time2str(utc2gpst(timeget()),s,0);
-    sprintf(comment,"%s options (%s, v.%s)",PRGNAME,s,VER_RTKLIB);
+    sprintf(comment,"%s options (%s, v.%s %s)",PRGNAME,s,VER_RTKLIB,PATCH_LEVEL);
     setsysopts(&prcopt,solopt,&filopt);
     if (!saveopts(file,"w",comment,rcvopts)||!saveopts(file,"a",NULL,sysopts)) {
         vt_printf(vt,"options save error: %s\n",file);
@@ -1350,7 +1497,7 @@ static void cmd_help(char **args, int narg, vt_t *vt)
     int i;
     
     if (narg<2) {
-        vt_printf(vt,"%s %s ver.%s%s\n",ESC_BOLD,PRGNAME,VER_RTKLIB,ESC_RESET);
+        vt_printf(vt,"%s (ver.%s %s)\n",PRGNAME,VER_RTKLIB,PATCH_LEVEL);
         for (i=0;*helptxt[i];i++) vt_printf(vt,"%s\n",helptxt[i]);
     }
     else if (strstr(str,args[1])==str) {
@@ -1380,29 +1527,38 @@ static int cmd_exec(const char *cmd, vt_t *vt)
     }
     return ret;
 }
-/* command interpreter -------------------------------------------------------*/
-static void cmdshell(vt_t *vt)
+/* console thread ------------------------------------------------------------*/
+static void *con_thread(void *arg)
 {
     const char *cmds[]={
         "start","stop","restart","solution","status","satellite","observ",
-        "navidata","stream","error","option","set","load","save","log","help",
-        "?","exit","shutdown",""
+        "navidata","stream","ssr","error","option","set","load","save","log",
+        "help","?","exit","shutdown",""
     };
+    con_t *con=(con_t *)arg;
     int i,j,narg;
     char buff[MAXCMD],*args[MAXARG],*p;
     
-    trace(3,"cmdshell:\n");
+    trace(3,"console_thread:\n");
     
-    while (!intflg) {
+    vt_printf(con->vt,"\n%s** %s ver.%s %s console (h:help) **%s\n",ESC_BOLD,
+              PRGNAME,VER_RTKLIB,PATCH_LEVEL,ESC_RESET);
+    
+    if (!login(con->vt)) {
+        vt_close(con->vt);
+        con->state=0;
+        return 0;
+    }
+    while (con->state) {
         
         /* output prompt */
-        if (!vt_printf(vt,"%s",CMDPROMPT)) break;
+        if (!vt_puts(con->vt,CMDPROMPT)) break;
         
         /* input command */
-        if (!vt_gets(vt,buff,sizeof(buff))) break;
+        if (!vt_gets(con->vt,buff,sizeof(buff))) break;
         
         if (buff[0]=='!') { /* shell escape */
-            cmd_exec(buff+1,vt);
+            cmd_exec(buff+1,con->vt);
             continue;
         }
         /* parse command */
@@ -1416,60 +1572,164 @@ static void cmdshell(vt_t *vt)
             if (strstr(cmds[i],args[0])==cmds[i]) j=i;
         }
         switch (j) {
-            case  0: cmd_start    (args,narg,vt); break;
-            case  1: cmd_stop     (args,narg,vt); break;
-            case  2: cmd_restart  (args,narg,vt); break;
-            case  3: cmd_solution (args,narg,vt); break;
-            case  4: cmd_status   (args,narg,vt); break;
-            case  5: cmd_satellite(args,narg,vt); break;
-            case  6: cmd_observ   (args,narg,vt); break;
-            case  7: cmd_navidata (args,narg,vt); break;
-            case  8: cmd_stream   (args,narg,vt); break;
-            case  9: cmd_error    (args,narg,vt); break;
-            case 10: cmd_option   (args,narg,vt); break;
-            case 11: cmd_set      (args,narg,vt); break;
-            case 12: cmd_load     (args,narg,vt); break;
-            case 13: cmd_save     (args,narg,vt); break;
-            case 14: cmd_log      (args,narg,vt); break;
-            case 15: cmd_help     (args,narg,vt); break;
-            case 16: cmd_help     (args,narg,vt); break;
-            case 17: if (vt->type) return;        break;
-            case 18:              /* shutdown */
-                vt_printf(vt,"shutdown %s process ? (y/n): ",PRGNAME);
-                if (!vt_gets(vt,buff,sizeof(buff))||vt->brk) continue;
-                if (toupper((int)buff[0])=='Y') intflg=1;
+            case  0: cmd_start    (args,narg,con->vt); break;
+            case  1: cmd_stop     (args,narg,con->vt); break;
+            case  2: cmd_restart  (args,narg,con->vt); break;
+            case  3: cmd_solution (args,narg,con->vt); break;
+            case  4: cmd_status   (args,narg,con->vt); break;
+            case  5: cmd_satellite(args,narg,con->vt); break;
+            case  6: cmd_observ   (args,narg,con->vt); break;
+            case  7: cmd_navidata (args,narg,con->vt); break;
+            case  8: cmd_stream   (args,narg,con->vt); break;
+            case  9: cmd_ssr      (args,narg,con->vt); break;
+            case 10: cmd_error    (args,narg,con->vt); break;
+            case 11: cmd_option   (args,narg,con->vt); break;
+            case 12: cmd_set      (args,narg,con->vt); break;
+            case 13: cmd_load     (args,narg,con->vt); break;
+            case 14: cmd_save     (args,narg,con->vt); break;
+            case 15: cmd_log      (args,narg,con->vt); break;
+            case 16: cmd_help     (args,narg,con->vt); break;
+            case 17: cmd_help     (args,narg,con->vt); break;
+            case 18: /* exit */
+                if (con->vt->type) con->state=0;
+                break;
+            case 19: /* shutdown */
+                if (!strcmp(args[0],"shutdown")) {
+                    vt_printf(con->vt,"rtk server shutdown ...\n");
+                    sleepms(1000);
+                    intflg=1;
+                    con->state=0;
+                }
                 break;
             default:
-                vt_printf(vt,"unknown command: %s.\n",args[0]);
+                vt_printf(con->vt,"unknown command: %s.\n",args[0]);
                 break;
         }
     }
-    trace(3,"cmdshell: exit\n");
+    vt_close(con->vt);
+    return 0;
+}
+/* open console --------------------------------------------------------------*/
+static con_t *con_open(int sock, const char *dev)
+{
+    con_t *con;
+    
+    trace(3,"con_open: sock=%d dev=%s\n",sock,dev);
+    
+    if (!(con=(con_t *)malloc(sizeof(con_t)))) return NULL;
+    
+    if (!(con->vt=vt_open(sock,dev))) {
+        free(con);
+        return NULL;
+    }
+    /* start console thread */
+    con->state=1;
+    if (pthread_create(&con->thread,NULL,con_thread,con)) {
+        free(con);
+        return NULL;
+    }
+    return con;
+}
+/* close console -------------------------------------------------------------*/
+static void con_close(con_t *con)
+{
+    trace(3,"con_close:\n");
+    
+    if (!con) return;
+    con->state=con->vt->state=0;
+    pthread_join(con->thread,NULL);
+    free(con);
+}
+/* open socket for remote console --------------------------------------------*/
+static int open_sock(int port)
+{
+    struct sockaddr_in addr;
+    int sock,on=1;
+    
+    trace(3,"open_sock: port=%d\n",port);
+    
+    if ((sock=socket(AF_INET,SOCK_STREAM,0))<0) {
+        fprintf(stderr,"socket error (%d)\n",errno);
+        return 0;
+    }
+    setsockopt(sock,SOL_SOCKET,SO_REUSEADDR,(const char *)&on,sizeof(on));
+    memset(&addr,0,sizeof(addr));
+    addr.sin_family=AF_INET;
+    addr.sin_port=htons(port);
+    
+    if (bind(sock,(struct sockaddr *)&addr,sizeof(addr))<0) {
+        fprintf(stderr,"bind error (%d)\n",errno);
+        close(sock);
+        return -1;
+    }
+    listen(sock,5);
+    return sock;
+}
+/* accept remote console connection ------------------------------------------*/
+static void accept_sock(int ssock, con_t **con)
+{
+    struct timeval tv={0};
+    struct sockaddr_in addr;
+    socklen_t len=sizeof(addr);
+    fd_set rs;
+    int i,sock;
+    
+    if (ssock<=0) return;
+    
+    trace(4,"accept_sock: ssock=%d\n",ssock);
+    
+    for (i=1;i<MAXCON;i++) {
+        if (!con[i]||con[i]->state) continue;
+        con_close(con[i]);
+        con[i]=NULL;
+    }
+    FD_ZERO(&rs);
+    FD_SET(ssock,&rs);
+    if (select(ssock+1,&rs,NULL,NULL,&tv)<=0) {
+        return;
+    }
+    if ((sock=accept(ssock,(struct sockaddr *)&addr,&len))<=0) {
+        return;
+    }
+    for (i=1;i<MAXCON;i++) {
+        if (con[i]) continue;
+        
+        con[i]=con_open(sock,"");
+        
+        trace(3,"remote console connected: addr=%s\n",
+              inet_ntoa(addr.sin_addr));
+        return;
+    }
+    close(sock);
+    trace(2,"remote console connection refused. addr=%s\n",
+         inet_ntoa(addr.sin_addr));
 }
 /* rtkrcv main -----------------------------------------------------------------
 * sysnopsis
-*     rtkrcv [-s][-p port|-d dev][-o file][-t level]
+*     rtkrcv [-s][-p port][-d dev][-o file][-r level][-t level][-sta sta]
 *
 * description
 *     A command line version of the real-time positioning AP by rtklib. To start
 *     or stop RTK server, to configure options or to print solution/status,
-*     login a console and input commands. As default, stdin/stdout are used for
-*     the console. Use -p option for network login with telnet protocol. To show
-*     the available commands, type ? or help on the console. The initial 
-*     processing options are loaded from default file rtkrcv.conf. To change the
-*     file, use -o option. To configure the processing options, edit the options
-*     file or use set, load or save command on the console. To shutdown the
-*     program, use shutdown command on the console or send USR2 signal to the
-*     process.
+*     login a console and input commands. As default, /dev/tty is used for the
+*     console. Use -p option for network login with telnet protocol. To show
+*     the available commands, type ? or help on the console. With -p option,
+*     multiple telnet console logins are allowed. The initial processing options
+*     are loaded from default file rtkrcv.conf. To change the file, use -o
+*     option. To configure the processing options, edit the options file or use
+*     set, load or save command on the console. To shutdown the program, use
+*     shutdown command on the console or send USR2 signal to the process.
 *
 * option
 *     -s         start RTK server on program startup
 *     -p port    port number for telnet console
 *     -m port    port number for monitor stream
 *     -d dev     terminal device for console
-*     -o file    processing options file       
+*     -o file    processing options file
+*     -w pwd     login password for remote console ("": no password)
 *     -r level   output solution status file (0:off,1:states,2:residuals)
 *     -t level   debug trace level (0:off,1-5:on)
+*     -sta sta   station name for receiver dcb
 *
 * command
 *     start
@@ -1552,15 +1812,19 @@ static void cmdshell(vt_t *vt)
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
 /*name only*/
 int mainRTKlib(int argc, char **argv)
-{
-    vt.state=0;
 
-    int i,start=0,port=0,outstat=0,trace=0;
+{
+      vt.state=0;
+/********************************************************************************************/
+  
+    con_t *con[MAXCON]={0};
+    int i,start=0,port=0,outstat=0,trace=0,sock=0;
     char *dev="",file[MAXSTR]="";
 
+/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
     for (i=0;i<argc;i++)
         printf(" * '%s'\n",argv[i]);
-
+/********************************************************************************************/
     
     for (i=1;i<argc;i++) {
         if      (!strcmp(argv[i],"-s")) start=1;
@@ -1568,9 +1832,11 @@ int mainRTKlib(int argc, char **argv)
         else if (!strcmp(argv[i],"-m")&&i+1<argc) moniport=atoi(argv[++i]);
         else if (!strcmp(argv[i],"-d")&&i+1<argc) dev=argv[++i];
         else if (!strcmp(argv[i],"-o")&&i+1<argc) strcpy(file,argv[++i]);
+        else if (!strcmp(argv[i],"-w")&&i+1<argc) strcpy(passwd,argv[++i]);
         else if (!strcmp(argv[i],"-r")&&i+1<argc) outstat=atoi(argv[++i]);
         else if (!strcmp(argv[i],"-t")&&i+1<argc) trace=atoi(argv[++i]);
-        else fprintf(stderr,"Unknown option: %s\n",argv[i]);
+        else if (!strcmp(argv[i],"-sta")&&i+1<argc) strcpy(sta_name,argv[++i]);
+        else printusage();
     }
     if (trace>0) {
         traceopen(TRACEFILE);
@@ -1588,7 +1854,6 @@ int mainRTKlib(int argc, char **argv)
         fprintf(stderr,"no options file: %s. defaults used\n",file);
     }
     getsysopts(&prcopt,solopt,&filopt);
-/*   sprintf(filopt.tempdir, "/tmp");  */
     
     /* read navigation data */
     if (!readnav(NAVIFILE,&svr.nav)) {
@@ -1600,49 +1865,55 @@ int mainRTKlib(int argc, char **argv)
     /* open monitor port */
     if (moniport>0&&!openmoni(moniport)) {
         fprintf(stderr,"monitor port open error: %d\n",moniport);
-        return -1;
     }
-
-    /* start rtk server */
-    if (start&&!startsvr(&vt)) return -1;
-    
-    signal(SIGINT, sigshut);    /* keyboard interrupt */
-    signal(SIGTERM,sigshut);    /* external shutdown signal */
+    if (port) {
+        /* open socket for remote console */
+        if ((sock=open_sock(port))<=0) {
+            fprintf(stderr,"console open error port=%d\n",port);
+            if (moniport>0) closemoni();
+            if (outstat>0) rtkclosestat();
+            traceclose();
+            return -1;
+        }
+    }
+    else {
+        /* open device for local console */
+        if (!(con[0]=con_open(0,dev))) {
+            fprintf(stderr,"console open error dev=%s\n",dev);
+            if (moniport>0) closemoni();
+            if (outstat>0) rtkclosestat();
+            traceclose();
+            return -1;
+        }
+    }
+    signal(SIGINT, sigshut); /* keyboard interrupt */
+    signal(SIGTERM,sigshut); /* external shutdown signal */
     signal(SIGUSR2,sigshut);
     signal(SIGHUP ,SIG_IGN);
     signal(SIGPIPE,SIG_IGN);
-/*---------------------Won't be used even in "ouvreVT"-----------------------------------*/
-    while (!intflg) {
-        
-        /* open console */
-        fprintf(stderr,"on est dans rtkrcv.c juste avant test if !vt_open...-------    ");
-        /*if (!vt_open(&vt,port,dev)) return 0;*/
-        /*fprintf(stderr,"on est juste après");*/
-        if (!vt_open(&vt,port,dev)) break;
-
-        vt_printf(&vt,"\n%s** %s ver.%s console (h:help) **%s\n",ESC_BOLD,
-                  PRGNAME,VER_RTKLIB,ESC_RESET);
-        
-        /* command interpreter */
-        if (login(&vt)) cmdshell(&vt);
-        
-        /* close console */
-        vt_close(&vt);
+    
+    /* start rtk server */
+    if (start) {
+        startsvr(&vt);
     }
-/*---------------------------------------------------------------------------------------------*/
-
-    fprintf(stderr,"on est passé ici");
-
+    while (!intflg) {
+        /* accept remote console connection */
+        accept_sock(sock,con);
+        sleepms(100);
+    }
     /* stop rtk server */
-  stopsvr(&vt);
+    stopsvr(&vt);
     
+    /* close consoles */
+    for (i=0;i<MAXCON;i++) {
+        con_close(con[i]);
+    }
     if (moniport>0) closemoni();
-    
     if (outstat>0) rtkclosestat();
-    
-    if (trace>0) traceclose();
 
-    
+
+
+
     /* save navigation data */
    if (!savenav(NAVIFILE,&svr.nav)) {
         fprintf(stderr,"navigation data save error: %s\n",NAVIFILE);
@@ -1715,7 +1986,7 @@ int ouvreVT(int argc, char **argv)
     signal(SIGHUP ,SIG_IGN);
     signal(SIGPIPE,SIG_IGN);
 
-    vt_open(&vt,port,dev);
+    vt_open(port,dev);
     vt_printf(&vt,"Truc ouvert\n");
     return 0;
 }
@@ -1733,9 +2004,5 @@ int fermeVT()
 
     if (trace>0) traceclose();
 
-    /* save navigation data */
-    if (!savenav(NAVIFILE,&svr.nav)) {
-        fprintf(stderr,"navigation data save error: %s\n",NAVIFILE);
-    }
-    return 0;
+
 }

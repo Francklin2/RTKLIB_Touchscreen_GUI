@@ -1,7 +1,7 @@
 /*------------------------------------------------------------------------------
 * rtkpos.c : precise positioning
 *
-*          Copyright (C) 2007-2013 by T.TAKASU, All rights reserved.
+*          Copyright (C) 2007-2015 by T.TAKASU, All rights reserved.
 *
 * version : $Revision: 1.1 $ $Date: 2008/07/17 21:48:06 $
 * history : 2007/01/12 1.0  new
@@ -34,16 +34,19 @@
 *           2014/10/21 1.16 fix bug on beidou amb-res with pos2-bdsarmode=0
 *           2014/11/08 1.17 fix bug on ar-degradation by unhealthy satellites
 *           2015/03/23 1.18 residuals referenced to reference satellite
+*           2015/05/20 1.19 no output solution status file with Q=0
+*           2015/07/22 1.20 fix bug on base station position setting
+*           2016/07/30 1.21 suppress single solution if !prcopt.outsingle
+*                           fix bug on slip detection of backward filter
+*           2016/08/20 1.22 fix bug on ddres() function
 *-----------------------------------------------------------------------------*/
 #include <stdarg.h>
 #include "rtklib.h"
 
-static const char rcsid[]="$Id:$";
-
 /* constants/macros ----------------------------------------------------------*/
 
 #define SQR(x)      ((x)*(x))
-#define SQRT(x)     ((x)<=0.0?0.0:sqrt(x))
+#define SQRT(x)     ((x)<=0.0||(x)!=(x)?0.0:sqrt(x))
 #define MIN(x,y)    ((x)<=(y)?(x):(y))
 #define ROUND(x)    (int)floor((x)+0.5)
 
@@ -206,6 +209,93 @@ extern void rtkclosestat(void)
     file_stat[0]='\0';
     statlevel=0;
 }
+/* write solution status to buffer -------------------------------------------*/
+extern int rtkoutstat(rtk_t *rtk, char *buff)
+{
+    ssat_t *ssat;
+    double tow,pos[3],vel[3],acc[3],vela[3]={0},acca[3]={0},xa[3];
+    int i,j,week,est,nfreq,nf=NF(&rtk->opt);
+    char id[32],*p=buff;
+    
+    if (rtk->sol.stat<=SOLQ_NONE) {
+        return 0;
+    }
+    /* write ppp solution status to buffer */
+    if (rtk->opt.mode>=PMODE_PPP_KINEMA) {
+        return pppoutstat(rtk,buff);
+    }
+    est=rtk->opt.mode>=PMODE_DGPS;
+    nfreq=est?nf:1;
+    tow=time2gpst(rtk->sol.time,&week);
+    
+    /* receiver position */
+    if (est) {
+        for (i=0;i<3;i++) xa[i]=i<rtk->na?rtk->xa[i]:0.0;
+        p+=sprintf(p,"$POS,%d,%.3f,%d,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n",week,tow,
+                   rtk->sol.stat,rtk->x[0],rtk->x[1],rtk->x[2],xa[0],xa[1],
+                   xa[2]);
+    }
+    else {
+        p+=sprintf(p,"$POS,%d,%.3f,%d,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n",week,tow,
+                   rtk->sol.stat,rtk->sol.rr[0],rtk->sol.rr[1],rtk->sol.rr[2],
+                   0.0,0.0,0.0);
+    }
+    /* receiver velocity and acceleration */
+    if (est&&rtk->opt.dynamics) {
+        ecef2pos(rtk->sol.rr,pos);
+        ecef2enu(pos,rtk->x+3,vel);
+        ecef2enu(pos,rtk->x+6,acc);
+        if (rtk->na>=6) ecef2enu(pos,rtk->xa+3,vela);
+        if (rtk->na>=9) ecef2enu(pos,rtk->xa+6,acca);
+        p+=sprintf(p,"$VELACC,%d,%.3f,%d,%.4f,%.4f,%.4f,%.5f,%.5f,%.5f,%.4f,%.4f,%.4f,%.5f,%.5f,%.5f\n",
+                   week,tow,rtk->sol.stat,vel[0],vel[1],vel[2],acc[0],acc[1],
+                   acc[2],vela[0],vela[1],vela[2],acca[0],acca[1],acca[2]);
+    }
+    else {
+        ecef2pos(rtk->sol.rr,pos);
+        ecef2enu(pos,rtk->sol.rr+3,vel);
+        p+=sprintf(p,"$VELACC,%d,%.3f,%d,%.4f,%.4f,%.4f,%.5f,%.5f,%.5f,%.4f,%.4f,%.4f,%.5f,%.5f,%.5f\n",
+                   week,tow,rtk->sol.stat,vel[0],vel[1],vel[2],
+                   0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
+    }
+    /* receiver clocks */
+    p+=sprintf(p,"$CLK,%d,%.3f,%d,%d,%.3f,%.3f,%.3f,%.3f\n",
+               week,tow,rtk->sol.stat,1,rtk->sol.dtr[0]*1E9,rtk->sol.dtr[1]*1E9,
+               rtk->sol.dtr[2]*1E9,rtk->sol.dtr[3]*1E9);
+    
+    /* ionospheric parameters */
+    if (est&&rtk->opt.ionoopt==IONOOPT_EST) {
+        for (i=0;i<MAXSAT;i++) {
+            ssat=rtk->ssat+i;
+            if (!ssat->vs) continue;
+            satno2id(i+1,id);
+            j=II(i+1,&rtk->opt);
+            xa[0]=j<rtk->na?rtk->xa[j]:0.0;
+            p+=sprintf(p,"$ION,%d,%.3f,%d,%s,%.1f,%.1f,%.4f,%.4f\n",week,tow,
+                       rtk->sol.stat,id,ssat->azel[0]*R2D,ssat->azel[1]*R2D,
+                       rtk->x[j],xa[0]);
+        }
+    }
+    /* tropospheric parameters */
+    if (est&&(rtk->opt.tropopt==TROPOPT_EST||rtk->opt.tropopt==TROPOPT_ESTG)) {
+        for (i=0;i<2;i++) {
+            j=IT(i,&rtk->opt);
+            xa[0]=j<rtk->na?rtk->xa[j]:0.0;
+            p+=sprintf(p,"$TROP,%d,%.3f,%d,%d,%.4f,%.4f\n",week,tow,
+                       rtk->sol.stat,i+1,rtk->x[j],xa[0]);
+        }
+    }
+    /* receiver h/w bias */
+    if (est&&rtk->opt.glomodear==2) {
+        for (i=0;i<nfreq;i++) {
+            j=IL(i,&rtk->opt);
+            xa[0]=j<rtk->na?rtk->xa[j]:0.0;
+            p+=sprintf(p,"$HWBIAS,%d,%.3f,%d,%d,%.4f,%.4f\n",week,tow,
+                       rtk->sol.stat,i+1,rtk->x[j],xa[0]);
+        }
+    }
+    return (int)(p-buff);
+}
 /* swap solution status file -------------------------------------------------*/
 static void swapsolstat(void)
 {
@@ -233,88 +323,28 @@ static void swapsolstat(void)
 static void outsolstat(rtk_t *rtk)
 {
     ssat_t *ssat;
-    double tow,pos[3],vel[3],acc[3],vela[3]={0},acca[3]={0},xa[3];
-    int i,j,week,est,nfreq,nf=NF(&rtk->opt);
-    char id[32];
+    double tow;
+    char buff[MAXSOLMSG+1],id[32];
+    int i,j,n,week,nfreq,nf=NF(&rtk->opt);
     
-    if (statlevel<=0||!fp_stat) return;
+    if (statlevel<=0||!fp_stat||!rtk->sol.stat) return;
     
     trace(3,"outsolstat:\n");
     
     /* swap solution status file */
     swapsolstat();
     
-    est=rtk->opt.mode>=PMODE_DGPS;
-    nfreq=est?nf:1;
-    tow=time2gpst(rtk->sol.time,&week);
+    /* write solution status */
+    n=rtkoutstat(rtk,buff); buff[n]='\0';
     
-    /* receiver position */
-    if (est) {
-        for (i=0;i<3;i++) xa[i]=i<rtk->na?rtk->xa[i]:0.0;
-        fprintf(fp_stat,"$POS,%d,%.3f,%d,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n",week,tow,
-                rtk->sol.stat,rtk->x[0],rtk->x[1],rtk->x[2],xa[0],xa[1],xa[2]);
-    }
-    else {
-        fprintf(fp_stat,"$POS,%d,%.3f,%d,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f\n",week,tow,
-                rtk->sol.stat,rtk->sol.rr[0],rtk->sol.rr[1],rtk->sol.rr[2],
-                0.0,0.0,0.0);
-    }
-    /* receiver velocity and acceleration */
-    if (est&&rtk->opt.dynamics) {
-        ecef2pos(rtk->sol.rr,pos);
-        ecef2enu(pos,rtk->x+3,vel);
-        ecef2enu(pos,rtk->x+6,acc);
-        if (rtk->na>=6) ecef2enu(pos,rtk->xa+3,vela);
-        if (rtk->na>=9) ecef2enu(pos,rtk->xa+6,acca);
-        fprintf(fp_stat,"$VELACC,%d,%.3f,%d,%.4f,%.4f,%.4f,%.5f,%.5f,%.5f,%.4f,%.4f,%.4f,%.5f,%.5f,%.5f\n",
-                week,tow,rtk->sol.stat,vel[0],vel[1],vel[2],acc[0],acc[1],acc[2],
-                vela[0],vela[1],vela[2],acca[0],acca[1],acca[2]);
-    }
-    else {
-        ecef2pos(rtk->sol.rr,pos);
-        ecef2enu(pos,rtk->sol.rr+3,vel);
-        fprintf(fp_stat,"$VELACC,%d,%.3f,%d,%.4f,%.4f,%.4f,%.5f,%.5f,%.5f,%.4f,%.4f,%.4f,%.5f,%.5f,%.5f\n",
-                week,tow,rtk->sol.stat,vel[0],vel[1],vel[2],
-                0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
-    }
-    /* receiver clocks */
-    fprintf(fp_stat,"$CLK,%d,%.3f,%d,%d,%.3f,%.3f,%.3f,%.3f\n",
-            week,tow,rtk->sol.stat,1,rtk->sol.dtr[0]*1E9,rtk->sol.dtr[1]*1E9,
-            rtk->sol.dtr[2]*1E9,rtk->sol.dtr[3]*1E9);
+    fputs(buff,fp_stat);
     
-    /* ionospheric parameters */
-    if (est&&rtk->opt.ionoopt==IONOOPT_EST) {
-        for (i=0;i<MAXSAT;i++) {
-            ssat=rtk->ssat+i;
-            if (!ssat->vs) continue;
-            satno2id(i+1,id);
-            j=II(i+1,&rtk->opt);
-            xa[0]=j<rtk->na?rtk->xa[j]:0.0;
-            fprintf(fp_stat,"$ION,%d,%.3f,%d,%s,%.1f,%.1f,%.4f,%.4f\n",week,tow,rtk->sol.stat,
-                    id,ssat->azel[0]*R2D,ssat->azel[1]*R2D,rtk->x[j],xa[0]);
-        }
-    }
-    /* tropospheric parameters */
-    if (est&&(rtk->opt.tropopt==TROPOPT_EST||rtk->opt.tropopt==TROPOPT_ESTG)) {
-        for (i=0;i<2;i++) {
-            j=IT(i,&rtk->opt);
-            xa[0]=j<rtk->na?rtk->xa[j]:0.0;
-            fprintf(fp_stat,"$TROP,%d,%.3f,%d,%d,%.4f,%.4f\n",week,tow,rtk->sol.stat,
-                    i+1,rtk->x[j],xa[0]);
-        }
-    }
-    /* receiver h/w bias */
-    if (est&&rtk->opt.glomodear==2) {
-        for (i=0;i<nfreq;i++) {
-            j=IL(i,&rtk->opt);
-            xa[0]=j<rtk->na?rtk->xa[j]:0.0;
-            fprintf(fp_stat,"$HWBIAS,%d,%.3f,%d,%d,%.4f,%.4f\n",week,tow,rtk->sol.stat,
-                    i+1,rtk->x[j],xa[0]);
-        }
-    }
     if (rtk->sol.stat==SOLQ_NONE||statlevel<=1) return;
     
-    /* residuals and status */
+    tow=time2gpst(rtk->sol.time,&week);
+    nfreq=rtk->opt.mode>=PMODE_DGPS?nf:1;
+    
+    /* write residuals and status */
     for (i=0;i<MAXSAT;i++) {
         ssat=rtk->ssat+i;
         if (!ssat->vs) continue;
@@ -322,8 +352,8 @@ static void outsolstat(rtk_t *rtk)
         for (j=0;j<nfreq;j++) {
             fprintf(fp_stat,"$SAT,%d,%.3f,%s,%d,%.1f,%.1f,%.4f,%.4f,%d,%.0f,%d,%d,%d,%d,%d,%d\n",
                     week,tow,id,j+1,ssat->azel[0]*R2D,ssat->azel[1]*R2D,
-                    ssat->resp [j],ssat->resc[j],  ssat->vsat[j],ssat->snr[j]*0.25,
-                    ssat->fix  [j],ssat->slip[j]&3,ssat->lock[j],ssat->outc[j],
+                    ssat->resp[j],ssat->resc[j],ssat->vsat[j],ssat->snr[j]*0.25,
+                    ssat->fix[j],ssat->slip[j]&3,ssat->lock[j],ssat->outc[j],
                     ssat->slipc[j],ssat->rejc[j]);
         }
     }
@@ -427,8 +457,8 @@ static int selsat(const obsd_t *obs, double *azel, int nu, int nr,
 /* temporal update of position/velocity/acceleration -------------------------*/
 static void udpos(rtk_t *rtk, double tt)
 {
-    double *F,*FP,*xp,pos[3],Q[9]={0},Qv[9],var=0.0;
-    int i,j;
+    double *F,*P,*FP,*x,*xp,pos[3],Q[9]={0},Qv[9],var=0.0;
+    int i,j,*ix,nx;
     
     trace(3,"udpos   : tt=%.3f\n",tt);
     
@@ -454,7 +484,8 @@ static void udpos(rtk_t *rtk, double tt)
         return;
     }
     /* check variance of estimated postion */
-    for (i=0;i<3;i++) var+=rtk->P[i+i*rtk->nx]; var/=3.0;
+    for (i=0;i<3;i++) var+=rtk->P[i+i*rtk->nx];
+    var/=3.0;
     
     if (var>VAR_POS) {
         /* reset position with large variance */
@@ -464,26 +495,50 @@ static void udpos(rtk_t *rtk, double tt)
         trace(2,"reset rtk position due to large variance: var=%.3f\n",var);
         return;
     }
+    /* generate valid state index */
+    ix=imat(rtk->nx,1);
+    for (i=nx=0;i<rtk->nx;i++) {
+        if (rtk->x[i]!=0.0&&rtk->P[i+i*rtk->nx]>0.0) ix[nx++]=i;
+    }
+    if (nx<9) {
+        free(ix);
+        return;
+    }
     /* state transition of position/velocity/acceleration */
-    F=eye(rtk->nx); FP=mat(rtk->nx,rtk->nx); xp=mat(rtk->nx,1);
+    F=eye(nx); P=mat(nx,nx); FP=mat(nx,nx); x=mat(nx,1); xp=mat(nx,1);
     
     for (i=0;i<6;i++) {
-        F[i+(i+3)*rtk->nx]=tt;
+        F[i+(i+3)*nx]=tt;
+    }
+    for (i=0;i<3;i++) {
+        F[i+(i+6)*nx]=SQR(tt)/2.0;
+    }
+    for (i=0;i<nx;i++) {
+        x[i]=rtk->x[ix[i]];
+        for (j=0;j<nx;j++) {
+            P[i+j*nx]=rtk->P[ix[i]+ix[j]*rtk->nx];
+        }
     }
     /* x=F*x, P=F*P*F+Q */
-    matmul("NN",rtk->nx,1,rtk->nx,1.0,F,rtk->x,0.0,xp);
-    matcpy(rtk->x,xp,rtk->nx,1);
-    matmul("NN",rtk->nx,rtk->nx,rtk->nx,1.0,F,rtk->P,0.0,FP);
-    matmul("NT",rtk->nx,rtk->nx,rtk->nx,1.0,FP,F,0.0,rtk->P);
+    matmul("NN",nx,1,nx,1.0,F,x,0.0,xp);
+    matmul("NN",nx,nx,nx,1.0,F,P,0.0,FP);
+    matmul("NT",nx,nx,nx,1.0,FP,F,0.0,P);
     
+    for (i=0;i<nx;i++) {
+        rtk->x[ix[i]]=xp[i];
+        for (j=0;j<nx;j++) {
+            rtk->P[ix[i]+ix[j]*rtk->nx]=P[i+j*nx];
+        }
+    }
     /* process noise added to only acceleration */
-    Q[0]=Q[4]=SQR(rtk->opt.prn[3]); Q[8]=SQR(rtk->opt.prn[4]);
+    Q[0]=Q[4]=SQR(rtk->opt.prn[3])*fabs(tt);
+    Q[8]=SQR(rtk->opt.prn[4])*fabs(tt);
     ecef2pos(rtk->x,pos);
     covecef(pos,Q,Qv);
     for (i=0;i<3;i++) for (j=0;j<3;j++) {
         rtk->P[i+6+(j+6)*rtk->nx]+=Qv[i+j*3];
     }
-    free(F); free(FP); free(xp);
+    free(ix); free(F); free(P); free(FP); free(x); free(xp);
 }
 /* temporal update of ionospheric parameters ---------------------------------*/
 static void udion(rtk_t *rtk, double tt, double bl, const int *sat, int ns)
@@ -491,7 +546,7 @@ static void udion(rtk_t *rtk, double tt, double bl, const int *sat, int ns)
     double el,fact;
     int i,j;
     
-    trace(3,"udion   : tt=%.1f bl=%.0f ns=%d\n",tt,bl,ns);
+    trace(3,"udion   : tt=%.3f bl=%.0f ns=%d\n",tt,bl,ns);
     
     for (i=1;i<=MAXSAT;i++) {
         j=II(i,&rtk->opt);
@@ -509,7 +564,7 @@ static void udion(rtk_t *rtk, double tt, double bl, const int *sat, int ns)
             /* elevation dependent factor of process noise */
             el=rtk->ssat[sat[i]-1].azel[1];
             fact=cos(el);
-            rtk->P[j+j*rtk->nx]+=SQR(rtk->opt.prn[1]*bl/1E4*fact)*tt;
+            rtk->P[j+j*rtk->nx]+=SQR(rtk->opt.prn[1]*bl/1E4*fact)*fabs(tt);
         }
     }
 }
@@ -518,7 +573,7 @@ static void udtrop(rtk_t *rtk, double tt, double bl)
 {
     int i,j,k;
     
-    trace(3,"udtrop  : tt=%.1f\n",tt);
+    trace(3,"udtrop  : tt=%.3f\n",tt);
     
     for (i=0;i<2;i++) {
         j=IT(i,&rtk->opt);
@@ -531,11 +586,11 @@ static void udtrop(rtk_t *rtk, double tt, double bl)
             }
         }
         else {
-            rtk->P[j+j*rtk->nx]+=SQR(rtk->opt.prn[2])*tt;
+            rtk->P[j+j*rtk->nx]+=SQR(rtk->opt.prn[2])*fabs(tt);
             
             if (rtk->opt.tropopt>=TROPOPT_ESTG) {
                 for (k=0;k<2;k++) {
-                    rtk->P[++j*(1+rtk->nx)]+=SQR(rtk->opt.prn[2]*0.3)*fabs(rtk->tt);
+                    rtk->P[++j*(1+rtk->nx)]+=SQR(rtk->opt.prn[2]*0.3)*fabs(tt);
                 }
             }
         }
@@ -546,7 +601,7 @@ static void udrcvbias(rtk_t *rtk, double tt)
 {
     int i,j;
     
-    trace(3,"udrcvbias: tt=%.1f\n",tt);
+    trace(3,"udrcvbias: tt=%.3f\n",tt);
     
     for (i=0;i<NFREQGLO;i++) {
         j=IL(i,&rtk->opt);
@@ -559,43 +614,56 @@ static void udrcvbias(rtk_t *rtk, double tt)
             initx(rtk,rtk->xa[j],rtk->Pa[j+j*rtk->na],j);
         }
         else {
-            rtk->P[j+j*rtk->nx]+=SQR(PRN_HWBIAS)*tt;
+            rtk->P[j+j*rtk->nx]+=SQR(PRN_HWBIAS)*fabs(tt);
         }
     }
 }
 /* detect cycle slip by LLI --------------------------------------------------*/
 static void detslp_ll(rtk_t *rtk, const obsd_t *obs, int i, int rcv)
 {
-    unsigned char slip,LLI1,LLI2,LLI;
+    unsigned int slip,LLI;
     int f,sat=obs[i].sat;
     
     trace(3,"detslp_ll: i=%d rcv=%d\n",i,rcv);
     
     for (f=0;f<rtk->opt.nf;f++) {
         
-        if (obs[i].L[f]==0.0) continue;
-        
-        /* restore previous LLI */
-        LLI1=(rtk->ssat[sat-1].slip[f]>>6)&3;
-        LLI2=(rtk->ssat[sat-1].slip[f]>>4)&3;
-        LLI=rcv==1?LLI1:LLI2;
-        
-        /* detect slip by cycle slip flag */
-        slip=(rtk->ssat[sat-1].slip[f]|obs[i].LLI[f])&3;
-        
-        if (obs[i].LLI[f]&1) {
-            errmsg(rtk,"slip detected (sat=%2d rcv=%d LLI%d=%x)\n",
-                   sat,rcv,f+1,obs[i].LLI[f]);
+        if (obs[i].L[f]==0.0||
+            fabs(timediff(obs[i].time,rtk->ssat[sat-1].pt[rcv-1][f]))<DTTOL) {
+            continue;
         }
-        /* detect slip by parity unknown flag transition */
+        /* restore previous LLI */
+        if (rcv==1) LLI=getbitu(&rtk->ssat[sat-1].slip[f],0,2); /* rover */
+        else        LLI=getbitu(&rtk->ssat[sat-1].slip[f],2,2); /* base  */
+        
+        /* detect slip by cycle slip flag in LLI */
+        if (rtk->tt>=0.0) { /* forward */
+            if (obs[i].LLI[f]&1) {
+                errmsg(rtk,"slip detected forward  (sat=%2d rcv=%d F=%d LLI=%x)\n",
+                       sat,rcv,f+1,obs[i].LLI[f]);
+            }
+            slip=obs[i].LLI[f];
+        }
+        else { /* backward */
+            if (LLI&1) {
+                errmsg(rtk,"slip detected backward (sat=%2d rcv=%d F=%d LLI=%x)\n",
+                       sat,rcv,f+1,LLI);
+            }
+            slip=LLI;
+        }
+        /* detect slip by parity unknown flag transition in LLI */
         if (((LLI&2)&&!(obs[i].LLI[f]&2))||(!(LLI&2)&&(obs[i].LLI[f]&2))) {
-            errmsg(rtk,"slip detected (sat=%2d rcv=%d LLI%d=%x->%x)\n",
+            errmsg(rtk,"slip detected half-cyc (sat=%2d rcv=%d F=%d LLI=%x->%x)\n",
                    sat,rcv,f+1,LLI,obs[i].LLI[f]);
             slip|=1;
         }
-        /* save current LLI and slip flag */
-        if (rcv==1) rtk->ssat[sat-1].slip[f]=(obs[i].LLI[f]<<6)|(LLI2<<4)|slip;
-        else        rtk->ssat[sat-1].slip[f]=(obs[i].LLI[f]<<4)|(LLI1<<6)|slip;
+        /* save current LLI */
+        if (rcv==1) setbitu(&rtk->ssat[sat-1].slip[f],0,2,obs[i].LLI[f]);
+        else        setbitu(&rtk->ssat[sat-1].slip[f],2,2,obs[i].LLI[f]);
+        
+        /* save slip and half-cycle valid flag */
+        rtk->ssat[sat-1].slip[f]|=(unsigned char)slip;
+        rtk->ssat[sat-1].half[f]=(obs[i].LLI[f]&2)?0:1;
     }
 }
 /* detect cycle slip by L1-L2 geometry free phase jump -----------------------*/
@@ -616,7 +684,7 @@ static void detslp_gf_L1L2(rtk_t *rtk, const obsd_t *obs, int i, int j,
         rtk->ssat[sat-1].slip[0]|=1;
         rtk->ssat[sat-1].slip[1]|=1;
         
-        errmsg(rtk,"slip detected (sat=%2d GF_L1_L2=%.3f %.3f)\n",sat,g0,g1);
+        errmsg(rtk,"slip detected GF2_jump (sat=%2d GF_L1_L2=%.3f %.3f)\n",sat,g0,g1);
     }
 }
 /* detect cycle slip by L1-L5 geometry free phase jump -----------------------*/
@@ -637,7 +705,7 @@ static void detslp_gf_L1L5(rtk_t *rtk, const obsd_t *obs, int i, int j,
         rtk->ssat[sat-1].slip[0]|=1;
         rtk->ssat[sat-1].slip[2]|=1;
         
-        errmsg(rtk,"slip detected (sat=%2d GF_L1_L5=%.3f %.3f)\n",sat,g0,g1);
+        errmsg(rtk,"slip detected GF5_jump (sat=%2d GF_L1_L5=%.3f %.3f)\n",sat,g0,g1);
     }
 }
 /* detect cycle slip by doppler and phase difference -------------------------*/
@@ -681,7 +749,7 @@ static void udbias(rtk_t *rtk, double tt, const obsd_t *obs, const int *sat,
     double cp,pr,cp1,cp2,pr1,pr2,*bias,offset,lami,lam1,lam2,C1,C2;
     int i,j,f,slip,reset,nf=NF(&rtk->opt);
     
-    trace(3,"udbias  : tt=%.1f ns=%d\n",tt,ns);
+    trace(3,"udbias  : tt=%.3f ns=%d\n",tt,ns);
     
     for (i=0;i<ns;i++) {
         
@@ -697,6 +765,12 @@ static void udbias(rtk_t *rtk, double tt, const obsd_t *obs, const int *sat,
         /* detect cycle slip by doppler and phase difference */
         detslp_dop(rtk,obs,iu[i],1,nav);
         detslp_dop(rtk,obs,ir[i],2,nav);
+        
+        /* update half-cycle valid flag */
+        for (f=0;f<nf;f++) {
+            rtk->ssat[sat[i]-1].half[f]=
+                !((obs[iu[i]].LLI[f]&2)||(obs[ir[i]].LLI[f]&2));
+        }
     }
     for (f=0;f<nf;f++) {
         /* reset phase-bias if instantaneous AR or expire obs outage counter */
@@ -711,6 +785,7 @@ static void udbias(rtk_t *rtk, double tt, const obsd_t *obs, const int *sat,
                 initx(rtk,0.0,0.0,IB(i,f,&rtk->opt));
                 trace(3,"udbias : obs outage counter overflow (sat=%3d L%d n=%d)\n",
                       i,f+1,rtk->ssat[i-1].outc[f]);
+                rtk->ssat[i-1].outc[f]=0;
             }
             if (rtk->opt.modear!=ARMODE_INST&&reset) {
                 rtk->ssat[i-1].lock[f]=-rtk->opt.minlock;
@@ -719,7 +794,7 @@ static void udbias(rtk_t *rtk, double tt, const obsd_t *obs, const int *sat,
         /* reset phase-bias if detecting cycle slip */
         for (i=0;i<ns;i++) {
             j=IB(sat[i],f,&rtk->opt);
-            rtk->P[j+j*rtk->nx]+=rtk->opt.prn[0]*rtk->opt.prn[0]*tt;
+            rtk->P[j+j*rtk->nx]+=rtk->opt.prn[0]*rtk->opt.prn[0]*fabs(tt);
             slip=rtk->ssat[sat[i]-1].slip[f];
             if (rtk->opt.ionoopt==IONOOPT_IFLC) slip|=rtk->ssat[sat[i]-1].slip[1];
             if (rtk->opt.modear==ARMODE_INST||!(slip&1)) continue;
@@ -775,7 +850,7 @@ static void udbias(rtk_t *rtk, double tt, const obsd_t *obs, const int *sat,
 static void udstate(rtk_t *rtk, const obsd_t *obs, const int *sat,
                     const int *iu, const int *ir, int ns, const nav_t *nav)
 {
-    double tt=fabs(rtk->tt),bl,dr[3];
+    double tt=rtk->tt,bl,dr[3];
     
     trace(3,"udstate : ns=%d\n",ns);
     
@@ -940,7 +1015,11 @@ static int constbl(rtk_t *rtk, const double *x, const double *P, double *v,
     
     /* time-adjusted baseline vector and length */
     for (i=0;i<3;i++) {
+#if 0
         xb[i]=rtk->rb[i]+rtk->rb[i+3]*rtk->sol.age;
+#else
+        xb[i]=rtk->rb[i];
+#endif
         b[i]=x[i]-xb[i];
     }
     bb=norm(b,3);
@@ -1074,8 +1153,10 @@ static int ddres(rtk_t *rtk, const nav_t *nav, double dt, const double *x,
             lami=nav->lam[sat[i]-1][ff];
             lamj=nav->lam[sat[j]-1][ff];
             if (lami<=0.0||lamj<=0.0) continue;
-            if (H) Hi=H+nv*rtk->nx;
-            
+            if (H) {
+                Hi=H+nv*rtk->nx;
+                for (k=0;k<rtk->nx;k++) Hi[k]=0.0;
+            }
             /* double-differenced residual */
             v[nv]=(y[f+iu[i]*nf*2]-y[f+ir[i]*nf*2])-
                   (y[f+iu[j]*nf*2]-y[f+ir[j]*nf*2]);
@@ -1239,7 +1320,7 @@ static double intpres(gtime_t time, const obsd_t *obs, int n, const nav_t *nav,
 /* single to double-difference transformation matrix (D') --------------------*/
 static int ddmat(rtk_t *rtk, double *D)
 {
-    int i,j,k,m,f,nb=0,nx=rtk->nx,na=rtk->na,nf=NF(&rtk->opt);
+    int i,j,k,m,f,nb=0,nx=rtk->nx,na=rtk->na,nf=NF(&rtk->opt),nofix;
     
     trace(3,"ddmat   :\n");
     
@@ -1250,18 +1331,17 @@ static int ddmat(rtk_t *rtk, double *D)
     
     for (m=0;m<4;m++) { /* m=0:gps/qzs/sbs,1:glo,2:gal,3:bds */
         
-        if (m==1&&rtk->opt.glomodear==0) continue;
-        if (m==3&&rtk->opt.bdsmodear==0) continue;
+        nofix=(m==1&&rtk->opt.glomodear==0)||(m==3&&rtk->opt.bdsmodear==0);
         
         for (f=0,k=na;f<nf;f++,k+=MAXSAT) {
             
             for (i=k;i<k+MAXSAT;i++) {
                 if (rtk->x[i]==0.0||!test_sys(rtk->ssat[i-k].sys,m)||
-                    !rtk->ssat[i-k].vsat[f]) {
+                    !rtk->ssat[i-k].vsat[f]||!rtk->ssat[i-k].half[f]) {
                     continue;
                 }
                 if (rtk->ssat[i-k].lock[f]>0&&!(rtk->ssat[i-k].slip[f]&2)&&
-                    rtk->ssat[i-k].azel[1]>=rtk->opt.elmaskar) {
+                    rtk->ssat[i-k].azel[1]>=rtk->opt.elmaskar&&!nofix) {
                     rtk->ssat[i-k].fix[f]=2; /* fix */
                     break;
                 }
@@ -1274,7 +1354,7 @@ static int ddmat(rtk_t *rtk, double *D)
                 }
                 if (rtk->ssat[j-k].lock[f]>0&&!(rtk->ssat[j-k].slip[f]&2)&&
                     rtk->ssat[i-k].vsat[f]&&
-                    rtk->ssat[j-k].azel[1]>=rtk->opt.elmaskar) {
+                    rtk->ssat[j-k].azel[1]>=rtk->opt.elmaskar&&!nofix) {
                     D[i+(na+nb)*nx]= 1.0;
                     D[j+(na+nb)*nx]=-1.0;
                     nb++;
@@ -1480,7 +1560,7 @@ static int valpos(rtk_t *rtk, const double *v, const double *R, const int *vflg,
         }
         else {
             trace(3,"valpos : validation ok (%s nv=%d np=%d vv=%.2f cs=%.2f)\n",
-                  rtk->tstr,nv,NP(opt),vv,chisqr[nv-NP(opt)-1]);
+                  time_str(rtk->sol.time,2),nv,NP(opt),vv,chisqr[nv-NP(opt)-1]);
         }
     }
 #endif
@@ -1507,7 +1587,8 @@ static int relpos(rtk_t *rtk, const obsd_t *obs, int nu, int nr,
     
     for (i=0;i<MAXSAT;i++) {
         rtk->ssat[i].sys=satsys(i+1,NULL);
-        for (j=0;j<NFREQ;j++) rtk->ssat[i].vsat[j]=rtk->ssat[i].snr[j]=0;
+        for (j=0;j<NFREQ;j++) rtk->ssat[i].vsat[j]=0;
+        for (j=1;j<NFREQ;j++) rtk->ssat[i].snr [j]=0;
     }
     /* satellite positions/clocks */
     satposs(time,obs,n,nav,opt->sateph,rs,dts,var,svh);
@@ -1635,6 +1716,16 @@ static int relpos(rtk_t *rtk, const obsd_t *obs, int nu, int nr,
         rtk->sol.qr[3]=(float)rtk->Pa[1];
         rtk->sol.qr[4]=(float)rtk->Pa[1+2*rtk->na];
         rtk->sol.qr[5]=(float)rtk->Pa[2];
+        
+        if (rtk->opt.dynamics) { /* velocity and covariance */
+            for (i=3;i<6;i++) {
+                rtk->sol.rr[i]=rtk->xa[i];
+                rtk->sol.qv[i-3]=(float)rtk->Pa[i+i*rtk->na];
+            }
+            rtk->sol.qv[3]=(float)rtk->Pa[4+3*rtk->na];
+            rtk->sol.qv[4]=(float)rtk->Pa[5+4*rtk->na];
+            rtk->sol.qv[5]=(float)rtk->Pa[5+3*rtk->na];
+        }
     }
     else {
         for (i=0;i<3;i++) {
@@ -1644,6 +1735,16 @@ static int relpos(rtk_t *rtk, const obsd_t *obs, int nu, int nr,
         rtk->sol.qr[3]=(float)rtk->P[1];
         rtk->sol.qr[4]=(float)rtk->P[1+2*rtk->nx];
         rtk->sol.qr[5]=(float)rtk->P[2];
+        
+        if (rtk->opt.dynamics) { /* velocity and covariance */
+            for (i=3;i<6;i++) {
+                rtk->sol.rr[i]=rtk->x[i];
+                rtk->sol.qv[i-3]=(float)rtk->P[i+i*rtk->nx];
+            }
+            rtk->sol.qv[3]=(float)rtk->P[4+3*rtk->nx];
+            rtk->sol.qv[4]=(float)rtk->P[5+4*rtk->nx];
+            rtk->sol.qv[5]=(float)rtk->P[5+3*rtk->nx];
+        }
         rtk->nfix=0;
     }
     for (i=0;i<n;i++) for (j=0;j<nf;j++) {
@@ -1685,7 +1786,7 @@ extern void rtkinit(rtk_t *rtk, const prcopt_t *opt)
     rtk->sol=sol0;
     for (i=0;i<6;i++) rtk->rb[i]=0.0;
     rtk->nx=opt->mode<=PMODE_FIXED?NX(opt):pppnx(opt);
-    rtk->na=opt->mode<=PMODE_FIXED?NR(opt):0;
+    rtk->na=opt->mode<=PMODE_FIXED?NR(opt):pppnx(opt);
     rtk->tt=0.0;
     rtk->x=zeros(rtk->nx,1);
     rtk->P=zeros(rtk->nx,rtk->nx);
@@ -1785,7 +1886,8 @@ extern int rtkpos(rtk_t *rtk, const obsd_t *obs, int n, const nav_t *nav)
     /*trace(5,"nav=\n"); tracenav(5,nav);*/
     
     /* set base staion position */
-    if (opt->refpos<=3&&opt->mode!=PMODE_SINGLE&&opt->mode!=PMODE_MOVEB) {
+    if (opt->refpos<=POSOPT_RINEX&&opt->mode!=PMODE_SINGLE&&
+        opt->mode!=PMODE_MOVEB) {
         for (i=0;i<6;i++) rtk->rb[i]=i<3?opt->rb[i]:0.0;
     }
     /* count rover/base station observations */
@@ -1810,10 +1912,14 @@ extern int rtkpos(rtk_t *rtk, const obsd_t *obs, int n, const nav_t *nav)
         outsolstat(rtk);
         return 1;
     }
+    /* suppress output of single solution */
+    if (!opt->outsingle) {
+        rtk->sol.stat=SOLQ_NONE;
+    }
     /* precise point positioning */
     if (opt->mode>=PMODE_PPP_KINEMA) {
         pppos(rtk,obs,nu,nav);
-        pppoutsolstat(rtk,statlevel,fp_stat);
+        outsolstat(rtk);
         return 1;
     }
     /* check number of data of base station and age of differential */

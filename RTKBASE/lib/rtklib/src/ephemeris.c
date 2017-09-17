@@ -51,10 +51,11 @@
 *           2014/10/24 1.9  fix bug on return of var_uraeph() if ura<0||15<ura
 *           2014/12/07 1.10 modify MAXDTOE for qzss,gal and bds
 *                           test max number of iteration for Kepler
+*           2015/08/26 1.11 update RTOL_ELPLER 1E-14 -> 1E-13
+*                           set MAX_ITER_KEPLER for alm2pos()
+*           2017/04/11 1.12 fix bug on max number of obs data in satposs()
 *-----------------------------------------------------------------------------*/
 #include "rtklib.h"
-
-static const char rcsid[]="$Id:$";
 
 /* constants and macros ------------------------------------------------------*/
 
@@ -76,7 +77,7 @@ static const char rcsid[]="$Id:$";
 
 #define ERREPH_GLO 5.0            /* error of glonass ephemeris (m) */
 #define TSTEP    60.0             /* integration step glonass ephemeris (s) */
-#define RTOL_KEPLER 1E-14         /* relative tolerance for Kepler equation */
+#define RTOL_KEPLER 1E-13         /* relative tolerance for Kepler equation */
 
 #define DEFURASSR 0.15            /* default accurary of ssr corr (m) */
 #define MAXECORSSR 10.0           /* max orbit correction of ssr (m) */
@@ -117,6 +118,7 @@ static double var_urassr(int ura)
 extern void alm2pos(gtime_t time, const alm_t *alm, double *rs, double *dts)
 {
     double tk,M,E,Ek,sinE,cosE,u,r,i,O,x,y,sinO,cosO,cosi,mu;
+    int n;
     
     trace(4,"alm2pos : time=%s sat=%2d\n",time_str(time,3),alm->sat);
     
@@ -129,10 +131,14 @@ extern void alm2pos(gtime_t time, const alm_t *alm, double *rs, double *dts)
     mu=satsys(alm->sat,NULL)==SYS_GAL?MU_GAL:MU_GPS;
     
     M=alm->M0+sqrt(mu/(alm->A*alm->A*alm->A))*tk;
-    for (E=M,sinE=Ek=0.0;fabs(E-Ek)>1E-12;) {
-        Ek=E; sinE=sin(Ek); E=M+alm->e*sinE;
+    for (n=0,E=M,Ek=0.0;fabs(E-Ek)>RTOL_KEPLER&&n<MAX_ITER_KEPLER;n++) {
+        Ek=E; E-=(E-alm->e*sin(E)-M)/(1.0-alm->e*cos(E));
     }
-    cosE=cos(E);
+    if (n>=MAX_ITER_KEPLER) {
+        trace(2,"alm2pos: kepler iteration overflow sat=%2d\n",alm->sat);
+        return;
+    }
+    sinE=sin(E); cosE=cos(E);
     u=atan2(sqrt(1.0-alm->e*alm->e)*sinE,cosE-alm->e)+alm->omg;
     r=alm->A*(1.0-alm->e*cosE);
     i=alm->i0;
@@ -204,7 +210,7 @@ extern void eph2pos(gtime_t time, const eph_t *eph, double *rs, double *dts,
         Ek=E; E-=(E-eph->e*sin(E)-M)/(1.0-eph->e*cos(E));
     }
     if (n>=MAX_ITER_KEPLER) {
-        trace(2,"kepler iteration overflow sat=%2d\n",eph->sat);
+        trace(2,"eph2pos: kepler iteration overflow sat=%2d\n",eph->sat);
         return;
     }
     sinE=sin(E); cosE=cos(E);
@@ -405,7 +411,7 @@ static eph_t *seleph(gtime_t time, int sat, int iode, const nav_t *nav)
         if (t<=tmin) {j=i; tmin=t;} /* toe closest to time */
     }
     if (iode>=0||j<0) {
-        trace(2,"no broadcast ephemeris: %s sat=%2d iode=%3d\n",time_str(time,0),
+        trace(3,"no broadcast ephemeris: %s sat=%2d iode=%3d\n",time_str(time,0),
               sat,iode);
         return NULL;
     }
@@ -718,13 +724,13 @@ extern int satpos(gtime_t time, gtime_t teph, int sat, int ephopt,
 extern void satposs(gtime_t teph, const obsd_t *obs, int n, const nav_t *nav,
                     int ephopt, double *rs, double *dts, double *var, int *svh)
 {
-    gtime_t time[MAXOBS]={{0}};
+    gtime_t time[2*MAXOBS]={{0}};
     double dt,pr;
     int i,j;
     
     trace(3,"satposs : teph=%s n=%d ephopt=%d\n",time_str(teph,3),n,ephopt);
     
-    for (i=0;i<n&&i<MAXOBS;i++) {
+    for (i=0;i<n&&i<2*MAXOBS;i++) {
         for (j=0;j<6;j++) rs [j+i*6]=0.0;
         for (j=0;j<2;j++) dts[j+i*2]=0.0;
         var[i]=0.0; svh[i]=0;
@@ -741,7 +747,7 @@ extern void satposs(gtime_t teph, const obsd_t *obs, int n, const nav_t *nav,
         
         /* satellite clock bias by broadcast ephemeris */
         if (!ephclk(time[i],teph,obs[i].sat,nav,&dt)) {
-            trace(2,"no broadcast clock %s sat=%2d\n",time_str(time[i],3),obs[i].sat);
+            trace(3,"no broadcast clock %s sat=%2d\n",time_str(time[i],3),obs[i].sat);
             continue;
         }
         time[i]=timeadd(time[i],-dt);
@@ -749,7 +755,7 @@ extern void satposs(gtime_t teph, const obsd_t *obs, int n, const nav_t *nav,
         /* satellite position and clock at transmission time */
         if (!satpos(time[i],teph,obs[i].sat,ephopt,nav,rs+i*6,dts+i*2,var+i,
                     svh+i)) {
-            trace(2,"no ephemeris %s sat=%2d\n",time_str(time[i],3),obs[i].sat);
+            trace(3,"no ephemeris %s sat=%2d\n",time_str(time[i],3),obs[i].sat);
             continue;
         }
         /* if no precise clock available, use broadcast clock instead */
@@ -759,7 +765,7 @@ extern void satposs(gtime_t teph, const obsd_t *obs, int n, const nav_t *nav,
             *var=SQR(STD_BRDCCLK);
         }
     }
-    for (i=0;i<n&&i<MAXOBS;i++) {
+    for (i=0;i<n&&i<2*MAXOBS;i++) {
         trace(4,"%s sat=%2d rs=%13.3f %13.3f %13.3f dts=%12.3f var=%7.3f svh=%02X\n",
               time_str(time[i],6),obs[i].sat,rs[i*6],rs[1+i*6],rs[2+i*6],
               dts[i*2]*1E9,var[i],svh[i]);
