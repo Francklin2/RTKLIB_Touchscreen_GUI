@@ -258,6 +258,20 @@ border: 1px solid black;</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QPushButton" name="RTK_BASE_position">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>270</y>
+      <width>251</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string> Post Processing RTK_BASE position 
+  using CORS stations </string>
+    </property>
+   </widget>
    <zorder>RoverButton</zorder>
    <zorder>BasestationButton</zorder>
    <zorder>TimeRetourEdit</zorder>
@@ -269,6 +283,7 @@ border: 1px solid black;</string>
    <zorder>PowerOFFButton</zorder>
    <zorder>TimeEdit</zorder>
    <zorder>lineEdit</zorder>
+   <zorder>RTK_BASE_position</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -276,7 +291,7 @@ border: 1px solid black;</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>30</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

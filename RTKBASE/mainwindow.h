@@ -7,6 +7,8 @@
 #include "MainthreadStr2str.h"
 #include <QtGui>
 
+#include "mydialog.h"                                                    //added by ENSG student SAIF AATI
+
 
 namespace Ui {
 class MainWindow;
@@ -31,8 +33,12 @@ public slots:
     void OuvreHelp();
     void Shutdown();
 
+    void on_RTK_BASE_position_clicked();                                //added by ENSG student SAIF AATI
+
 private:
     Ui::MainWindow *ui;
+
+    MyDialog *mDialog;// Create a pointer to a MAINWINDOW object       //added by ENSG student SAIF AATI
 
 
 

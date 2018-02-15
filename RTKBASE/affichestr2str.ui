@@ -19,7 +19,7 @@
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
     <rect>
-     <x>250</x>
+     <x>180</x>
      <y>10</y>
      <width>271</width>
      <height>41</height>

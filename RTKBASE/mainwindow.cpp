@@ -70,6 +70,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->HelpButton,SIGNAL(clicked()),this,SLOT(OuvreHelp()));
     QObject::connect(ui->PowerOFFButton,SIGNAL(clicked()),this,SLOT(Shutdown()));
 
+
+
+
 }
 
 
@@ -143,4 +146,12 @@ void MainWindow::OuvreHelp()
     QDesktopServices::openUrl(QUrl("../RTKBASE/doc/manual_RTKBASE.pdf"));
     //this->hide();
     //qApp->quit();//Removed : quit button close RTKBASE
+}
+
+
+
+void MainWindow::on_RTK_BASE_position_clicked()                     //added by ENSG student SAIF AATI
+{
+    mDialog=new MyDialog(this);
+    mDialog->show();
 }

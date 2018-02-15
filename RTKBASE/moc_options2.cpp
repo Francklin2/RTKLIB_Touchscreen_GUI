@@ -1,26 +1,56 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'options2.h'
 **
-** Created: Thu May 26 23:35:03 2016
-**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include "options2.h"
+#include <QtCore/qbytearray.h>
+#include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'options2.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 63
-#error "This file was generated using the moc from 4.8.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.9.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
+QT_WARNING_PUSH
+QT_WARNING_DISABLE_DEPRECATED
+struct qt_meta_stringdata_Options2_t {
+    QByteArrayData data[9];
+    char stringdata0[76];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_Options2_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_Options2_t qt_meta_stringdata_Options2 = {
+    {
+QT_MOC_LITERAL(0, 0, 8), // "Options2"
+QT_MOC_LITERAL(1, 9, 12), // "Options2emit"
+QT_MOC_LITERAL(2, 22, 0), // ""
+QT_MOC_LITERAL(3, 23, 7), // "emitSat"
+QT_MOC_LITERAL(4, 31, 8), // "emitSat1"
+QT_MOC_LITERAL(5, 40, 8), // "emitSat2"
+QT_MOC_LITERAL(6, 49, 8), // "emitSat4"
+QT_MOC_LITERAL(7, 58, 8), // "emitSat5"
+QT_MOC_LITERAL(8, 67, 8) // "emitSat6"
+
+    },
+    "Options2\0Options2emit\0\0emitSat\0emitSat1\0"
+    "emitSat2\0emitSat4\0emitSat5\0emitSat6"
+};
+#undef QT_MOC_LITERAL
+
 static const uint qt_meta_data_Options2[] = {
 
  // content:
-       6,       // revision
+       7,       // revision
        0,       // classname
        0,    0, // classinfo
        7,   14, // methods
@@ -30,31 +60,36 @@ static const uint qt_meta_data_Options2[] = {
        0,       // flags
        1,       // signalCount
 
- // signals: signature, parameters, type, tag, flags
-       9,   27,   27,   27, 0x05,
+ // signals: name, argc, parameters, tag, flags
+       1,    1,   49,    2, 0x06 /* Public */,
 
- // slots: signature, parameters, type, tag, flags
-      28,   27,   27,   27, 0x0a,
-      38,   27,   27,   27, 0x0a,
-      49,   27,   27,   27, 0x0a,
-      60,   27,   27,   27, 0x0a,
-      71,   27,   27,   27, 0x0a,
-      82,   27,   27,   27, 0x0a,
+ // slots: name, argc, parameters, tag, flags
+       3,    0,   52,    2, 0x0a /* Public */,
+       4,    0,   53,    2, 0x0a /* Public */,
+       5,    0,   54,    2, 0x0a /* Public */,
+       6,    0,   55,    2, 0x0a /* Public */,
+       7,    0,   56,    2, 0x0a /* Public */,
+       8,    0,   57,    2, 0x0a /* Public */,
+
+ // signals: parameters
+    QMetaType::Void, QMetaType::Int,    2,
+
+ // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
-};
-
-static const char qt_meta_stringdata_Options2[] = {
-    "Options2\0Options2emit(int)\0\0emitSat()\0"
-    "emitSat1()\0emitSat2()\0emitSat4()\0"
-    "emitSat5()\0emitSat6()\0"
 };
 
 void Options2::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        Q_ASSERT(staticMetaObject.cast(_o));
         Options2 *_t = static_cast<Options2 *>(_o);
+        Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->Options2emit((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 1: _t->emitSat(); break;
@@ -65,31 +100,34 @@ void Options2::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 6: _t->emitSat6(); break;
         default: ;
         }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        void **func = reinterpret_cast<void **>(_a[1]);
+        {
+            typedef void (Options2::*_t)(int );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Options2::Options2emit)) {
+                *result = 0;
+                return;
+            }
+        }
     }
 }
 
-const QMetaObjectExtraData Options2::staticMetaObjectExtraData = {
-    0,  qt_static_metacall 
-};
-
 const QMetaObject Options2::staticMetaObject = {
-    { &QDialog::staticMetaObject, qt_meta_stringdata_Options2,
-      qt_meta_data_Options2, &staticMetaObjectExtraData }
+    { &QDialog::staticMetaObject, qt_meta_stringdata_Options2.data,
+      qt_meta_data_Options2,  qt_static_metacall, nullptr, nullptr}
 };
 
-#ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &Options2::getStaticMetaObject() { return staticMetaObject; }
-#endif //Q_NO_DATA_RELOCATION
 
 const QMetaObject *Options2::metaObject() const
 {
-    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
 void *Options2::qt_metacast(const char *_clname)
 {
-    if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_Options2))
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_Options2.stringdata0))
         return static_cast<void*>(const_cast< Options2*>(this));
     return QDialog::qt_metacast(_clname);
 }
@@ -103,6 +141,10 @@ int Options2::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
         _id -= 7;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 7)
+            *reinterpret_cast<int*>(_a[0]) = -1;
+        _id -= 7;
     }
     return _id;
 }
@@ -110,7 +152,8 @@ int Options2::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 // SIGNAL 0
 void Options2::Options2emit(int _t1)
 {
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
+QT_WARNING_POP
 QT_END_MOC_NAMESPACE

@@ -40,6 +40,7 @@ public:
     QPushButton *HelpButton;
     QPushButton *PowerOFFButton;
     QLineEdit *lineEdit;
+    QPushButton *RTK_BASE_position;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -125,6 +126,9 @@ public:
         lineEdit->setStyleSheet(QLatin1String("border-radius: 15px;\n"
 "border: 1px solid black;"));
         lineEdit->setAlignment(Qt::AlignCenter);
+        RTK_BASE_position = new QPushButton(centralWidget);
+        RTK_BASE_position->setObjectName(QStringLiteral("RTK_BASE_position"));
+        RTK_BASE_position->setGeometry(QRect(320, 270, 251, 51));
         MainWindow->setCentralWidget(centralWidget);
         RoverButton->raise();
         BasestationButton->raise();
@@ -137,9 +141,10 @@ public:
         PowerOFFButton->raise();
         TimeEdit->raise();
         lineEdit->raise();
+        RTK_BASE_position->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 800, 30));
+        menuBar->setGeometry(QRect(0, 0, 800, 25));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -167,6 +172,8 @@ public:
         HelpButton->setText(QApplication::translate("MainWindow", "HELP", Q_NULLPTR));
         PowerOFFButton->setText(QApplication::translate("MainWindow", "POWER OFF", Q_NULLPTR));
         lineEdit->setText(QApplication::translate("MainWindow", "RTKLIB", Q_NULLPTR));
+        RTK_BASE_position->setText(QApplication::translate("MainWindow", " Post Processing RTK_BASE position \n"
+"  using CORS stations ", Q_NULLPTR));
     } // retranslateUi
 
 };

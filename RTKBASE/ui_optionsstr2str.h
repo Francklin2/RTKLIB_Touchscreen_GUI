@@ -65,6 +65,8 @@ public:
     QLineEdit *lineEdit_15;
     MyComboBox *RtcmMsgcomboBox;
     QPushButton *UpdateOptionspushButton;
+    QLineEdit *lineEdit_17;
+    MyComboBox *OutFilePathcomboBox;
     QTextBrowser *RtkrcvOptionstextBrowser;
     QLineEdit *lineEdit_16;
     QPushButton *pushButtonSave;
@@ -88,7 +90,7 @@ public:
 "background-color: rgb(230, 230, 230);"));
         tabWidget = new QTabWidget(OptionsStr2str);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setGeometry(QRect(30, 50, 731, 241));
+        tabWidget->setGeometry(QRect(30, 50, 731, 251));
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
         radioButtonPositionAuto = new QRadioButton(tab);
@@ -185,40 +187,40 @@ public:
         tab_2->setObjectName(QStringLiteral("tab_2"));
         OutBaudRatecomboBox = new MyComboBox(tab_2);
         OutBaudRatecomboBox->setObjectName(QStringLiteral("OutBaudRatecomboBox"));
-        OutBaudRatecomboBox->setGeometry(QRect(550, 100, 81, 32));
+        OutBaudRatecomboBox->setGeometry(QRect(550, 70, 81, 32));
         OutBaudRatecomboBox->setFont(font1);
         OutBaudRatecomboBox->setEditable(true);
         OutSerialPortcomboBox = new MyComboBox(tab_2);
         OutSerialPortcomboBox->setObjectName(QStringLiteral("OutSerialPortcomboBox"));
-        OutSerialPortcomboBox->setGeometry(QRect(390, 100, 151, 32));
+        OutSerialPortcomboBox->setGeometry(QRect(390, 70, 151, 32));
         OutSerialPortcomboBox->setFont(font1);
         OutSerialPortcomboBox->setEditable(true);
         OutFormatcomboBox = new MyComboBox(tab_2);
         OutFormatcomboBox->setObjectName(QStringLiteral("OutFormatcomboBox"));
-        OutFormatcomboBox->setGeometry(QRect(640, 100, 71, 32));
+        OutFormatcomboBox->setGeometry(QRect(640, 70, 71, 32));
         OutFormatcomboBox->setFont(font1);
         OutFormatcomboBox->setEditable(true);
         lineEdit_4 = new QLineEdit(tab_2);
         lineEdit_4->setObjectName(QStringLiteral("lineEdit_4"));
-        lineEdit_4->setGeometry(QRect(390, 70, 151, 32));
+        lineEdit_4->setGeometry(QRect(390, 51, 151, 21));
         lineEdit_4->setFont(font1);
         lineEdit_4->setAlignment(Qt::AlignCenter);
         lineEdit_4->setReadOnly(true);
         lineEdit_5 = new QLineEdit(tab_2);
         lineEdit_5->setObjectName(QStringLiteral("lineEdit_5"));
-        lineEdit_5->setGeometry(QRect(550, 70, 81, 32));
+        lineEdit_5->setGeometry(QRect(550, 51, 81, 21));
         lineEdit_5->setFont(font1);
         lineEdit_5->setAlignment(Qt::AlignCenter);
         lineEdit_5->setReadOnly(true);
         lineEdit_6 = new QLineEdit(tab_2);
         lineEdit_6->setObjectName(QStringLiteral("lineEdit_6"));
-        lineEdit_6->setGeometry(QRect(640, 70, 71, 32));
+        lineEdit_6->setGeometry(QRect(640, 51, 71, 21));
         lineEdit_6->setFont(font1);
         lineEdit_6->setAlignment(Qt::AlignCenter);
         lineEdit_6->setReadOnly(true);
         lineEdit_7 = new QLineEdit(tab_2);
         lineEdit_7->setObjectName(QStringLiteral("lineEdit_7"));
-        lineEdit_7->setGeometry(QRect(460, 20, 201, 32));
+        lineEdit_7->setGeometry(QRect(460, 10, 201, 32));
         lineEdit_7->setFont(font);
         lineEdit_7->setStyleSheet(QLatin1String("border-radius: 15px;\n"
 "border: 1px solid black;"));
@@ -226,7 +228,7 @@ public:
         lineEdit_7->setReadOnly(true);
         lineEdit_8 = new QLineEdit(tab_2);
         lineEdit_8->setObjectName(QStringLiteral("lineEdit_8"));
-        lineEdit_8->setGeometry(QRect(80, 20, 201, 32));
+        lineEdit_8->setGeometry(QRect(80, 10, 201, 32));
         lineEdit_8->setFont(font);
         lineEdit_8->setStyleSheet(QLatin1String("border-radius: 15px;\n"
 "border: 1px solid black;"));
@@ -234,46 +236,46 @@ public:
         lineEdit_8->setReadOnly(true);
         InSerialPortcomboBox = new MyComboBox(tab_2);
         InSerialPortcomboBox->setObjectName(QStringLiteral("InSerialPortcomboBox"));
-        InSerialPortcomboBox->setGeometry(QRect(10, 110, 151, 32));
+        InSerialPortcomboBox->setGeometry(QRect(10, 80, 151, 32));
         InSerialPortcomboBox->setFont(font1);
         InSerialPortcomboBox->setEditable(true);
         InBaudratecomboBox = new MyComboBox(tab_2);
         InBaudratecomboBox->setObjectName(QStringLiteral("InBaudratecomboBox"));
-        InBaudratecomboBox->setGeometry(QRect(170, 110, 81, 32));
+        InBaudratecomboBox->setGeometry(QRect(170, 80, 81, 32));
         InBaudratecomboBox->setFont(font1);
         InBaudratecomboBox->setEditable(true);
         InFormatcomboBox = new MyComboBox(tab_2);
         InFormatcomboBox->setObjectName(QStringLiteral("InFormatcomboBox"));
-        InFormatcomboBox->setGeometry(QRect(260, 110, 81, 32));
+        InFormatcomboBox->setGeometry(QRect(260, 80, 81, 32));
         InFormatcomboBox->setFont(font1);
         InFormatcomboBox->setEditable(true);
         lineEdit_9 = new QLineEdit(tab_2);
         lineEdit_9->setObjectName(QStringLiteral("lineEdit_9"));
-        lineEdit_9->setGeometry(QRect(260, 80, 81, 32));
+        lineEdit_9->setGeometry(QRect(260, 61, 81, 21));
         lineEdit_9->setFont(font1);
         lineEdit_9->setAlignment(Qt::AlignCenter);
         lineEdit_9->setReadOnly(true);
         lineEdit_10 = new QLineEdit(tab_2);
         lineEdit_10->setObjectName(QStringLiteral("lineEdit_10"));
-        lineEdit_10->setGeometry(QRect(10, 80, 151, 32));
+        lineEdit_10->setGeometry(QRect(10, 61, 151, 21));
         lineEdit_10->setFont(font1);
         lineEdit_10->setAlignment(Qt::AlignCenter);
         lineEdit_10->setReadOnly(true);
         lineEdit_11 = new QLineEdit(tab_2);
         lineEdit_11->setObjectName(QStringLiteral("lineEdit_11"));
-        lineEdit_11->setGeometry(QRect(170, 80, 81, 32));
+        lineEdit_11->setGeometry(QRect(170, 61, 81, 21));
         lineEdit_11->setFont(font1);
         lineEdit_11->setAlignment(Qt::AlignCenter);
         lineEdit_11->setReadOnly(true);
         lineEdit_15 = new QLineEdit(tab_2);
         lineEdit_15->setObjectName(QStringLiteral("lineEdit_15"));
-        lineEdit_15->setGeometry(QRect(400, 140, 311, 32));
+        lineEdit_15->setGeometry(QRect(390, 110, 321, 20));
         lineEdit_15->setFont(font1);
         lineEdit_15->setAlignment(Qt::AlignCenter);
         lineEdit_15->setReadOnly(true);
         RtcmMsgcomboBox = new MyComboBox(tab_2);
         RtcmMsgcomboBox->setObjectName(QStringLiteral("RtcmMsgcomboBox"));
-        RtcmMsgcomboBox->setGeometry(QRect(400, 170, 311, 32));
+        RtcmMsgcomboBox->setGeometry(QRect(390, 128, 321, 32));
         RtcmMsgcomboBox->setFont(font1);
         RtcmMsgcomboBox->setEditable(true);
         UpdateOptionspushButton = new QPushButton(tab_2);
@@ -283,10 +285,21 @@ public:
         UpdateOptionspushButton->setStyleSheet(QLatin1String("border-radius: 15px;\n"
 "border: 1px solid black;\n"
 "background-color: rgb(230, 230, 230);"));
+        lineEdit_17 = new QLineEdit(tab_2);
+        lineEdit_17->setObjectName(QStringLiteral("lineEdit_17"));
+        lineEdit_17->setGeometry(QRect(390, 162, 321, 20));
+        lineEdit_17->setFont(font1);
+        lineEdit_17->setAlignment(Qt::AlignCenter);
+        lineEdit_17->setReadOnly(true);
+        OutFilePathcomboBox = new MyComboBox(tab_2);
+        OutFilePathcomboBox->setObjectName(QStringLiteral("OutFilePathcomboBox"));
+        OutFilePathcomboBox->setGeometry(QRect(390, 180, 321, 32));
+        OutFilePathcomboBox->setFont(font1);
+        OutFilePathcomboBox->setEditable(true);
         tabWidget->addTab(tab_2, QString());
         RtkrcvOptionstextBrowser = new QTextBrowser(OptionsStr2str);
         RtkrcvOptionstextBrowser->setObjectName(QStringLiteral("RtkrcvOptionstextBrowser"));
-        RtkrcvOptionstextBrowser->setGeometry(QRect(30, 300, 591, 81));
+        RtkrcvOptionstextBrowser->setGeometry(QRect(30, 310, 591, 81));
         RtkrcvOptionstextBrowser->setFont(font1);
         RtkrcvOptionstextBrowser->setStyleSheet(QStringLiteral("border: 1px solid grey;"));
         lineEdit_16 = new QLineEdit(OptionsStr2str);
@@ -358,13 +371,14 @@ public:
          << QApplication::translate("OptionsStr2str", "serial://ttyUSB0", Q_NULLPTR)
          << QApplication::translate("OptionsStr2str", "serial://ttyAMA0", Q_NULLPTR)
          << QApplication::translate("OptionsStr2str", "serial://ttyACM0", Q_NULLPTR)
+         << QApplication::translate("OptionsStr2str", "File", Q_NULLPTR)
         );
         OutFormatcomboBox->clear();
         OutFormatcomboBox->insertItems(0, QStringList()
          << QApplication::translate("OptionsStr2str", "rtcm3", Q_NULLPTR)
          << QApplication::translate("OptionsStr2str", "rtcm2", Q_NULLPTR)
         );
-        lineEdit_4->setText(QApplication::translate("OptionsStr2str", "SERIAL PORT", Q_NULLPTR));
+        lineEdit_4->setText(QApplication::translate("OptionsStr2str", "OUTPUT PORT", Q_NULLPTR));
         lineEdit_5->setText(QApplication::translate("OptionsStr2str", "BAUDS", Q_NULLPTR));
         lineEdit_6->setText(QApplication::translate("OptionsStr2str", "FORMAT", Q_NULLPTR));
         lineEdit_7->setText(QApplication::translate("OptionsStr2str", "OUTPUT STREAM", Q_NULLPTR));
@@ -397,7 +411,7 @@ public:
          << QApplication::translate("OptionsStr2str", "rtcm3", Q_NULLPTR)
         );
         lineEdit_9->setText(QApplication::translate("OptionsStr2str", "FORMAT", Q_NULLPTR));
-        lineEdit_10->setText(QApplication::translate("OptionsStr2str", "SERIAL PORT", Q_NULLPTR));
+        lineEdit_10->setText(QApplication::translate("OptionsStr2str", "INPUT PORT", Q_NULLPTR));
         lineEdit_11->setText(QApplication::translate("OptionsStr2str", "BAUDS", Q_NULLPTR));
         lineEdit_15->setText(QApplication::translate("OptionsStr2str", "RTCM MESSAGES", Q_NULLPTR));
         RtcmMsgcomboBox->clear();
@@ -405,6 +419,12 @@ public:
          << QApplication::translate("OptionsStr2str", "1004,1006,1008,1012,1019,1020", Q_NULLPTR)
         );
         UpdateOptionspushButton->setText(QApplication::translate("OptionsStr2str", "UPDATE STREAM  CONFIGURATION", Q_NULLPTR));
+        lineEdit_17->setText(QApplication::translate("OptionsStr2str", "FILE PATH FOR RAW DATA", Q_NULLPTR));
+        OutFilePathcomboBox->clear();
+        OutFilePathcomboBox->insertItems(0, QStringList()
+         << QApplication::translate("OptionsStr2str", "../RTKBASE/PointsFiles/rover.ubx", Q_NULLPTR)
+         << QApplication::translate("OptionsStr2str", "/home/pi/rover.ubx", Q_NULLPTR)
+        );
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("OptionsStr2str", "CONFIGURATION", Q_NULLPTR));
         lineEdit_16->setText(QApplication::translate("OptionsStr2str", "BASE CONFIGURATION", Q_NULLPTR));
         pushButtonSave->setText(QApplication::translate("OptionsStr2str", "Save", Q_NULLPTR));

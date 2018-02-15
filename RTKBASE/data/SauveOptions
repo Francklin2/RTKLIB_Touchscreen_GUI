@@ -1,4 +1,4 @@
-filepath            =/home/pi/RTKLIB_Touchscreen_GUI/RTKBASE/PointsFiles/SavedPointsFile
+filepath            =/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/PointsFiles/point.txt
 pointname           =Test_Point
 nummeas             =10
 cyclen              =2

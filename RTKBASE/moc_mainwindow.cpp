@@ -1,58 +1,92 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Thu May 26 23:34:05 2016
-**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.2)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include "mainwindow.h"
+#include <QtCore/qbytearray.h>
+#include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'mainwindow.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 63
-#error "This file was generated using the moc from 4.8.2. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.9.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
+QT_WARNING_PUSH
+QT_WARNING_DISABLE_DEPRECATED
+struct qt_meta_stringdata_MainWindow_t {
+    QByteArrayData data[9];
+    char stringdata0[129];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_MainWindow_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
+    {
+QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
+QT_MOC_LITERAL(1, 11, 16), // "AfficheHeureSyst"
+QT_MOC_LITERAL(2, 28, 0), // ""
+QT_MOC_LITERAL(3, 29, 12), // "OuvreOptions"
+QT_MOC_LITERAL(4, 42, 10), // "OuvreRover"
+QT_MOC_LITERAL(5, 53, 27), // "OuvreAfficheSolutiosStr2str"
+QT_MOC_LITERAL(6, 81, 9), // "OuvreHelp"
+QT_MOC_LITERAL(7, 91, 8), // "Shutdown"
+QT_MOC_LITERAL(8, 100, 28) // "on_RTK_BASE_position_clicked"
+
+    },
+    "MainWindow\0AfficheHeureSyst\0\0OuvreOptions\0"
+    "OuvreRover\0OuvreAfficheSolutiosStr2str\0"
+    "OuvreHelp\0Shutdown\0on_RTK_BASE_position_clicked"
+};
+#undef QT_MOC_LITERAL
+
 static const uint qt_meta_data_MainWindow[] = {
 
  // content:
-       6,       // revision
+       7,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
- // slots: signature, parameters, type, tag, flags
-      11,   33,   33,   33, 0x0a,
-      34,   33,   33,   33, 0x0a,
-      49,   33,   33,   33, 0x0a,
-      62,   33,   33,   33, 0x0a,
-      92,   33,   33,   33, 0x0a,
-     104,   33,   33,   33, 0x0a,
+ // slots: name, argc, parameters, tag, flags
+       1,    1,   49,    2, 0x0a /* Public */,
+       3,    0,   52,    2, 0x0a /* Public */,
+       4,    0,   53,    2, 0x0a /* Public */,
+       5,    0,   54,    2, 0x0a /* Public */,
+       6,    0,   55,    2, 0x0a /* Public */,
+       7,    0,   56,    2, 0x0a /* Public */,
+       8,    0,   57,    2, 0x0a /* Public */,
+
+ // slots: parameters
+    QMetaType::Void, QMetaType::Int,    2,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
-};
-
-static const char qt_meta_stringdata_MainWindow[] = {
-    "MainWindow\0AfficheHeureSyst(int)\0\0"
-    "OuvreOptions()\0OuvreRover()\0"
-    "OuvreAfficheSolutiosStr2str()\0OuvreHelp()\0"
-    "Shutdown()\0"
 };
 
 void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        Q_ASSERT(staticMetaObject.cast(_o));
         MainWindow *_t = static_cast<MainWindow *>(_o);
+        Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->AfficheHeureSyst((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 1: _t->OuvreOptions(); break;
@@ -60,33 +94,27 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 3: _t->OuvreAfficheSolutiosStr2str(); break;
         case 4: _t->OuvreHelp(); break;
         case 5: _t->Shutdown(); break;
+        case 6: _t->on_RTK_BASE_position_clicked(); break;
         default: ;
         }
     }
 }
 
-const QMetaObjectExtraData MainWindow::staticMetaObjectExtraData = {
-    0,  qt_static_metacall 
-};
-
 const QMetaObject MainWindow::staticMetaObject = {
-    { &QMainWindow::staticMetaObject, qt_meta_stringdata_MainWindow,
-      qt_meta_data_MainWindow, &staticMetaObjectExtraData }
+    { &QMainWindow::staticMetaObject, qt_meta_stringdata_MainWindow.data,
+      qt_meta_data_MainWindow,  qt_static_metacall, nullptr, nullptr}
 };
 
-#ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &MainWindow::getStaticMetaObject() { return staticMetaObject; }
-#endif //Q_NO_DATA_RELOCATION
 
 const QMetaObject *MainWindow::metaObject() const
 {
-    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
 void *MainWindow::qt_metacast(const char *_clname)
 {
-    if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_MainWindow))
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_MainWindow.stringdata0))
         return static_cast<void*>(const_cast< MainWindow*>(this));
     return QMainWindow::qt_metacast(_clname);
 }
@@ -97,10 +125,15 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 7;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 7)
+            *reinterpret_cast<int*>(_a[0]) = -1;
+        _id -= 7;
     }
     return _id;
 }
+QT_WARNING_POP
 QT_END_MOC_NAMESPACE

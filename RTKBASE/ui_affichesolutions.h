@@ -217,7 +217,8 @@ public:
         lineEditSolutionStatus1 = new QLineEdit(AfficheSolutions);
         lineEditSolutionStatus1->setObjectName(QStringLiteral("lineEditSolutionStatus1"));
         lineEditSolutionStatus1->setEnabled(true);
-        lineEditSolutionStatus1->setGeometry(QRect(310, 120, 111, 27));
+        lineEditSolutionStatus1->setGeometry(QRect(300, 120, 121, 27));
+        lineEditSolutionStatus1->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         lineEditSolutionStatus1->setDragEnabled(false);
         lineEditSolutionStatus1->setReadOnly(true);
         lineEditSolutionStatus2 = new QLineEdit(AfficheSolutions);
@@ -304,7 +305,7 @@ public:
         lineEditTimeGPS = new QLineEdit(AfficheSolutions);
         lineEditTimeGPS->setObjectName(QStringLiteral("lineEditTimeGPS"));
         lineEditTimeGPS->setEnabled(true);
-        lineEditTimeGPS->setGeometry(QRect(320, 80, 151, 27));
+        lineEditTimeGPS->setGeometry(QRect(320, 80, 161, 27));
         lineEditTimeGPS->setMaxLength(19);
         lineEditTimeGPS->setAlignment(Qt::AlignCenter);
         lineEditTimeGPS->setDragEnabled(false);
@@ -312,13 +313,14 @@ public:
         lineEditGPSTime = new QLineEdit(AfficheSolutions);
         lineEditGPSTime->setObjectName(QStringLiteral("lineEditGPSTime"));
         lineEditGPSTime->setEnabled(true);
-        lineEditGPSTime->setGeometry(QRect(230, 80, 81, 27));
+        lineEditGPSTime->setGeometry(QRect(220, 80, 91, 27));
+        lineEditGPSTime->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         lineEditGPSTime->setDragEnabled(false);
         lineEditGPSTime->setReadOnly(true);
         lineEditTimeSYS = new QLineEdit(AfficheSolutions);
         lineEditTimeSYS->setObjectName(QStringLiteral("lineEditTimeSYS"));
         lineEditTimeSYS->setEnabled(true);
-        lineEditTimeSYS->setGeometry(QRect(600, 80, 161, 27));
+        lineEditTimeSYS->setGeometry(QRect(610, 80, 161, 27));
         lineEditTimeSYS->setMaxLength(20);
         lineEditTimeSYS->setAlignment(Qt::AlignCenter);
         lineEditTimeSYS->setDragEnabled(false);
@@ -326,7 +328,8 @@ public:
         lineEditSYSTime = new QLineEdit(AfficheSolutions);
         lineEditSYSTime->setObjectName(QStringLiteral("lineEditSYSTime"));
         lineEditSYSTime->setEnabled(true);
-        lineEditSYSTime->setGeometry(QRect(490, 80, 101, 27));
+        lineEditSYSTime->setGeometry(QRect(490, 80, 111, 27));
+        lineEditSYSTime->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         lineEditSYSTime->setDragEnabled(false);
         lineEditSYSTime->setReadOnly(true);
         pushButtonSetSYSTime = new QPushButton(AfficheSolutions);

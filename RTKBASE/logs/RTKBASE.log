@@ -1,6 +1,275 @@
-Makefile:416: avertissement : surchargement de la recette pour la cible « ui_mainwindow.h »
-Makefile:371: avertissement : ancienne recette ignorée pour la cible « ui_mainwindow.h »
-/usr/lib/x86_64-linux-gnu/qt4/bin/uic mainwindow.ui -o ui_mainwindow.h
-make: /usr/lib/x86_64-linux-gnu/qt4/bin/uic : commande introuvable
-Makefile:416 : la recette pour la cible « ui_mainwindow.h » a échouée
-make: *** [ui_mainwindow.h] Erreur 127
+Makefile:581: warning: overriding recipe for target 'ui_mainwindow.h'
+Makefile:530: warning: ignoring old recipe for target 'ui_mainwindow.h'
+/usr/lib/x86_64-linux-gnu/qt5/bin/uic mainwindow.ui -o ui_mainwindow.h
+/usr/lib/x86_64-linux-gnu/qt5/bin/uic options1.ui -o ui_options1.h
+/usr/lib/x86_64-linux-gnu/qt5/bin/uic affichesolutions.ui -o ui_affichesolutions.h
+/usr/lib/x86_64-linux-gnu/qt5/bin/uic options2.ui -o ui_options2.h
+/usr/lib/x86_64-linux-gnu/qt5/bin/uic affichestr2str.ui -o ui_affichestr2str.h
+/usr/lib/x86_64-linux-gnu/qt5/bin/uic optionsstr2str.ui -o ui_optionsstr2str.h
+/usr/lib/x86_64-linux-gnu/qt5/bin/uic gestionconfig.ui -o ui_gestionconfig.h
+/usr/lib/x86_64-linux-gnu/qt5/bin/uic choixedite.ui -o ui_choixedite.h
+/usr/lib/x86_64-linux-gnu/qt5/bin/uic editeconfig.ui -o ui_editeconfig.h
+/usr/lib/x86_64-linux-gnu/qt5/bin/uic choixstr2str.ui -o ui_choixstr2str.h
+/usr/lib/x86_64-linux-gnu/qt5/bin/uic choixconfig.ui -o ui_choixconfig.h
+/usr/lib/x86_64-linux-gnu/qt5/bin/uic optionssauvepoints.ui -o ui_optionssauvepoints.h
+/usr/lib/x86_64-linux-gnu/qt5/bin/uic clavier.ui -o ui_clavier.h
+/usr/lib/x86_64-linux-gnu/qt5/bin/uic mylineedit.ui -o ui_mylineedit.h
+/usr/lib/x86_64-linux-gnu/qt5/bin/uic mycombobox.ui -o ui_mycombobox.h
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o main.o main.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o mainwindow.o mainwindow.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o threadheuresysteme.o threadheuresysteme.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o magraphicsscene.o magraphicsscene.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o options1.o options1.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o affichesolutions.o affichesolutions.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o options2.o options2.cpp
+gcc -c -m64 -pipe -ansi -pedantic -DTRACE -DENAGLO -DENAGAL -DENAQZS -DNFREQ=3 -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o vt.o vt.c
+gcc -c -m64 -pipe -ansi -pedantic -DTRACE -DENAGLO -DENAGAL -DENAQZS -DNFREQ=3 -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o rtkrcv.o rtkrcv.c
+rtkrcv.c:97:1: warning: missing initializer for field ‘rcvantp’ of ‘filopt_t {aka struct <anonymous>}’ [-Wmissing-field-initializers]
+ static filopt_t filopt  ={""};          /* file options */
+ ^
+In file included from rtkrcv.c:29:0:
+lib/rtklib/rtklib.h:1038:10: note: ‘rcvantp’ declared here
+     char rcvantp[MAXSTRPATH]; /* receiver antenna parameters file */
+          ^
+rtkrcv.c: In function ‘sendkeepalive’:
+rtkrcv.c:208:34: warning: unused parameter ‘arg’ [-Wunused-parameter]
+ static void *sendkeepalive(void *arg)
+                                  ^
+rtkrcv.c: In function ‘prstatus’:
+rtkrcv.c:662:13: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+             double a=pos[0]*R2D;
+             ^
+rtkrcv.c:669:13: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+             double d=vel[0];
+             ^
+rtkrcv.c:681:13: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+             double Xroverfixed=rtk.xa?rtk.xa[0]:0;
+             ^
+rtkrcv.c:712:5: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+     FILE* fichier = NULL;
+     ^
+rtkrcv.c:722:25: warning: ISO C90 does not support the ‘%lf’ gnu_printf format [-Wformat=]
+         fprintf(fichier,"%lf\n",rtk.sol.rr[0]);
+                         ^
+rtkrcv.c:723:25: warning: ISO C90 does not support the ‘%lf’ gnu_printf format [-Wformat=]
+         fprintf(fichier,"%lf\n",rtk.sol.rr[1]);
+                         ^
+rtkrcv.c:724:25: warning: ISO C90 does not support the ‘%lf’ gnu_printf format [-Wformat=]
+         fprintf(fichier,"%lf\n",rtk.sol.rr[2]);
+                         ^
+rtkrcv.c:726:25: warning: ISO C90 does not support the ‘%lf’ gnu_printf format [-Wformat=]
+         fprintf(fichier,"%lf\n",a);
+                         ^
+rtkrcv.c:727:25: warning: ISO C90 does not support the ‘%lf’ gnu_printf format [-Wformat=]
+         fprintf(fichier,"%lf\n",b);
+                         ^
+rtkrcv.c:728:25: warning: ISO C90 does not support the ‘%lf’ gnu_printf format [-Wformat=]
+         fprintf(fichier,"%lf\n",c);
+                         ^
+rtkrcv.c:735:48: warning: format not a string literal and no format arguments [-Wformat-security]
+         fprintf(fichier,rtk.sol.time.time?tstr:"-");
+                                                ^
+rtkrcv.c:744:25: warning: ISO C90 does not support the ‘%lf’ gnu_printf format [-Wformat=]
+         fprintf(fichier,"%lf\n",Xroverfixed);
+                         ^
+rtkrcv.c:745:25: warning: ISO C90 does not support the ‘%lf’ gnu_printf format [-Wformat=]
+         fprintf(fichier,"%lf\n",Yroverfixed);
+                         ^
+rtkrcv.c:746:25: warning: ISO C90 does not support the ‘%lf’ gnu_printf format [-Wformat=]
+         fprintf(fichier,"%lf\n",Zroverfixed);
+                         ^
+rtkrcv.c: In function ‘prsatellite’:
+rtkrcv.c:798:9: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+         FILE* fichier = NULL;
+         ^
+rtkrcv.c: In function ‘prstream’:
+rtkrcv.c:996:5: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+     FILE* fichier = NULL;
+     ^
+rtkrcv.c: In function ‘cmd_start’:
+rtkrcv.c:1059:30: warning: unused parameter ‘args’ [-Wunused-parameter]
+ static void cmd_start(char **args, int narg, vt_t *vt)
+                              ^
+rtkrcv.c:1059:40: warning: unused parameter ‘narg’ [-Wunused-parameter]
+ static void cmd_start(char **args, int narg, vt_t *vt)
+                                        ^
+rtkrcv.c: In function ‘cmd_stop’:
+rtkrcv.c:1067:29: warning: unused parameter ‘args’ [-Wunused-parameter]
+ static void cmd_stop(char **args, int narg, vt_t *vt)
+                             ^
+rtkrcv.c:1067:39: warning: unused parameter ‘narg’ [-Wunused-parameter]
+ static void cmd_stop(char **args, int narg, vt_t *vt)
+                                       ^
+rtkrcv.c: In function ‘cmd_restart’:
+rtkrcv.c:1075:32: warning: unused parameter ‘args’ [-Wunused-parameter]
+ static void cmd_restart(char **args, int narg, vt_t *vt)
+                                ^
+rtkrcv.c:1075:42: warning: unused parameter ‘narg’ [-Wunused-parameter]
+ static void cmd_restart(char **args, int narg, vt_t *vt)
+                                          ^
+rtkrcv.c: In function ‘cmd_error’:
+rtkrcv.c:1169:30: warning: unused parameter ‘args’ [-Wunused-parameter]
+ static void cmd_error(char **args, int narg, vt_t *vt)
+                              ^
+rtkrcv.c:1169:40: warning: unused parameter ‘narg’ [-Wunused-parameter]
+ static void cmd_error(char **args, int narg, vt_t *vt)
+                                        ^
+rtkrcv.c: In function ‘mainRTKlib’:
+rtkrcv.c:1558:5: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+     int i,start=0,port=0,outstat=0,trace=0;
+     ^
+rtkrcv.c: In function ‘ouvreVT’:
+rtkrcv.c:1659:5: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+     int i,start=0,port=0,outstat=0,trace=0;
+     ^
+rtkrcv.c: In function ‘fermeVT’:
+rtkrcv.c:1734:14: warning: ordered comparison of pointer with integer zero [-Wpedantic]
+     if (trace>0) traceclose();
+              ^
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o MainThread.o MainThread.cpp
+gcc -c -m64 -pipe -ansi -pedantic -DTRACE -DENAGLO -DENAGAL -DENAQZS -DNFREQ=3 -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o str2str.o str2str.c
+str2str.c: In function ‘printhelp’:
+str2str.c:101:15: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+     for (i=0;i<sizeof(help)/sizeof(*help);i++) fprintf(stderr,"%s\n",help[i]);
+               ^
+str2str.c: In function ‘sigfunc’:
+str2str.c:105:25: warning: unused parameter ‘sig’ [-Wunused-parameter]
+ static void sigfunc(int sig)
+                         ^
+str2str.c: In function ‘mainstr2str’:
+str2str.c:197:9: warning: unused variable ‘bps’ [-Wunused-variable]
+     int bps[MAXSTR]={0},fmts[MAXSTR]={0},sta=0;
+         ^
+str2str.c:196:60: warning: unused variable ‘byte’ [-Wunused-variable]
+     int types[MAXSTR]={STR_FILE,STR_FILE},stat[MAXSTR]={0},byte[MAXSTR]={0};
+                                                            ^
+str2str.c:196:43: warning: unused variable ‘stat’ [-Wunused-variable]
+     int types[MAXSTR]={STR_FILE,STR_FILE},stat[MAXSTR]={0},byte[MAXSTR]={0};
+                                           ^
+str2str.c:195:17: warning: variable ‘dispint’ set but not used [-Wunused-but-set-variable]
+     int i,j,n=0,dispint=5000,trlevel=0,opts[]={10000,10000,2000,32768,10,0,30};
+                 ^
+str2str.c:193:10: warning: unused variable ‘strmsg’ [-Wunused-variable]
+     char strmsg[MAXSTRMSG]="",*antinfo="",*rcvinfo="";
+          ^
+str2str.c:188:16: warning: unused variable ‘ss’ [-Wunused-variable]
+     const char ss[]={'E','-','W','C','C'};
+                ^
+str2str.c: In function ‘etatStream’:
+str2str.c:318:16: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+                FILE* fichier = NULL;
+                ^
+str2str.c:306:9: warning: unused variable ‘types’ [-Wunused-variable]
+     int types[MAXSTR]={STR_FILE,STR_FILE},stat[MAXSTR]={0},byte[MAXSTR]={0};
+         ^
+str2str.c:305:40: warning: unused variable ‘opts’ [-Wunused-variable]
+     int i,j,n=0,dispint=5000,trlevel=0,opts[]={10000,10000,2000,32768,10,0,30};
+                                        ^
+str2str.c:305:30: warning: unused variable ‘trlevel’ [-Wunused-variable]
+     int i,j,n=0,dispint=5000,trlevel=0,opts[]={10000,10000,2000,32768,10,0,30};
+                              ^
+str2str.c:305:17: warning: unused variable ‘dispint’ [-Wunused-variable]
+     int i,j,n=0,dispint=5000,trlevel=0,opts[]={10000,10000,2000,32768,10,0,30};
+                 ^
+str2str.c:305:13: warning: unused variable ‘n’ [-Wunused-variable]
+     int i,j,n=0,dispint=5000,trlevel=0,opts[]={10000,10000,2000,32768,10,0,30};
+             ^
+str2str.c:305:11: warning: unused variable ‘j’ [-Wunused-variable]
+     int i,j,n=0,dispint=5000,trlevel=0,opts[]={10000,10000,2000,32768,10,0,30};
+           ^
+str2str.c:304:44: warning: unused variable ‘rcvinfo’ [-Wunused-variable]
+     char strmsg[MAXSTRMSG]="",*antinfo="",*rcvinfo="";
+                                            ^
+str2str.c:304:32: warning: unused variable ‘antinfo’ [-Wunused-variable]
+     char strmsg[MAXSTRMSG]="",*antinfo="",*rcvinfo="";
+                                ^
+str2str.c:302:48: warning: unused variable ‘opt’ [-Wunused-variable]
+     char *local="",*proxy="",*msg="1004,1019",*opt="",buff[256],*p;
+                                                ^
+str2str.c:302:31: warning: unused variable ‘msg’ [-Wunused-variable]
+     char *local="",*proxy="",*msg="1004,1019",*opt="",buff[256],*p;
+                               ^
+str2str.c:302:21: warning: unused variable ‘proxy’ [-Wunused-variable]
+     char *local="",*proxy="",*msg="1004,1019",*opt="",buff[256],*p;
+                     ^
+str2str.c:302:11: warning: unused variable ‘local’ [-Wunused-variable]
+     char *local="",*proxy="",*msg="1004,1019",*opt="",buff[256],*p;
+           ^
+str2str.c:343:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o MainthreadStr2str.o MainthreadStr2str.cpp
+MainThread.cpp: In member function ‘void MainThread::setSYStime()’:
+MainThread.cpp:408:16: warning: statement has no effect [-Wunused-value]
+     emit (list);
+                ^
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o affichestr2str.o affichestr2str.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o mainthreadreadfile.o mainthreadreadfile.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o optionsstr2str.o optionsstr2str.cpp
+affichestr2str.cpp: In constructor ‘AfficheStr2str::AfficheStr2str(std::vector<std::__cxx11::basic_string<char> >, QWidget*)’:
+affichestr2str.cpp:63:12: warning: unused variable ‘lat’ [-Wunused-variable]
+     double lat =(m_str1.toDouble(&ok));
+            ^
+affichestr2str.cpp:64:12: warning: unused variable ‘lon’ [-Wunused-variable]
+     double lon =(m_str2.toDouble(&ok));
+            ^
+affichestr2str.cpp:65:12: warning: unused variable ‘h’ [-Wunused-variable]
+     double h =(m_str3.toDouble(&ok));
+            ^
+affichestr2str.cpp: At global scope:
+affichestr2str.cpp:9:52: warning: unused parameter ‘arga’ [-Wunused-parameter]
+ AfficheStr2str::AfficheStr2str(std::vector<string> arga, QWidget *parent) :
+                                                    ^
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o qcustomplot.o qcustomplot.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o gestionconfig.o gestionconfig.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o choixedite.o choixedite.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o editeconfig.o editeconfig.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o choixstr2str.o choixstr2str.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o choixconfig.o choixconfig.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o optionssauvepoints.o optionssauvepoints.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o clavier.o clavier.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o mylineedit.o mylineedit.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o mycombobox.o mycombobox.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include threadheuresysteme.h -o moc_threadheuresysteme.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include magraphicsscene.h -o moc_magraphicsscene.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include options1.h -o moc_options1.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include affichesolutions.h -o moc_affichesolutions.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include options2.h -o moc_options2.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MainThread.h -o moc_MainThread.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MainthreadStr2str.h -o moc_MainthreadStr2str.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include affichestr2str.h -o moc_affichestr2str.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainthreadreadfile.h -o moc_mainthreadreadfile.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include optionsstr2str.h -o moc_optionsstr2str.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include qcustomplot.h -o moc_qcustomplot.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include gestionconfig.h -o moc_gestionconfig.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include choixedite.h -o moc_choixedite.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include editeconfig.h -o moc_editeconfig.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include choixstr2str.h -o moc_choixstr2str.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include choixconfig.h -o moc_choixconfig.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include optionssauvepoints.h -o moc_optionssauvepoints.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include clavier.h -o moc_clavier.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mylineedit.h -o moc_mylineedit.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE -I/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mycombobox.h -o moc_mycombobox.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_mainwindow.o moc_mainwindow.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_threadheuresysteme.o moc_threadheuresysteme.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_magraphicsscene.o moc_magraphicsscene.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_options1.o moc_options1.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_affichesolutions.o moc_affichesolutions.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_options2.o moc_options2.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_MainThread.o moc_MainThread.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_MainthreadStr2str.o moc_MainthreadStr2str.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_affichestr2str.o moc_affichestr2str.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_mainthreadreadfile.o moc_mainthreadreadfile.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_optionsstr2str.o moc_optionsstr2str.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_qcustomplot.o moc_qcustomplot.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_gestionconfig.o moc_gestionconfig.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_choixedite.o moc_choixedite.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_editeconfig.o moc_editeconfig.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_choixstr2str.o moc_choixstr2str.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_choixconfig.o moc_choixconfig.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_optionssauvepoints.o moc_optionssauvepoints.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_clavier.o moc_clavier.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_mylineedit.o moc_mylineedit.cpp
+g++ -c -m64 -pipe -std=c++0x -g -Wall -W -D_REENTRANT -fPIC -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I. -Ilib/rtklib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -o moc_mycombobox.o moc_mycombobox.cpp
+g++ -m64 -o RTKBASE main.o mainwindow.o threadheuresysteme.o magraphicsscene.o options1.o affichesolutions.o options2.o vt.o rtkrcv.o MainThread.o str2str.o MainthreadStr2str.o affichestr2str.o mainthreadreadfile.o optionsstr2str.o qcustomplot.o gestionconfig.o choixedite.o editeconfig.o choixstr2str.o choixconfig.o optionssauvepoints.o clavier.o mylineedit.o mycombobox.o moc_mainwindow.o moc_threadheuresysteme.o moc_magraphicsscene.o moc_options1.o moc_affichesolutions.o moc_options2.o moc_MainThread.o moc_MainthreadStr2str.o moc_affichestr2str.o moc_mainthreadreadfile.o moc_optionsstr2str.o moc_qcustomplot.o moc_gestionconfig.o moc_choixedite.o moc_editeconfig.o moc_choixstr2str.o moc_choixconfig.o moc_optionssauvepoints.o moc_clavier.o moc_mylineedit.o moc_mycombobox.o   -L/usr/X11R6/lib64 -L/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/lib/rtklib/ -lrtk -lm -lrt -lQt5PrintSupport -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 

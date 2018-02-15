@@ -40,7 +40,7 @@ public:
         AfficheStr2str->resize(800, 480);
         lineEdit = new QLineEdit(AfficheStr2str);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(250, 10, 271, 41));
+        lineEdit->setGeometry(QRect(180, 10, 271, 41));
         QFont font;
         font.setPointSize(16);
         font.setBold(true);

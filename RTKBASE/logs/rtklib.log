@@ -1,53 +1,8 @@
-./rtksvr.c ./pntpos.c ./streamsvr.c ./ionex.c ./preceph.c ./rcvraw.c ./qzslex.c ./rtcm3e.c ./download.c ./stream.c ./tle.c ./rinex.c ./solution.c ./convkml.c ./rtcm.c ./datum.c ./ppp.c ./rtcm2.c ./rtcm3.c ./rcv/septentrio.c ./rcv/crescent.c ./rcv/ss2.c ./rcv/rt17.c ./rcv/ublox.c ./rcv/skytraq.c ./rcv/nvs.c ./rcv/rcvlex.c ./rcv/gw10.c ./rcv/binex.c ./rcv/javad.c ./rcv/novatel.c ./ephemeris.c ./rtkpos.c ./sbas.c ./lambda.c ./postpos.c ./ppp_ar.c ./convrnx.c ./geoid.c ./rtkcmn.c ./options.c
+./datum.c ./rtksvr.c ./download.c ./preceph.c ./rtkpos.c ./pntpos.c ./streamsvr.c ./rtcm3.c ./ephemeris.c ./postpos.c ./stream.c ./convkml.c ./rcv/gw10.c ./rcv/javad.c ./rcv/crescent.c ./rcv/rt17.c ./rcv/septentrio.c ./rcv/ublox.c ./rcv/binex.c ./rcv/nvs.c ./rcv/rcvlex.c ./rcv/skytraq.c ./rcv/novatel.c ./rcv/ss2.c ./rtcm2.c ./tle.c ./rinex.c ./rtcm.c ./convrnx.c ./rtkcmn.c ./ppp_ar.c ./solution.c ./ppp.c ./options.c ./sbas.c ./qzslex.c ./lambda.c ./geoid.c ./ionex.c ./rtcm3e.c ./rcvraw.c
+essai compile  ./datum.c
+gcc -Wall -c ./datum.c -o ./datum.o
 essai compile  ./rtksvr.c
 gcc -Wall -c ./rtksvr.c -o ./rtksvr.o
-essai compile  ./pntpos.c
-gcc -Wall -c ./pntpos.c -o ./pntpos.o
-essai compile  ./streamsvr.c
-gcc -Wall -c ./streamsvr.c -o ./streamsvr.o
-essai compile  ./ionex.c
-gcc -Wall -c ./ionex.c -o ./ionex.o
-essai compile  ./preceph.c
-gcc -Wall -c ./preceph.c -o ./preceph.o
-essai compile  ./rcvraw.c
-gcc -Wall -c ./rcvraw.c -o ./rcvraw.o
-./rcvraw.c: In function ‘decode_glostr’:
-./rcvraw.c:344:52: warning: variable ‘M’ set but not used [-Wunused-but-set-variable]
-     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
-                                                    ^
-./rcvraw.c:344:44: warning: variable ‘NT’ set but not used [-Wunused-but-set-variable]
-     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
-                                            ^
-./rcvraw.c:344:41: warning: variable ‘ln’ set but not used [-Wunused-but-set-variable]
-     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
-                                         ^
-./rcvraw.c:344:20: warning: variable ‘P4’ set but not used [-Wunused-but-set-variable]
-     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
-                    ^
-./rcvraw.c:344:17: warning: variable ‘P3’ set but not used [-Wunused-but-set-variable]
-     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
-                 ^
-./rcvraw.c:344:14: warning: variable ‘P2’ set but not used [-Wunused-but-set-variable]
-     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
-              ^
-./rcvraw.c:344:11: warning: variable ‘P1’ set but not used [-Wunused-but-set-variable]
-     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
-           ^
-./rcvraw.c:344:9: warning: variable ‘P’ set but not used [-Wunused-but-set-variable]
-     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
-         ^
-essai compile  ./qzslex.c
-gcc -Wall -c ./qzslex.c -o ./qzslex.o
-essai compile  ./rtcm3e.c
-gcc -Wall -c ./rtcm3e.c -o ./rtcm3e.o
-./rtcm3e.c: In function ‘encode_type1045’:
-./rtcm3e.c:994:42: warning: variable ‘bgd2’ set but not used [-Wunused-but-set-variable]
-     int cus,cuc,cis,cic,af0,af1,af2,bgd1,bgd2,oshs,osdvs;
-                                          ^
-./rtcm3e.c: In function ‘encode_ssr2’:
-./rtcm3e.c:1235:36: warning: variable ‘iode’ set but not used [-Wunused-but-set-variable]
-     int i,j,iod=0,nsat,prn,np,offp,iode,dclk[3];
-                                    ^
 essai compile  ./download.c
 gcc -Wall -c ./download.c -o ./download.o
 ./download.c: In function ‘get_list’:
@@ -62,31 +17,18 @@ gcc -Wall -c ./download.c -o ./download.o
 ./download.c:776:12: warning: unused variable ‘tow’ [-Wunused-variable]
      double tow;
             ^
-essai compile  ./stream.c
-gcc -Wall -c ./stream.c -o ./stream.o
-essai compile  ./tle.c
-gcc -Wall -c ./tle.c -o ./tle.o
-./tle.c: In function ‘SGP4_STR3’:
-./tle.c:44:50: warning: variable ‘xndd6o’ set but not used [-Wunused-but-set-variable]
-     double xnodeo,omegao,xmo,eo,xincl,xno,xndt2o,xndd6o,bstar;
-                                                  ^
-./tle.c:44:43: warning: variable ‘xndt2o’ set but not used [-Wunused-but-set-variable]
-     double xnodeo,omegao,xmo,eo,xincl,xno,xndt2o,xndd6o,bstar;
-                                           ^
-essai compile  ./rinex.c
-gcc -Wall -c ./rinex.c -o ./rinex.o
-essai compile  ./solution.c
-gcc -Wall -c ./solution.c -o ./solution.o
-essai compile  ./convkml.c
-gcc -Wall -c ./convkml.c -o ./convkml.o
-essai compile  ./rtcm.c
-gcc -Wall -c ./rtcm.c -o ./rtcm.o
-essai compile  ./datum.c
-gcc -Wall -c ./datum.c -o ./datum.o
-essai compile  ./ppp.c
-gcc -Wall -c ./ppp.c -o ./ppp.o
-essai compile  ./rtcm2.c
-gcc -Wall -c ./rtcm2.c -o ./rtcm2.o
+essai compile  ./preceph.c
+gcc -Wall -c ./preceph.c -o ./preceph.o
+essai compile  ./rtkpos.c
+gcc -Wall -c ./rtkpos.c -o ./rtkpos.o
+./rtkpos.c: In function ‘relpos’:
+./rtkpos.c:1490:12: warning: assuming signed overflow does not occur when assuming that (X + c) >= X is always true [-Wstrict-overflow]
+ static int relpos(rtk_t *rtk, const obsd_t *obs, int nu, int nr,
+            ^
+essai compile  ./pntpos.c
+gcc -Wall -c ./pntpos.c -o ./pntpos.o
+essai compile  ./streamsvr.c
+gcc -Wall -c ./streamsvr.c -o ./streamsvr.o
 essai compile  ./rtcm3.c
 gcc -Wall -c ./rtcm3.c -o ./rtcm3.o
 ./rtcm3.c: In function ‘decode_type1045’:
@@ -97,6 +39,30 @@ gcc -Wall -c ./rtcm3.c -o ./rtcm3.o
 ./rtcm3.c:1672:16: warning: variable ‘dow’ set but not used [-Wunused-but-set-variable]
      int i=24,j,dow,mask,staid,type,ncell=0;
                 ^
+essai compile  ./ephemeris.c
+gcc -Wall -c ./ephemeris.c -o ./ephemeris.o
+essai compile  ./postpos.c
+gcc -Wall -c ./postpos.c -o ./postpos.o
+essai compile  ./stream.c
+gcc -Wall -c ./stream.c -o ./stream.o
+essai compile  ./convkml.c
+gcc -Wall -c ./convkml.c -o ./convkml.o
+essai compile  ./rcv/gw10.c
+gcc -Wall -c ./rcv/gw10.c -o ./rcv/gw10.o
+essai compile  ./rcv/javad.c
+gcc -Wall -c ./rcv/javad.c -o ./rcv/javad.o
+essai compile  ./rcv/crescent.c
+gcc -Wall -c ./rcv/crescent.c -o ./rcv/crescent.o
+./rcv/crescent.c: In function ‘decode_crespos’:
+./rcv/crescent.c:70:23: warning: variable ‘vel’ set but not used [-Wunused-but-set-variable]
+     double tow,pos[3],vel[3],std;
+                       ^
+./rcv/crescent.c: In function ‘decode_cresgloeph’:
+./rcv/crescent.c:479:27: warning: variable ‘time’ set but not used [-Wunused-but-set-variable]
+     int i,j,k,sat,prn,frq,time,no;
+                           ^
+essai compile  ./rcv/rt17.c
+gcc -Wall -c ./rcv/rt17.c -o ./rcv/rt17.o
 essai compile  ./rcv/septentrio.c
 gcc -Wall -c ./rcv/septentrio.c -o ./rcv/septentrio.o
 ./rcv/septentrio.c: In function ‘decode_measepoch’:
@@ -251,24 +217,6 @@ gcc -Wall -c ./rcv/septentrio.c -o ./rcv/septentrio.o
 ./rcv/septentrio.c:187:12: warning: ‘checkpri’ defined but not used [-Wunused-function]
  static int checkpri(const char *opt, int sys, int code, int freq)
             ^
-essai compile  ./rcv/crescent.c
-gcc -Wall -c ./rcv/crescent.c -o ./rcv/crescent.o
-./rcv/crescent.c: In function ‘decode_crespos’:
-./rcv/crescent.c:70:23: warning: variable ‘vel’ set but not used [-Wunused-but-set-variable]
-     double tow,pos[3],vel[3],std;
-                       ^
-./rcv/crescent.c: In function ‘decode_cresgloeph’:
-./rcv/crescent.c:479:27: warning: variable ‘time’ set but not used [-Wunused-but-set-variable]
-     int i,j,k,sat,prn,frq,time,no;
-                           ^
-essai compile  ./rcv/ss2.c
-gcc -Wall -c ./rcv/ss2.c -o ./rcv/ss2.o
-./rcv/ss2.c: In function ‘decode_ss2sbas’:
-./rcv/ss2.c:197:13: warning: variable ‘time’ set but not used [-Wunused-but-set-variable]
-     gtime_t time;
-             ^
-essai compile  ./rcv/rt17.c
-gcc -Wall -c ./rcv/rt17.c -o ./rcv/rt17.o
 essai compile  ./rcv/ublox.c
 gcc -Wall -c ./rcv/ublox.c -o ./rcv/ublox.o
 ./rcv/ublox.c: In function ‘decode_trkmeas’:
@@ -288,18 +236,6 @@ gcc -Wall -c ./rcv/ublox.c -o ./rcv/ublox.o
 ./rcv/ublox.c:548:19: warning: variable ‘adrs’ set but not used [-Wunused-but-set-variable]
      static double adrs[MAXSAT]={0};
                    ^
-essai compile  ./rcv/skytraq.c
-gcc -Wall -c ./rcv/skytraq.c -o ./rcv/skytraq.o
-essai compile  ./rcv/nvs.c
-gcc -Wall -c ./rcv/nvs.c -o ./rcv/nvs.o
-./rcv/nvs.c: In function ‘decode_xf5raw’:
-./rcv/nvs.c:70:19: warning: variable ‘rcvTimeScaleCorr’ set but not used [-Wunused-but-set-variable]
-     unsigned char rcvTimeScaleCorr, sys, carrNo;
-                   ^
-essai compile  ./rcv/rcvlex.c
-gcc -Wall -c ./rcv/rcvlex.c -o ./rcv/rcvlex.o
-essai compile  ./rcv/gw10.c
-gcc -Wall -c ./rcv/gw10.c -o ./rcv/gw10.o
 essai compile  ./rcv/binex.c
 gcc -Wall -c ./rcv/binex.c -o ./rcv/binex.o
 ./rcv/binex.c: In function ‘decode_bnx_01_02’:
@@ -339,8 +275,16 @@ gcc -Wall -c ./rcv/binex.c -o ./rcv/binex.o
 ./rcv/binex.c:1038:12: warning: variable ‘clkoff’ set but not used [-Wunused-but-set-variable]
      double clkoff=0.0,toff[16]={0};
             ^
-essai compile  ./rcv/javad.c
-gcc -Wall -c ./rcv/javad.c -o ./rcv/javad.o
+essai compile  ./rcv/nvs.c
+gcc -Wall -c ./rcv/nvs.c -o ./rcv/nvs.o
+./rcv/nvs.c: In function ‘decode_xf5raw’:
+./rcv/nvs.c:70:19: warning: variable ‘rcvTimeScaleCorr’ set but not used [-Wunused-but-set-variable]
+     unsigned char rcvTimeScaleCorr, sys, carrNo;
+                   ^
+essai compile  ./rcv/rcvlex.c
+gcc -Wall -c ./rcv/rcvlex.c -o ./rcv/rcvlex.o
+essai compile  ./rcv/skytraq.c
+gcc -Wall -c ./rcv/skytraq.c -o ./rcv/skytraq.o
 essai compile  ./rcv/novatel.c
 gcc -Wall -c ./rcv/novatel.c -o ./rcv/novatel.o
 ./rcv/novatel.c: In function ‘decode_galephemerisb’:
@@ -398,30 +342,86 @@ gcc -Wall -c ./rcv/novatel.c -o ./rcv/novatel.o
 ./rcv/novatel.c:975:11: warning: variable ‘sigch’ set but not used [-Wunused-but-set-variable]
      int i,sigch,prn,frmid;
            ^
-essai compile  ./ephemeris.c
-gcc -Wall -c ./ephemeris.c -o ./ephemeris.o
-essai compile  ./rtkpos.c
-gcc -Wall -c ./rtkpos.c -o ./rtkpos.o
-./rtkpos.c: In function ‘relpos’:
-./rtkpos.c:1490:12: warning: assuming signed overflow does not occur when assuming that (X + c) >= X is always true [-Wstrict-overflow]
- static int relpos(rtk_t *rtk, const obsd_t *obs, int nu, int nr,
-            ^
-essai compile  ./sbas.c
-gcc -Wall -c ./sbas.c -o ./sbas.o
-essai compile  ./lambda.c
-gcc -Wall -c ./lambda.c -o ./lambda.o
-essai compile  ./postpos.c
-gcc -Wall -c ./postpos.c -o ./postpos.o
-essai compile  ./ppp_ar.c
-gcc -Wall -c ./ppp_ar.c -o ./ppp_ar.o
+essai compile  ./rcv/ss2.c
+gcc -Wall -c ./rcv/ss2.c -o ./rcv/ss2.o
+./rcv/ss2.c: In function ‘decode_ss2sbas’:
+./rcv/ss2.c:197:13: warning: variable ‘time’ set but not used [-Wunused-but-set-variable]
+     gtime_t time;
+             ^
+essai compile  ./rtcm2.c
+gcc -Wall -c ./rtcm2.c -o ./rtcm2.o
+essai compile  ./tle.c
+gcc -Wall -c ./tle.c -o ./tle.o
+./tle.c: In function ‘SGP4_STR3’:
+./tle.c:44:50: warning: variable ‘xndd6o’ set but not used [-Wunused-but-set-variable]
+     double xnodeo,omegao,xmo,eo,xincl,xno,xndt2o,xndd6o,bstar;
+                                                  ^
+./tle.c:44:43: warning: variable ‘xndt2o’ set but not used [-Wunused-but-set-variable]
+     double xnodeo,omegao,xmo,eo,xincl,xno,xndt2o,xndd6o,bstar;
+                                           ^
+essai compile  ./rinex.c
+gcc -Wall -c ./rinex.c -o ./rinex.o
+essai compile  ./rtcm.c
+gcc -Wall -c ./rtcm.c -o ./rtcm.o
 essai compile  ./convrnx.c
 gcc -Wall -c ./convrnx.c -o ./convrnx.o
-essai compile  ./geoid.c
-gcc -Wall -c ./geoid.c -o ./geoid.o
 essai compile  ./rtkcmn.c
 gcc -Wall -c ./rtkcmn.c -o ./rtkcmn.o
+essai compile  ./ppp_ar.c
+gcc -Wall -c ./ppp_ar.c -o ./ppp_ar.o
+essai compile  ./solution.c
+gcc -Wall -c ./solution.c -o ./solution.o
+essai compile  ./ppp.c
+gcc -Wall -c ./ppp.c -o ./ppp.o
 essai compile  ./options.c
 gcc -Wall -c ./options.c -o ./options.o
+essai compile  ./sbas.c
+gcc -Wall -c ./sbas.c -o ./sbas.o
+essai compile  ./qzslex.c
+gcc -Wall -c ./qzslex.c -o ./qzslex.o
+essai compile  ./lambda.c
+gcc -Wall -c ./lambda.c -o ./lambda.o
+essai compile  ./geoid.c
+gcc -Wall -c ./geoid.c -o ./geoid.o
+essai compile  ./ionex.c
+gcc -Wall -c ./ionex.c -o ./ionex.o
+essai compile  ./rtcm3e.c
+gcc -Wall -c ./rtcm3e.c -o ./rtcm3e.o
+./rtcm3e.c: In function ‘encode_type1045’:
+./rtcm3e.c:994:42: warning: variable ‘bgd2’ set but not used [-Wunused-but-set-variable]
+     int cus,cuc,cis,cic,af0,af1,af2,bgd1,bgd2,oshs,osdvs;
+                                          ^
+./rtcm3e.c: In function ‘encode_ssr2’:
+./rtcm3e.c:1235:36: warning: variable ‘iode’ set but not used [-Wunused-but-set-variable]
+     int i,j,iod=0,nsat,prn,np,offp,iode,dclk[3];
+                                    ^
+essai compile  ./rcvraw.c
+gcc -Wall -c ./rcvraw.c -o ./rcvraw.o
+./rcvraw.c: In function ‘decode_glostr’:
+./rcvraw.c:344:52: warning: variable ‘M’ set but not used [-Wunused-but-set-variable]
+     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
+                                                    ^
+./rcvraw.c:344:44: warning: variable ‘NT’ set but not used [-Wunused-but-set-variable]
+     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
+                                            ^
+./rcvraw.c:344:41: warning: variable ‘ln’ set but not used [-Wunused-but-set-variable]
+     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
+                                         ^
+./rcvraw.c:344:20: warning: variable ‘P4’ set but not used [-Wunused-but-set-variable]
+     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
+                    ^
+./rcvraw.c:344:17: warning: variable ‘P3’ set but not used [-Wunused-but-set-variable]
+     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
+                 ^
+./rcvraw.c:344:14: warning: variable ‘P2’ set but not used [-Wunused-but-set-variable]
+     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
+              ^
+./rcvraw.c:344:11: warning: variable ‘P1’ set but not used [-Wunused-but-set-variable]
+     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
+           ^
+./rcvraw.c:344:9: warning: variable ‘P’ set but not used [-Wunused-but-set-variable]
+     int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
+         ^
 fini compil
-ar: le modificateur « u » est ignoré puisque « D » est le défaut (consultez « U »)
+ar: `u' modifier ignored since `D' is the default (see `U')
 fini ar
