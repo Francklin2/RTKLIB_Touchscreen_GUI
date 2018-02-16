@@ -261,9 +261,9 @@ border: 1px solid black;</string>
    <widget class="QPushButton" name="RTK_BASE_position">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>270</y>
-      <width>251</width>
+      <x>200</x>
+      <y>290</y>
+      <width>261</width>
       <height>51</height>
      </rect>
     </property>
@@ -291,7 +291,7 @@ border: 1px solid black;</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

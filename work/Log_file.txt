@@ -1,0 +1,19 @@
+Debug: ----- The package was successfully installed  
+
+Debug:  date =  14 / 2 / 2018
+Debug:  heure=  1 : 15 : 35.8103
+Debug: ----- The ubx file exist -----
+Debug: 
+ "convbin ../RTKBASE/PointsFiles/rover.ubx -r ubx -o ../work/rover.obs -n ../work/rover.nav"
+Debug: 
+-----The conversion process from ubx to .obs finished with success ----- 
+
+Debug: Approx coordinate X0= 4.20502e+06 , 164186 , 4.77702e+06
+Debug: Time of first obs=  10 : 51
+Debug: Time of last obs=  11 : 36
+Debug: Date of obs=  12 / 2 / 2018
+Debug:  FTP of RGP Stations coordinate: "ftp://rgpdata.ign.fr/pub/data/2018/042/coorrgf93_2018-042.txt"
+Debug:  RGP data are not available until  12 :04 
+
+Debug: Wait: 39000  sec 650  min 
+
