@@ -2,9 +2,15 @@
 
 RTKLIB GUI (Graphic User Interface) for Raspberry Pi with touchscreen made with Qt4 by the ENSG students 
 
-New features in this version :
+Update news :
 
-- Automatic post processing ro get base position, only compatible on dektop and RPI3 with Qt5 installed. Works with RGP ign server for the moment,we are still workin on the interface to get some calculation option :number of station used and theyre radius.
+
+February 2018 update
+- Automatic post processing to get base position, only compatible on dektop PC and RPI3 with Qt5 installed(still working on QT4/RPI2 compatibility). Works with european RGP ign server for the moment.
+-Automatic sequence of logging data and automatic post processing to get base position( I try to add base station to the sequence)
+
+
+August 2017 update 
 - new pages in the wiki : tips and tools, test results by the ENG students
 - added data logging from the GNSS for post processing, just choose file in output of the basestation and it's done
 - added save position option, you are able to save X points ypu want to record with choosen timing
