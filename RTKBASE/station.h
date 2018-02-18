@@ -43,9 +43,9 @@ public:
 
 //private:
   //  static constexpr float d_max = 50000.0;
-       // Max search radius for stations
+  // Max search radius for stations
 
-    static constexpr int nb_stat_min=4;                         // Minimum number of stations to start the calculation
+  //  static constexpr int nb_stat_min=4;                         // Minimum number of stations to start the calculation
 };
 
 #endif // STATION_H

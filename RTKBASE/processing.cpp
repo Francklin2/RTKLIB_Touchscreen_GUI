@@ -13,16 +13,52 @@
 #include  "approxcoord.h"
 #include  "rnx2rtkp.h"
 #include  "processing.h"
-
+#include <fstream>
 #include "mydialog.h"
 
+#include <QTimer>
+#include <QThread>
 
 
- extern QString Radmax;
- int d_max1 =  Radmax.toInt();
+int d_max1;
+int Min_station;
+
 
 void processing()
 {
+
+    // Open configuration file to read max radius for station and nb of station
+        {
+        int i=1;
+        QStringList list;
+        QString fileName = "sauvegardeoptionAutoPPbase.txt";
+        QFile readoption(fileName);
+        readoption.open(QIODevice::ReadOnly | QIODevice::Text);
+        //---------verifier ouverture fichier......
+        QTextStream flux(&readoption);
+        QString ligne;
+        while(! flux.atEnd())
+        {
+           ligne = flux.readLine();
+           //traitement de la ligne
+           qDebug()<<ligne;
+           list<<ligne;
+           i=i+1;
+        }
+
+         QString dmax2 = (list[0]);
+         d_max1 =  dmax2.toInt();
+
+         QString nb_stat_min = (list[1]);
+          Min_station = nb_stat_min.toInt();
+
+        readoption.close();
+
+    }
+
+
+
+
 
     QThread sleep;
 
@@ -200,10 +236,10 @@ void processing()
 
     int i=0,nbstation=0;                            // i reprents the i th nearest station
 
-    while(nbstation<4)
+    while(nbstation<Min_station)
     {
         /*------------------------------------------------------------------------------/
-            Downloading for each 4 nearest station the following files:
+            Downloading for each 'Min-station' nearest station the following files:
                 - Observation file
                 - Navigation GPS file
                 - Navigation GLONASS file
