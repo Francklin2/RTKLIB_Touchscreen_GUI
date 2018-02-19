@@ -23,10 +23,16 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>30</y>
+     <y>20</y>
      <width>781</width>
-     <height>441</height>
+     <height>451</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
    </property>
    <property name="currentIndex">
     <number>0</number>
@@ -49,6 +55,12 @@
        <weight>75</weight>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(238, 238, 236);border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 10px;</string>
      </property>
      <property name="text">
       <string> START  
@@ -119,9 +131,9 @@ on recorded file</string>
     <widget class="QLineEdit" name="lineEdit_2">
      <property name="geometry">
       <rect>
-       <x>480</x>
+       <x>470</x>
        <y>30</y>
-       <width>241</width>
+       <width>251</width>
        <height>25</height>
       </rect>
      </property>
@@ -131,6 +143,12 @@ on recorded file</string>
        <weight>75</weight>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 10px;</string>
      </property>
      <property name="text">
       <string>POST PROCESS RESULTS</string>
@@ -200,6 +218,13 @@ on recorded file</string>
        <bold>true</bold>
       </font>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(238, 238, 236);
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 10px;</string>
+     </property>
      <property name="text">
       <string>START  
  Logging data and  
@@ -266,6 +291,13 @@ Post processing</string>
        <weight>75</weight>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(238, 238, 236);
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 10px;</string>
      </property>
      <property name="text">
       <string>CLOSE</string>
@@ -440,8 +472,8 @@ Post processing</string>
     <widget class="QPushButton" name="Save_options_pushButton">
      <property name="geometry">
       <rect>
-       <x>508</x>
-       <y>30</y>
+       <x>640</x>
+       <y>10</y>
        <width>121</width>
        <height>51</height>
       </rect>
@@ -451,6 +483,13 @@ Post processing</string>
        <weight>75</weight>
        <bold>true</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(238, 238, 236);
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 10px;</string>
      </property>
      <property name="text">
       <string>SAVE OPTIONS</string>

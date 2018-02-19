@@ -261,11 +261,25 @@ border: 1px solid black;</string>
    <widget class="QPushButton" name="RTK_BASE_position">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>150</x>
       <y>290</y>
-      <width>261</width>
+      <width>291</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(238, 238, 236);
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 10px;</string>
     </property>
     <property name="text">
      <string> Post Processing RTK_BASE position 
