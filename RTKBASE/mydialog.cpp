@@ -55,10 +55,15 @@ MyDialog::MyDialog(QWidget *parent) :
               ui->WaitingTime->setCurrentText(QString(list[3]));
               ui->InSerialPortcomboBox2->setCurrentText(QString(list[4]));
               ui->InBaudratecomboBox2->setCurrentText(QString(list[5]));
-            ui->InFormatcomboBox2->setCurrentText(QString(list[6]));
+              ui->InFormatcomboBox2->setCurrentText(QString(list[6]));
+              ui->Autostartbase_comboBox->setCurrentText(QString(list[7]));
+              ui->OutSerialPortcomboBox2->setCurrentText(QString(list[8]));
+              ui->OutBaudRatecomboBox2->setCurrentText(QString(list[9]));
+              ui->OutFormatcomboBox2->setCurrentText(QString(list[10]));
+              ui->RtcmMsgcomboBox2->setCurrentText(QString(list[11]));
+
 
               ui->InfoCapture_lineEdit->setText(QString("Log "+list[2]+"mn and wait "+list[3]+"mn before process"));
-
               ui->InfoProcess_lineEdit->setText(QString(list[1])+" stations in a "+(list[0])+"Km radius will be used");
 
         readoption.close();
@@ -143,6 +148,11 @@ void MyDialog::Save_Options()
      QString InputPort = ui->InSerialPortcomboBox2->currentText();
      QString InputBaud = ui->InBaudratecomboBox2->currentText();
      QString InFormat = ui->InFormatcomboBox2->currentText();
+     QString Autostartbase =ui->Autostartbase_comboBox->currentText();
+     QString Outport =ui->OutSerialPortcomboBox2->currentText();
+     QString OutBaud =ui->OutBaudRatecomboBox2->currentText();
+     QString OutFormat =ui->OutFormatcomboBox2->currentText();
+     QString RTCMmsg =ui->RtcmMsgcomboBox2->currentText();
 
 
      std::ofstream q("sauvegardeoptionAutoPPbase.txt");
@@ -157,6 +167,11 @@ void MyDialog::Save_Options()
        out1<<InputPort<<endl;
        out1<<InputBaud<<endl;
        out1<<InFormat<<endl;
+       out1<<Autostartbase<<endl;
+       out1<<Outport<<endl;
+       out1<<OutBaud<<endl;
+       out1<<OutFormat<<endl;
+       out1<<RTCMmsg<<endl;
 
 
        ui->InfoProcess_lineEdit->setText(QString(MinStat)+" stations in a "+(RadiusMaxStation)+"Km radius will be used");
@@ -205,6 +220,12 @@ void MyDialog::Save_Options()
         QString InputPort2 = (list[4]);
         QString InputBaud2 = (list[5]);
         QString InputFormat2 = (list[6]);
+        QString Autostart_Base = (list[7]);
+        QString OutPort2 = (list[8]);
+        QString OutBaud2 = (list[9]);
+        QString OutFormat2 = (list[10]);
+        QString RTCMmsg2 = (list[11]);
+
 
 
 
@@ -219,13 +240,16 @@ void MyDialog::Save_Options()
      string InSerialPortstr = InputPort2.toStdString();
      string Inbaudstr= InputBaud2.toStdString();
      string InFormatstr = InputFormat2.toStdString();
+     string OutSerialPortstr = OutPort2.toStdString();
+     string Outbaudstr = OutBaud2.toStdString();
+     string OutFormatstr = OutFormat2.toStdString();
+     string RtcmMsgstr = RTCMmsg2.toStdString();
+     string latstr = Sol_x_LLH.toStdString();
+     string lonstr = Sol_y_LLH.toStdString();
+     string hstr = Sol_z_LLH.toStdString();
 
 
      string OutFilePathstr = "../RTKBASE/PointsFiles/rover.ubx";
-
-     // if (OutSerialPort =="File")
-     // else
-     // arga={"carlep,remierargtoujorsleprog","-in","serial://ttyACM0:115200:8:n:1:#ubx","-out","serial://ttyUSB0:38400:8:n:1:#rtcm3","-p","48.2","2.2","120.23","-msg","1004,1019,1012,1020,1006,1008"};
 
 
                               arga={"carlepremierargesttoujorsleprog","-in","serial://ttyACM0:115200:8:n:1:#ubx","-out","../RTKBASE/PointsFiles/rover.ubx"};
@@ -234,7 +258,7 @@ void MyDialog::Save_Options()
 
     args=args1;
 
-// }
+
 
  /*Str2str.c opening options*/
  int sizeArgs=args.size();
@@ -252,7 +276,6 @@ void MyDialog::Save_Options()
      ui->Capture_textBrowser->append(qstr[i]);
  }
 
-
    m_tstr2str->setArgcArgvStr2str(args);
    m_tstr2str->start();
    m_readfile->start();
@@ -265,8 +288,56 @@ void MyDialog::Save_Options()
 ui->textBrowser_2->setText(QString("RECORDING RAW DATA FROM GNSS"));
 
 
-  QTimer::singleShot(CaptureTimer, this, SLOT(FermeStr2str2()));
-  QTimer::singleShot(CaptureTimer+WaitTimer, this, SLOT(on_pushButton_run_rnx2rtk_process_RGP_clicked()));
+
+  QTimer::singleShot(CaptureTimer, this, SLOT(FermeStr2str2()));        // Close str2str and logging
+  QTimer::singleShot(CaptureTimer+WaitTimer, this, SLOT(on_pushButton_run_rnx2rtk_process_RGP_clicked())); // Wait and start post processing
+
+
+
+
+  if (Autostart_Base == "on")        // Check to start againstr2str in base mode with position results
+  {
+
+      // Launch str2str
+
+                               arga={"carlepremierargesttoujorsleprog","-in","serial://ttyACM0:115200:8:n:1:#ubx","-out","serial://ttyUSB0:38400:8:n:1:#rtcm3","-p","48.2","2.2","120.23","-msg","1004,1019,1012,1020,1006,1008"};
+     std::vector<std::string> args1={"carlepremierargesttoujorsleprog","-in",InSerialPortstr+":"+Inbaudstr+":8:n:1:#"+InFormatstr,"-out",OutSerialPortstr+":"+Outbaudstr+":8:n:1:#"+OutFormatstr,"-msg",RtcmMsgstr,"-p",latstr,lonstr,hstr};
+
+
+  args=args1;
+
+// }
+
+/*Str2str.c opening options*/
+int sizeArgs=args.size();
+QVector<QString> qstr(sizeArgs);
+
+for (int i=0; i<sizeArgs;i++)
+{
+   qstr[i] = QString::fromStdString(args[i]);
+}
+
+ui->Capture_textBrowser->setText(QString("CURRENT STR2STR OPTIONS"));
+
+for (int i=1; i<sizeArgs;i++)
+{
+   ui->Capture_textBrowser->append(qstr[i]);
+}
+
+
+ m_tstr2str->setArgcArgvStr2str(args);
+ m_tstr2str->start();
+ m_readfile->start();
+
+QObject::connect(m_readfile,SIGNAL(emitdonneesStr2str(QStringList)),this,SLOT(recupdonneesStr2str(QStringList))); //ok
+// QObject::connect(ui->Stop_AutoPP_pushButton,SIGNAL(clicked()),this,SLOT(FermeStr2str2()));
+QObject::connect(this,SIGNAL(closeSignal(int)),m_tstr2str,SLOT(close(int)));
+QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread2(bool)));
+
+
+
+
+  }
 
 
  }
