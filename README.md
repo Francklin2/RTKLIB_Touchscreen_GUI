@@ -7,7 +7,8 @@ Update news :
 
 February 2018 update
 - Automatic post processing to get base position, only compatible on desktop PC and RPI3 with Qt5 installed(still working on QT4/RPI2 compatibility). Works with european RGP ign server for the moment.
-- Automatic sequence of logging data and automatic post processing to get base position( I try to add base station to the sequence)
+- Automatic sequence of logging data and automatic post processing to get base position
+- Switch to base mode with the position results of the post processing, put "Autostart base after processing" to "on" to get a automatic mode with data logging>>pôst processing>>base station in one click  
 
 
 August 2017 update 
