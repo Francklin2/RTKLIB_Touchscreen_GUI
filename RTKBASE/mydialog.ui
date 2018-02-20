@@ -1167,6 +1167,32 @@ border: 1px solid black;</string>
       <string>Autostart base with results</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="teststart_pushButton">
+     <property name="geometry">
+      <rect>
+       <x>640</x>
+       <y>100</y>
+       <width>111</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>test start base</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="teststop_pushButton">
+     <property name="geometry">
+      <rect>
+       <x>640</x>
+       <y>140</y>
+       <width>111</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>test stop base</string>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>

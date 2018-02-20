@@ -17,12 +17,12 @@
 #include "mydialog.h"
 
 #include <QTimer>
-#include <QThread>
+
 
 
 int d_max1;
 int Min_station;
-
+extern int debugUI;
 
 void processing()
 {
@@ -191,6 +191,7 @@ void processing()
     if((yyyy=t.yyyy)&&(mon=t.mon)&&(dd=t.dd)&&(t.hh<X0.TIME_OF_LAST_OBS[0]+1)&&(X0.TIME_OF_LAST_OBS[1]>observation_time/2))
     {
         qDebug()<<" RGP data are not available until "<<X0.TIME_OF_LAST_OBS[0]+1<<":04"<<endl;
+        debugUI = 3;
 
         int a= ((X0.TIME_OF_LAST_OBS[0]+1)*3600+5*60)-(t.hh*3600+t.mm*60);
 
@@ -217,6 +218,7 @@ void processing()
     if(down.downfailed==true)
     {
         qDebug()<<" There is no internet connection:fail to download"<< down.file_name<<endl;
+        debugUI = 2;
         down.downfailed=false;
         return;
     }

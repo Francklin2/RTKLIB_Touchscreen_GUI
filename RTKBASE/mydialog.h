@@ -13,7 +13,10 @@
 
 #include "mylineedit.h"
 
-//extern QString nb_stat_min;
+
+extern QString Autostart_Base;
+extern int closestr2str;
+extern int debugUI;
 
 
 namespace Ui {
@@ -44,10 +47,12 @@ std::vector<std::string> arga;
 
 public slots:
 void recupdonneesStr2str(QStringList i);
-void FermeStr2str2();
-void finThread2(bool a);
+void FermeStr2str();
+void finThread(bool a);
 void Close_Window();
 void Start_AutoPP();
+void Test_start();
+void Test_stop();
 
 
 

@@ -19,6 +19,11 @@
 #include <QTimer>
 
 
+
+int closestr2str = 0;
+int debugUI = 0;
+
+
 MyDialog::MyDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MyDialog)
@@ -28,6 +33,14 @@ MyDialog::MyDialog(QWidget *parent) :
     QObject::connect(ui->AutoPostP_pushButton,SIGNAL(clicked()),this,SLOT(Start_AutoPP()));
     QObject::connect(ui->Stop_AutoPP_pushButton,SIGNAL(clicked()),this,SLOT(Close_Window()));
     QObject::connect(ui->Save_options_pushButton,SIGNAL(clicked()),this,SLOT(Save_Options()));
+    QObject::connect(ui->teststart_pushButton,SIGNAL(clicked()),this,SLOT(Test_start()));
+    QObject::connect(ui->teststop_pushButton,SIGNAL(clicked()),this,SLOT(Test_stop()));
+
+    QObject::connect(m_readfile,SIGNAL(emitdonneesStr2str(QStringList)),this,SLOT(recupdonneesStr2str(QStringList))); //ok
+    QObject::connect(this,SIGNAL(closeSignal(int)),m_tstr2str,SLOT(close(int)));
+    QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread(bool)));
+
+
 
 
     // Open configuration file to read max radius for station and nb of station
@@ -69,6 +82,23 @@ MyDialog::MyDialog(QWidget *parent) :
         readoption.close();
 
     }
+
+    if(debugUI = 1)
+    {
+     ui->Capture_textBrowser->setText(QString("SWITCH TO BASE MODE"));
+    }
+
+    if(debugUI = 2)
+    {
+     ui->Capture_textBrowser->setText(QString("NO INTERNET CONNEXION, FAIL TO DOWNLOAD"));
+    }
+
+    if(debugUI = 3)
+    {
+     ui->Capture_textBrowser->setText(QString("WAIT FOR RGP DATA"));
+    }
+
+
 
 
 }
@@ -220,19 +250,9 @@ void MyDialog::Save_Options()
         QString InputPort2 = (list[4]);
         QString InputBaud2 = (list[5]);
         QString InputFormat2 = (list[6]);
-        QString Autostart_Base = (list[7]);
-        QString OutPort2 = (list[8]);
-        QString OutBaud2 = (list[9]);
-        QString OutFormat2 = (list[10]);
-        QString RTCMmsg2 = (list[11]);
-
-
-
 
 
          readoption.close();
-
-
 
 
         // Launch str2str
@@ -240,15 +260,6 @@ void MyDialog::Save_Options()
      string InSerialPortstr = InputPort2.toStdString();
      string Inbaudstr= InputBaud2.toStdString();
      string InFormatstr = InputFormat2.toStdString();
-     string OutSerialPortstr = OutPort2.toStdString();
-     string Outbaudstr = OutBaud2.toStdString();
-     string OutFormatstr = OutFormat2.toStdString();
-     string RtcmMsgstr = RTCMmsg2.toStdString();
-     string latstr = Sol_x_LLH.toStdString();
-     string lonstr = Sol_y_LLH.toStdString();
-     string hstr = Sol_z_LLH.toStdString();
-
-
      string OutFilePathstr = "../RTKBASE/PointsFiles/rover.ubx";
 
 
@@ -257,8 +268,6 @@ void MyDialog::Save_Options()
     std::vector<std::string> args1={"carlepremierargesttoujorsleprog","-in",InSerialPortstr+":"+Inbaudstr+":8:n:1:#"+InFormatstr,"-out",OutFilePathstr};
 
     args=args1;
-
-
 
  /*Str2str.c opening options*/
  int sizeArgs=args.size();
@@ -280,69 +289,28 @@ void MyDialog::Save_Options()
    m_tstr2str->start();
    m_readfile->start();
 
-  QObject::connect(m_readfile,SIGNAL(emitdonneesStr2str(QStringList)),this,SLOT(recupdonneesStr2str(QStringList))); //ok
- // QObject::connect(ui->Stop_AutoPP_pushButton,SIGNAL(clicked()),this,SLOT(FermeStr2str2()));
- QObject::connect(this,SIGNAL(closeSignal(int)),m_tstr2str,SLOT(close(int)));
- QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread2(bool)));
 
-ui->textBrowser_2->setText(QString("RECORDING RAW DATA FROM GNSS"));
+
+ui->textBrowser_2->setText(QString("RECORDING RAW DATA LOG FROM GNSS"));
 
 
 
-  QTimer::singleShot(CaptureTimer, this, SLOT(FermeStr2str2()));        // Close str2str and logging
+  QTimer::singleShot(CaptureTimer, this, SLOT(FermeStr2str()));        // Close str2str and logging
+
+   ui->Capture_textBrowser->setText(QString("RAW DATA LOGGED WAITING FOR POST PROCESSING"));
+
   QTimer::singleShot(CaptureTimer+WaitTimer, this, SLOT(on_pushButton_run_rnx2rtk_process_RGP_clicked())); // Wait and start post processing
 
+ui->textBrowser_2->setText(QString("STARTING POST PROCESSING DATA"));
 
 
 
-  if (Autostart_Base == "on")        // Check to start againstr2str in base mode with position results
-  {
-
-      // Launch str2str
-
-                               arga={"carlepremierargesttoujorsleprog","-in","serial://ttyACM0:115200:8:n:1:#ubx","-out","serial://ttyUSB0:38400:8:n:1:#rtcm3","-p","48.2","2.2","120.23","-msg","1004,1019,1012,1020,1006,1008"};
-     std::vector<std::string> args1={"carlepremierargesttoujorsleprog","-in",InSerialPortstr+":"+Inbaudstr+":8:n:1:#"+InFormatstr,"-out",OutSerialPortstr+":"+Outbaudstr+":8:n:1:#"+OutFormatstr,"-msg",RtcmMsgstr,"-p",latstr,lonstr,hstr};
 
 
-  args=args1;
 
-// }
-
-/*Str2str.c opening options*/
-int sizeArgs=args.size();
-QVector<QString> qstr(sizeArgs);
-
-for (int i=0; i<sizeArgs;i++)
-{
-   qstr[i] = QString::fromStdString(args[i]);
 }
 
-ui->Capture_textBrowser->setText(QString("CURRENT STR2STR OPTIONS"));
-
-for (int i=1; i<sizeArgs;i++)
-{
-   ui->Capture_textBrowser->append(qstr[i]);
-}
-
-
- m_tstr2str->setArgcArgvStr2str(args);
- m_tstr2str->start();
- m_readfile->start();
-
-QObject::connect(m_readfile,SIGNAL(emitdonneesStr2str(QStringList)),this,SLOT(recupdonneesStr2str(QStringList))); //ok
-// QObject::connect(ui->Stop_AutoPP_pushButton,SIGNAL(clicked()),this,SLOT(FermeStr2str2()));
-QObject::connect(this,SIGNAL(closeSignal(int)),m_tstr2str,SLOT(close(int)));
-QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread2(bool)));
-
-
-
-
-  }
-
-
- }
-
- void MyDialog::FermeStr2str2()
+ void MyDialog::FermeStr2str()
  {
      emit closeSignal(1);
      ui->textBrowser_2->setText(QString("CLOSING IN PROGRESS"));
@@ -350,7 +318,7 @@ QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(f
  }
 
 
- void MyDialog::finThread2(bool a)
+ void MyDialog::finThread(bool a)
  {
      if (a==true)
      {
@@ -385,3 +353,118 @@ ui->Capture_textBrowser->setText(QString("RECORDING RAW DATA FROM GNSS"));
      this->close();
 
  }
+
+
+void MyDialog::Test_start()
+{
+
+    // Open configuration file to use for auto processing
+
+        int i=1;
+        QStringList list;
+        QString fileName = "sauvegardeoptionAutoPPbase.txt";
+        QFile readoption(fileName);
+        readoption.open(QIODevice::ReadOnly | QIODevice::Text);
+        //---------verifier ouverture fichier......
+        QTextStream flux(&readoption);
+        QString ligne;
+        while(! flux.atEnd())
+        {
+           ligne = flux.readLine();
+           //traitement de la ligne
+           qDebug()<<ligne;
+           list<<ligne;
+           i=i+1;
+        }
+
+
+
+       QString InputPort2 = (list[4]);
+       QString InputBaud2 = (list[5]);
+       QString InputFormat2 = (list[6]);
+       QString Autostart_Base = (list[7]);
+       QString OutPort2 = (list[8]);
+       QString OutBaud2 = (list[9]);
+       QString OutFormat2 = (list[10]);
+       QString RTCMmsg2 = (list[11]);
+
+
+
+
+
+
+
+        readoption.close();
+
+
+
+
+
+    string InSerialPortstr = InputPort2.toStdString();
+    string Inbaudstr= InputBaud2.toStdString();
+    string InFormatstr = InputFormat2.toStdString();
+    string OutSerialPortstr = OutPort2.toStdString();
+    string Outbaudstr = OutBaud2.toStdString();
+    string OutFormatstr = OutFormat2.toStdString();
+    string RtcmMsgstr = RTCMmsg2.toStdString();
+ //   string latstr = Sol_x_LLH.toStdString();
+ //   string lonstr = Sol_y_LLH.toStdString();
+ //   string hstr = Sol_z_LLH.toStdString();
+
+
+    string latstr = "48.888";
+    string lonstr = "2.222";
+    string hstr = "155.111";
+
+
+
+    // Launch str2str
+
+                             arga={"carlepremierargesttoujorsleprog","-in","serial://ttyACM0:115200:8:n:1:#ubx","-out","serial://ttyUSB0:38400:8:n:1:#rtcm3","-p","48.2","2.2","120.23","-msg","1004,1019,1012,1020,1006,1008"};
+   std::vector<std::string> args1={"carlepremierargesttoujorsleprog","-in",InSerialPortstr+":"+Inbaudstr+":8:n:1:#"+InFormatstr,"-out",OutSerialPortstr+":"+Outbaudstr+":8:n:1:#"+OutFormatstr,"-msg",RtcmMsgstr,"-p",latstr,lonstr,hstr};
+
+
+args=args1;
+
+// }
+
+/*Str2str.c opening options*/
+int sizeArgs=args.size();
+QVector<QString> qstr(sizeArgs);
+
+for (int i=0; i<sizeArgs;i++)
+{
+ qstr[i] = QString::fromStdString(args[i]);
+}
+
+ui->Capture_textBrowser->setText(QString("CURRENT STR2STR OPTIONS"));
+
+for (int i=1; i<sizeArgs;i++)
+{
+ ui->Capture_textBrowser->append(qstr[i]);
+}
+
+
+m_tstr2str->setArgcArgvStr2str(args);
+m_tstr2str->start();
+m_readfile->start();
+
+QObject::connect(m_readfile,SIGNAL(emitdonneesStr2str(QStringList)),this,SLOT(recupdonneesStr2str(QStringList))); //ok
+QObject::connect(this,SIGNAL(closeSignal(int)),m_tstr2str,SLOT(close(int)));
+QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread(bool)));
+
+
+
+
+
+
+
+}
+
+void MyDialog::Test_stop()
+{
+    emit closeSignal(1);
+    ui->textBrowser_2->setText(QString("CLOSING IN PROGRESS"));
+   closestr2str=1;
+
+}
