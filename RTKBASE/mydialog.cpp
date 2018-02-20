@@ -83,17 +83,19 @@ MyDialog::MyDialog(QWidget *parent) :
 
     }
 
+    debugUI = 0;
+
     if(debugUI = 1)
     {
      ui->Capture_textBrowser->setText(QString("SWITCH TO BASE MODE"));
     }
 
-    if(debugUI = 2)
+   else if(debugUI = 2)
     {
      ui->Capture_textBrowser->setText(QString("NO INTERNET CONNEXION, FAIL TO DOWNLOAD"));
     }
 
-    if(debugUI = 3)
+   else if(debugUI = 3)
     {
      ui->Capture_textBrowser->setText(QString("WAIT FOR RGP DATA"));
     }

@@ -434,15 +434,15 @@ m_tstr2str->setArgcArgvStr2str(args);
 m_tstr2str->start();
 m_readfile->start();
 
-debugUI = 1;
+// debugUI = 1;
 
-if (closestr2str = 1)
-{
+//if (closestr2str = 1)
+//{
 
-    m_readfile->terminate();
-    m_tstr2str->terminate();
+  //  m_readfile->terminate();
+ //   m_tstr2str->terminate();
 
-}
+//}
 
 
 }
