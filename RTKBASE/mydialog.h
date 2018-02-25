@@ -13,6 +13,9 @@
 
 #include "mylineedit.h"
 
+#include "gpstime.h"
+#include "downloader.h"
+#include "approxcoord.h"
 
 extern QString Autostart_Base;
 extern int closestr2str;
@@ -58,15 +61,11 @@ void Test_stop();
 
 private slots:
     void on_pushButton_run_rnx2rtk_process_RGP_clicked();
-
     void on_progressBar_valueChanged(int value);
-
     void Save_Options();
 
 
 
-    // void FermeStr2str2();
-    // void finThread2(bool a);
 
 
 

@@ -10,7 +10,6 @@
 #include "ui_mydialog.h"
 
 #include "mainwindow.h"
-#include "processing.h"
 #include "mymessagehandler.h"
 
 #include <QTextStream>
@@ -18,11 +17,16 @@
 #include <iostream>
 #include <QTimer>
 
-
+#include "gpstime.h"
+#include "downloader.h"
+#include "approxcoord.h"
 
 int closestr2str = 0;
 int debugUI = 0;
 
+int d_max3;
+int Min_station2;
+int PBar = 0;
 
 MyDialog::MyDialog(QWidget *parent) :
     QDialog(parent),
@@ -35,10 +39,6 @@ MyDialog::MyDialog(QWidget *parent) :
     QObject::connect(ui->Save_options_pushButton,SIGNAL(clicked()),this,SLOT(Save_Options()));
     QObject::connect(ui->teststart_pushButton,SIGNAL(clicked()),this,SLOT(Test_start()));
     QObject::connect(ui->teststop_pushButton,SIGNAL(clicked()),this,SLOT(Test_stop()));
-
-    QObject::connect(m_readfile,SIGNAL(emitdonneesStr2str(QStringList)),this,SLOT(recupdonneesStr2str(QStringList))); //ok
-    QObject::connect(this,SIGNAL(closeSignal(int)),m_tstr2str,SLOT(close(int)));
-    QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread(bool)));
 
 
 
@@ -83,24 +83,6 @@ MyDialog::MyDialog(QWidget *parent) :
 
     }
 
-    debugUI = 0;
-
-    if(debugUI = 1)
-    {
-     ui->Capture_textBrowser->setText(QString("SWITCH TO BASE MODE"));
-    }
-
-   else if(debugUI = 2)
-    {
-     ui->Capture_textBrowser->setText(QString("NO INTERNET CONNEXION, FAIL TO DOWNLOAD"));
-    }
-
-   else if(debugUI = 3)
-    {
-     ui->Capture_textBrowser->setText(QString("WAIT FOR RGP DATA"));
-    }
-
-
 
 
 }
@@ -114,12 +96,357 @@ MyDialog::~MyDialog()
 void MyDialog::on_pushButton_run_rnx2rtk_process_RGP_clicked()
 {
 
+ui->textBrowser_2->setText(QString("START PROCESSING SEQUENCE"));
 
-    on_progressBar_valueChanged(3);
+
     ui->textBrowser->setText("Please wait ... calculation in progress...");
     qInstallMessageHandler(myMessageHandler);
 
-    processing();
+   // processing();
+
+
+
+
+    // Open configuration file to read max radius for station and nb of station
+        {
+        int i=1;
+        QStringList list;
+        QString fileName = "sauvegardeoptionAutoPPbase.txt";
+        QFile readoption(fileName);
+        readoption.open(QIODevice::ReadOnly | QIODevice::Text);
+        //---------verifier ouverture fichier......
+        QTextStream flux(&readoption);
+        QString ligne;
+        while(! flux.atEnd())
+        {
+           ligne = flux.readLine();
+           //traitement de la ligne
+           qDebug()<<ligne;
+           list<<ligne;
+           i=i+1;
+        }
+
+         QString dmax2 = (list[0]);
+         d_max3 =  dmax2.toInt();
+
+         QString nb_stat_min = (list[1]);
+          Min_station2= nb_stat_min.toInt();
+
+        readoption.close();
+
+    }
+
+
+
+
+
+    QThread sleep;
+
+    /*------------------------------------------------------------------------------/
+        - Chek the existence of the package  directory
+        - Package installation
+    /------------------------------------------------------------------------------*/
+
+    QString path="../work/";
+    if(!QDir("../Package").exists())
+    {
+        qDebug()<<"----- Package directory does not exist!!!";
+        return;
+    }
+
+    QProcess install_package ;
+    QString install_package_command;
+    install_package_command="rm -r -R "+path;
+    install_package.start(install_package_command);
+    install_package.waitForFinished(-1);
+    if (install_package.state()==0)
+    {
+        install_package_command="mkdir ../work";                                    //create a work folder
+        install_package.start(install_package_command);
+        install_package.waitForFinished(-1);
+
+        if (install_package.state()==0)
+        {
+            install_package_command="cp ../Package/Configuration.conf "+path;
+            install_package.start(install_package_command);
+            install_package.waitForFinished(-1);
+
+            install_package_command=install_package_command="cp ../Package/ngs14.atx "+path;
+            install_package.start(install_package_command);
+            install_package.waitForFinished(-1);
+
+            install_package_command=install_package_command="cp ../Package/CRX2RNX "+path;
+            install_package.start(install_package_command);
+            install_package.waitForFinished(-1);
+
+            install_package_command=install_package_command="cp ../Package/rover.ubx "+path;
+            install_package.start(install_package_command);
+            install_package.waitForFinished(-1);
+
+            install_package_command=install_package_command="cp ../Package/teqc "+path;
+            install_package.start(install_package_command);
+            install_package.waitForFinished(-1);
+
+            if (install_package.state()==0)
+            {
+                qDebug()<<"----- The package was successfully installed "<<endl;
+
+PBar= 5;
+on_progressBar_valueChanged(PBar);
+
+            }
+            else
+                qDebug()<<"----- Error! comand "<<install_package_command<<endl;
+        }
+        else
+            qDebug()<<"----- Error! comand "<<install_package_command<<endl;
+    }
+    else
+        qDebug()<<"----- Error! comand "<<install_package_command<<endl;
+
+    Rnx2rtkp cal;
+    Downloader down;
+    Approxcoord X0;
+    Station st;
+    Gpstime t;
+
+    /*------------------------------------------------------------------------------/
+        - GPS_TIME inisialisation
+    /------------------------------------------------------------------------------*/
+
+    //t.gpswkd_t();
+    t.just_now();
+    qDebug()<<" date = " << t.dd << "/" << t.mon << "/" << t.yyyy ;
+    qDebug()<<" heure= " << t.hh << ":" << t.mm << ":" << t.sec ;
+    //qDebug()<<" doy="<<t.doy;
+
+    /*------------------------------------------------------------------------------/
+        - Conversion of ubx file to .obs
+        - Search and find of:
+                - Approxcoord of the RTK_Base station,
+                - Date of observation,
+                - Duration of observation
+    /------------------------------------------------------------------------------*/
+
+    X0.path=path;
+    X0.conversion();
+    if (X0.verif_file==false)
+        return;
+    X0.approx_coord();
+    if (X0.verif_file==false)
+        return;
+
+    X0.TIME_OF_LAST_OBS[0]=X0.TIME_OF_LAST_OBS[0]+1;
+    X0.TIME_OF_FIRST_OBS[0]=X0.TIME_OF_FIRST_OBS[0]+1;
+
+    qDebug()<<"Approx coordinate X0="<<X0.approx__coord[0]<<","<<X0.approx__coord[1]<<","<<X0.approx__coord[2];
+    qDebug()<<"Time of first obs= "<<X0.TIME_OF_FIRST_OBS[0]<<":"<<X0.TIME_OF_FIRST_OBS[1];
+    qDebug()<<"Time of last obs= "<<X0.TIME_OF_LAST_OBS[0]<<":"<<X0.TIME_OF_LAST_OBS[1];
+    qDebug()<<"Date of obs= "<<X0.DATE_OF_OBS[0]<<"/"<<X0.DATE_OF_OBS[1]<<"/"<<X0.DATE_OF_OBS[2];
+
+    int mon=X0.DATE_OF_OBS[1];
+    int yyyy=X0.DATE_OF_OBS[2];
+    int dd=X0.DATE_OF_OBS[0];
+    QDate d(yyyy,mon,dd);
+    int doy= d.dayOfYear();
+
+PBar= 10;
+on_progressBar_valueChanged(PBar);
+
+
+
+    /*------------------------------------------------------------------------------/
+        - Verification of the internet connection
+        - Verification of the "RGP-ftp" link
+    /------------------------------------------------------------------------------*/
+
+    st.Corrdstation_ftp(doy,yyyy);
+    qDebug()<<" FTP of RGP Stations coordinate:"<<st.corrdstation_ftp;
+
+    /*------------------------------------------------------------------------------/
+
+        - Waiting untill the RGP data will be available
+        - This part deals with the epoch problem
+    /------------------------------------------------------------------------------*/
+
+        ui->textBrowser_2->setText(QString("WAIT FOR RGP DATA"));
+
+
+    int observation_time;
+    observation_time=(X0.TIME_OF_LAST_OBS[0]*60+X0.TIME_OF_LAST_OBS[1])-(X0.TIME_OF_FIRST_OBS[0]*60+X0.TIME_OF_FIRST_OBS[1]);
+    if(observation_time<30)
+    {
+        qDebug()<<" Not enough observations "<<observation_time<<"<30 min"<<endl;
+        return;
+    }
+
+    if((yyyy=t.yyyy)&&(mon=t.mon)&&(dd=t.dd)&&(t.hh<X0.TIME_OF_LAST_OBS[0]+1)&&(X0.TIME_OF_LAST_OBS[1]>observation_time/2))
+    {
+        qDebug()<<" RGP data are not available until "<<X0.TIME_OF_LAST_OBS[0]+1<<":04"<<endl;
+       // debugUI = 3;
+
+        int a= ((X0.TIME_OF_LAST_OBS[0]+1)*3600+5*60)-(t.hh*3600+t.mm*60);
+
+        qDebug()<<"Wait:"<<a<<" sec"<<a/60<<" min"<<endl;
+
+ui->textBrowser_2->setText(QString("WAIT UNTIL RGP DATA IS AVALAIBLE "));
+
+        sleep.sleep(a);
+    }
+
+    if(X0.TIME_OF_LAST_OBS[1]<observation_time/2)
+    {
+        X0.TIME_OF_LAST_OBS[0]=X0.TIME_OF_LAST_OBS[0]-1;
+    }
+
+PBar= 15;
+on_progressBar_valueChanged(PBar);
+
+    /*------------------------------------------------------------------------------/
+        - Downloading of the station coordinates file
+    /------------------------------------------------------------------------------*/
+
+    down.url=st.corrdstation_ftp;                   //Download link
+    down.file_name=down.url.split("/")[7];          //Name of the file to download
+    down.saving_path=path;                          //Path of saving
+    down.do_downloader();                           //The downloading process
+
+    if(down.downfailed==true)
+    {
+        qDebug()<<" There is no internet connection:fail to download"<< down.file_name<<endl;
+        debugUI = 2;
+        down.downfailed=false;
+        return;
+    }
+
+
+    /*------------------------------------------------------------------------------/
+        - Sort of stations
+    /------------------------------------------------------------------------------*/
+
+    st.X0=X0.approx__coord;                         //Approx coordinates of the RTK_Base station
+    st.nomDuFichier=path+down.url.split("/")[7];
+    st.neareststation();                            //Sort of stations process
+
+    qDebug()<<"Number of stations within a radius of: "<<d_max3<<"Km:"<<st.vect_name.size()<<" Stations"<<endl;
+    qDebug()<<"The stations are :"<<st.vect_name<<endl;
+
+
+    int i=0,nbstation=0;                            // i reprents the i th nearest station
+
+    while(nbstation<Min_station2)
+    {
+        /*------------------------------------------------------------------------------/
+            Downloading for each 'Min-station' nearest station the following files:
+                - Observation file
+                - Navigation GPS file
+                - Navigation GLONASS file
+        /------------------------------------------------------------------------------*/
+
+        //Downloading of the observation file
+
+ui->textBrowser_2->setText(QString("DOWNLOADING OBS DATA"));
+
+        down.url=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[2];       //Download link
+        down.file_name=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[0]; //Name of the file to download
+        down.do_downloader();
+
+        if(down.downfailed==true)
+        {
+            qDebug()<<"We can't download data for this station:"<< st.vect_name[i]<<"we will try the next nearest station"<<endl;
+            down.downfailed=false;
+            goto end;
+        }
+
+        down.unzip_file();                          //Decompressing process
+
+PBar= PBar+5;
+on_progressBar_valueChanged(PBar);
+
+
+
+             //Downloading of the navigation file (GPS)
+
+ui->textBrowser_2->setText(QString("DOWNLOADING GPS NAV DATA"));
+
+        down.file_name=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[3];
+        down.url=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[5];
+        down.do_downloader();
+        down.unzip_file();
+
+PBar= PBar+5;
+on_progressBar_valueChanged(PBar);
+
+          //Downloading of the navigation file (GLONASS)
+
+ui->textBrowser_2->setText(QString("DOWNLOADING GLONASS NAV DATA"));
+
+        down.file_name=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[6];
+        down.url=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[8];
+        down.do_downloader();
+        down.unzip_file();
+
+
+PBar= PBar+5;
+on_progressBar_valueChanged(PBar);
+
+
+        /*-------------------------------------------------------------------------------/
+            Generate the configuration file for the RNX2RTKP calculation process
+        /------------------------------------------------------------------------------*/
+ui->textBrowser_2->setText(QString("START PROCESSING DATA"));
+
+
+        cal.path=path;
+        cal.station_obs_file=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[1];
+        cal.station_nav_file=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[4];
+        cal.station_g_file=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[7];
+
+        st.station_data(cal.station_obs_file,path);
+
+        qDebug()<<"For the station: "<<st.vect_name[i]<<" the data are:"<<endl;
+        qDebug()<<"_antenna_type_station"<<st._antenna_type_station<<endl;
+        qDebug()<<"_coord_antena"<<st._coord_antenna[0]<<","<<st._coord_antenna[1]<<","<<st._coord_antenna[2]<<endl;
+        qDebug()<<"_coord_station"<<st._coord_station[0]<<","<<st._coord_station[1]<<","<<st._coord_station[2]<<endl;
+
+        cal._antenna_type_station=st._antenna_type_station;
+        cal._coord_antenna=st._coord_antenna;
+        cal._coord_station=st._coord_station;
+
+        qDebug()<< "----------- Genration of the configuration file ----------- "<<endl;
+        cal.configuration_file();
+
+        /*-------------------------------------------------------------------------------/
+           The RNX2RTKP calculation process
+        /------------------------------------------------------------------------------*/
+        cal.rnx2rtkp(nbstation);
+
+        nbstation++;
+        qDebug()<<"Number of station downloaded="<<nbstation<<endl;
+        end:
+        i++;
+        if (nbstation<4)
+            qDebug()<<"---- ****** Next station:"<<st.vect_name[i]<<" ***** -----"<<endl;
+
+    }
+
+
+    /*-------------------------------------------------------------------------------/
+        - The "Results.pos" file contains the results of the rnx2rtkp calculation
+        - A final solution calculated by the median method
+    /------------------------------------------------------------------------------*/
+
+    cal.final_results(cal.results);
+
+    qDebug()<<"The position of RTK_BASE station :";
+    qDebug()<<cal.X_Y_Z_ecef_final[0];
+    qDebug()<<cal.X_Y_Z_ecef_final[1];
+    qDebug()<<cal.X_Y_Z_ecef_final[2];
+
+
+
+    // Stop processing
+
     on_progressBar_valueChanged(90);
 
     QFile file_("../work/Log_file.txt");
@@ -158,6 +485,8 @@ void MyDialog::on_pushButton_run_rnx2rtk_process_RGP_clicked()
    ui->LLH_Lat_lineEdit->setText(X_LLH);
    ui->LLH_Lon_lineEdit->setText(Y_LLH);
    ui->LLH_Alt_lineEdit->setText(Z_LLH);
+
+ui->textBrowser_2->setText(QString("PROCESSING DONE POSITION COPIED TO FILE AND BASE MODE"));
 
 }
 
@@ -220,6 +549,8 @@ void MyDialog::Save_Options()
 
  void MyDialog::Start_AutoPP()
  {
+
+     ui->textBrowser_2->setText(QString("START LOGGING RAW DATA FROM GNSS"));
 
      // Open configuration file to use for auto processing
 
@@ -291,7 +622,10 @@ void MyDialog::Save_Options()
    m_tstr2str->start();
    m_readfile->start();
 
-
+   QObject::connect(m_readfile,SIGNAL(emitdonneesStr2str(QStringList)),this,SLOT(recupdonneesStr2str(QStringList))); //ok
+//   QObject::connect(ui->teststop_pushButton,SIGNAL(clicked()),this,SLOT(FermeStr2str()));
+   QObject::connect(this,SIGNAL(closeSignal(int)),m_tstr2str,SLOT(close(int)));
+   QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread(bool)));
 
 ui->textBrowser_2->setText(QString("RECORDING RAW DATA LOG FROM GNSS"));
 
@@ -315,7 +649,7 @@ ui->textBrowser_2->setText(QString("STARTING POST PROCESSING DATA"));
  void MyDialog::FermeStr2str()
  {
      emit closeSignal(1);
-     ui->textBrowser_2->setText(QString("CLOSING IN PROGRESS"));
+     ui->textBrowser_2->setText(QString("CLOSING STR2STR LOG IN PROGRESS"));
 
  }
 
@@ -326,7 +660,7 @@ ui->textBrowser_2->setText(QString("STARTING POST PROCESSING DATA"));
      {
          m_readfile->terminate();
          m_tstr2str->terminate();
-       //  this->close();
+
      }
  }
 

@@ -45,7 +45,6 @@ SOURCES += main.cpp\
     gpstime.cpp \
     mydialog.cpp \
     mymessagehandler.cpp \
-    processing.cpp \
     rnx2rtkp.cpp \
     station.cpp
 
@@ -77,7 +76,6 @@ HEADERS  += mainwindow.h \
     gpstime.h \
     mydialog.h \
     mymessagehandler.h \
-    processing.h \
     rnx2rtkp.h \
     station.h
 
