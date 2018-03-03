@@ -6,7 +6,7 @@
 
 
 int d_max;
-extern int debugUI;
+
 
 
 Station::Station()

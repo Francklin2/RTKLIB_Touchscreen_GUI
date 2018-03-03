@@ -23,7 +23,7 @@ extern QString Sol_z_LLH;
  extern QString Sol_y_ECEF;
  extern QString Sol_z_ECEF;
 
-
+extern QString Mode_str2str;
 
 
 class Rnx2rtkp

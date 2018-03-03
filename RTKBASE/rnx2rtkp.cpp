@@ -20,8 +20,12 @@
  QString Sol_z_LLH;
 
 
+QString Mode_str2str;
+
 extern int closestr2str;
 extern int debugUI;
+
+
 
 
 
@@ -371,81 +375,23 @@ void Rnx2rtkp::final_results(QString s)
        i=i+1;
     }
 
-
-
-   QString InputPort2 = (list[4]);
-   QString InputBaud2 = (list[5]);
-   QString InputFormat2 = (list[6]);
    QString Autostart_Base = (list[7]);
-   QString OutPort2 = (list[8]);
-   QString OutBaud2 = (list[9]);
-   QString OutFormat2 = (list[10]);
-   QString RTCMmsg2 = (list[11]);
-
 
     readoption.close();
 
+    MyDialog cal;
 
  if (Autostart_Base == "on")        // Check to start againstr2str in base mode with position results
  {
 
 
+cal.Run_Base_str2str();
 
-        // Launch str2str
-
-     string InSerialPortstr = InputPort2.toStdString();
-     string Inbaudstr= InputBaud2.toStdString();
-     string InFormatstr = InputFormat2.toStdString();
-     string OutSerialPortstr = OutPort2.toStdString();
-     string Outbaudstr = OutBaud2.toStdString();
-     string OutFormatstr = OutFormat2.toStdString();
-     string RtcmMsgstr = RTCMmsg2.toStdString();
-     string latstr = Sol_x_LLH.toStdString();
-     string lonstr = Sol_y_LLH.toStdString();
-     string hstr = Sol_z_LLH.toStdString();
+// Launch str2str
 
 
-     //    ui->Capture_textBrowser->setText(QString("POST PROCESS DONE STARTING BASE MODE"));
+ }
 
-     // Launch str2str
-
-     arga={"carlepremierargesttoujorsleprog","-in","serial://ttyACM0:115200:8:n:1:#ubx","-out","serial://ttyUSB0:38400:8:n:1:#rtcm3","-p","48.2","2.2","120.23","-msg","1004,1019,1012,1020,1006,1008"};
-    std::vector<std::string> args1={"carlepremierargesttoujorsleprog","-in",InSerialPortstr+":"+Inbaudstr+":8:n:1:#"+InFormatstr,"-out",OutSerialPortstr+":"+Outbaudstr+":8:n:1:#"+OutFormatstr,"-msg",RtcmMsgstr,"-p",latstr,lonstr,hstr};
-
-    args=args1;
-
-
-/*Str2str.c opening options*/
-int sizeArgs=args.size();
-QVector<QString> qstr(sizeArgs);
-
-for (int i=0; i<sizeArgs;i++)
-{
-  qstr[i] = QString::fromStdString(args[i]);
-}
-
-for (int i=1; i<sizeArgs;i++)
-{
- // ui->Capture_textBrowser->append(qstr[i]);
-}
-
-
-m_tstr2str->setArgcArgvStr2str(args);
-m_tstr2str->start();
-m_readfile->start();
-
-// debugUI = 1;
-
-//if (closestr2str = 1)
-//{
-
-  //  m_readfile->terminate();
- //   m_tstr2str->terminate();
-
-//}
-
-
-}
 
 
 }

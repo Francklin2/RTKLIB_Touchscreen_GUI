@@ -277,19 +277,26 @@ on_progressBar_valueChanged(PBar);
     if(observation_time<30)
     {
         qDebug()<<" Not enough observations "<<observation_time<<"<30 min"<<endl;
+ui->textBrowser_2->setText(QString("LOG>30mn: NOT ENOUGH OBSERVATION DATA"));
         return;
     }
 
-    if((yyyy=t.yyyy)&&(mon=t.mon)&&(dd=t.dd)&&(t.hh<X0.TIME_OF_LAST_OBS[0]+1)&&(X0.TIME_OF_LAST_OBS[1]>observation_time/2))
+//  if((yyyy=t.yyyy)&&(mon=t.mon)&&(dd=t.dd)&&(t.hh<X0.TIME_OF_LAST_OBS[0]+1)&&(X0.TIME_OF_LAST_OBS[1]>observation_time/2))
+
+    if(((yyyy=t.yyyy)&&(mon=t.mon)&&(dd=t.dd)&&(t.hh<X0.TIME_OF_LAST_OBS[0]+1)&&(X0.TIME_OF_LAST_OBS[1])/2>observation_time))
     {
+
+
+        ui->textBrowser_2->setText(QString("WAIT UNTIL RGP DATA IS AVALAIBLE "));
+
         qDebug()<<" RGP data are not available until "<<X0.TIME_OF_LAST_OBS[0]+1<<":04"<<endl;
-       // debugUI = 3;
+
 
         int a= ((X0.TIME_OF_LAST_OBS[0]+1)*3600+5*60)-(t.hh*3600+t.mm*60);
 
         qDebug()<<"Wait:"<<a<<" sec"<<a/60<<" min"<<endl;
 
-ui->textBrowser_2->setText(QString("WAIT UNTIL RGP DATA IS AVALAIBLE "));
+
 
         sleep.sleep(a);
     }
@@ -314,7 +321,7 @@ on_progressBar_valueChanged(PBar);
     if(down.downfailed==true)
     {
         qDebug()<<" There is no internet connection:fail to download"<< down.file_name<<endl;
-        debugUI = 2;
+ui->textBrowser_2->setText(QString("NO INTERNET CONNEXION: DOWNLOAD FAILED"));
         down.downfailed=false;
         return;
     }
@@ -345,7 +352,7 @@ on_progressBar_valueChanged(PBar);
 
         //Downloading of the observation file
 
-ui->textBrowser_2->setText(QString("DOWNLOADING OBS DATA"));
+ui->textBrowser_2->setText(QString("DOWNLOADING OBS DATA FROM STATION %1").arg(st.vect_name[i]));
 
         down.url=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[2];       //Download link
         down.file_name=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[0]; //Name of the file to download
@@ -367,7 +374,7 @@ on_progressBar_valueChanged(PBar);
 
              //Downloading of the navigation file (GPS)
 
-ui->textBrowser_2->setText(QString("DOWNLOADING GPS NAV DATA"));
+ui->textBrowser_2->setText(QString("DOWNLOADING GPS NAV DATA FROM STATION %1").arg(st.vect_name[i]));
 
         down.file_name=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[3];
         down.url=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[5];
@@ -379,7 +386,7 @@ on_progressBar_valueChanged(PBar);
 
           //Downloading of the navigation file (GLONASS)
 
-ui->textBrowser_2->setText(QString("DOWNLOADING GLONASS NAV DATA"));
+ui->textBrowser_2->setText(QString("DOWNLOADING GLONASS NAV DATA FROM STATION %1").arg(st.vect_name[i]));
 
         down.file_name=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[6];
         down.url=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[8];
@@ -425,7 +432,7 @@ ui->textBrowser_2->setText(QString("START PROCESSING DATA"));
         qDebug()<<"Number of station downloaded="<<nbstation<<endl;
         end:
         i++;
-        if (nbstation<4)
+        if (nbstation<Min_station2)
             qDebug()<<"---- ****** Next station:"<<st.vect_name[i]<<" ***** -----"<<endl;
 
     }
@@ -552,6 +559,18 @@ void MyDialog::Save_Options()
 
      ui->textBrowser_2->setText(QString("START LOGGING RAW DATA FROM GNSS"));
 
+Run_Log_str2str();
+
+
+}
+
+
+
+
+ void MyDialog::Run_Log_str2str()
+ {
+
+
      // Open configuration file to use for auto processing
 
          int i=1;
@@ -588,12 +607,15 @@ void MyDialog::Save_Options()
          readoption.close();
 
 
-        // Launch str2str
+
 
      string InSerialPortstr = InputPort2.toStdString();
      string Inbaudstr= InputBaud2.toStdString();
      string InFormatstr = InputFormat2.toStdString();
      string OutFilePathstr = "../RTKBASE/PointsFiles/rover.ubx";
+
+
+   // Launch str2str
 
 
                               arga={"carlepremierargesttoujorsleprog","-in","serial://ttyACM0:115200:8:n:1:#ubx","-out","../RTKBASE/PointsFiles/rover.ubx"};
@@ -623,7 +645,6 @@ void MyDialog::Save_Options()
    m_readfile->start();
 
    QObject::connect(m_readfile,SIGNAL(emitdonneesStr2str(QStringList)),this,SLOT(recupdonneesStr2str(QStringList))); //ok
-//   QObject::connect(ui->teststop_pushButton,SIGNAL(clicked()),this,SLOT(FermeStr2str()));
    QObject::connect(this,SIGNAL(closeSignal(int)),m_tstr2str,SLOT(close(int)));
    QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread(bool)));
 
@@ -633,18 +654,118 @@ ui->textBrowser_2->setText(QString("RECORDING RAW DATA LOG FROM GNSS"));
 
   QTimer::singleShot(CaptureTimer, this, SLOT(FermeStr2str()));        // Close str2str and logging
 
-   ui->Capture_textBrowser->setText(QString("RAW DATA LOGGED WAITING FOR POST PROCESSING"));
+//   ui->Capture_textBrowser->setText(QString("RAW DATA LOGGED WAITING FOR POST PROCESSING"));
 
-  QTimer::singleShot(CaptureTimer+WaitTimer, this, SLOT(on_pushButton_run_rnx2rtk_process_RGP_clicked())); // Wait and start post processing
-
-ui->textBrowser_2->setText(QString("STARTING POST PROCESSING DATA"));
+   QTimer::singleShot(CaptureTimer+WaitTimer, this, SLOT(on_pushButton_run_rnx2rtk_process_RGP_clicked())); // Wait and start post processing
 
 
 
+ }
 
 
 
-}
+
+ void MyDialog::Run_Base_str2str()
+ {
+
+ui->textBrowser_2->setText(QString("BASE MODE STARTED"));
+
+
+     // Open configuration file to use for auto processing
+
+         int i=1;
+         QStringList list;
+         QString fileName = "sauvegardeoptionAutoPPbase.txt";
+         QFile readoption(fileName);
+         readoption.open(QIODevice::ReadOnly | QIODevice::Text);
+         //---------verifier ouverture fichier......
+         QTextStream flux(&readoption);
+         QString ligne;
+         while(! flux.atEnd())
+         {
+            ligne = flux.readLine();
+            //traitement de la ligne
+            qDebug()<<ligne;
+            list<<ligne;
+            i=i+1;
+         }
+
+
+
+
+        QString InputPort2 = (list[4]);
+        QString InputBaud2 = (list[5]);
+        QString InputFormat2 = (list[6]);
+        QString OutPort2 = (list[8]);
+        QString OutBaud2 = (list[9]);
+        QString OutFormat2 = (list[10]);
+        QString RTCMmsg2 = (list[11]);
+
+         readoption.close();
+
+
+        // Launch str2str
+
+     string InSerialPortstr = InputPort2.toStdString();
+     string Inbaudstr= InputBaud2.toStdString();
+     string InFormatstr = InputFormat2.toStdString();
+     string OutFilePathstr = "../RTKBASE/PointsFiles/rover.ubx";
+
+     string OutSerialPortstr = OutPort2.toStdString();
+     string Outbaudstr = OutBaud2.toStdString();
+     string OutFormatstr = OutFormat2.toStdString();
+     string RtcmMsgstr = RTCMmsg2.toStdString();
+     string latstr = Sol_x_LLH.toStdString();
+     string lonstr = Sol_y_LLH.toStdString();
+     string hstr = Sol_z_LLH.toStdString();
+
+
+                         arga={"carlepremierargesttoujorsleprog","-in","serial://ttyACM0:115200:8:n:1:#ubx","-out","serial://ttyUSB0:38400:8:n:1:#rtcm3","-p","48.2","2.2","120.23","-msg","1004,1019,1012,1020,1006,1008"};
+std::vector<std::string> args1={"carlepremierargesttoujorsleprog","-in",InSerialPortstr+":"+Inbaudstr+":8:n:1:#"+InFormatstr,"-out",OutSerialPortstr+":"+Outbaudstr+":8:n:1:#"+OutFormatstr,"-msg",RtcmMsgstr,"-p",latstr,lonstr,hstr};
+
+
+    args=args1;
+
+ /*Str2str.c opening options*/
+ int sizeArgs=args.size();
+ QVector<QString> qstr(sizeArgs);
+
+  for (int i=0; i<sizeArgs;i++)
+ {
+     qstr[i] = QString::fromStdString(args[i]);
+ }
+
+ui->Capture_textBrowser->setText(QString("CURRENT STR2STR OPTIONS"));
+
+ for (int i=1; i<sizeArgs;i++)
+ {
+     ui->Capture_textBrowser->append(qstr[i]);
+ }
+
+   m_tstr2str->setArgcArgvStr2str(args);
+   m_tstr2str->start();
+   m_readfile->start();
+
+
+
+ui->textBrowser_2->setText(QString("RECORDING RAW DATA LOG FROM GNSS"));
+
+QObject::connect(m_readfile,SIGNAL(emitdonneesStr2str(QStringList)),this,SLOT(recupdonneesStr2str(QStringList))); //ok
+QObject::connect(this,SIGNAL(closeSignal(int)),m_tstr2str,SLOT(close(int)));
+QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread(bool)));
+
+
+     // Close str2str and logging
+
+
+
+
+
+ }
+
+
+
+
 
  void MyDialog::FermeStr2str()
  {

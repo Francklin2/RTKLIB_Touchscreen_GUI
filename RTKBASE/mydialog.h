@@ -40,15 +40,20 @@ public:
 
 
 
+
 private:
 Ui::MyDialog *ui;
+
 MainthreadStr2str* m_tstr2str=new MainthreadStr2str;
 MainThreadReadFile* m_readfile=new MainThreadReadFile;
+
 std::vector<std::string> args;
 std::vector<std::string> args1;
 std::vector<std::string> arga;
 
 public slots:
+void Run_Log_str2str();
+void Run_Base_str2str();
 void recupdonneesStr2str(QStringList i);
 void FermeStr2str();
 void finThread(bool a);
@@ -56,7 +61,6 @@ void Close_Window();
 void Start_AutoPP();
 void Test_start();
 void Test_stop();
-
 
 
 private slots:
