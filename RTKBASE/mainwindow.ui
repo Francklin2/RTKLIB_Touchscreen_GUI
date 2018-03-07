@@ -20,7 +20,7 @@
       <x>20</x>
       <y>100</y>
       <width>261</width>
-      <height>171</height>
+      <height>151</height>
      </rect>
     </property>
     <property name="font">
@@ -44,7 +44,7 @@ border: 1px solid black;</string>
       <x>310</x>
       <y>100</y>
       <width>271</width>
-      <height>171</height>
+      <height>151</height>
      </rect>
     </property>
     <property name="font">
@@ -261,15 +261,15 @@ border: 1px solid black;</string>
    <widget class="QPushButton" name="RTK_BASE_position">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>290</y>
-      <width>291</width>
-      <height>51</height>
+      <x>100</x>
+      <y>270</y>
+      <width>401</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <pointsize>13</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -279,11 +279,11 @@ border: 1px solid black;</string>
 border-style: solid;
 border-color: black;
 border-width: 1px;
-border-radius: 10px;</string>
+border-radius: 15px;</string>
     </property>
     <property name="text">
-     <string> Post Processing RTK_BASE position 
-  using CORS stations </string>
+     <string> POST PROCESSING  USING CORS STATIONS  
+ AUTOMATIC LOG/PROCESSING/BASE MODE</string>
     </property>
    </widget>
    <zorder>RoverButton</zorder>

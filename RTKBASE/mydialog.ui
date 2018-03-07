@@ -131,9 +131,9 @@ on recorded file</string>
     <widget class="QLineEdit" name="lineEdit_2">
      <property name="geometry">
       <rect>
-       <x>470</x>
+       <x>460</x>
        <y>30</y>
-       <width>251</width>
+       <width>281</width>
        <height>25</height>
       </rect>
      </property>
@@ -151,7 +151,7 @@ border-width: 1px;
 border-radius: 10px;</string>
      </property>
      <property name="text">
-      <string>POST PROCESS RESULTS</string>
+      <string>POST PROCESSING RESULTS</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -301,6 +301,21 @@ border-radius: 10px;</string>
      </property>
      <property name="text">
       <string>CLOSE</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="InfoBaseAuto_lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>90</y>
+       <width>111</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
      </property>
     </widget>
    </widget>
@@ -1170,27 +1185,40 @@ border: 1px solid black;</string>
     <widget class="QPushButton" name="teststart_pushButton">
      <property name="geometry">
       <rect>
-       <x>640</x>
-       <y>100</y>
-       <width>111</width>
+       <x>610</x>
+       <y>110</y>
+       <width>141</width>
        <height>25</height>
       </rect>
      </property>
      <property name="text">
-      <string>test start base</string>
+      <string>manual start base</string>
      </property>
     </widget>
     <widget class="QPushButton" name="teststop_pushButton">
      <property name="geometry">
       <rect>
-       <x>640</x>
+       <x>610</x>
        <y>140</y>
-       <width>111</width>
+       <width>141</width>
        <height>25</height>
       </rect>
      </property>
      <property name="text">
-      <string>test stop base</string>
+      <string>stop str2str</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="testlog_pushButton">
+     <property name="geometry">
+      <rect>
+       <x>610</x>
+       <y>80</y>
+       <width>141</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>manual start log</string>
      </property>
     </widget>
    </widget>

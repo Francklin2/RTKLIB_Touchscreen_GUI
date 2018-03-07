@@ -21,12 +21,15 @@
 #include "downloader.h"
 #include "approxcoord.h"
 
-int closestr2str = 0;
+
 int debugUI = 0;
 
 int d_max3;
 int Min_station2;
 int PBar = 0;
+
+    int b=0;
+
 
 MyDialog::MyDialog(QWidget *parent) :
     QDialog(parent),
@@ -37,8 +40,16 @@ MyDialog::MyDialog(QWidget *parent) :
     QObject::connect(ui->AutoPostP_pushButton,SIGNAL(clicked()),this,SLOT(Start_AutoPP()));
     QObject::connect(ui->Stop_AutoPP_pushButton,SIGNAL(clicked()),this,SLOT(Close_Window()));
     QObject::connect(ui->Save_options_pushButton,SIGNAL(clicked()),this,SLOT(Save_Options()));
-    QObject::connect(ui->teststart_pushButton,SIGNAL(clicked()),this,SLOT(Test_start()));
-    QObject::connect(ui->teststop_pushButton,SIGNAL(clicked()),this,SLOT(Test_stop()));
+    QObject::connect(ui->teststart_pushButton,SIGNAL(clicked()),this,SLOT(Run_Base_str2str()));
+    QObject::connect(ui->testlog_pushButton,SIGNAL(clicked()),this,SLOT(Run_Log_str2str()));
+    QObject::connect(ui->teststop_pushButton,SIGNAL(clicked()),this,SLOT(FermeStr2str()));
+
+
+
+    QObject::connect(m_readfile,SIGNAL(emitdonneesStr2str(QStringList)),this,SLOT(recupdonneesStr2str(QStringList))); //ok
+    QObject::connect(this,SIGNAL(closeSignal(int)),m_tstr2str,SLOT(close(int)));
+    QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread(bool)));
+
 
 
 
@@ -70,12 +81,13 @@ MyDialog::MyDialog(QWidget *parent) :
               ui->InBaudratecomboBox2->setCurrentText(QString(list[5]));
               ui->InFormatcomboBox2->setCurrentText(QString(list[6]));
               ui->Autostartbase_comboBox->setCurrentText(QString(list[7]));
+
               ui->OutSerialPortcomboBox2->setCurrentText(QString(list[8]));
               ui->OutBaudRatecomboBox2->setCurrentText(QString(list[9]));
               ui->OutFormatcomboBox2->setCurrentText(QString(list[10]));
               ui->RtcmMsgcomboBox2->setCurrentText(QString(list[11]));
 
-
+              ui->InfoBaseAuto_lineEdit->setText(QString("Base auto "+list[7]));
               ui->InfoCapture_lineEdit->setText(QString("Log "+list[2]+"mn and wait "+list[3]+"mn before process"));
               ui->InfoProcess_lineEdit->setText(QString(list[1])+" stations in a "+(list[0])+"Km radius will be used");
 
@@ -102,7 +114,7 @@ ui->textBrowser_2->setText(QString("START PROCESSING SEQUENCE"));
     ui->textBrowser->setText("Please wait ... calculation in progress...");
     qInstallMessageHandler(myMessageHandler);
 
-   // processing();
+   //  Start processing from here
 
 
 
@@ -211,7 +223,7 @@ on_progressBar_valueChanged(PBar);
     Gpstime t;
 
     /*------------------------------------------------------------------------------/
-        - GPS_TIME inisialisation
+        - GPS_TIME initialisation
     /------------------------------------------------------------------------------*/
 
     //t.gpswkd_t();
@@ -339,7 +351,9 @@ ui->textBrowser_2->setText(QString("NO INTERNET CONNEXION: DOWNLOAD FAILED"));
     qDebug()<<"The stations are :"<<st.vect_name<<endl;
 
 
-    int i=0,nbstation=0;                            // i reprents the i th nearest station
+
+    int i=0,nbstation=0;    // i reprents the i th nearest station
+    int PbarStat = 75/(Min_station2*3);  //Look how much percent to add to the progress bar per station
 
     while(nbstation<Min_station2)
     {
@@ -367,7 +381,7 @@ ui->textBrowser_2->setText(QString("DOWNLOADING OBS DATA FROM STATION %1").arg(s
 
         down.unzip_file();                          //Decompressing process
 
-PBar= PBar+5;
+PBar= PBar+PbarStat;
 on_progressBar_valueChanged(PBar);
 
 
@@ -381,7 +395,7 @@ ui->textBrowser_2->setText(QString("DOWNLOADING GPS NAV DATA FROM STATION %1").a
         down.do_downloader();
         down.unzip_file();
 
-PBar= PBar+5;
+PBar= PBar+PbarStat;
 on_progressBar_valueChanged(PBar);
 
           //Downloading of the navigation file (GLONASS)
@@ -394,7 +408,7 @@ ui->textBrowser_2->setText(QString("DOWNLOADING GLONASS NAV DATA FROM STATION %1
         down.unzip_file();
 
 
-PBar= PBar+5;
+PBar= PBar+PbarStat;
 on_progressBar_valueChanged(PBar);
 
 
@@ -452,7 +466,7 @@ ui->textBrowser_2->setText(QString("START PROCESSING DATA"));
 
 
 
-    // Stop processing
+    // End of processing
 
     on_progressBar_valueChanged(90);
 
@@ -466,7 +480,7 @@ ui->textBrowser_2->setText(QString("START PROCESSING DATA"));
 
 
 
-
+// display results on ui
 
     extern QString Sol_x_ECEF;
     QString X_ECEF = QString("ECEF X: ").append(Sol_x_ECEF);
@@ -541,9 +555,11 @@ void MyDialog::Save_Options()
        out1<<OutFormat<<endl;
        out1<<RTCMmsg<<endl;
 
+              ui->InfoBaseAuto_lineEdit->setText(QString("Base auto "+(Autostartbase)));
 
        ui->InfoProcess_lineEdit->setText(QString(MinStat)+" stations in a "+(RadiusMaxStation)+"Km radius will be used");
        ui->InfoCapture_lineEdit->setText(QString("Log "+Capture_Time+"mn and wait "+Wait_Time+"mn before process"));
+
 
        }
 
@@ -553,6 +569,9 @@ void MyDialog::Save_Options()
 
 }
 
+
+
+// Start auto logging data before a post processing
 
  void MyDialog::Start_AutoPP()
  {
@@ -644,16 +663,16 @@ Run_Log_str2str();
    m_tstr2str->start();
    m_readfile->start();
 
-   QObject::connect(m_readfile,SIGNAL(emitdonneesStr2str(QStringList)),this,SLOT(recupdonneesStr2str(QStringList))); //ok
-   QObject::connect(this,SIGNAL(closeSignal(int)),m_tstr2str,SLOT(close(int)));
-   QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread(bool)));
+//   QObject::connect(m_readfile,SIGNAL(emitdonneesStr2str(QStringList)),this,SLOT(recupdonneesStr2str(QStringList))); //ok
+//   QObject::connect(this,SIGNAL(closeSignal(int)),m_tstr2str,SLOT(close(int)));
+//   QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread(bool)));
 
 ui->textBrowser_2->setText(QString("RECORDING RAW DATA LOG FROM GNSS"));
 
 
 
-  QTimer::singleShot(CaptureTimer, this, SLOT(FermeStr2str()));        // Close str2str and logging
-
+  QTimer::singleShot(CaptureTimer, this, SLOT(StopLog()));        // Close str2str and logging
+   b=b+1;
 //   ui->Capture_textBrowser->setText(QString("RAW DATA LOGGED WAITING FOR POST PROCESSING"));
 
    QTimer::singleShot(CaptureTimer+WaitTimer, this, SLOT(on_pushButton_run_rnx2rtk_process_RGP_clicked())); // Wait and start post processing
@@ -748,17 +767,7 @@ ui->Capture_textBrowser->setText(QString("CURRENT STR2STR OPTIONS"));
 
 
 
-ui->textBrowser_2->setText(QString("RECORDING RAW DATA LOG FROM GNSS"));
-
-QObject::connect(m_readfile,SIGNAL(emitdonneesStr2str(QStringList)),this,SLOT(recupdonneesStr2str(QStringList))); //ok
-QObject::connect(this,SIGNAL(closeSignal(int)),m_tstr2str,SLOT(close(int)));
-QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread(bool)));
-
-
-     // Close str2str and logging
-
-
-
+ui->textBrowser_2->setText(QString("BASE MODE WITH PROCESSING RESULT"));
 
 
  }
@@ -770,7 +779,7 @@ QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(f
  void MyDialog::FermeStr2str()
  {
      emit closeSignal(1);
-     ui->textBrowser_2->setText(QString("CLOSING STR2STR LOG IN PROGRESS"));
+     ui->textBrowser_2->setText(QString("CLOSING STR2STR IN PROGRESS"));
 
  }
 
@@ -805,11 +814,22 @@ ui->Capture_textBrowser->setText(QString("RECORDING RAW DATA FROM GNSS"));
  {
      emit closeSignal(1);
      ui->textBrowser_2->setText(QString("CLOSING IN PROGRESS"));
-     m_readfile->terminate();
-     m_tstr2str->terminate();
+     m_readfile->exit();
+     m_tstr2str->exit();
      this->close();
 
  }
+
+void MyDialog::StopLog()
+{
+
+        m_readfile->terminate();
+        m_tstr2str->terminate();
+
+        //    FermeStr2str();
+}
+
+
 
 
 void MyDialog::Test_start()
@@ -906,9 +926,6 @@ m_tstr2str->setArgcArgvStr2str(args);
 m_tstr2str->start();
 m_readfile->start();
 
-QObject::connect(m_readfile,SIGNAL(emitdonneesStr2str(QStringList)),this,SLOT(recupdonneesStr2str(QStringList))); //ok
-QObject::connect(this,SIGNAL(closeSignal(int)),m_tstr2str,SLOT(close(int)));
-QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread(bool)));
 
 
 
@@ -922,6 +939,5 @@ void MyDialog::Test_stop()
 {
     emit closeSignal(1);
     ui->textBrowser_2->setText(QString("CLOSING IN PROGRESS"));
-   closestr2str=1;
 
 }

@@ -50,11 +50,11 @@ public:
     void configuration_file();
 
  //   Ui::MyDialog *ui;
-    MainthreadStr2str* m_tstr2str=new MainthreadStr2str;
-    MainThreadReadFile* m_readfile=new MainThreadReadFile;
-    std::vector<std::string> args;
-    std::vector<std::string> args1;
-    std::vector<std::string> arga;
+ //   MainthreadStr2str* m_tstr2str=new MainthreadStr2str;
+ //   MainThreadReadFile* m_readfile=new MainThreadReadFile;
+ //   std::vector<std::string> args;
+ //   std::vector<std::string> args1;
+ //   std::vector<std::string> arga;
 
 
 };

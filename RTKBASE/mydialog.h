@@ -18,7 +18,6 @@
 #include "approxcoord.h"
 
 extern QString Autostart_Base;
-extern int closestr2str;
 extern int debugUI;
 
 
@@ -34,8 +33,6 @@ public:
     explicit MyDialog(QWidget *parent = 0);
     ~MyDialog();
 
-    QString Radmax;
-    QString Radmax7;
  int CaptureTimer;
 
 
@@ -56,12 +53,12 @@ void Run_Log_str2str();
 void Run_Base_str2str();
 void recupdonneesStr2str(QStringList i);
 void FermeStr2str();
-void finThread(bool a);
+void finThread(bool);
 void Close_Window();
 void Start_AutoPP();
 void Test_start();
 void Test_stop();
-
+void StopLog();
 
 private slots:
     void on_pushButton_run_rnx2rtk_process_RGP_clicked();

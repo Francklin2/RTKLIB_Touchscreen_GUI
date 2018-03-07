@@ -22,9 +22,7 @@
 
 QString Mode_str2str;
 
-extern int closestr2str;
 extern int debugUI;
-
 
 
 
@@ -241,6 +239,8 @@ void Rnx2rtkp::rnx2rtkp(int i)
 
 void Rnx2rtkp::final_results(QString s)
 {
+
+
     /*---------------------------------------------------------------------------------------------------/
         Aim of final_results() METHOD:
         - Creating the Final OUTPUT file of the rnx2rtkp process   ---> resultats.pos
@@ -356,7 +356,8 @@ void Rnx2rtkp::final_results(QString s)
 
 
 
-// Open configuration file to use for auto processing
+// Open configuration file to use for auto base mode
+// check if base mode is on and start base mode
 
     int i=1;
     QStringList list;
