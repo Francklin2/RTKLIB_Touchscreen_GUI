@@ -44,6 +44,10 @@ Ui::MyDialog *ui;
 MainthreadStr2str* m_tstr2str=new MainthreadStr2str;
 MainThreadReadFile* m_readfile=new MainThreadReadFile;
 
+MainthreadStr2str* m_tstr2str2=new MainthreadStr2str;
+MainThreadReadFile* m_readfile2=new MainThreadReadFile;
+
+
 std::vector<std::string> args;
 std::vector<std::string> args1;
 std::vector<std::string> arga;

@@ -51,10 +51,14 @@ MyDialog::MyDialog(QWidget *parent) :
     QObject::connect(m_tstr2str,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread(bool)));
 
 
+    QObject::connect(m_readfile2,SIGNAL(emitdonneesStr2str(QStringList)),this,SLOT(recupdonneesStr2str(QStringList))); //ok
+    QObject::connect(this,SIGNAL(closeSignal(int)),m_tstr2str2,SLOT(close(int)));
+    QObject::connect(m_tstr2str2,SIGNAL(etatFermetureThreadStr2str(bool)),this,SLOT(finThread(bool)));
 
 
 
-    // Open configuration file to read max radius for station and nb of station
+
+    // Open configuration file to read and print variable at startup
         {
         int i=1;
         QStringList list;
@@ -90,6 +94,21 @@ MyDialog::MyDialog(QWidget *parent) :
               ui->InfoBaseAuto_lineEdit->setText(QString("Base auto "+list[7]));
               ui->InfoCapture_lineEdit->setText(QString("Log "+list[2]+"mn and wait "+list[3]+"mn before process"));
               ui->InfoProcess_lineEdit->setText(QString(list[1])+" stations in a "+(list[0])+"Km radius will be used");
+
+    if(list[7]=="on")
+    {
+              QPalette palette = ui->InfoBaseAuto_lineEdit->palette();
+              palette.setColor(QPalette::Base, Qt::green);
+              ui->InfoBaseAuto_lineEdit->setPalette(palette);
+    }
+    else
+    {
+              QPalette palette = ui->InfoBaseAuto_lineEdit->palette();
+              palette.setColor(QPalette::Base, Qt::red);
+              ui->InfoBaseAuto_lineEdit->setPalette(palette);
+    }
+
+
 
         readoption.close();
 
@@ -561,6 +580,22 @@ void MyDialog::Save_Options()
        ui->InfoCapture_lineEdit->setText(QString("Log "+Capture_Time+"mn and wait "+Wait_Time+"mn before process"));
 
 
+
+       if(Autostartbase=="on")
+       {
+                 QPalette palette = ui->InfoBaseAuto_lineEdit->palette();
+                 palette.setColor(QPalette::Base, Qt::green);
+                 ui->InfoBaseAuto_lineEdit->setPalette(palette);
+       }
+       else
+       {
+                 QPalette palette = ui->InfoBaseAuto_lineEdit->palette();
+                 palette.setColor(QPalette::Base, Qt::red);
+                 ui->InfoBaseAuto_lineEdit->setPalette(palette);
+       }
+
+
+
        }
 
 
@@ -761,10 +796,9 @@ ui->Capture_textBrowser->setText(QString("CURRENT STR2STR OPTIONS"));
      ui->Capture_textBrowser->append(qstr[i]);
  }
 
-   m_tstr2str->setArgcArgvStr2str(args);
-   m_tstr2str->start();
-   m_readfile->start();
-
+   m_tstr2str2->setArgcArgvStr2str(args);
+   m_tstr2str2->start();
+   m_readfile2->start();
 
 
 ui->textBrowser_2->setText(QString("BASE MODE WITH PROCESSING RESULT"));
@@ -791,6 +825,9 @@ ui->textBrowser_2->setText(QString("BASE MODE WITH PROCESSING RESULT"));
          m_readfile->terminate();
          m_tstr2str->terminate();
 
+         m_readfile2->terminate();
+         m_tstr2str2->terminate();
+
      }
  }
 
@@ -814,8 +851,8 @@ ui->Capture_textBrowser->setText(QString("RECORDING RAW DATA FROM GNSS"));
  {
      emit closeSignal(1);
      ui->textBrowser_2->setText(QString("CLOSING IN PROGRESS"));
-     m_readfile->exit();
-     m_tstr2str->exit();
+     m_readfile->terminate();
+     m_tstr2str->terminate();
      this->close();
 
  }
