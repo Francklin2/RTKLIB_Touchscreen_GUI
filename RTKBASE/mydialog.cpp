@@ -28,7 +28,9 @@ int d_max3;
 int Min_station2;
 int PBar = 0;
 
-    int b=0;
+int b=0;
+        QString DownloadStatus;
+
 
 
 MyDialog::MyDialog(QWidget *parent) :
@@ -93,7 +95,7 @@ MyDialog::MyDialog(QWidget *parent) :
 
               ui->InfoBaseAuto_lineEdit->setText(QString("Base auto "+list[7]));
               ui->InfoCapture_lineEdit->setText(QString("Log "+list[2]+"mn and wait "+list[3]+"mn before process"));
-              ui->InfoProcess_lineEdit->setText(QString(list[1])+" stations in a "+(list[0])+"Km radius will be used");
+              ui->InfoProcess_lineEdit->setText(QString("Search "+list[1])+" stations in a "+(list[0])+"Km radius");
 
     if(list[7]=="on")
     {
@@ -104,7 +106,7 @@ MyDialog::MyDialog(QWidget *parent) :
     else
     {
               QPalette palette = ui->InfoBaseAuto_lineEdit->palette();
-              palette.setColor(QPalette::Base, Qt::red);
+              palette.setColor(QPalette::Base, Qt::yellow);
               ui->InfoBaseAuto_lineEdit->setPalette(palette);
     }
 
@@ -221,13 +223,16 @@ ui->textBrowser_2->setText(QString("START PROCESSING SEQUENCE"));
             if (install_package.state()==0)
             {
                 qDebug()<<"----- The package was successfully installed "<<endl;
-
 PBar= 5;
 on_progressBar_valueChanged(PBar);
 
-            }
+ui->InfotextBrowser->setText(QString("The package was successfully installed "));
+
+           }
             else
                 qDebug()<<"----- Error! comand "<<install_package_command<<endl;
+         //   ui->InfotextBrowser->setText(QString("Error! comand "+install_package_command));
+
         }
         else
             qDebug()<<"----- Error! comand "<<install_package_command<<endl;
@@ -367,12 +372,40 @@ ui->textBrowser_2->setText(QString("NO INTERNET CONNEXION: DOWNLOAD FAILED"));
     st.neareststation();                            //Sort of stations process
 
     qDebug()<<"Number of stations within a radius of: "<<d_max3<<"Km:"<<st.vect_name.size()<<" Stations"<<endl;
-    qDebug()<<"The stations are :"<<st.vect_name<<endl;
+
+   qDebug()<<"The stations are :"<<endl;
+
+
+ui->InfotextBrowser->append(QString("Found nearest "+QString::number(Min_station2) +" stations in ")+QString::number(d_max3)+"Km radius");
+
+int statnb=0;
+
+while(statnb<Min_station2)
+{
+  int diststat=(st.vect_dist[statnb]/1000);
+//  string diststat2=diststat.to_string();
+
+ui->InfotextBrowser->append(QString("Station "+st.vect_name[statnb]+" Dist: ")+QString::number(diststat)+"Km");
+
+  statnb++;
+}
+
+statnb=0;
+
+while(statnb<st.vect_name.size())
+{
+    qDebug()<<"Station "<<st.vect_name[statnb]<<"Dist:"<<st.vect_dist[statnb]/1000<<"km"<<endl;
+
+statnb++;
+}
 
 
 
     int i=0,nbstation=0;    // i reprents the i th nearest station
+    int NbRes=0;
     int PbarStat = 75/(Min_station2*3);  //Look how much percent to add to the progress bar per station
+
+ ui->InfotextBrowser->setText("                     DOWNLOAD AND PROCESS DATA FROM STATION: ");
 
     while(nbstation<Min_station2)
     {
@@ -385,6 +418,13 @@ ui->textBrowser_2->setText(QString("NO INTERNET CONNEXION: DOWNLOAD FAILED"));
 
         //Downloading of the observation file
 
+        bool download_OBS=false;
+        bool download_GPS=false;
+        bool download_GLO=false;
+        QString resultstat2;
+
+
+
 ui->textBrowser_2->setText(QString("DOWNLOADING OBS DATA FROM STATION %1").arg(st.vect_name[i]));
 
         down.url=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[2];       //Download link
@@ -395,15 +435,16 @@ ui->textBrowser_2->setText(QString("DOWNLOADING OBS DATA FROM STATION %1").arg(s
         {
             qDebug()<<"We can't download data for this station:"<< st.vect_name[i]<<"we will try the next nearest station"<<endl;
             down.downfailed=false;
+            download_OBS=false;
             goto end;
         }
+
+        download_OBS=true;
 
         down.unzip_file();                          //Decompressing process
 
 PBar= PBar+PbarStat;
 on_progressBar_valueChanged(PBar);
-
-
 
              //Downloading of the navigation file (GPS)
 
@@ -412,6 +453,17 @@ ui->textBrowser_2->setText(QString("DOWNLOADING GPS NAV DATA FROM STATION %1").a
         down.file_name=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[3];
         down.url=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[5];
         down.do_downloader();
+
+        if(down.downfailed==true)
+        {
+            qDebug()<<"We can't download data for this station:"<< st.vect_name[i]<<"we will try the next nearest station"<<endl;
+            down.downfailed=false;
+            download_GPS=false;
+            goto end;
+        }
+
+        download_GPS=true;
+
         down.unzip_file();
 
 PBar= PBar+PbarStat;
@@ -424,6 +476,16 @@ ui->textBrowser_2->setText(QString("DOWNLOADING GLONASS NAV DATA FROM STATION %1
         down.file_name=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[6];
         down.url=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[8];
         down.do_downloader();
+        if(down.downfailed==true)
+        {
+            qDebug()<<"We can't download data for this station:"<< st.vect_name[i]<<"we will try the next nearest station"<<endl;
+            down.downfailed=false;
+            download_GLO=false;
+            goto end;
+        }
+
+        download_GLO=true;
+
         down.unzip_file();
 
 
@@ -445,6 +507,7 @@ ui->textBrowser_2->setText(QString("START PROCESSING DATA"));
         st.station_data(cal.station_obs_file,path);
 
         qDebug()<<"For the station: "<<st.vect_name[i]<<" the data are:"<<endl;
+        qDebug()<<"Distance from base: "<<st.vect_dist[i]<<endl;
         qDebug()<<"_antenna_type_station"<<st._antenna_type_station<<endl;
         qDebug()<<"_coord_antena"<<st._coord_antenna[0]<<","<<st._coord_antenna[1]<<","<<st._coord_antenna[2]<<endl;
         qDebug()<<"_coord_station"<<st._coord_station[0]<<","<<st._coord_station[1]<<","<<st._coord_station[2]<<endl;
@@ -459,14 +522,49 @@ ui->textBrowser_2->setText(QString("START PROCESSING DATA"));
         /*-------------------------------------------------------------------------------/
            The RNX2RTKP calculation process
         /------------------------------------------------------------------------------*/
+
+
         cal.rnx2rtkp(nbstation);
 
+        stat_dist_debug.append(st.vect_dist[i]);
+
+
+     if(download_OBS==true and download_GPS==true and download_GLO==true)
+    {
+DownloadStatus="OK";
+ui->InfotextBrowser->append(st.vect_name[i]+" "+" Dist: "+QString::number((st.vect_dist[i])/1000)+"Km  "+DownloadStatus);
+    }
+else
+    {
+    DownloadStatus="FAILED";
+    }
+
         nbstation++;
-        qDebug()<<"Number of station downloaded="<<nbstation<<endl;
-        end:
+       NbRes=nbstation+2;
+
+       qDebug()<<"Number of station downloaded="<<nbstation<<endl;
+
+
+   end:
+
+
+       if(download_OBS==true and download_GPS==true and download_GLO==true)
+         {
+   DownloadStatus="OK";
+         }
+   else
+       {
+       DownloadStatus="FAILED";
+ ui->InfotextBrowser->append(st.vect_name[i]+" "+" Dist: "+QString::number((st.vect_dist[i])/1000)+"Km  "+DownloadStatus);
+    NbRes++;
+       }
+
         i++;
+
         if (nbstation<Min_station2)
             qDebug()<<"---- ****** Next station:"<<st.vect_name[i]<<" ***** -----"<<endl;
+
+
 
     }
 
@@ -482,6 +580,32 @@ ui->textBrowser_2->setText(QString("START PROCESSING DATA"));
     qDebug()<<cal.X_Y_Z_ecef_final[0];
     qDebug()<<cal.X_Y_Z_ecef_final[1];
     qDebug()<<cal.X_Y_Z_ecef_final[2];
+
+
+    // debug results of each stations in ecef
+
+
+     ui->InfotextBrowser->setText("                     POST PROCESSING FINAL RESULTS FROM STATION: ");
+
+     int nbs =0;
+
+   while (nbs<(Min_station2))
+    {
+    qDebug()<<"The result of station: "<<cal.stat[nbs]<<"Dist"<<stat_dist_debug[nbs]/1000<<"Km";
+    qDebug()<<"X ecef: "<<cal.stat_x_ecef[nbs];
+    qDebug()<<"Y ecef: "<<cal.stat_y_ecef[nbs];
+    qDebug()<<"Z ecef: "<<cal.stat_z_ecef[nbs];
+
+
+    ui->InfotextBrowser->append(cal.stat[nbs].toUpper()+" Dist: "+QString::number(stat_dist_debug[nbs]/1000)+"Km  "+"X: "+cal.stat_x_ecef[nbs]+"m  "+"Y: "+cal.stat_y_ecef[nbs]+"m  "+"Z: "+cal.stat_z_ecef[nbs]+"m ");
+
+
+   nbs++;
+
+   }
+
+
+
 
 
 
@@ -522,11 +646,18 @@ ui->textBrowser_2->setText(QString("START PROCESSING DATA"));
    ui->ECEF_y_lineEdit->setText(Y_ECEF);
    ui->ECEF_z_lineEdit->setText(Z_ECEF);
 
-   ui->LLH_Lat_lineEdit->setText(X_LLH);
-   ui->LLH_Lon_lineEdit->setText(Y_LLH);
-   ui->LLH_Alt_lineEdit->setText(Z_LLH);
+   ui->LLH_Lat_lineEdit->setText(X_LLH.toUpper());
+   ui->LLH_Lon_lineEdit->setText(Y_LLH.toUpper());
+   ui->LLH_Alt_lineEdit->setText(Z_LLH.toUpper());
 
 ui->textBrowser_2->setText(QString("PROCESSING DONE POSITION COPIED TO FILE AND BASE MODE"));
+
+
+ui->InfotextBrowser->append("                 MEDIAN POSITION FROM ALL STATION:");
+ui->InfotextBrowser->append(X_ECEF+"m "+Y_ECEF+"m "+Z_ECEF+"m");
+ui->InfotextBrowser->append(X_LLH.toUpper()+" "+Y_LLH.toUpper()+" "+Z_LLH.toUpper());
+
+
 
 }
 
@@ -576,7 +707,7 @@ void MyDialog::Save_Options()
 
               ui->InfoBaseAuto_lineEdit->setText(QString("Base auto "+(Autostartbase)));
 
-       ui->InfoProcess_lineEdit->setText(QString(MinStat)+" stations in a "+(RadiusMaxStation)+"Km radius will be used");
+       ui->InfoProcess_lineEdit->setText(QString("Search "+MinStat)+" stations in a "+(RadiusMaxStation)+"Km radius");
        ui->InfoCapture_lineEdit->setText(QString("Log "+Capture_Time+"mn and wait "+Wait_Time+"mn before process"));
 
 
@@ -590,7 +721,7 @@ void MyDialog::Save_Options()
        else
        {
                  QPalette palette = ui->InfoBaseAuto_lineEdit->palette();
-                 palette.setColor(QPalette::Base, Qt::red);
+                 palette.setColor(QPalette::Base, Qt::yellow);
                  ui->InfoBaseAuto_lineEdit->setPalette(palette);
        }
 

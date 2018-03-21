@@ -19,6 +19,7 @@
 
 extern QString Autostart_Base;
 extern int debugUI;
+extern int Min_station2;
 
 
 namespace Ui {
@@ -34,7 +35,7 @@ public:
     ~MyDialog();
 
  int CaptureTimer;
-
+ QVector<int> stat_dist_debug;
 
 
 

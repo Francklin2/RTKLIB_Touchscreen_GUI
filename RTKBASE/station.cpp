@@ -158,7 +158,7 @@ void Station::neareststation()
         else{i++;}
     }
 
-    qDebug()<<vect_dist;                 //uncomment this code line to disply distance within RTK_Base_Station
+//    qDebug()<<vect_dist;                 //uncomment this code line to disply distance within RTK_Base_Station
 
 
     /*------------------------------------------------------------------------------/
@@ -189,8 +189,8 @@ void Station::neareststation()
         }
     }while (permut==true);
 
-}
 
+}
 
 
 QVector<QString> Station::data_file_nearest_sation(int doy,int yyyy,QVector<int>TIME_OF_FIRST_OBS,QVector<int>TIME_OF_LAST_OBS,int i)

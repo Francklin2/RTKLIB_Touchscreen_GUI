@@ -30,6 +30,7 @@
    </property>
    <property name="font">
     <font>
+     <pointsize>11</pointsize>
      <weight>50</weight>
      <bold>false</bold>
     </font>
@@ -38,6 +39,11 @@
     <number>0</number>
    </property>
    <widget class="QWidget" name="tab_1">
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
     <attribute name="title">
      <string>AUTOMATIC POST PROCESSING</string>
     </attribute>
@@ -72,7 +78,7 @@ on recorded file</string>
      <property name="geometry">
       <rect>
        <x>640</x>
-       <y>60</y>
+       <y>50</y>
        <width>111</width>
        <height>25</height>
       </rect>
@@ -82,7 +88,7 @@ on recorded file</string>
      <property name="geometry">
       <rect>
        <x>640</x>
-       <y>120</y>
+       <y>110</y>
        <width>113</width>
        <height>25</height>
       </rect>
@@ -92,7 +98,7 @@ on recorded file</string>
      <property name="geometry">
       <rect>
        <x>640</x>
-       <y>90</y>
+       <y>80</y>
        <width>113</width>
        <height>25</height>
       </rect>
@@ -102,7 +108,7 @@ on recorded file</string>
      <property name="geometry">
       <rect>
        <x>450</x>
-       <y>60</y>
+       <y>50</y>
        <width>171</width>
        <height>25</height>
       </rect>
@@ -112,7 +118,7 @@ on recorded file</string>
      <property name="geometry">
       <rect>
        <x>450</x>
-       <y>120</y>
+       <y>110</y>
        <width>171</width>
        <height>25</height>
       </rect>
@@ -122,7 +128,7 @@ on recorded file</string>
      <property name="geometry">
       <rect>
        <x>450</x>
-       <y>90</y>
+       <y>80</y>
        <width>171</width>
        <height>25</height>
       </rect>
@@ -132,7 +138,7 @@ on recorded file</string>
      <property name="geometry">
       <rect>
        <x>460</x>
-       <y>30</y>
+       <y>10</y>
        <width>281</width>
        <height>25</height>
       </rect>
@@ -155,16 +161,6 @@ border-radius: 10px;</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QTextBrowser" name="textBrowser">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>200</y>
-       <width>741</width>
-       <height>161</height>
-      </rect>
      </property>
     </widget>
     <widget class="QProgressBar" name="progressBar">
@@ -234,8 +230,8 @@ Post processing</string>
     <widget class="QTextBrowser" name="Capture_textBrowser">
      <property name="geometry">
       <rect>
-       <x>160</x>
-       <y>160</y>
+       <x>150</x>
+       <y>150</y>
        <width>481</width>
        <height>31</height>
       </rect>
@@ -244,8 +240,8 @@ Post processing</string>
     <widget class="QLineEdit" name="lineEdit_6">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>160</y>
+       <x>10</x>
+       <y>150</y>
        <width>131</width>
        <height>31</height>
       </rect>
@@ -264,8 +260,8 @@ Post processing</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>370</y>
-       <width>581</width>
+       <y>380</y>
+       <width>591</width>
        <height>31</height>
       </rect>
      </property>
@@ -318,6 +314,22 @@ border-radius: 10px;</string>
       </font>
      </property>
     </widget>
+    <widget class="QTextBrowser" name="InfotextBrowser">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>190</y>
+       <width>741</width>
+       <height>181</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_3">
     <attribute name="title">
@@ -333,7 +345,7 @@ border-radius: 10px;</string>
       </rect>
      </property>
      <property name="text">
-      <string>Km Max radius for CORS stations </string>
+      <string>Search stations in a Km radius of</string>
      </property>
     </widget>
     <widget class="QComboBox" name="Radius_dmax">
@@ -450,26 +462,6 @@ border-radius: 10px;</string>
        <string>6</string>
       </property>
      </item>
-     <item>
-      <property name="text">
-       <string>7</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>8</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>9</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>10</string>
-      </property>
-     </item>
     </widget>
     <widget class="QLineEdit" name="lineEdit_3">
      <property name="geometry">
@@ -534,11 +526,6 @@ border-radius: 10px;</string>
      </property>
      <item>
       <property name="text">
-       <string>1</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
        <string>35</string>
       </property>
      </item>
@@ -580,6 +567,11 @@ border-radius: 10px;</string>
      <item>
       <property name="text">
        <string>540</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1</string>
       </property>
      </item>
     </widget>
@@ -1182,11 +1174,45 @@ border: 1px solid black;</string>
       <string>Autostart base with results</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>DEBUG</string>
+    </attribute>
+    <widget class="QTextBrowser" name="textBrowser">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>60</y>
+       <width>741</width>
+       <height>341</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="testlog_pushButton">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>20</y>
+       <width>141</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>manual start log</string>
+     </property>
+    </widget>
     <widget class="QPushButton" name="teststart_pushButton">
      <property name="geometry">
       <rect>
-       <x>610</x>
-       <y>110</y>
+       <x>460</x>
+       <y>20</y>
        <width>141</width>
        <height>25</height>
       </rect>
@@ -1198,27 +1224,14 @@ border: 1px solid black;</string>
     <widget class="QPushButton" name="teststop_pushButton">
      <property name="geometry">
       <rect>
-       <x>610</x>
-       <y>140</y>
+       <x>620</x>
+       <y>20</y>
        <width>141</width>
        <height>25</height>
       </rect>
      </property>
      <property name="text">
       <string>stop str2str</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="testlog_pushButton">
-     <property name="geometry">
-      <rect>
-       <x>610</x>
-       <y>80</y>
-       <width>141</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>manual start log</string>
      </property>
     </widget>
    </widget>

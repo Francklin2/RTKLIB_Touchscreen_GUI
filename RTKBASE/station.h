@@ -30,6 +30,7 @@ public:
     QVector<QString> _coord_antenna;                        // Contains the coordinates antenna of each station
     QVector<QString> _coord_station;                        // Contains the coordinates of the station
     QVector<QString> vect_name;                             // Contains the names of the stations
+//    QVector<QString> vect_dist;                             // Contains the distance of the stations
     QVector<QString> vect_domes;                            // Contains the international number of each station
 
     QVector<double> vect_X,vect_Y,vect_Z,vect_dist;

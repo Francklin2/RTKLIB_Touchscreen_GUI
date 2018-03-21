@@ -1,4 +1,3 @@
-
 #include <QtMath>
 #include <QThread>
 
@@ -227,10 +226,13 @@ void Rnx2rtkp::rnx2rtkp(int i)
                {
                    results.append(line_+"\n");
                }
+          }
 
-            }
             file__.close();
             qDebug()<<"The rnx2rtk process finished with success !!"<<endl;
+
+            resultstat.append(results);
+
         }
     }
 
@@ -260,6 +262,7 @@ void Rnx2rtkp::final_results(QString s)
 
 
     QVector<QString> x_ecef,y_ecef,z_ecef;
+//    QVector<QString> stat;
     int nbline=0;
 
     if (file_.open(QIODevice::ReadOnly|QIODevice::Text))
@@ -269,19 +272,47 @@ void Rnx2rtkp::final_results(QString s)
         {
           QString line_ = textstream_.readLine();
           nbline++;
+
+
+          if(nbline==1)
+           {
+              stat.append(line_.mid(1,4));
+           }
+
+
           if(nbline==3)
            {
               x_ecef.append(line_.mid(25,14));
               y_ecef.append(line_.mid(41,14));
               z_ecef.append(line_.mid(55,14));
 
+              stat_x_ecef.append(x_ecef[0]);
+              stat_y_ecef.append(y_ecef[0]);
+              stat_z_ecef.append(z_ecef[0]);
            }
-           if(nbline==6)
+
+          if(nbline==4)
+           {
+              stat.append(line_.mid(1,4));
+           }
+
+
+          if(nbline==6)
            {
                x_ecef.append(line_.mid(25,14));
                y_ecef.append(line_.mid(41,14));
                z_ecef.append(line_.mid(55,14));
+
+               stat_x_ecef.append(x_ecef[1]);
+               stat_y_ecef.append(y_ecef[1]);
+               stat_z_ecef.append(z_ecef[1]);
            }
+
+          if(nbline==7)
+           {
+              stat.append(line_.mid(1,4));
+           }
+
 
            if(nbline==9)
            {
@@ -289,33 +320,179 @@ void Rnx2rtkp::final_results(QString s)
                y_ecef.append(line_.mid(41,14));
                z_ecef.append(line_.mid(55,14));
 
+               stat_x_ecef.append(x_ecef[2]);
+               stat_y_ecef.append(y_ecef[2]);
+               stat_z_ecef.append(z_ecef[2]);
            }
+
+           if(nbline==10)
+            {
+               stat.append(line_.mid(1,4));
+            }
+
 
            if(nbline==12)
            {
                x_ecef.append(line_.mid(25,14));
                y_ecef.append(line_.mid(41,14));
                z_ecef.append(line_.mid(55,14));
+
+               stat_x_ecef.append(x_ecef[3]);
+               stat_y_ecef.append(y_ecef[3]);
+               stat_z_ecef.append(z_ecef[3]);
            }
+
+           if(nbline==13)
+            {
+               stat.append(line_.mid(1,4));
+            }
+
+
+
+           if(nbline==15)
+           {
+               x_ecef.append(line_.mid(25,14));
+               y_ecef.append(line_.mid(41,14));
+               z_ecef.append(line_.mid(55,14));
+
+               stat_x_ecef.append(x_ecef[4]);
+               stat_y_ecef.append(y_ecef[4]);
+               stat_z_ecef.append(z_ecef[4]);
+           }
+
+           if(nbline==16)
+            {
+               stat.append(line_.mid(1,4));
+            }
+
+
+           if(nbline==18)
+           {
+               x_ecef.append(line_.mid(25,14));
+               y_ecef.append(line_.mid(41,14));
+               z_ecef.append(line_.mid(55,14));
+
+               stat_x_ecef.append(x_ecef[5]);
+               stat_y_ecef.append(y_ecef[5]);
+               stat_z_ecef.append(z_ecef[5]);
+           }
+
 
         }
         file_.close();
     }
 
 
-    std::sort(x_ecef.begin(), x_ecef.end(), std::greater<QString>());
-    std::sort(y_ecef.begin(), y_ecef.end(), std::greater<QString>());
-    std::sort(z_ecef.begin(), z_ecef.end(), std::greater<QString>());
+//    std::sort(x_ecef.begin(), x_ecef.end(), std::greater<QString>());
+//    std::sort(y_ecef.begin(), y_ecef.end(), std::greater<QString>());
+//    std::sort(z_ecef.begin(), z_ecef.end(), std::greater<QString>());
 
-    X_Y_Z_ecef_final.append(QString::number((x_ecef[1].toDouble()+x_ecef[2].toDouble())/2, 'f', 4));
-    X_Y_Z_ecef_final.append(QString::number((y_ecef[1].toDouble()+y_ecef[2].toDouble())/2, 'f', 4));
-    X_Y_Z_ecef_final.append(QString::number((z_ecef[1].toDouble()+z_ecef[2].toDouble())/2, 'f', 4));
+
+
+    extern int Min_station2;
+    int Min_station;
+    Min_station = Min_station2;
+
+
+
+
+
+    if (nbline == 3)
+    {
+        X_Y_Z_ecef_final.append(QString::number((x_ecef[0].toDouble()+x_ecef[0].toDouble())/2, 'f', 4));
+        X_Y_Z_ecef_final.append(QString::number((y_ecef[0].toDouble()+y_ecef[0].toDouble())/2, 'f', 4));
+        X_Y_Z_ecef_final.append(QString::number((z_ecef[0].toDouble()+z_ecef[0].toDouble())/2, 'f', 4));
+
+        // Create string for solution output
+
+     Sol_x_ECEF = (QString::number((x_ecef[0].toDouble()+x_ecef[0].toDouble())/2, 'f', 4));
+     Sol_y_ECEF = (QString::number((y_ecef[0].toDouble()+y_ecef[0].toDouble())/2, 'f', 4));
+     Sol_z_ECEF = (QString::number((z_ecef[0].toDouble()+z_ecef[0].toDouble())/2, 'f', 4));
+
+
+
+
+    }
+
+
+
+    if (nbline == 6)
+{
+    X_Y_Z_ecef_final.append(QString::number((x_ecef[0].toDouble()+x_ecef[1].toDouble())/2, 'f', 4));
+    X_Y_Z_ecef_final.append(QString::number((y_ecef[0].toDouble()+y_ecef[1].toDouble())/2, 'f', 4));
+    X_Y_Z_ecef_final.append(QString::number((z_ecef[0].toDouble()+z_ecef[1].toDouble())/2, 'f', 4));
 
     // Create string for solution output
 
- Sol_x_ECEF = (QString::number((x_ecef[1].toDouble()+x_ecef[2].toDouble())/2, 'f', 4));
- Sol_y_ECEF = (QString::number((y_ecef[1].toDouble()+y_ecef[2].toDouble())/2, 'f', 4));
- Sol_z_ECEF = (QString::number((z_ecef[1].toDouble()+z_ecef[2].toDouble())/2, 'f', 4));
+ Sol_x_ECEF = (QString::number((x_ecef[0].toDouble()+x_ecef[1].toDouble())/2, 'f', 4));
+ Sol_y_ECEF = (QString::number((y_ecef[0].toDouble()+y_ecef[1].toDouble())/2, 'f', 4));
+ Sol_z_ECEF = (QString::number((z_ecef[0].toDouble()+z_ecef[1].toDouble())/2, 'f', 4));
+
+
+
+}
+
+
+if(nbline == 9)
+{
+    X_Y_Z_ecef_final.append(QString::number((x_ecef[0].toDouble()+x_ecef[1].toDouble()+x_ecef[2].toDouble())/3, 'f', 4));
+    X_Y_Z_ecef_final.append(QString::number((y_ecef[0].toDouble()+y_ecef[1].toDouble()+y_ecef[2].toDouble())/3, 'f', 4));
+    X_Y_Z_ecef_final.append(QString::number((z_ecef[0].toDouble()+z_ecef[1].toDouble()+z_ecef[2].toDouble())/3, 'f', 4));
+
+    // Create string for solution output
+
+ Sol_x_ECEF = (QString::number((x_ecef[0].toDouble()+x_ecef[1].toDouble()+x_ecef[2].toDouble())/3, 'f', 4));
+ Sol_y_ECEF = (QString::number((y_ecef[0].toDouble()+y_ecef[1].toDouble()+y_ecef[2].toDouble())/3, 'f', 4));
+ Sol_z_ECEF = (QString::number((z_ecef[0].toDouble()+z_ecef[1].toDouble()+z_ecef[2].toDouble())/3, 'f', 4));
+
+}
+
+
+
+if(nbline == 12)
+{
+    X_Y_Z_ecef_final.append(QString::number((x_ecef[0].toDouble()+x_ecef[1].toDouble()+x_ecef[2].toDouble()+x_ecef[3].toDouble())/4, 'f', 4));
+    X_Y_Z_ecef_final.append(QString::number((y_ecef[0].toDouble()+y_ecef[1].toDouble()+y_ecef[2].toDouble()+y_ecef[3].toDouble())/4, 'f', 4));
+    X_Y_Z_ecef_final.append(QString::number((z_ecef[0].toDouble()+z_ecef[1].toDouble()+z_ecef[2].toDouble()+z_ecef[3].toDouble())/4, 'f', 4));
+
+    // Create string for solution output
+
+ Sol_x_ECEF = (QString::number((x_ecef[0].toDouble()+x_ecef[1].toDouble()+x_ecef[2].toDouble()+x_ecef[3].toDouble())/4, 'f', 4));
+ Sol_y_ECEF = (QString::number((y_ecef[0].toDouble()+y_ecef[1].toDouble()+y_ecef[2].toDouble()+y_ecef[3].toDouble())/4, 'f', 4));
+ Sol_z_ECEF = (QString::number((z_ecef[0].toDouble()+z_ecef[1].toDouble()+z_ecef[2].toDouble()+z_ecef[3].toDouble())/4, 'f', 4));
+
+}
+
+
+if(nbline == 15)
+{
+    X_Y_Z_ecef_final.append(QString::number((x_ecef[0].toDouble()+x_ecef[1].toDouble()+x_ecef[2].toDouble()+x_ecef[3].toDouble()+x_ecef[4].toDouble())/5, 'f', 4));
+    X_Y_Z_ecef_final.append(QString::number((y_ecef[0].toDouble()+y_ecef[1].toDouble()+y_ecef[2].toDouble()+y_ecef[3].toDouble()+y_ecef[4].toDouble())/5, 'f', 4));
+    X_Y_Z_ecef_final.append(QString::number((z_ecef[0].toDouble()+z_ecef[1].toDouble()+z_ecef[2].toDouble()+z_ecef[3].toDouble()+z_ecef[4].toDouble())/5, 'f', 4));
+
+    // Create string for solution output
+
+ Sol_x_ECEF = (QString::number((x_ecef[0].toDouble()+x_ecef[1].toDouble()+x_ecef[2].toDouble()+x_ecef[3].toDouble()+x_ecef[4].toDouble())/5, 'f', 4));
+ Sol_y_ECEF = (QString::number((y_ecef[0].toDouble()+y_ecef[1].toDouble()+y_ecef[2].toDouble()+y_ecef[3].toDouble()+y_ecef[4].toDouble())/5, 'f', 4));
+ Sol_z_ECEF = (QString::number((z_ecef[0].toDouble()+z_ecef[1].toDouble()+z_ecef[2].toDouble()+z_ecef[3].toDouble()+z_ecef[4].toDouble())/5, 'f', 4));
+
+}
+
+
+if(nbline == 18)
+{
+    X_Y_Z_ecef_final.append(QString::number((x_ecef[0].toDouble()+x_ecef[1].toDouble()+x_ecef[2].toDouble()+x_ecef[3].toDouble()+x_ecef[4].toDouble()+x_ecef[5].toDouble())/6, 'f', 4));
+    X_Y_Z_ecef_final.append(QString::number((y_ecef[0].toDouble()+y_ecef[1].toDouble()+y_ecef[2].toDouble()+y_ecef[3].toDouble()+y_ecef[4].toDouble()+y_ecef[5].toDouble())/6, 'f', 4));
+    X_Y_Z_ecef_final.append(QString::number((z_ecef[0].toDouble()+z_ecef[1].toDouble()+z_ecef[2].toDouble()+z_ecef[3].toDouble()+z_ecef[4].toDouble()+z_ecef[5].toDouble())/6, 'f', 4));
+
+    // Create string for solution output
+
+ Sol_x_ECEF = (QString::number((x_ecef[0].toDouble()+x_ecef[1].toDouble()+x_ecef[2].toDouble()+x_ecef[3].toDouble()+x_ecef[4].toDouble()+x_ecef[5].toDouble())/6, 'f', 4));
+ Sol_y_ECEF = (QString::number((y_ecef[0].toDouble()+y_ecef[1].toDouble()+y_ecef[2].toDouble()+y_ecef[3].toDouble()+y_ecef[4].toDouble()+y_ecef[5].toDouble())/6, 'f', 4));
+ Sol_z_ECEF = (QString::number((z_ecef[0].toDouble()+z_ecef[1].toDouble()+z_ecef[2].toDouble()+z_ecef[3].toDouble()+z_ecef[4].toDouble()+z_ecef[5].toDouble())/6, 'f', 4));
+
+}
+
 
 
     /*-------------------------------------------------------------------------------/
