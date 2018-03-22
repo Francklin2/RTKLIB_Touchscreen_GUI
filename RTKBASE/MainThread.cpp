@@ -1,8 +1,10 @@
 // RTKBASE is a GUI interface for RTKLIB made for the Raspberry pî and a touchscreen  
 //   Copyright (C) 2016  
-//   David ENSG PPMD-15  
+//   David ENSG PPMD-2016 (first rtkbase release)
 //   Francklin N'guyen van <francklin2@wanadoo.fr>
 //   Sylvain Poulain <sylvain.poulain@giscan.com>
+//   Vladimir ENSG PPMD-2017 (editable configuration)
+//   Saif Aati ENSG PPMD-2018 (post processing)
 //
 //    This program is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
