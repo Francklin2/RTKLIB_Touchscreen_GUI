@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'gestionconfig.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -63,10 +63,10 @@ public:
 
     void retranslateUi(QDialog *GestionConfig)
     {
-        GestionConfig->setWindowTitle(QApplication::translate("GestionConfig", "Dialog", Q_NULLPTR));
-        EditButton->setText(QApplication::translate("GestionConfig", "EDIT CONFIGURATION", Q_NULLPTR));
-        ReturnButton->setText(QApplication::translate("GestionConfig", "Return", Q_NULLPTR));
-        NewButton->setText(QApplication::translate("GestionConfig", "NEW CONFIGURATION", Q_NULLPTR));
+        GestionConfig->setWindowTitle(QApplication::translate("GestionConfig", "Dialog", 0));
+        EditButton->setText(QApplication::translate("GestionConfig", "EDIT CONFIGURATION", 0));
+        ReturnButton->setText(QApplication::translate("GestionConfig", "Return", 0));
+        NewButton->setText(QApplication::translate("GestionConfig", "NEW CONFIGURATION", 0));
     } // retranslateUi
 
 };

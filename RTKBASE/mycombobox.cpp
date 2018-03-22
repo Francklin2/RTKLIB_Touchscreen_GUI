@@ -3,7 +3,6 @@
 #include <QFocusEvent>
 #include "clavier.h"
 
-
 MyComboBox::MyComboBox(QWidget *parent) :
     QComboBox(parent)
 {

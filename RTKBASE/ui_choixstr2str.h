@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'choixstr2str.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -162,21 +162,21 @@ public:
 
     void retranslateUi(QDialog *ChoixStr2Str)
     {
-        ChoixStr2Str->setWindowTitle(QApplication::translate("ChoixStr2Str", "Dialog", Q_NULLPTR));
-        ReturnButton->setText(QApplication::translate("ChoixStr2Str", "RETURN", Q_NULLPTR));
-        Base7Button->setText(QApplication::translate("ChoixStr2Str", "BASE 7", Q_NULLPTR));
-        Base8Button->setText(QApplication::translate("ChoixStr2Str", "BASE 8", Q_NULLPTR));
-        Base2Button->setText(QApplication::translate("ChoixStr2Str", "BASE  2", Q_NULLPTR));
-        Base6Button->setText(QApplication::translate("ChoixStr2Str", "BASE 6", Q_NULLPTR));
-        Base10Button->setText(QApplication::translate("ChoixStr2Str", "BASE 10", Q_NULLPTR));
-        Base12Button->setText(QApplication::translate("ChoixStr2Str", "BASE 12", Q_NULLPTR));
-        Base11Button->setText(QApplication::translate("ChoixStr2Str", "BASE 11", Q_NULLPTR));
-        Base9Button->setText(QApplication::translate("ChoixStr2Str", "BASE 9", Q_NULLPTR));
-        Base1Button->setText(QApplication::translate("ChoixStr2Str", "BASE  1", Q_NULLPTR));
-        Base3Button->setText(QApplication::translate("ChoixStr2Str", "BASE 3", Q_NULLPTR));
-        Base4Button->setText(QApplication::translate("ChoixStr2Str", "BASE 4", Q_NULLPTR));
-        Base5Button->setText(QApplication::translate("ChoixStr2Str", "BASE 5", Q_NULLPTR));
-        WindowTitleEdit->setText(QApplication::translate("ChoixStr2Str", "BASE", Q_NULLPTR));
+        ChoixStr2Str->setWindowTitle(QApplication::translate("ChoixStr2Str", "Dialog", 0));
+        ReturnButton->setText(QApplication::translate("ChoixStr2Str", "RETURN", 0));
+        Base7Button->setText(QApplication::translate("ChoixStr2Str", "BASE 7", 0));
+        Base8Button->setText(QApplication::translate("ChoixStr2Str", "BASE 8", 0));
+        Base2Button->setText(QApplication::translate("ChoixStr2Str", "BASE  2", 0));
+        Base6Button->setText(QApplication::translate("ChoixStr2Str", "BASE 6", 0));
+        Base10Button->setText(QApplication::translate("ChoixStr2Str", "BASE 10", 0));
+        Base12Button->setText(QApplication::translate("ChoixStr2Str", "BASE 12", 0));
+        Base11Button->setText(QApplication::translate("ChoixStr2Str", "BASE 11", 0));
+        Base9Button->setText(QApplication::translate("ChoixStr2Str", "BASE 9", 0));
+        Base1Button->setText(QApplication::translate("ChoixStr2Str", "BASE  1", 0));
+        Base3Button->setText(QApplication::translate("ChoixStr2Str", "BASE 3", 0));
+        Base4Button->setText(QApplication::translate("ChoixStr2Str", "BASE 4", 0));
+        Base5Button->setText(QApplication::translate("ChoixStr2Str", "BASE 5", 0));
+        WindowTitleEdit->setText(QApplication::translate("ChoixStr2Str", "BASE", 0));
     } // retranslateUi
 
 };

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'options2.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -96,13 +96,13 @@ public:
 
     void retranslateUi(QDialog *Options2)
     {
-        Options2->setWindowTitle(QApplication::translate("Options2", "Options Choice", Q_NULLPTR));
-        satStatusButton->setText(QApplication::translate("Options2", "SATELLITES", Q_NULLPTR));
-        CoordonneesButton->setText(QApplication::translate("Options2", "STATUS", Q_NULLPTR));
-        NavidataButton->setText(QApplication::translate("Options2", "EVOLUTION", Q_NULLPTR));
-        StreamButton->setText(QApplication::translate("Options2", "STREAM", Q_NULLPTR));
-        StopButton->setText(QApplication::translate("Options2", "STOP", Q_NULLPTR));
-        CoordonneesButton2->setText(QApplication::translate("Options2", "POSITION", Q_NULLPTR));
+        Options2->setWindowTitle(QApplication::translate("Options2", "Options Choice", 0));
+        satStatusButton->setText(QApplication::translate("Options2", "SATELLITES", 0));
+        CoordonneesButton->setText(QApplication::translate("Options2", "STATUS", 0));
+        NavidataButton->setText(QApplication::translate("Options2", "EVOLUTION", 0));
+        StreamButton->setText(QApplication::translate("Options2", "STREAM", 0));
+        StopButton->setText(QApplication::translate("Options2", "STOP", 0));
+        CoordonneesButton2->setText(QApplication::translate("Options2", "POSITION", 0));
     } // retranslateUi
 
 };

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -160,20 +160,20 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "RTKLIB for Raspberry", Q_NULLPTR));
-        RoverButton->setText(QApplication::translate("MainWindow", "ROVER", Q_NULLPTR));
-        BasestationButton->setText(QApplication::translate("MainWindow", "BASESTATION", Q_NULLPTR));
-        TimeEdit->setText(QApplication::translate("MainWindow", "TIME:", Q_NULLPTR));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "RTKLIB for Raspberry", 0));
+        RoverButton->setText(QApplication::translate("MainWindow", "ROVER", 0));
+        BasestationButton->setText(QApplication::translate("MainWindow", "BASESTATION", 0));
+        TimeEdit->setText(QApplication::translate("MainWindow", "TIME:", 0));
         TimeRetourEdit->setText(QString());
-        QuitterButton->setText(QApplication::translate("MainWindow", "CLOSE GUI", Q_NULLPTR));
+        QuitterButton->setText(QApplication::translate("MainWindow", "CLOSE GUI", 0));
         Rtkliblabel->setText(QString());
         ensglabel->setText(QString());
         ensgIconlabel->setText(QString());
-        HelpButton->setText(QApplication::translate("MainWindow", "HELP", Q_NULLPTR));
-        PowerOFFButton->setText(QApplication::translate("MainWindow", "POWER OFF", Q_NULLPTR));
-        lineEdit->setText(QApplication::translate("MainWindow", "RTKLIB", Q_NULLPTR));
+        HelpButton->setText(QApplication::translate("MainWindow", "HELP", 0));
+        PowerOFFButton->setText(QApplication::translate("MainWindow", "POWER OFF", 0));
+        lineEdit->setText(QApplication::translate("MainWindow", "RTKLIB", 0));
         RTK_BASE_position->setText(QApplication::translate("MainWindow", " Post Processing RTK_BASE position \n"
-"  using CORS stations ", Q_NULLPTR));
+"  using CORS stations ", 0));
     } // retranslateUi
 
 };

@@ -238,7 +238,7 @@ void OptionsStr2str::OuvreDefault1()
         arga={"carlep,remierargtoujorsleprog","-in","serial://ttyACM0:115200:8:n:1:#ubx","-out","serial://ttyUSB0:38400:8:n:1:#rtcm3","-p","48.2","2.2","120.23","-msg","1004,1019,1012,1020,1006,1008"};
 
 
-    //  std::vector<std::string>  arga={"carlep,remierargtoujorsleprog","-in","serial://",InSerialPort,":",Inbaud,":8:n:1:#",InFormat,",-out","serial://",OutSerialPort,":",Outbaud,":8:n:1:#",OutFormat,"-p","48.2","2.2","120.23","-msg","1004,1019,1012,1020,1006,1008"};
+  //  std::vector<std::string>  arga={"carlep,remierargtoujorsleprog","-in","serial://",InSerialPort,":",Inbaud,":8:n:1:#",InFormat,",-out","serial://",OutSerialPort,":",Outbaud,":8:n:1:#",OutFormat,"-p","48.2","2.2","120.23","-msg","1004,1019,1012,1020,1006,1008"};
     //   arga={""};
     //arga={"carlepremierargtoujorsleprog","-in","serial://ttyACM0:115200:8:n:1:#ubx","-out","serial://ttyUSB0:38400:8:n:1:#RTCM3","-msg",""1004,1019,1012,1020,1006,1008""};
     // crash arga={"carlepremierargtoujorsleprog","-in","serial://ttyACM0:115200:8:n:1:#ubx","-out","serial://ttyUSB0:38400:8:n:1:#RTCM3","-msg","1004,1019,1012,1020,1006,1008", "-p","48,12,120"};

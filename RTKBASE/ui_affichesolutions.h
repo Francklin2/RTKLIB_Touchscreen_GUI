@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'affichesolutions.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -384,40 +384,40 @@ public:
 
     void retranslateUi(QDialog *AfficheSolutions)
     {
-        AfficheSolutions->setWindowTitle(QApplication::translate("AfficheSolutions", "Rover Solutions", Q_NULLPTR));
-        lineEditStatut->setText(QApplication::translate("AfficheSolutions", "STATUS", Q_NULLPTR));
-        lineEditPositionXYZ->setText(QApplication::translate("AfficheSolutions", "Rover Single:", Q_NULLPTR));
+        AfficheSolutions->setWindowTitle(QApplication::translate("AfficheSolutions", "Rover Solutions", 0));
+        lineEditStatut->setText(QApplication::translate("AfficheSolutions", "STATUS", 0));
+        lineEditPositionXYZ->setText(QApplication::translate("AfficheSolutions", "Rover Single:", 0));
         lineEditPositionX->setText(QString());
         lineEditPositionY->setText(QString());
         lineEditPositionZ->setText(QString());
         lineEditPositionH->setText(QString());
         lineEditPositionLat->setText(QString());
         lineEditPositionLong->setText(QString());
-        lineEditPositionLLH->setText(QApplication::translate("AfficheSolutions", "Rover Fixed:", Q_NULLPTR));
-        lineEditRunningTime->setText(QApplication::translate("AfficheSolutions", "Time to run:", Q_NULLPTR));
+        lineEditPositionLLH->setText(QApplication::translate("AfficheSolutions", "Rover Fixed:", 0));
+        lineEditRunningTime->setText(QApplication::translate("AfficheSolutions", "Time to run:", 0));
         lineEditTimeToRun->setText(QString());
-        lineEditPositioningMode->setText(QApplication::translate("AfficheSolutions", "Pos Mode:", Q_NULLPTR));
+        lineEditPositioningMode->setText(QApplication::translate("AfficheSolutions", "Pos Mode:", 0));
         lineEditModePosition->setText(QString());
-        lineEditSatellites->setText(QApplication::translate("AfficheSolutions", " SATELLITES", Q_NULLPTR));
+        lineEditSatellites->setText(QApplication::translate("AfficheSolutions", " SATELLITES", 0));
         lineEditSatRover->setText(QString());
-        lineEditStream->setText(QApplication::translate("AfficheSolutions", "STREAM", Q_NULLPTR));
-        PushButtonSauvegarde->setText(QApplication::translate("AfficheSolutions", "SAVE POSITION", Q_NULLPTR));
-        lineEditSolutionStatus1->setText(QApplication::translate("AfficheSolutions", "Solution status:", Q_NULLPTR));
+        lineEditStream->setText(QApplication::translate("AfficheSolutions", "STREAM", 0));
+        PushButtonSauvegarde->setText(QApplication::translate("AfficheSolutions", "SAVE POSITION", 0));
+        lineEditSolutionStatus1->setText(QApplication::translate("AfficheSolutions", "Solution status:", 0));
         lineEditSolutionStatus2->setText(QString());
         lineEditSatBase->setText(QString());
-        lineEditSatValides->setText(QApplication::translate("AfficheSolutions", "Valides Satellites", Q_NULLPTR));
-        pushButtonXYZ->setText(QApplication::translate("AfficheSolutions", "XYZ", Q_NULLPTR));
-        pushButtonLLH->setText(QApplication::translate("AfficheSolutions", "LLH", Q_NULLPTR));
-        pushButtonSat1->setText(QApplication::translate("AfficheSolutions", "GENERAL", Q_NULLPTR));
-        pushButtonSat2->setText(QApplication::translate("AfficheSolutions", "ELEVATION", Q_NULLPTR));
-        pushButtonSat3->setText(QApplication::translate("AfficheSolutions", "AZIMUTH", Q_NULLPTR));
-        lineEditPosEvol->setText(QApplication::translate("AfficheSolutions", "EVOLUTION", Q_NULLPTR));
-        PushButtonSauveOptions->setText(QApplication::translate("AfficheSolutions", "SAVE OPTIONS", Q_NULLPTR));
+        lineEditSatValides->setText(QApplication::translate("AfficheSolutions", "Valides Satellites", 0));
+        pushButtonXYZ->setText(QApplication::translate("AfficheSolutions", "XYZ", 0));
+        pushButtonLLH->setText(QApplication::translate("AfficheSolutions", "LLH", 0));
+        pushButtonSat1->setText(QApplication::translate("AfficheSolutions", "GENERAL", 0));
+        pushButtonSat2->setText(QApplication::translate("AfficheSolutions", "ELEVATION", 0));
+        pushButtonSat3->setText(QApplication::translate("AfficheSolutions", "AZIMUTH", 0));
+        lineEditPosEvol->setText(QApplication::translate("AfficheSolutions", "EVOLUTION", 0));
+        PushButtonSauveOptions->setText(QApplication::translate("AfficheSolutions", "SAVE OPTIONS", 0));
         lineEditTimeGPS->setText(QString());
-        lineEditGPSTime->setText(QApplication::translate("AfficheSolutions", "GPS Time :", Q_NULLPTR));
-        lineEditTimeSYS->setText(QApplication::translate("AfficheSolutions", "System Time :", Q_NULLPTR));
-        lineEditSYSTime->setText(QApplication::translate("AfficheSolutions", "System Time :", Q_NULLPTR));
-        pushButtonSetSYSTime->setText(QApplication::translate("AfficheSolutions", "Set system time with GPS", Q_NULLPTR));
+        lineEditGPSTime->setText(QApplication::translate("AfficheSolutions", "GPS Time :", 0));
+        lineEditTimeSYS->setText(QApplication::translate("AfficheSolutions", "System Time :", 0));
+        lineEditSYSTime->setText(QApplication::translate("AfficheSolutions", "System Time :", 0));
+        pushButtonSetSYSTime->setText(QApplication::translate("AfficheSolutions", "Set system time with GPS", 0));
     } // retranslateUi
 
 };

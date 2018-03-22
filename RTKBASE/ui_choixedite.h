@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'choixedite.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -162,21 +162,21 @@ public:
 
     void retranslateUi(QDialog *ChoixEdite)
     {
-        ChoixEdite->setWindowTitle(QApplication::translate("ChoixEdite", "Dialog", Q_NULLPTR));
-        ReturnButton->setText(QApplication::translate("ChoixEdite", "RETURN", Q_NULLPTR));
-        Custom9Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 9", Q_NULLPTR));
-        Custom5Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 5", Q_NULLPTR));
-        Custom7Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 7", Q_NULLPTR));
-        Custom11Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 11", Q_NULLPTR));
-        Custom2Button->setText(QApplication::translate("ChoixEdite", "CUSTOM  2", Q_NULLPTR));
-        Custom6Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 6", Q_NULLPTR));
-        Custom4Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 4", Q_NULLPTR));
-        Custom8Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 8", Q_NULLPTR));
-        Custom10Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 10", Q_NULLPTR));
-        Custom1Button->setText(QApplication::translate("ChoixEdite", "CUSTOM  1", Q_NULLPTR));
-        Custom12Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 12", Q_NULLPTR));
-        Custom3Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 3", Q_NULLPTR));
-        WindowTitleEdit->setText(QApplication::translate("ChoixEdite", "SAVE SLOT", Q_NULLPTR));
+        ChoixEdite->setWindowTitle(QApplication::translate("ChoixEdite", "Dialog", 0));
+        ReturnButton->setText(QApplication::translate("ChoixEdite", "RETURN", 0));
+        Custom9Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 9", 0));
+        Custom5Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 5", 0));
+        Custom7Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 7", 0));
+        Custom11Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 11", 0));
+        Custom2Button->setText(QApplication::translate("ChoixEdite", "CUSTOM  2", 0));
+        Custom6Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 6", 0));
+        Custom4Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 4", 0));
+        Custom8Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 8", 0));
+        Custom10Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 10", 0));
+        Custom1Button->setText(QApplication::translate("ChoixEdite", "CUSTOM  1", 0));
+        Custom12Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 12", 0));
+        Custom3Button->setText(QApplication::translate("ChoixEdite", "CUSTOM 3", 0));
+        WindowTitleEdit->setText(QApplication::translate("ChoixEdite", "SAVE SLOT", 0));
     } // retranslateUi
 
 };

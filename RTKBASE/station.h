@@ -12,10 +12,6 @@
 #include <QDebug>
 
 #include "approxcoord.h"
-#include "mydialog.h"
-
-
-
 
 class Station
 {
@@ -30,7 +26,6 @@ public:
     QVector<QString> _coord_antenna;                        // Contains the coordinates antenna of each station
     QVector<QString> _coord_station;                        // Contains the coordinates of the station
     QVector<QString> vect_name;                             // Contains the names of the stations
-//    QVector<QString> vect_dist;                             // Contains the distance of the stations
     QVector<QString> vect_domes;                            // Contains the international number of each station
 
     QVector<double> vect_X,vect_Y,vect_Z,vect_dist;
@@ -43,10 +38,8 @@ public:
     QVector<QString> data_file_nearest_sation(int doy,int yyyy,QVector<int>TIME_OF_FIRST_OBS,QVector<int>TIME_OF_LAST_OBS, int i);
 
 //private:
-  //  static constexpr float d_max = 50000.0;
-  // Max search radius for stations
-
-  //  static constexpr int nb_stat_min=4;                         // Minimum number of stations to start the calculation
+    static constexpr float d_max=100000.0;                      // Max search radius for stations
+    static constexpr int nb_stat_min=4;                         // Minimum number of stations to start the calculation
 };
 
 #endif // STATION_H

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'optionssauvepoints.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -127,51 +127,51 @@ public:
 
     void retranslateUi(QDialog *optionssauvepoints)
     {
-        optionssauvepoints->setWindowTitle(QApplication::translate("optionssauvepoints", "Dialog", Q_NULLPTR));
-        label_3->setText(QApplication::translate("optionssauvepoints", "File Path (default : keep empty)", Q_NULLPTR));
-        label_4->setText(QApplication::translate("optionssauvepoints", "Point Name", Q_NULLPTR));
-        label_5->setText(QApplication::translate("optionssauvepoints", "Number of Measures", Q_NULLPTR));
+        optionssauvepoints->setWindowTitle(QApplication::translate("optionssauvepoints", "Dialog", 0));
+        label_3->setText(QApplication::translate("optionssauvepoints", "File Path (default : keep empty)", 0));
+        label_4->setText(QApplication::translate("optionssauvepoints", "Point Name", 0));
+        label_5->setText(QApplication::translate("optionssauvepoints", "Number of Measures", 0));
         NummeasBox->clear();
         NummeasBox->insertItems(0, QStringList()
-         << QApplication::translate("optionssauvepoints", "1", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "2", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "3", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "4", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "5", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "10", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "20", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "30", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "60", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "120", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "300", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "600", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "1200", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "3600", Q_NULLPTR)
+         << QApplication::translate("optionssauvepoints", "1", 0)
+         << QApplication::translate("optionssauvepoints", "2", 0)
+         << QApplication::translate("optionssauvepoints", "3", 0)
+         << QApplication::translate("optionssauvepoints", "4", 0)
+         << QApplication::translate("optionssauvepoints", "5", 0)
+         << QApplication::translate("optionssauvepoints", "10", 0)
+         << QApplication::translate("optionssauvepoints", "20", 0)
+         << QApplication::translate("optionssauvepoints", "30", 0)
+         << QApplication::translate("optionssauvepoints", "60", 0)
+         << QApplication::translate("optionssauvepoints", "120", 0)
+         << QApplication::translate("optionssauvepoints", "300", 0)
+         << QApplication::translate("optionssauvepoints", "600", 0)
+         << QApplication::translate("optionssauvepoints", "1200", 0)
+         << QApplication::translate("optionssauvepoints", "3600", 0)
         );
-        label_6->setText(QApplication::translate("optionssauvepoints", "Cycle lenght (s)", Q_NULLPTR));
+        label_6->setText(QApplication::translate("optionssauvepoints", "Cycle lenght (s)", 0));
         CyclenBox->clear();
         CyclenBox->insertItems(0, QStringList()
-         << QApplication::translate("optionssauvepoints", "1", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "2", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "3", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "4", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "5", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "10", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "15", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "20", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "30", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "60", Q_NULLPTR)
+         << QApplication::translate("optionssauvepoints", "1", 0)
+         << QApplication::translate("optionssauvepoints", "2", 0)
+         << QApplication::translate("optionssauvepoints", "3", 0)
+         << QApplication::translate("optionssauvepoints", "4", 0)
+         << QApplication::translate("optionssauvepoints", "5", 0)
+         << QApplication::translate("optionssauvepoints", "10", 0)
+         << QApplication::translate("optionssauvepoints", "15", 0)
+         << QApplication::translate("optionssauvepoints", "20", 0)
+         << QApplication::translate("optionssauvepoints", "30", 0)
+         << QApplication::translate("optionssauvepoints", "60", 0)
         );
-        label_7->setText(QApplication::translate("optionssauvepoints", "Old points", Q_NULLPTR));
+        label_7->setText(QApplication::translate("optionssauvepoints", "Old points", 0));
         OldpointBox->clear();
         OldpointBox->insertItems(0, QStringList()
-         << QApplication::translate("optionssauvepoints", "Remove Old Measures from the File", Q_NULLPTR)
-         << QApplication::translate("optionssauvepoints", "Add the New Measures after the Old Content", Q_NULLPTR)
+         << QApplication::translate("optionssauvepoints", "Remove Old Measures from the File", 0)
+         << QApplication::translate("optionssauvepoints", "Add the New Measures after the Old Content", 0)
         );
-        FilepathButton->setText(QApplication::translate("optionssauvepoints", "...", Q_NULLPTR));
-        lineEdit->setText(QApplication::translate("optionssauvepoints", "SAVE POINT OPTIONS", Q_NULLPTR));
-        CancelButton->setText(QApplication::translate("optionssauvepoints", "CANCEL", Q_NULLPTR));
-        SaveButton->setText(QApplication::translate("optionssauvepoints", "SAVE", Q_NULLPTR));
+        FilepathButton->setText(QApplication::translate("optionssauvepoints", "...", 0));
+        lineEdit->setText(QApplication::translate("optionssauvepoints", "SAVE POINT OPTIONS", 0));
+        CancelButton->setText(QApplication::translate("optionssauvepoints", "CANCEL", 0));
+        SaveButton->setText(QApplication::translate("optionssauvepoints", "SAVE", 0));
     } // retranslateUi
 
 };

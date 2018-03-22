@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'optionsstr2str.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -341,94 +341,94 @@ public:
 
     void retranslateUi(QDialog *OptionsStr2str)
     {
-        OptionsStr2str->setWindowTitle(QApplication::translate("OptionsStr2str", "Dialog", Q_NULLPTR));
-        pushButtonDefault1->setText(QApplication::translate("OptionsStr2str", "START BASE", Q_NULLPTR));
-        radioButtonPositionAuto->setText(QApplication::translate("OptionsStr2str", "AU&TOMATIC ", Q_NULLPTR));
-        radioButtonPositionManual->setText(QApplication::translate("OptionsStr2str", "&MANUAL INPUT", Q_NULLPTR));
-        pushButtonManual->setText(QApplication::translate("OptionsStr2str", "WRITE", Q_NULLPTR));
-        LatManualLine->setText(QApplication::translate("OptionsStr2str", "01.00", Q_NULLPTR));
-        lineEdit_2->setText(QApplication::translate("OptionsStr2str", "      LONGITUDE :", Q_NULLPTR));
-        lineEdit_3->setText(QApplication::translate("OptionsStr2str", "ALTITUDE :", Q_NULLPTR));
-        lineEdit->setText(QApplication::translate("OptionsStr2str", "LATITUDE :", Q_NULLPTR));
-        LongManualLine->setText(QApplication::translate("OptionsStr2str", "01,00", Q_NULLPTR));
-        AltiManualLine->setText(QApplication::translate("OptionsStr2str", "1.00", Q_NULLPTR));
-        lineEdit_12->setText(QApplication::translate("OptionsStr2str", "LATITUDE :", Q_NULLPTR));
-        lineEdit_13->setText(QApplication::translate("OptionsStr2str", "ALTITUDE :", Q_NULLPTR));
-        lineEdit_14->setText(QApplication::translate("OptionsStr2str", "      LONGITUDE :", Q_NULLPTR));
-        LatAutoLine->setText(QApplication::translate("OptionsStr2str", "01,00", Q_NULLPTR));
-        LongAutoLine->setText(QApplication::translate("OptionsStr2str", "01.00", Q_NULLPTR));
-        AltiAutoLine->setText(QApplication::translate("OptionsStr2str", "1.00", Q_NULLPTR));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("OptionsStr2str", "BASE POSITION", Q_NULLPTR));
+        OptionsStr2str->setWindowTitle(QApplication::translate("OptionsStr2str", "Dialog", 0));
+        pushButtonDefault1->setText(QApplication::translate("OptionsStr2str", "START BASE", 0));
+        radioButtonPositionAuto->setText(QApplication::translate("OptionsStr2str", "AU&TOMATIC ", 0));
+        radioButtonPositionManual->setText(QApplication::translate("OptionsStr2str", "&MANUAL INPUT", 0));
+        pushButtonManual->setText(QApplication::translate("OptionsStr2str", "WRITE", 0));
+        LatManualLine->setText(QApplication::translate("OptionsStr2str", "01.00", 0));
+        lineEdit_2->setText(QApplication::translate("OptionsStr2str", "      LONGITUDE :", 0));
+        lineEdit_3->setText(QApplication::translate("OptionsStr2str", "ALTITUDE :", 0));
+        lineEdit->setText(QApplication::translate("OptionsStr2str", "LATITUDE :", 0));
+        LongManualLine->setText(QApplication::translate("OptionsStr2str", "01,00", 0));
+        AltiManualLine->setText(QApplication::translate("OptionsStr2str", "1.00", 0));
+        lineEdit_12->setText(QApplication::translate("OptionsStr2str", "LATITUDE :", 0));
+        lineEdit_13->setText(QApplication::translate("OptionsStr2str", "ALTITUDE :", 0));
+        lineEdit_14->setText(QApplication::translate("OptionsStr2str", "      LONGITUDE :", 0));
+        LatAutoLine->setText(QApplication::translate("OptionsStr2str", "01,00", 0));
+        LongAutoLine->setText(QApplication::translate("OptionsStr2str", "01.00", 0));
+        AltiAutoLine->setText(QApplication::translate("OptionsStr2str", "1.00", 0));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("OptionsStr2str", "BASE POSITION", 0));
         OutBaudRatecomboBox->clear();
         OutBaudRatecomboBox->insertItems(0, QStringList()
-         << QApplication::translate("OptionsStr2str", "57600", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "9600", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "38400", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "115200", Q_NULLPTR)
+         << QApplication::translate("OptionsStr2str", "57600", 0)
+         << QApplication::translate("OptionsStr2str", "9600", 0)
+         << QApplication::translate("OptionsStr2str", "38400", 0)
+         << QApplication::translate("OptionsStr2str", "115200", 0)
         );
         OutSerialPortcomboBox->clear();
         OutSerialPortcomboBox->insertItems(0, QStringList()
-         << QApplication::translate("OptionsStr2str", "serial://ttyUSB0", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "serial://ttyAMA0", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "serial://ttyACM0", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "File", Q_NULLPTR)
+         << QApplication::translate("OptionsStr2str", "serial://ttyUSB0", 0)
+         << QApplication::translate("OptionsStr2str", "serial://ttyAMA0", 0)
+         << QApplication::translate("OptionsStr2str", "serial://ttyACM0", 0)
+         << QApplication::translate("OptionsStr2str", "File", 0)
         );
         OutFormatcomboBox->clear();
         OutFormatcomboBox->insertItems(0, QStringList()
-         << QApplication::translate("OptionsStr2str", "rtcm3", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "rtcm2", Q_NULLPTR)
+         << QApplication::translate("OptionsStr2str", "rtcm3", 0)
+         << QApplication::translate("OptionsStr2str", "rtcm2", 0)
         );
-        lineEdit_4->setText(QApplication::translate("OptionsStr2str", "OUTPUT PORT", Q_NULLPTR));
-        lineEdit_5->setText(QApplication::translate("OptionsStr2str", "BAUDS", Q_NULLPTR));
-        lineEdit_6->setText(QApplication::translate("OptionsStr2str", "FORMAT", Q_NULLPTR));
-        lineEdit_7->setText(QApplication::translate("OptionsStr2str", "OUTPUT STREAM", Q_NULLPTR));
-        lineEdit_8->setText(QApplication::translate("OptionsStr2str", "INPUT STREAM", Q_NULLPTR));
+        lineEdit_4->setText(QApplication::translate("OptionsStr2str", "OUTPUT PORT", 0));
+        lineEdit_5->setText(QApplication::translate("OptionsStr2str", "BAUDS", 0));
+        lineEdit_6->setText(QApplication::translate("OptionsStr2str", "FORMAT", 0));
+        lineEdit_7->setText(QApplication::translate("OptionsStr2str", "OUTPUT STREAM", 0));
+        lineEdit_8->setText(QApplication::translate("OptionsStr2str", "INPUT STREAM", 0));
         InSerialPortcomboBox->clear();
         InSerialPortcomboBox->insertItems(0, QStringList()
-         << QApplication::translate("OptionsStr2str", "serial://ttyACM0", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "serial://AMA0", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "serial://USB0", Q_NULLPTR)
+         << QApplication::translate("OptionsStr2str", "serial://ttyACM0", 0)
+         << QApplication::translate("OptionsStr2str", "serial://AMA0", 0)
+         << QApplication::translate("OptionsStr2str", "serial://USB0", 0)
         );
         InBaudratecomboBox->clear();
         InBaudratecomboBox->insertItems(0, QStringList()
-         << QApplication::translate("OptionsStr2str", "115200", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "57600", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "38400", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "9600", Q_NULLPTR)
+         << QApplication::translate("OptionsStr2str", "115200", 0)
+         << QApplication::translate("OptionsStr2str", "57600", 0)
+         << QApplication::translate("OptionsStr2str", "38400", 0)
+         << QApplication::translate("OptionsStr2str", "9600", 0)
         );
         InFormatcomboBox->clear();
         InFormatcomboBox->insertItems(0, QStringList()
-         << QApplication::translate("OptionsStr2str", "ubx", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "nvs", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "oem3", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "nov", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "ss2", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "hemis", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "stq", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "javad", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "binex", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "rtcm2", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "rtcm3", Q_NULLPTR)
+         << QApplication::translate("OptionsStr2str", "ubx", 0)
+         << QApplication::translate("OptionsStr2str", "nvs", 0)
+         << QApplication::translate("OptionsStr2str", "oem3", 0)
+         << QApplication::translate("OptionsStr2str", "nov", 0)
+         << QApplication::translate("OptionsStr2str", "ss2", 0)
+         << QApplication::translate("OptionsStr2str", "hemis", 0)
+         << QApplication::translate("OptionsStr2str", "stq", 0)
+         << QApplication::translate("OptionsStr2str", "javad", 0)
+         << QApplication::translate("OptionsStr2str", "binex", 0)
+         << QApplication::translate("OptionsStr2str", "rtcm2", 0)
+         << QApplication::translate("OptionsStr2str", "rtcm3", 0)
         );
-        lineEdit_9->setText(QApplication::translate("OptionsStr2str", "FORMAT", Q_NULLPTR));
-        lineEdit_10->setText(QApplication::translate("OptionsStr2str", "INPUT PORT", Q_NULLPTR));
-        lineEdit_11->setText(QApplication::translate("OptionsStr2str", "BAUDS", Q_NULLPTR));
-        lineEdit_15->setText(QApplication::translate("OptionsStr2str", "RTCM MESSAGES", Q_NULLPTR));
+        lineEdit_9->setText(QApplication::translate("OptionsStr2str", "FORMAT", 0));
+        lineEdit_10->setText(QApplication::translate("OptionsStr2str", "INPUT PORT", 0));
+        lineEdit_11->setText(QApplication::translate("OptionsStr2str", "BAUDS", 0));
+        lineEdit_15->setText(QApplication::translate("OptionsStr2str", "RTCM MESSAGES", 0));
         RtcmMsgcomboBox->clear();
         RtcmMsgcomboBox->insertItems(0, QStringList()
-         << QApplication::translate("OptionsStr2str", "1004,1006,1008,1012,1019,1020", Q_NULLPTR)
+         << QApplication::translate("OptionsStr2str", "1004,1006,1008,1012,1019,1020", 0)
         );
-        UpdateOptionspushButton->setText(QApplication::translate("OptionsStr2str", "UPDATE STREAM  CONFIGURATION", Q_NULLPTR));
-        lineEdit_17->setText(QApplication::translate("OptionsStr2str", "FILE PATH FOR RAW DATA", Q_NULLPTR));
+        UpdateOptionspushButton->setText(QApplication::translate("OptionsStr2str", "UPDATE STREAM  CONFIGURATION", 0));
+        lineEdit_17->setText(QApplication::translate("OptionsStr2str", "FILE PATH FOR RAW DATA", 0));
         OutFilePathcomboBox->clear();
         OutFilePathcomboBox->insertItems(0, QStringList()
-         << QApplication::translate("OptionsStr2str", "../RTKBASE/PointsFiles/rover.ubx", Q_NULLPTR)
-         << QApplication::translate("OptionsStr2str", "/home/pi/rover.ubx", Q_NULLPTR)
+         << QApplication::translate("OptionsStr2str", "../RTKBASE/PointsFiles/rover.ubx", 0)
+         << QApplication::translate("OptionsStr2str", "/home/pi/rover.ubx", 0)
         );
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("OptionsStr2str", "CONFIGURATION", Q_NULLPTR));
-        lineEdit_16->setText(QApplication::translate("OptionsStr2str", "BASE CONFIGURATION", Q_NULLPTR));
-        pushButtonSave->setText(QApplication::translate("OptionsStr2str", "Save", Q_NULLPTR));
-        pushButtonLoad->setText(QApplication::translate("OptionsStr2str", "Load", Q_NULLPTR));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("OptionsStr2str", "CONFIGURATION", 0));
+        lineEdit_16->setText(QApplication::translate("OptionsStr2str", "BASE CONFIGURATION", 0));
+        pushButtonSave->setText(QApplication::translate("OptionsStr2str", "Save", 0));
+        pushButtonLoad->setText(QApplication::translate("OptionsStr2str", "Load", 0));
     } // retranslateUi
 
 };

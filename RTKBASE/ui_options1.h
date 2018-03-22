@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'options1.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -94,13 +94,13 @@ public:
 
     void retranslateUi(QDialog *Options1)
     {
-        Options1->setWindowTitle(QApplication::translate("Options1", "Dialog", Q_NULLPTR));
-        SingleButton->setText(QApplication::translate("Options1", "SINGLE", Q_NULLPTR));
-        PPPButton->setText(QApplication::translate("Options1", "PPP STATIC", Q_NULLPTR));
-        DGPSButton->setText(QApplication::translate("Options1", "DGPS", Q_NULLPTR));
-        RTKButton->setText(QApplication::translate("Options1", "RTK STATIC", Q_NULLPTR));
-        RTKButton_2->setText(QApplication::translate("Options1", "RTK KINEMATIC", Q_NULLPTR));
-        SBASButton->setText(QApplication::translate("Options1", "SBAS", Q_NULLPTR));
+        Options1->setWindowTitle(QApplication::translate("Options1", "Dialog", 0));
+        SingleButton->setText(QApplication::translate("Options1", "SINGLE", 0));
+        PPPButton->setText(QApplication::translate("Options1", "PPP STATIC", 0));
+        DGPSButton->setText(QApplication::translate("Options1", "DGPS", 0));
+        RTKButton->setText(QApplication::translate("Options1", "RTK STATIC", 0));
+        RTKButton_2->setText(QApplication::translate("Options1", "RTK KINEMATIC", 0));
+        SBASButton->setText(QApplication::translate("Options1", "SBAS", 0));
     } // retranslateUi
 
 };

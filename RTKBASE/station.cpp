@@ -1,18 +1,7 @@
 #include "station.h"
 
-#include "mydialog.h"
-#include "station.h"
-#include <fstream>
-
-
-int d_max;
-
-
-
 Station::Station()
 {
-
-
 
 }
 
@@ -59,37 +48,6 @@ QString Station::Corrdstation_ftp(int doy, int yyyy)
 
 void Station::neareststation()
 {
-// Open configuration file to read max radius for station to use
-    {
-    int i=1;
-    QStringList list;
-    QString fileName = "sauvegardeoptionAutoPPbase.txt";
-    QFile readoption(fileName);
-    readoption.open(QIODevice::ReadOnly | QIODevice::Text);
-    //---------verifier ouverture fichier......
-    QTextStream flux(&readoption);
-    QString ligne;
-    while(! flux.atEnd())
-    {
-       ligne = flux.readLine();
-       //traitement de la ligne
-       qDebug()<<ligne;
-       list<<ligne;
-       i=i+1;
-    }
-
-
-     QString Radmax2 = (list[0]);
-     int Radmax3 = Radmax2.toInt();
-     int Rad = Radmax3*1000;
-
-      d_max = Rad;
-
-    readoption.close();
-
-}
-
-
     /*------------------------------------------------------------------------------/
         - The aim of this METHOD:
                 - Read the coordinates file station
@@ -158,7 +116,7 @@ void Station::neareststation()
         else{i++;}
     }
 
-//    qDebug()<<vect_dist;                 //uncomment this code line to disply distance within RTK_Base_Station
+    // qDebug()<<vect_dist;                 //uncomment this code line to disply distance within RTK_Base_Station
 
 
     /*------------------------------------------------------------------------------/
@@ -189,8 +147,8 @@ void Station::neareststation()
         }
     }while (permut==true);
 
-
 }
+
 
 
 QVector<QString> Station::data_file_nearest_sation(int doy,int yyyy,QVector<int>TIME_OF_FIRST_OBS,QVector<int>TIME_OF_LAST_OBS,int i)

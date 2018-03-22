@@ -1,15 +1,10 @@
-G04  -
-272,1
-14,9
-G14 OK
-275,8
-36,9
-G29 OK
-199,1
-56,1
-G31 OK
-305,4
-37,1
-G32 OK
-243,1
-31,8
+Stream       Type   Fmt   S   In-byte  In-bps  Out-byte Out-bps Message
+input rover  serial ubx   E         0       0         0       0 device open error (13)
+input base   -      oem4  -         0       0         0       0 
+input corr   -      rtcm3 -         0       0         0       0 
+output sol1  -      llh   -         0       0         0       0 
+output sol2  -      nmea  -         0       0         0       0 
+log rover    -      -     -         0       0         0       0 
+log base     -      -     -         0       0         0       0 
+log corr     -      -     -         0       0         0       0 
+monitor      -      llh   -         0       0         0       0 

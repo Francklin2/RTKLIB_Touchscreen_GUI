@@ -152,14 +152,6 @@ void MainWindow::OuvreHelp()
 
 void MainWindow::on_RTK_BASE_position_clicked()                     //added by ENSG student SAIF AATI
 {
-//    mDialog=new MyDialog(this);
-//    mDialog->show();
-
-
-    MyDialog affichemydialog;
-    affichemydialog.setModal(true);
-    affichemydialog.setWindowFlags(Qt::FramelessWindowHint);
-    affichemydialog.setWindowState(Qt::WindowFullScreen);
-    affichemydialog.exec();
-
+    mDialog=new MyDialog(this);
+    mDialog->show();
 }

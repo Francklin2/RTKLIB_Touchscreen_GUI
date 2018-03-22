@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'clavier.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -523,68 +523,68 @@ public:
 
     void retranslateUi(QDialog *Clavier)
     {
-        Clavier->setWindowTitle(QApplication::translate("Clavier", "Dialog", Q_NULLPTR));
-        AButton->setText(QApplication::translate("Clavier", "a", Q_NULLPTR));
-        ZButton->setText(QApplication::translate("Clavier", "z", Q_NULLPTR));
-        EButton->setText(QApplication::translate("Clavier", "e", Q_NULLPTR));
-        RButton->setText(QApplication::translate("Clavier", "r", Q_NULLPTR));
-        TButton->setText(QApplication::translate("Clavier", "t", Q_NULLPTR));
-        YButton->setText(QApplication::translate("Clavier", "y", Q_NULLPTR));
-        UButton->setText(QApplication::translate("Clavier", "u", Q_NULLPTR));
-        IButton->setText(QApplication::translate("Clavier", "i", Q_NULLPTR));
-        OButton->setText(QApplication::translate("Clavier", "o", Q_NULLPTR));
-        PButton->setText(QApplication::translate("Clavier", "p", Q_NULLPTR));
-        BackButton->setText(QApplication::translate("Clavier", "<-", Q_NULLPTR));
-        _7Button->setText(QApplication::translate("Clavier", "7", Q_NULLPTR));
-        _8Button->setText(QApplication::translate("Clavier", "8", Q_NULLPTR));
-        _9Button->setText(QApplication::translate("Clavier", "9", Q_NULLPTR));
-        MoinsButton->setText(QApplication::translate("Clavier", "-", Q_NULLPTR));
-        MButton->setText(QApplication::translate("Clavier", "m", Q_NULLPTR));
-        GButton->setText(QApplication::translate("Clavier", "g", Q_NULLPTR));
-        QButton->setText(QApplication::translate("Clavier", "q", Q_NULLPTR));
-        FButton->setText(QApplication::translate("Clavier", "f", Q_NULLPTR));
-        DButton->setText(QApplication::translate("Clavier", "d", Q_NULLPTR));
-        HButton->setText(QApplication::translate("Clavier", "h", Q_NULLPTR));
-        KButton->setText(QApplication::translate("Clavier", "k", Q_NULLPTR));
-        JButton->setText(QApplication::translate("Clavier", "j", Q_NULLPTR));
-        SButton->setText(QApplication::translate("Clavier", "s", Q_NULLPTR));
-        LButton->setText(QApplication::translate("Clavier", "l", Q_NULLPTR));
-        PexclButton->setText(QApplication::translate("Clavier", "!", Q_NULLPTR));
-        BButton->setText(QApplication::translate("Clavier", "b", Q_NULLPTR));
-        WButton->setText(QApplication::translate("Clavier", "w", Q_NULLPTR));
-        VButton->setText(QApplication::translate("Clavier", "v", Q_NULLPTR));
-        CButton->setText(QApplication::translate("Clavier", "c", Q_NULLPTR));
-        NButton->setText(QApplication::translate("Clavier", "n", Q_NULLPTR));
-        PvirgButton->setText(QApplication::translate("Clavier", ";", Q_NULLPTR));
-        VirgButton->setText(QApplication::translate("Clavier", ",", Q_NULLPTR));
-        XButton->setText(QApplication::translate("Clavier", "x", Q_NULLPTR));
-        P2Button->setText(QApplication::translate("Clavier", ":", Q_NULLPTR));
-        AslashButton->setText(QApplication::translate("Clavier", "\\", Q_NULLPTR));
-        PointButton->setText(QApplication::translate("Clavier", ".", Q_NULLPTR));
-        PintButton->setText(QApplication::translate("Clavier", "?", Q_NULLPTR));
+        Clavier->setWindowTitle(QApplication::translate("Clavier", "Dialog", 0));
+        AButton->setText(QApplication::translate("Clavier", "a", 0));
+        ZButton->setText(QApplication::translate("Clavier", "z", 0));
+        EButton->setText(QApplication::translate("Clavier", "e", 0));
+        RButton->setText(QApplication::translate("Clavier", "r", 0));
+        TButton->setText(QApplication::translate("Clavier", "t", 0));
+        YButton->setText(QApplication::translate("Clavier", "y", 0));
+        UButton->setText(QApplication::translate("Clavier", "u", 0));
+        IButton->setText(QApplication::translate("Clavier", "i", 0));
+        OButton->setText(QApplication::translate("Clavier", "o", 0));
+        PButton->setText(QApplication::translate("Clavier", "p", 0));
+        BackButton->setText(QApplication::translate("Clavier", "<-", 0));
+        _7Button->setText(QApplication::translate("Clavier", "7", 0));
+        _8Button->setText(QApplication::translate("Clavier", "8", 0));
+        _9Button->setText(QApplication::translate("Clavier", "9", 0));
+        MoinsButton->setText(QApplication::translate("Clavier", "-", 0));
+        MButton->setText(QApplication::translate("Clavier", "m", 0));
+        GButton->setText(QApplication::translate("Clavier", "g", 0));
+        QButton->setText(QApplication::translate("Clavier", "q", 0));
+        FButton->setText(QApplication::translate("Clavier", "f", 0));
+        DButton->setText(QApplication::translate("Clavier", "d", 0));
+        HButton->setText(QApplication::translate("Clavier", "h", 0));
+        KButton->setText(QApplication::translate("Clavier", "k", 0));
+        JButton->setText(QApplication::translate("Clavier", "j", 0));
+        SButton->setText(QApplication::translate("Clavier", "s", 0));
+        LButton->setText(QApplication::translate("Clavier", "l", 0));
+        PexclButton->setText(QApplication::translate("Clavier", "!", 0));
+        BButton->setText(QApplication::translate("Clavier", "b", 0));
+        WButton->setText(QApplication::translate("Clavier", "w", 0));
+        VButton->setText(QApplication::translate("Clavier", "v", 0));
+        CButton->setText(QApplication::translate("Clavier", "c", 0));
+        NButton->setText(QApplication::translate("Clavier", "n", 0));
+        PvirgButton->setText(QApplication::translate("Clavier", ";", 0));
+        VirgButton->setText(QApplication::translate("Clavier", ",", 0));
+        XButton->setText(QApplication::translate("Clavier", "x", 0));
+        P2Button->setText(QApplication::translate("Clavier", ":", 0));
+        AslashButton->setText(QApplication::translate("Clavier", "\\", 0));
+        PointButton->setText(QApplication::translate("Clavier", ".", 0));
+        PintButton->setText(QApplication::translate("Clavier", "?", 0));
         SpaceButton->setText(QString());
-        SlashButton->setText(QApplication::translate("Clavier", "/", Q_NULLPTR));
-        _4Button->setText(QApplication::translate("Clavier", "4", Q_NULLPTR));
-        PlusButton->setText(QApplication::translate("Clavier", "+", Q_NULLPTR));
-        _6Button->setText(QApplication::translate("Clavier", "6", Q_NULLPTR));
-        _5Button->setText(QApplication::translate("Clavier", "5", Q_NULLPTR));
-        _1Button->setText(QApplication::translate("Clavier", "1", Q_NULLPTR));
-        DivButton->setText(QApplication::translate("Clavier", "/", Q_NULLPTR));
-        _3Button->setText(QApplication::translate("Clavier", "3", Q_NULLPTR));
-        _2Button->setText(QApplication::translate("Clavier", "2", Q_NULLPTR));
-        DroiteButton->setText(QApplication::translate("Clavier", "\342\206\222", Q_NULLPTR));
-        AstButton->setText(QApplication::translate("Clavier", "*", Q_NULLPTR));
-        PointButton2->setText(QApplication::translate("Clavier", ".", Q_NULLPTR));
-        _0Button->setText(QApplication::translate("Clavier", "0", Q_NULLPTR));
-        ChevgButton->setText(QApplication::translate("Clavier", "<", Q_NULLPTR));
-        ChevdButton->setText(QApplication::translate("Clavier", ">", Q_NULLPTR));
-        GaucheButton->setText(QApplication::translate("Clavier", "\342\206\220", Q_NULLPTR));
+        SlashButton->setText(QApplication::translate("Clavier", "/", 0));
+        _4Button->setText(QApplication::translate("Clavier", "4", 0));
+        PlusButton->setText(QApplication::translate("Clavier", "+", 0));
+        _6Button->setText(QApplication::translate("Clavier", "6", 0));
+        _5Button->setText(QApplication::translate("Clavier", "5", 0));
+        _1Button->setText(QApplication::translate("Clavier", "1", 0));
+        DivButton->setText(QApplication::translate("Clavier", "/", 0));
+        _3Button->setText(QApplication::translate("Clavier", "3", 0));
+        _2Button->setText(QApplication::translate("Clavier", "2", 0));
+        DroiteButton->setText(QApplication::translate("Clavier", "\342\206\222", 0));
+        AstButton->setText(QApplication::translate("Clavier", "*", 0));
+        PointButton2->setText(QApplication::translate("Clavier", ".", 0));
+        _0Button->setText(QApplication::translate("Clavier", "0", 0));
+        ChevgButton->setText(QApplication::translate("Clavier", "<", 0));
+        ChevdButton->setText(QApplication::translate("Clavier", ">", 0));
+        GaucheButton->setText(QApplication::translate("Clavier", "\342\206\220", 0));
         ZonetextLine->setText(QString());
-        UnderButton->setText(QApplication::translate("Clavier", "_", Q_NULLPTR));
-        CancelButton->setText(QApplication::translate("Clavier", "CANCEL", Q_NULLPTR));
-        OKButton->setText(QApplication::translate("Clavier", "OK", Q_NULLPTR));
+        UnderButton->setText(QApplication::translate("Clavier", "_", 0));
+        CancelButton->setText(QApplication::translate("Clavier", "CANCEL", 0));
+        OKButton->setText(QApplication::translate("Clavier", "OK", 0));
         NomchampLabel->setText(QString());
-        MajButton->setText(QApplication::translate("Clavier", "VER MAJ", Q_NULLPTR));
+        MajButton->setText(QApplication::translate("Clavier", "VER MAJ", 0));
     } // retranslateUi
 
 };

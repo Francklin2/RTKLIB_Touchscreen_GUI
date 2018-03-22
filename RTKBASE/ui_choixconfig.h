@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'choixconfig.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -237,30 +237,30 @@ public:
 
     void retranslateUi(QDialog *ChoixConfig)
     {
-        ChoixConfig->setWindowTitle(QApplication::translate("ChoixConfig", "Dialog", Q_NULLPTR));
-        SingleButton->setText(QApplication::translate("ChoixConfig", "SINGLE", Q_NULLPTR));
-        DGPSButton->setText(QApplication::translate("ChoixConfig", "DGPS", Q_NULLPTR));
-        RTKButton->setText(QApplication::translate("ChoixConfig", "RTK STATIC", Q_NULLPTR));
-        RTKButton_2->setText(QApplication::translate("ChoixConfig", "RTK KINEMATIC", Q_NULLPTR));
-        PPPButton->setText(QApplication::translate("ChoixConfig", "PPP STATIC", Q_NULLPTR));
-        SBASButton->setText(QApplication::translate("ChoixConfig", "SBAS", Q_NULLPTR));
-        tabWidget->setTabText(tabWidget->indexOf(Default_tab), QApplication::translate("ChoixConfig", "DEFAULT CONFIGURATIONS", Q_NULLPTR));
-        Custom3Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 3", Q_NULLPTR));
-        Custom5Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 5", Q_NULLPTR));
-        Custom6Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 6", Q_NULLPTR));
-        Custom4Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 4", Q_NULLPTR));
-        Custom2Button->setText(QApplication::translate("ChoixConfig", "CUSTOM  2", Q_NULLPTR));
-        Custom9Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 9", Q_NULLPTR));
-        Custom11Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 11", Q_NULLPTR));
-        Custom12Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 12", Q_NULLPTR));
-        Custom10Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 10", Q_NULLPTR));
-        Custom7Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 7", Q_NULLPTR));
-        Custom8Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 8", Q_NULLPTR));
-        Custom1Button->setText(QApplication::translate("ChoixConfig", "CUSTOM  1", Q_NULLPTR));
-        tabWidget->setTabText(tabWidget->indexOf(Customized_tab), QApplication::translate("ChoixConfig", "CUSTOMIZED CONFIGURATIONS", Q_NULLPTR));
-        ReturnButton->setText(QApplication::translate("ChoixConfig", "RETURN", Q_NULLPTR));
-        WindowTitleEdit->setText(QApplication::translate("ChoixConfig", "CONFIGURATION", Q_NULLPTR));
-        EditeButton->setText(QApplication::translate("ChoixConfig", "CREATE/EDIT CONFIGURATION", Q_NULLPTR));
+        ChoixConfig->setWindowTitle(QApplication::translate("ChoixConfig", "Dialog", 0));
+        SingleButton->setText(QApplication::translate("ChoixConfig", "SINGLE", 0));
+        DGPSButton->setText(QApplication::translate("ChoixConfig", "DGPS", 0));
+        RTKButton->setText(QApplication::translate("ChoixConfig", "RTK STATIC", 0));
+        RTKButton_2->setText(QApplication::translate("ChoixConfig", "RTK KINEMATIC", 0));
+        PPPButton->setText(QApplication::translate("ChoixConfig", "PPP STATIC", 0));
+        SBASButton->setText(QApplication::translate("ChoixConfig", "SBAS", 0));
+        tabWidget->setTabText(tabWidget->indexOf(Default_tab), QApplication::translate("ChoixConfig", "DEFAULT CONFIGURATIONS", 0));
+        Custom3Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 3", 0));
+        Custom5Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 5", 0));
+        Custom6Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 6", 0));
+        Custom4Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 4", 0));
+        Custom2Button->setText(QApplication::translate("ChoixConfig", "CUSTOM  2", 0));
+        Custom9Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 9", 0));
+        Custom11Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 11", 0));
+        Custom12Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 12", 0));
+        Custom10Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 10", 0));
+        Custom7Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 7", 0));
+        Custom8Button->setText(QApplication::translate("ChoixConfig", "CUSTOM 8", 0));
+        Custom1Button->setText(QApplication::translate("ChoixConfig", "CUSTOM  1", 0));
+        tabWidget->setTabText(tabWidget->indexOf(Customized_tab), QApplication::translate("ChoixConfig", "CUSTOMIZED CONFIGURATIONS", 0));
+        ReturnButton->setText(QApplication::translate("ChoixConfig", "RETURN", 0));
+        WindowTitleEdit->setText(QApplication::translate("ChoixConfig", "CONFIGURATION", 0));
+        EditeButton->setText(QApplication::translate("ChoixConfig", "CREATE/EDIT CONFIGURATION", 0));
     } // retranslateUi
 
 };

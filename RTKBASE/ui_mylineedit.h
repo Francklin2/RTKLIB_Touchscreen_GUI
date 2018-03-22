@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mylineedit.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -35,7 +35,7 @@ public:
 
     void retranslateUi(QWidget *MyLineEdit)
     {
-        MyLineEdit->setWindowTitle(QApplication::translate("MyLineEdit", "Form", Q_NULLPTR));
+        MyLineEdit->setWindowTitle(QApplication::translate("MyLineEdit", "Form", 0));
     } // retranslateUi
 
 };

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'affichestr2str.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -94,9 +94,9 @@ public:
 
     void retranslateUi(QDialog *AfficheStr2str)
     {
-        AfficheStr2str->setWindowTitle(QApplication::translate("AfficheStr2str", "Base Station Status", Q_NULLPTR));
-        lineEdit->setText(QApplication::translate("AfficheStr2str", "BASE STATION STATUS", Q_NULLPTR));
-        FermeStr2strpushButton->setText(QApplication::translate("AfficheStr2str", "CLOSE", Q_NULLPTR));
+        AfficheStr2str->setWindowTitle(QApplication::translate("AfficheStr2str", "Base Station Status", 0));
+        lineEdit->setText(QApplication::translate("AfficheStr2str", "BASE STATION STATUS", 0));
+        FermeStr2strpushButton->setText(QApplication::translate("AfficheStr2str", "CLOSE", 0));
     } // retranslateUi
 
 };
