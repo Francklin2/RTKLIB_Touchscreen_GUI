@@ -2,23 +2,16 @@
 
 RTKLIB GUI (Graphic User Interface) for Raspberry Pi with touchscreen made with Qt4 by the ENSG students 
 
-Update news :
+Branch info :
+
+This branch is the original release of the 2018 ENSG project, the post processing project was done by Saif Aati.
+There is 2 main folder in this branch:
+- RTK BASE Position : the independant softwarefor post processing ubx data
+- RTKBASE : a upgraded version of RTKBASE with post processing 
+
+This version needs QT5 and a raspberry pi 3 (we could'nt install QT5 on the RPI2)
 
 
-February 2018 update
-- Automatic post processing to get base position, only compatible on desktop PC and RPI3 with Qt5 installed(still working on QT4/RPI2 compatibility). Works with european RGP ign server for the moment.
-- Automatic mode with data logging>>post processing>>base station in one click, switch ost processing, put "Autostart base after processing" to "on" to enable else it will just give the results 
-
-
-August 2017 update 
-- new pages in the wiki : tips and tools, test results by the ENG students
-- added data logging from the GNSS for post processing, just choose file in output of the basestation and it's done
-- added save position option, you are able to save X points ypu want to record with choosen timing
-- added 8 custom configuration files to the original preset
-- added you can edit edit most of the RTKlib parameter with the gui for the 8 custom config
-- added display of system and GNSS time and date in solution status windows
-- added Push button to set PI system date and time with GPS date and time
-- issue : return button in edit interface may freeze the software sometimes, allway lauch a configuration after you edited one then stop to avoid that
 
 
 Take a look to the wiki pages for installation instructions and user manual :  https://github.com/Francklin2/RTKLIB_Touchscreen_GUI/wiki
