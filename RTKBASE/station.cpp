@@ -34,8 +34,6 @@ int d_max;
 Station::Station()
 {
 
-
-
 }
 
 QString Station::Corrdstation_ftp(int doy, int yyyy)
@@ -53,26 +51,71 @@ QString Station::Corrdstation_ftp(int doy, int yyyy)
 
     /------------------------------------------------------------------------------*/
 
+    // Open configuration file to read max radius for station to use
 
-    QString ftp="ftp://rgpdata.ign.fr/pub/data/";
-    QString doy_s =QString::number(doy-1);
+        int i=1;
+        QStringList list;
+        QString fileName = "sauvegardeoptionAutoPPbase.txt";
+        QFile readoption(fileName);
+        readoption.open(QIODevice::ReadOnly | QIODevice::Text);
+        //---------verifier ouverture fichier......
+        QTextStream flux(&readoption);
+        QString ligne;
+        while(! flux.atEnd())
+        {
+           ligne = flux.readLine();
+           //traitement de la ligne
+           qDebug()<<ligne;
+           list<<ligne;
+           i=i+1;
+        }
 
-    if (doy==1)
+
+
+         QString Server = (list[12]);
+
+
+        readoption.close();
+
+
+
+
+QString ftp;
+
+
+    if(Server=="rgpdata.ign.fr")
     {
-        doy=365;
-        yyyy=yyyy-1;
-        doy_s =QString::number(doy);
+
+        ftp="ftp://rgpdata.ign.fr/pub/data/";
+        QString doy_s =QString::number(doy-1);
+
+        if (doy==1)
+        {
+            doy=365;
+            yyyy=yyyy-1;
+            doy_s =QString::number(doy);
+        }
+
+        QString yyyy_s =QString::number(yyyy);
+
+        if(doy_s.size()==1)
+            doy_s.prepend("00");
+
+        if(doy_s.size()==2)
+             doy_s.prepend("0");
+
+        corrdstation_ftp=ftp+yyyy_s+"/"+doy_s+"/"+"coorrgf93_"+yyyy_s+"-"+doy_s+".txt";
+
     }
 
-    QString yyyy_s =QString::number(yyyy);
 
-    if(doy_s.size()==1)
-        doy_s.prepend("00");
+    if(Server=="geodesy.noaa.gov")
+    {
+        ftp="ftp://geodesy.noaa.gov/cors/spec_prod/coord/NGS_MYC1_coord.txt";
 
-    if(doy_s.size()==2)
-         doy_s.prepend("0");
+        corrdstation_ftp=ftp;
 
-    corrdstation_ftp=ftp+yyyy_s+"/"+doy_s+"/"+"coorrgf93_"+yyyy_s+"-"+doy_s+".txt";
+    }
 
     return corrdstation_ftp;
 }
@@ -81,36 +124,6 @@ QString Station::Corrdstation_ftp(int doy, int yyyy)
 
 void Station::neareststation()
 {
-// Open configuration file to read max radius for station to use
-    {
-    int i=1;
-    QStringList list;
-    QString fileName = "sauvegardeoptionAutoPPbase.txt";
-    QFile readoption(fileName);
-    readoption.open(QIODevice::ReadOnly | QIODevice::Text);
-    //---------verifier ouverture fichier......
-    QTextStream flux(&readoption);
-    QString ligne;
-    while(! flux.atEnd())
-    {
-       ligne = flux.readLine();
-       //traitement de la ligne
-       qDebug()<<ligne;
-       list<<ligne;
-       i=i+1;
-    }
-
-
-     QString Radmax2 = (list[0]);
-     int Radmax3 = Radmax2.toInt();
-     int Rad = Radmax3*1000;
-
-      d_max = Rad;
-
-    readoption.close();
-
-}
-
 
     /*------------------------------------------------------------------------------/
         - The aim of this METHOD:
@@ -128,6 +141,43 @@ void Station::neareststation()
 
     /------------------------------------------------------------------------------*/
 
+    // Open configuration file to read max radius for station to use
+
+        int t=1;
+        QStringList list;
+        QString fileName = "sauvegardeoptionAutoPPbase.txt";
+        QFile readoption(fileName);
+        readoption.open(QIODevice::ReadOnly | QIODevice::Text);
+        //---------verifier ouverture fichier......
+        QTextStream flux(&readoption);
+        QString ligne;
+        while(! flux.atEnd())
+        {
+           ligne = flux.readLine();
+           //traitement de la ligne
+           qDebug()<<ligne;
+           list<<ligne;
+           t=t+1;
+        }
+
+
+         QString Radmax2 = (list[0]);
+         QString Server = (list[12]);
+
+         int Radmax3 = Radmax2.toInt();
+         int Rad = Radmax3*1000;
+
+          d_max = Rad;
+
+        readoption.close();
+
+
+
+
+
+
+
+
     QFile file(nomDuFichier);
     int nbline=0;
     int i=0;
@@ -143,7 +193,9 @@ void Station::neareststation()
      {
         QString line = in.readLine();
         nbline++;
-        if(nbline>18)
+
+
+        if(Server=="rgpdata.ign.fr" && (nbline>18))
         {
             vect_name<<line.mid(1,4);
             vect_domes<<line.mid(6,10);
@@ -158,7 +210,35 @@ void Station::neareststation()
                     +qPow(vect_Z[i]-X0[2],2));
             i++;
         }
-    }
+
+        if(Server=="geodesy.noaa.gov"&& (line.mid(7,7)=="soln001"))
+        {
+            vect_name<<line.mid(1,4);
+//           vect_domes<<line.mid(6,10);
+
+            vect_X<<line.mid(52,13).toDouble();
+            vect_Y<<line.mid(76,13).toDouble();
+            vect_Z<<line.mid(100,13).toDouble();
+
+
+
+
+
+
+            /*------------------------------------------------------------------------------/
+               - calculating the distance to X0: Euclidean distance
+            /------------------------------------------------------------------------------*/
+
+            vect_dist<<qSqrt(qPow(vect_X[i]-X0[0],2)+qPow(vect_Y[i]-X0[1],2)
+                    +qPow(vect_Z[i]-X0[2],2));
+
+// qDebug()<<"Station: "<<vect_name<<vect_X<<vect_Y<<vect_Z<<vect_dist<<endl;  //FRBUG LIST OF ALL STATION
+
+            i++;
+        }
+
+
+     }
 
 
 
@@ -172,7 +252,10 @@ void Station::neareststation()
          {
              vect_dist.remove(i);
              vect_name.remove(i);
+         if(Server=="rgpdata.ign.fr")
+         {
              vect_domes.remove(i);
+         }
              vect_X.remove(i);
              vect_Y.remove(i);
              vect_Z.remove(i);
@@ -199,13 +282,22 @@ void Station::neareststation()
             {
                 aux_dist=vect_dist[i];
                 aux_name=vect_name[i];
+                if(Server=="rgpdata.ign.fr")
+                {
                 aux_domes=vect_domes[i];
+                }
                 vect_dist[i]=vect_dist[i+1];
                 vect_name[i]=vect_name[i+1];
+                if(Server=="rgpdata.ign.fr")
+                {
                 vect_domes[i]=vect_domes[i+1];
+                }
                 vect_dist[i+1]=aux_dist;
                 vect_name[i+1]=aux_name;
+                if(Server=="rgpdata.ign.fr")
+                {
                 vect_domes[i+1]=aux_domes;
+                }
                 permut=true;
             }
         }
@@ -217,9 +309,43 @@ void Station::neareststation()
 
 QVector<QString> Station::data_file_nearest_sation(int doy,int yyyy,QVector<int>TIME_OF_FIRST_OBS,QVector<int>TIME_OF_LAST_OBS,int i)
 {
+    // Open configuration file to read max radius for station to use
+
+        int t=1;
+        QStringList list;
+        QString fileName = "sauvegardeoptionAutoPPbase.txt";
+        QFile readoption(fileName);
+        readoption.open(QIODevice::ReadOnly | QIODevice::Text);
+        //---------verifier ouverture fichier......
+        QTextStream flux(&readoption);
+        QString ligne;
+        while(! flux.atEnd())
+        {
+           ligne = flux.readLine();
+           //traitement de la ligne
+           qDebug()<<ligne;
+           list<<ligne;
+           t=t+1;
+        }
 
 
-    QString ftp="ftp://rgpdata.ign.fr/pub/data/";
+         QString Server = (list[12]);
+
+        readoption.close();
+
+
+
+
+
+    QString ftp;
+    if(Server=="rgpdata.ign.fr")
+    {
+    ftp="ftp://rgpdata.ign.fr/pub/data/";
+    }
+    if(Server=="geodesy.noaa.gov")
+    {
+    ftp="ftp://geodesy.noaa.gov/cors/rinex/";
+    }
     QString yyyy_s =QString::number(yyyy);
     QString doy_s =QString::number(doy);
 
@@ -293,6 +419,9 @@ QVector<QString> Station::data_file_nearest_sation(int doy,int yyyy,QVector<int>
     QString stationname=vect_name[i].toLower();
 
     //Observation file of the station
+
+    if(Server=="rgpdata.ign.fr")
+    {
     QString d_file_z=stationname+doy_s+epoque+"."+yyyy_s.mid(2,2)+"d.Z";
     QString d_file=stationname+doy_s+epoque+"."+yyyy_s.mid(2,2)+"d";
     QString ftp_d_file=ftp+yyyy_s+"/"+doy_s+"/"+"data_30/"+d_file_z;
@@ -300,9 +429,25 @@ QVector<QString> Station::data_file_nearest_sation(int doy,int yyyy,QVector<int>
     V.append(d_file_z);     // Name of the file to download compressed
     V.append(d_file);       // Name of the file
     V.append(ftp_d_file);   // FTP lik
+    }
+
+    if(Server=="geodesy.noaa.gov")
+    {
+    QString d_file_z=stationname+doy_s+epoque+"."+yyyy_s.mid(2,2)+"d.Z";
+    QString d_file=stationname+doy_s+epoque+"."+yyyy_s.mid(2,2)+"d";
+    QString ftp_d_file=ftp+yyyy_s+"/"+doy_s+"/"+stationname+"/"+d_file_z;
+
+    V.append(d_file_z);     // Name of the file to download compressed
+    V.append(d_file);       // Name of the file
+    V.append(ftp_d_file);   // FTP lik
+    }
 
 
-    //GPS Navigation file of the station
+
+    if(Server=="rgpdata.ign.fr")
+    {
+
+        //GPS Navigation file of the station
     QString n_file_z=stationname+doy_s+epoque+"."+yyyy_s.mid(2,2)+"n.Z";
     QString n_file=stationname+doy_s+epoque+"."+yyyy_s.mid(2,2)+"n";
     QString ftp_n_file=ftp+yyyy_s+"/"+doy_s+"/"+"data_30/"+n_file_z;
@@ -318,6 +463,7 @@ QVector<QString> Station::data_file_nearest_sation(int doy,int yyyy,QVector<int>
     V.append(g_file_z);
     V.append(g_file);
     V.append(ftp_g_file);
+    }
 
     return V;
 }
@@ -369,6 +515,24 @@ void Station::station_data(QString station_obs_file,QString path )
            _coord_station.append(line.split("  ")[2]);
            _coord_station.append(line.split("  ")[3]);
        }
+
+       if(line.contains("(latitude)"))
+       {
+           _coord_stationLLH.append(line.split(" ")[1]);
+       }
+
+       if(line.contains("(longitude)"))
+       {
+           _coord_stationLLH.append(line.split(" ")[1]);
+       }
+
+       if(line.contains("(elevation)"))
+       {
+           _coord_stationLLH.append(line.split(" ")[0]);
+       }
+
+
+
        if(line.contains("ANTENNA: DELTA H/E/N"))
        {
            //qDebug()<<"line ANTENNA: DELTA H/E/N:"<<line<<endl;

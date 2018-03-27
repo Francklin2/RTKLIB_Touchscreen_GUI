@@ -50,11 +50,39 @@ extern int debugUI;
 
 void Rnx2rtkp::configuration_file()
 {
+    // Open configuration file to read max radius for station and nb of station
+ QString Server;
+
+
+        int ti=1;
+        QStringList list;
+        QString fileName = "sauvegardeoptionAutoPPbase.txt";
+        QFile readoption(fileName);
+        readoption.open(QIODevice::ReadOnly | QIODevice::Text);
+        //---------verifier ouverture fichier......
+        QTextStream flux(&readoption);
+        QString ligne;
+        while(! flux.atEnd())
+        {
+           ligne = flux.readLine();
+           //traitement de la ligne
+           qDebug()<<ligne;
+           list<<ligne;
+           ti=ti+1;
+        }
+
+           Server = (list[12]);
+
+        readoption.close();
+
 
     /*-------------------------------------------------------------------------------/
-      - Converte ECEF to llh coordinates
+      - Convert ECEF to llh coordinates
     /------------------------------------------------------------------------------*/
+    QVector<QString> LLH_station_as_string;
 
+        if(Server=="rgpdata.ign.fr")
+        {
     QVector<double> ecef;
     ecef.append(_coord_station[0].toDouble());
     ecef.append(_coord_station[1].toDouble());
@@ -63,12 +91,27 @@ void Rnx2rtkp::configuration_file()
     Coord_coverter c;
     //qDebug()<<c.ecef_to_geo(ecef);  //en rad
 
-    QVector<QString> LLH_station_as_string;
+
     LLH_station_as_string.append(QString::number(qRadiansToDegrees(c.ecef_to_geo(ecef)[0])));
     LLH_station_as_string.append(QString::number(qRadiansToDegrees(c.ecef_to_geo(ecef)[1])));
     LLH_station_as_string.append(QString::number(c.ecef_to_geo(ecef)[2]));
+    qDebug()<<"LLH_station_as_string"<<LLH_station_as_string<<endl;
 
-    //qDebug()<<"LLH_station_as_string"<<LLH_station_as_string<<endl;
+        }
+
+        if(Server=="geodesy.noaa.gov")
+        {
+
+            LLH_station_as_string.append((_coord_stationLLH)[0]);
+            LLH_station_as_string.append((_coord_stationLLH)[1]);
+            LLH_station_as_string.append((_coord_stationLLH)[2]);
+            qDebug()<<"LLH_station_as_string"<<LLH_station_as_string<<endl;
+
+        }
+
+
+
+
 
     /*-------------------------------------------------------------------------------/
         Generate the configuration file for the RNX2RTKP calculation process
@@ -108,7 +151,7 @@ void Rnx2rtkp::configuration_file()
     copying.waitForFinished(-1);
     if (copying.state()==0)
     {
-       qDebug()<<"A new blank Cofiguration_file was created in the work space for the next station !"<<endl;
+       qDebug()<<"A new blank Configuration_file was created in the work space for the next station !"<<endl;
     }
 
     /*-------------------------------------------------------------------------------/
@@ -180,8 +223,6 @@ void Rnx2rtkp::configuration_file()
 void Rnx2rtkp::rnx2rtkp(int i)
 {
 
-
-
     /*-------------------------------------------------------------------------------/
         The rnx2rtkp process:
         INPUT:
@@ -198,6 +239,35 @@ void Rnx2rtkp::rnx2rtkp(int i)
             - Step 2 : rnx2rtkp process
             - Step 3 : saving results
     /------------------------------------------------------------------------------*/
+
+    // Open configuration file to read max radius for station and nb of station
+ QString Server;
+
+
+        int ti=1;
+        QStringList list;
+        QString fileName = "sauvegardeoptionAutoPPbase.txt";
+        QFile readoption(fileName);
+        readoption.open(QIODevice::ReadOnly | QIODevice::Text);
+        //---------verifier ouverture fichier......
+        QTextStream flux(&readoption);
+        QString ligne;
+        while(! flux.atEnd())
+        {
+           ligne = flux.readLine();
+           //traitement de la ligne
+           qDebug()<<ligne;
+           list<<ligne;
+           ti=ti+1;
+        }
+
+           Server = (list[12]);
+
+        readoption.close();
+
+
+
+
 
     /**Step1**/
 
@@ -225,7 +295,15 @@ void Rnx2rtkp::rnx2rtkp(int i)
     QProcess rnx2rtkp;
     rnx2rtkp.setStandardOutputFile(nomDuFichier);                   //The name of output file of the rnx2rtkp process
     QString command;
+    if(Server=="rgpdata.ign.fr")
+    {
     command="rnx2rtkp -k "+path+"Configuration.conf "+path+"rover.obs "+path+station_obs_file+" "+path+station_nav_file+" "+path+station_g_file;
+    }
+    if(Server=="geodesy.noaa.gov")
+    {
+    command="rnx2rtkp -k "+path+"Configuration.conf "+path+"rover.obs "+path+station_obs_file+" "+path+"rover.nav";
+    }
+
     qDebug()<<"The rnx2rtk process:"<<command<<endl;
     rnx2rtkp.start(command);
     rnx2rtkp.waitForFinished(-1);
@@ -244,10 +322,15 @@ void Rnx2rtkp::rnx2rtkp(int i)
             {
                QString line_ = textstream_.readLine();
                nbline++;
-               if(nbline>23)
+               if(Server=="rgpdata.ign.fr" && (nbline>23))
                {
                    results.append(line_+"\n");
                }
+               if(Server=="geodesy.noaa.gov" && (nbline>22))
+               {
+                   results.append(line_+"\n");
+               }
+
           }
 
             file__.close();

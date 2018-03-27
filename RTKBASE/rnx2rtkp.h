@@ -36,6 +36,7 @@ public:
     QString _antenna_type_station;
     QVector<QString> _coord_antenna;
     QVector<QString> _coord_station;
+    QVector<QString> _coord_stationLLH;
     QVector<QString> stat_x_ecef,stat_y_ecef,stat_z_ecef;
     QVector<QString> X_Y_Z_ecef_final;
     QString results;

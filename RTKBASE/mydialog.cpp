@@ -51,8 +51,9 @@ int Min_station2;
 int PBar = 0;
 
 int b=0;
-        QString DownloadStatus;
+QString DownloadStatus;
 
+QString Server;
 
 
 MyDialog::MyDialog(QWidget *parent) :
@@ -114,10 +115,12 @@ MyDialog::MyDialog(QWidget *parent) :
               ui->OutBaudRatecomboBox2->setCurrentText(QString(list[9]));
               ui->OutFormatcomboBox2->setCurrentText(QString(list[10]));
               ui->RtcmMsgcomboBox2->setCurrentText(QString(list[11]));
+              ui->Choose_server->setCurrentText(QString(list[12]));
 
               ui->InfoBaseAuto_lineEdit->setText(QString("Base auto "+list[7]));
               ui->InfoCapture_lineEdit->setText(QString("Log "+list[2]+"mn and wait "+list[3]+"mn before process"));
               ui->InfoProcess_lineEdit->setText(QString("Search "+list[1])+" stations in a "+(list[0])+"Km radius");
+              ui->InfoServer->setText(QString(list[12]));
 
     if(list[7]=="on")
     {
@@ -150,6 +153,9 @@ MyDialog::~MyDialog()
 
 void MyDialog::on_pushButton_run_rnx2rtk_process_RGP_clicked()
 {
+
+    stat_dist_debug.clear();
+
 
 ui->textBrowser_2->setText(QString("START PROCESSING SEQUENCE"));
 
@@ -187,10 +193,11 @@ ui->textBrowser_2->setText(QString("START PROCESSING SEQUENCE"));
          QString nb_stat_min = (list[1]);
           Min_station2= nb_stat_min.toInt();
 
+           Server = (list[12]);
+
         readoption.close();
 
     }
-
 
 
 
@@ -372,7 +379,15 @@ on_progressBar_valueChanged(PBar);
     /------------------------------------------------------------------------------*/
 
     down.url=st.corrdstation_ftp;                   //Download link
+    if(Server=="rgpdata.ign.fr")
+    {
     down.file_name=down.url.split("/")[7];          //Name of the file to download
+    }
+    if(Server=="geodesy.noaa.gov")
+    {
+    down.file_name=down.url.split("/")[6];          //Name of the file to download
+    }
+
     down.saving_path=path;                          //Path of saving
     down.do_downloader();                           //The downloading process
 
@@ -390,7 +405,16 @@ ui->textBrowser_2->setText(QString("NO INTERNET CONNEXION: DOWNLOAD FAILED"));
     /------------------------------------------------------------------------------*/
 
     st.X0=X0.approx__coord;                         //Approx coordinates of the RTK_Base station
+    if(Server=="rgpdata.ign.fr")
+    {
     st.nomDuFichier=path+down.url.split("/")[7];
+    }
+    if(Server=="geodesy.noaa.gov")
+    {
+    st.nomDuFichier=path+down.url.split("/")[6];
+    }
+
+
     st.neareststation();                            //Sort of stations process
 
     qDebug()<<"Number of stations within a radius of: "<<d_max3<<"Km:"<<st.vect_name.size()<<" Stations"<<endl;
@@ -443,7 +467,7 @@ statnb++;
         bool download_OBS=false;
         bool download_GPS=false;
         bool download_GLO=false;
-        QString resultstat2;
+//        QString resultstat2;
 
 
 
@@ -468,7 +492,10 @@ ui->textBrowser_2->setText(QString("DOWNLOADING OBS DATA FROM STATION %1").arg(s
 PBar= PBar+PbarStat;
 on_progressBar_valueChanged(PBar);
 
-             //Downloading of the navigation file (GPS)
+if(Server=="rgpdata.ign.fr")
+{
+
+    //Downloading of the navigation file (GPS)
 
 ui->textBrowser_2->setText(QString("DOWNLOADING GPS NAV DATA FROM STATION %1").arg(st.vect_name[i]));
 
@@ -514,6 +541,8 @@ ui->textBrowser_2->setText(QString("DOWNLOADING GLONASS NAV DATA FROM STATION %1
 PBar= PBar+PbarStat;
 on_progressBar_valueChanged(PBar);
 
+ }
+
 
         /*-------------------------------------------------------------------------------/
             Generate the configuration file for the RNX2RTKP calculation process
@@ -523,9 +552,11 @@ ui->textBrowser_2->setText(QString("START PROCESSING DATA"));
 
         cal.path=path;
         cal.station_obs_file=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[1];
+        if(Server=="rgpdata.ign.fr")
+        {
         cal.station_nav_file=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[4];
         cal.station_g_file=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[7];
-
+        }
         st.station_data(cal.station_obs_file,path);
 
         qDebug()<<"For the station: "<<st.vect_name[i]<<" the data are:"<<endl;
@@ -533,12 +564,17 @@ ui->textBrowser_2->setText(QString("START PROCESSING DATA"));
         qDebug()<<"_antenna_type_station"<<st._antenna_type_station<<endl;
         qDebug()<<"_coord_antena"<<st._coord_antenna[0]<<","<<st._coord_antenna[1]<<","<<st._coord_antenna[2]<<endl;
         qDebug()<<"_coord_station"<<st._coord_station[0]<<","<<st._coord_station[1]<<","<<st._coord_station[2]<<endl;
+        qDebug()<<"_coord_stationLLH"<<st._coord_stationLLH[0]<<","<<st._coord_stationLLH[1]<<","<<st._coord_stationLLH[2]<<endl;
 
         cal._antenna_type_station=st._antenna_type_station;
         cal._coord_antenna=st._coord_antenna;
         cal._coord_station=st._coord_station;
+        cal._coord_stationLLH=st._coord_stationLLH;
+        qDebug()<<"_coord_station: "<<st._coord_station<<endl;
 
-        qDebug()<< "----------- Genration of the configuration file ----------- "<<endl;
+
+
+        qDebug()<< "----------- Generation of the configuration file ----------- "<<endl;
         cal.configuration_file();
 
         /*-------------------------------------------------------------------------------/
@@ -551,7 +587,7 @@ ui->textBrowser_2->setText(QString("START PROCESSING DATA"));
         stat_dist_debug.append(st.vect_dist[i]);
 
 
-     if(download_OBS==true and download_GPS==true and download_GLO==true)
+     if((Server=="rgpdata.ign.fr" and (download_OBS==true and download_GPS==true and download_GLO==true)) or (Server=="geodesy.noaa.gov" and (download_OBS==true)))
     {
 DownloadStatus="OK";
 ui->InfotextBrowser->append(st.vect_name[i]+" "+" Dist: "+QString::number((st.vect_dist[i])/1000)+"Km  "+DownloadStatus);
@@ -570,7 +606,7 @@ else
    end:
 
 
-       if(download_OBS==true and download_GPS==true and download_GLO==true)
+       if((Server=="rgpdata.ign.fr" and (download_OBS==true and download_GPS==true and download_GLO==true)) or (Server=="geodesy.noaa.gov" and (download_OBS==true)))
          {
    DownloadStatus="OK";
          }
@@ -707,6 +743,7 @@ void MyDialog::Save_Options()
      QString OutBaud =ui->OutBaudRatecomboBox2->currentText();
      QString OutFormat =ui->OutFormatcomboBox2->currentText();
      QString RTCMmsg =ui->RtcmMsgcomboBox2->currentText();
+     QString ChooseServer =ui->Choose_server->currentText();
 
 
      std::ofstream q("sauvegardeoptionAutoPPbase.txt");
@@ -726,8 +763,11 @@ void MyDialog::Save_Options()
        out1<<OutBaud<<endl;
        out1<<OutFormat<<endl;
        out1<<RTCMmsg<<endl;
+       out1<<ChooseServer<<endl;
 
-              ui->InfoBaseAuto_lineEdit->setText(QString("Base auto "+(Autostartbase)));
+
+              ui->InfoBaseAuto_lineEdit->setText(QString("Base auto "+(Autostartbase.toUpper())));
+              ui->InfoServer->setText(ChooseServer);
 
        ui->InfoProcess_lineEdit->setText(QString("Search "+MinStat)+" stations in a "+(RadiusMaxStation)+"Km radius");
        ui->InfoCapture_lineEdit->setText(QString("Log "+Capture_Time+"mn and wait "+Wait_Time+"mn before process"));
