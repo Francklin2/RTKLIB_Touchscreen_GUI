@@ -6,7 +6,7 @@ Update news :
 
 
 February 2018 update
-- Automatic post processing to get base position, only compatible on desktop PC and RPI3 with Qt5 installed(still working on QT4/RPI2 compatibility). Works with european RGP ign server for the moment.
+- Automatic post processing to get base position, only compatible on desktop PC and RPI3 with Qt5 installed(still working on QT4/RPI2 compatibility). Works with european RGP ign server and USA geodesy.noaa.gov (still under tests). It check for the nearest stations and download and process from 1 to 6 stations, if more than one station is used a median position is calculated.   
 - Automatic mode with data logging>>post processing>>base station in one click, switch ost processing, put "Autostart base after processing" to "on" to enable else it will just give the results 
 
 
