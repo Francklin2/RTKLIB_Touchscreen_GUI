@@ -81,8 +81,8 @@ void Rnx2rtkp::configuration_file()
     /------------------------------------------------------------------------------*/
     QVector<QString> LLH_station_as_string;
 
-        if(Server=="rgpdata.ign.fr")
-        {
+//        if(Server=="rgpdata.ign.fr")
+//        {
     QVector<double> ecef;
     ecef.append(_coord_station[0].toDouble());
     ecef.append(_coord_station[1].toDouble());
@@ -97,17 +97,17 @@ void Rnx2rtkp::configuration_file()
     LLH_station_as_string.append(QString::number(c.ecef_to_geo(ecef)[2]));
     qDebug()<<"LLH_station_as_string"<<LLH_station_as_string<<endl;
 
-        }
+  //      }
 
-        if(Server=="geodesy.noaa.gov")
-        {
+//    if(Server=="geodesy.noaa.gov")
+//        {
+//
+//            LLH_station_as_string.append((_coord_stationLLH)[0]);
+//            LLH_station_as_string.append((_coord_stationLLH)[1]);
+//            LLH_station_as_string.append((_coord_stationLLH)[2]);
+//            qDebug()<<"LLH_station_as_string"<<LLH_station_as_string<<endl;
 
-            LLH_station_as_string.append((_coord_stationLLH)[0]);
-            LLH_station_as_string.append((_coord_stationLLH)[1]);
-            LLH_station_as_string.append((_coord_stationLLH)[2]);
-            qDebug()<<"LLH_station_as_string"<<LLH_station_as_string<<endl;
-
-        }
+  //      }
 
 
 

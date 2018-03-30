@@ -346,9 +346,9 @@ ui->textBrowser_2->setText(QString("LOG>30mn: NOT ENOUGH OBSERVATION DATA"));
         return;
     }
 
-  if((yyyy=t.yyyy)&&(mon=t.mon)&&(dd=t.dd)&&(t.hh<X0.TIME_OF_LAST_OBS[0]+1)&&(X0.TIME_OF_LAST_OBS[1]>observation_time/2))
+ if((yyyy=t.yyyy)&&(mon=t.mon)&&(dd=t.dd)&&(t.hh<X0.TIME_OF_LAST_OBS[0]+1)&&(X0.TIME_OF_LAST_OBS[1]>observation_time/2))
 
-//    if(((yyyy=t.yyyy)&&(mon=t.mon)&&(dd=t.dd)&&(t.hh<X0.TIME_OF_LAST_OBS[0]+1)&&(X0.TIME_OF_LAST_OBS[1])/2>observation_time))
+//   if(((yyyy=t.yyyy)&&(mon=t.mon)&&(dd=t.dd)&&(t.hh<X0.TIME_OF_LAST_OBS[0]+1)&&(X0.TIME_OF_LAST_OBS[1])/2>observation_time))
     {
 
 
@@ -548,6 +548,8 @@ on_progressBar_valueChanged(PBar);
             Generate the configuration file for the RNX2RTKP calculation process
         /------------------------------------------------------------------------------*/
 ui->textBrowser_2->setText(QString("START PROCESSING DATA"));
+
+
 
 
         cal.path=path;

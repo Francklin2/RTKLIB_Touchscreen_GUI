@@ -111,7 +111,7 @@ QString ftp;
 
     if(Server=="geodesy.noaa.gov")
     {
-        ftp="ftp://geodesy.noaa.gov/cors/spec_prod/coord/NGS_MYC1_coord.txt";
+        ftp="ftp://geodesy.noaa.gov/cors/coord/coord_08/igs08_xyz.comp.txt";
 
         corrdstation_ftp=ftp;
 
@@ -211,14 +211,14 @@ void Station::neareststation()
             i++;
         }
 
-        if(Server=="geodesy.noaa.gov"&& (line.mid(7,7)=="soln001"))
+        if(Server=="geodesy.noaa.gov" && (nbline>7))
         {
-            vect_name<<line.mid(1,4);
+            vect_name<<line.mid(0,4);
 //           vect_domes<<line.mid(6,10);
 
-            vect_X<<line.mid(52,13).toDouble();
-            vect_Y<<line.mid(76,13).toDouble();
-            vect_Z<<line.mid(100,13).toDouble();
+            vect_X<<line.mid(15,12).toDouble();
+            vect_Y<<line.mid(29,12).toDouble();
+            vect_Z<<line.mid(43,12).toDouble();
 
 
 
@@ -511,10 +511,9 @@ void Station::station_data(QString station_obs_file,QString path )
        if(line.contains("APPROX POSITION XYZ"))
        {
            //qDebug()<<"line:APPROX POSITION XYZ"<<line<<endl;
-           _coord_station.append(line.split("  ")[1]);
-           _coord_station.append(line.split("  ")[2]);
-           _coord_station.append(line.split("  ")[3]);
-       }
+           _coord_station<<line.mid(1,13);
+           _coord_station<<line.mid(15,13);
+           _coord_station<<line.mid(29,13);       }
 
        if(line.contains("(latitude)"))
        {
