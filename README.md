@@ -4,9 +4,13 @@ RTKLIB GUI (Graphic User Interface) for Raspberry Pi with touchscreen made with 
 
 Update news :
 
+March 2018 update
+- Add post processing on USA CORS stations, still under test but process looks correct now (still need a test from US to confirm that) 
+- Median position is done by average of the XYZ results
+- More info on the screen on the download process, progress bar is more precise, debug window is on another tab 
 
 February 2018 update
-- Automatic post processing to get base position, only compatible on desktop PC and RPI3 with Qt5 installed(still working on QT4/RPI2 compatibility). Works with european RGP ign server and USA geodesy.noaa.gov (still under tests). It check for the nearest stations and download and process from 1 to 6 stations, if more than one station is used a median position is calculated.   
+- Automatic post processing to get base position, only compatible on desktop PC and RPI3 with Qt5 installed(still working on QT4/RPI2 compatibility). Works with european RGP ign server. It check for the nearest stations and download and process from 1 to 6 stations, if more than one station is used a median position is calculated.   
 - Automatic mode with data logging>>post processing>>base station in one click, switch ost processing, put "Autostart base after processing" to "on" to enable else it will just give the results 
 
 
