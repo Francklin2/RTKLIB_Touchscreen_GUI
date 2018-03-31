@@ -43,7 +43,7 @@
 
 QString Mode_str2str;
 
-extern int debugUI;
+
 
 
 

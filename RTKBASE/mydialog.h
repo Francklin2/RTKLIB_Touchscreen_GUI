@@ -18,7 +18,6 @@
 #include "approxcoord.h"
 
 extern QString Autostart_Base;
-extern int debugUI;
 extern int Min_station2;
 
 
@@ -36,6 +35,7 @@ public:
 
  int CaptureTimer;
  QVector<int> stat_dist_debug;
+ int age;
 
 
 
@@ -64,9 +64,9 @@ void Start_AutoPP();
 void Test_start();
 void Test_stop();
 void StopLog();
-
+void on_pushButton_run_rnx2rtk_process_RGP_clicked();
 private slots:
-    void on_pushButton_run_rnx2rtk_process_RGP_clicked();
+
     void on_progressBar_valueChanged(int value);
     void Save_Options();
 

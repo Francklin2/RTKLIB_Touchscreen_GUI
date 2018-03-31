@@ -34,6 +34,7 @@ public:
     QVector<QString> vect_name;                             // Contains the names of the stations
 //    QVector<QString> vect_dist;                             // Contains the distance of the stations
     QVector<QString> vect_domes;                            // Contains the international number of each station
+int age2;
 
     QVector<double> vect_X,vect_Y,vect_Z,vect_dist;
     QVector<double>X0;                                      // Estimated position of RTK_base_station

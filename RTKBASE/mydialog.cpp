@@ -44,7 +44,7 @@
 #include "approxcoord.h"
 
 
-int debugUI = 0;
+
 
 int d_max3;
 int Min_station2;
@@ -314,6 +314,12 @@ ui->InfotextBrowser->setText(QString("The package was successfully installed "))
     int dd=X0.DATE_OF_OBS[0];
     QDate d(yyyy,mon,dd);
     int doy= d.dayOfYear();
+
+     age =t.doy - doy;
+
+     st.age2 = age;
+
+     qDebug()<<"Age of obs= "<<age;
 
 PBar= 10;
 on_progressBar_valueChanged(PBar);

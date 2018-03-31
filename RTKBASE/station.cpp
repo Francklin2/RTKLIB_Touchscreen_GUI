@@ -346,6 +346,11 @@ QVector<QString> Station::data_file_nearest_sation(int doy,int yyyy,QVector<int>
     {
     ftp="ftp://geodesy.noaa.gov/cors/rinex/";
     }
+
+
+
+
+
     QString yyyy_s =QString::number(yyyy);
     QString doy_s =QString::number(doy);
 
@@ -357,9 +362,11 @@ QVector<QString> Station::data_file_nearest_sation(int doy,int yyyy,QVector<int>
 
     int hh=TIME_OF_LAST_OBS[0];
     int mm=TIME_OF_LAST_OBS[1];
-
-
     QString epoque;
+
+    if(Server=="rgpdata.ign.fr" or(Server=="geodesy.noaa.gov" and (age2<2)))
+    {
+
     if(hh==2 && mm>4)
         epoque="b";
     if(hh==3 && mm>4)
@@ -414,6 +421,16 @@ QVector<QString> Station::data_file_nearest_sation(int doy,int yyyy,QVector<int>
     }
     if(hh==01 && mm>4)
         epoque="a";
+
+   }
+
+
+    if(Server=="geodesy.noaa.gov" and (age2>2))
+    {
+     epoque="0";
+    }
+
+
 
     QVector<QString> V;
     QString stationname=vect_name[i].toLower();
