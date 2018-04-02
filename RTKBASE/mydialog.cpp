@@ -352,25 +352,41 @@ ui->textBrowser_2->setText(QString("LOG>30mn: NOT ENOUGH OBSERVATION DATA"));
         return;
     }
 
- if((yyyy=t.yyyy)&&(mon=t.mon)&&(dd=t.dd)&&(t.hh<X0.TIME_OF_LAST_OBS[0]+1)&&(X0.TIME_OF_LAST_OBS[1]>observation_time/2))
+ if((age=0)&&(yyyy=t.yyyy)&&(mon=t.mon)&&(dd=t.dd)&&(t.hh<X0.TIME_OF_LAST_OBS[0]+1)&&(X0.TIME_OF_LAST_OBS[1]>observation_time/2))
 
 //   if(((yyyy=t.yyyy)&&(mon=t.mon)&&(dd=t.dd)&&(t.hh<X0.TIME_OF_LAST_OBS[0]+1)&&(X0.TIME_OF_LAST_OBS[1])/2>observation_time))
     {
 
-
-        ui->textBrowser_2->setText(QString("WAIT UNTIL RGP DATA IS AVALAIBLE "));
-
-        qDebug()<<" RGP data are not available until "<<X0.TIME_OF_LAST_OBS[0]+1<<":04"<<endl;
+ui->textBrowser_2->setText(QString("WAIT UNTIL RGP DATA IS AVALAIBLE "));
+qDebug()<<" RGP data are not available until "<<X0.TIME_OF_LAST_OBS[0]+1<<":04"<<endl;
 
 
         int a= ((X0.TIME_OF_LAST_OBS[0]+1)*3600+5*60)-(t.hh*3600+t.mm*60);
 
-        qDebug()<<"Wait:"<<a<<" sec"<<a/60<<" min"<<endl;
+ qDebug()<<"Wait:"<<a<<" sec"<<a/60<<" min"<<endl;
 
 
 
         sleep.sleep(a);
     }
+
+ if(age>0)
+
+    {
+
+ui->textBrowser_2->setText(QString("WAIT UNTIL RGP DATA IS AVALAIBLE "));
+qDebug()<<" RGP data are not available until "<<X0.TIME_OF_LAST_OBS[0]+1<<":04"<<endl;
+
+        int a = 0;
+
+ qDebug()<<"Wait:"<<a<<" sec"<<a/60<<" min"<<endl;
+
+
+
+        sleep.sleep(a);
+    }
+
+
 
     if(X0.TIME_OF_LAST_OBS[1]<observation_time/2)
     {
