@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>330</height>
+    <height>380</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -330,7 +330,7 @@ border: 1px solid black;
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>280</y>
+     <y>320</y>
      <width>230</width>
      <height>41</height>
     </rect>
@@ -354,7 +354,7 @@ background-color: rgb(230, 230, 230);</string>
    <property name="geometry">
     <rect>
      <x>260</x>
-     <y>280</y>
+     <y>320</y>
      <width>230</width>
      <height>41</height>
     </rect>
@@ -372,6 +372,84 @@ background-color: rgb(230, 230, 230);</string>
    </property>
    <property name="text">
     <string>SAVE</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="EPSG_comboBox">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>270</y>
+     <width>301</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Lambert93__EPSG:2154</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Lambert93/CC42__EPSG:3942</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Lambert93/CC43__EPSG:3943</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Lambert93/CC44__EPSG:3944</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Lambert93/CC45__EPSG:3945</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Lambert93/CC46__EPSG:3946</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Lambert93/CC47__EPSG:3947</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Lambert93/CC48__EPSG:3948</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Lambert93/CC49__EPSG:3949</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Lambert93/CC50__EPSG:3950</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>WGS84__EPSG:4326</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>270</y>
+     <width>181</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Transform saved coord to </string>
    </property>
   </widget>
  </widget>

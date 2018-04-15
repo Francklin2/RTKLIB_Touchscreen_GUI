@@ -27,7 +27,7 @@
 #include <QTextStream>
 #include <QFile>
 
-optionssauvepoints::optionssauvepoints(QString filePath,QString pointName, int nummeas, float cyclen, int oldpoint,QWidget *parent) :
+optionssauvepoints::optionssauvepoints(QString filePath,QString pointName, int nummeas, float cyclen, int oldpoint,QString EPSG,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::optionssauvepoints)
 {
@@ -38,7 +38,7 @@ optionssauvepoints::optionssauvepoints(QString filePath,QString pointName, int n
     ui->NummeasBox->setEditText(QString::number(nummeas));
     ui->CyclenBox->setEditText(QString::number(cyclen));
     ui->OldpointBox->setCurrentIndex(oldpoint);
-
+    ui->EPSG_comboBox->setCurrentText(EPSG);
 
     QObject::connect(ui->CancelButton,SIGNAL(clicked()),this,SLOT(Cancel()));
     QObject::connect(ui->SaveButton,SIGNAL(clicked()),this,SLOT(Save()));
@@ -64,6 +64,7 @@ void optionssauvepoints::Save()
     options<<ui->NummeasBox->currentText();
     options<<ui->CyclenBox->currentText();
     options<<QString::number(ui->OldpointBox->currentIndex());
+    options<<ui->EPSG_comboBox->currentText();
     emit SaveOptions(options);
 
     QFile sauveOptionFile(QString("../RTKBASE/data/SauveOptions"));
@@ -74,6 +75,7 @@ void optionssauvepoints::Save()
     flux<<qSetFieldWidth(20)<<left<<"nummeas"<<qSetFieldWidth(0)<<"="<<ui->NummeasBox->currentText()<<endl;
     flux<<qSetFieldWidth(20)<<left<<"cyclen"<<qSetFieldWidth(0)<<"="<<ui->CyclenBox->currentText()<<endl;
     flux<<qSetFieldWidth(20)<<left<<"oldpoint"<<qSetFieldWidth(0)<<"="<<ui->OldpointBox->currentIndex()<<endl;
+    flux<<qSetFieldWidth(20)<<left<<"EPSG"<<qSetFieldWidth(0)<<"="<<ui->EPSG_comboBox->currentText()<<endl;
     sauveOptionFile.close();
     this->close();
 }

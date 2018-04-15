@@ -1,5 +1,6 @@
-filepath            =/home/think/Projet_info/RTKLIB_Touchscreen_GUI-master/RTKBASE/PointsFiles/point.txt
+filepath            =/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/PointsFiles/point.txt
 pointname           =Test_Point
-nummeas             =10
+nummeas             =5
 cyclen              =2
 oldpoint            =0
+EPSG                =Lambert93__EPSG:2154

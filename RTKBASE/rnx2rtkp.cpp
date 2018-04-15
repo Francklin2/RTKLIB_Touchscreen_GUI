@@ -598,13 +598,75 @@ if(nbline == 18)
 
 }
 
+/*Save Solution position in ECEF. This position will be used in cs2cs*/
+
+
+
+std::ofstream E("sauvegarde_results_ECEF.txt");
+QFile fichierlastpositionECEF("sauvegarde_results_ECEF.txt*");
+fichierlastpositionECEF.open(QIODevice::Append | QIODevice::Text);
+QTextStream outE(&fichierlastpositionECEF);
+
+{
+    outE<<X_Y_Z_ecef_final[0]<<endl;
+    outE<<X_Y_Z_ecef_final[1]<<endl;
+    outE<<X_Y_Z_ecef_final[2]<<endl;
+}
+  fichierlastpositionECEF.close();
+
+
 
 
     /*-------------------------------------------------------------------------------/
       - Converte ECEF to llh coordinates
     /------------------------------------------------------------------------------*/
 
-    QVector<double> Sol_ecef;
+  QProcess convert;
+  convert.setWorkingDirectory( "/home/francklin/cs2cs_gui" );
+
+  QStringList param;
+  param << "+proj=geocent"<<"+datum=WGS84"<<"+to"<<"+proj=latlong"<<"+datum=WGS84"<<"-f"<<"%.12f"<<"test";
+
+  convert.start("cs2cs", param);
+  if (convert.waitForStarted())
+  {
+     convert.waitForFinished();
+     QString output;
+     output = convert.readAllStandardOutput();
+
+
+     QString line = output;
+
+     qDebug() << "line:" << line << "\n";
+     QStringList list = line.split(QRegExp("\\s"));
+
+     double element;
+
+     for(int i = 0; i < list.size(); i++)
+     {
+         element = list.at(i).toDouble();
+         qDebug() << "element:" << element << "\n";
+     }
+
+
+//ui->Info_textBrowser->setText(QString(output));
+
+//ui->Info_textBrowser->append(QString("LAT: "+list[1]));
+//ui->Info_textBrowser->append(QString("LON: "+list[0]));
+//ui->Info_textBrowser->append(QString("ALT: "+list[2]));
+     QVector<QString> LLH_station_as_string;
+     Sol_x_LLH = (QString((list)[1]));
+     Sol_y_LLH = (QString((list)[0]));
+     Sol_z_LLH = (QString((list)[2]));
+
+  }
+
+
+
+
+  /*------------------------------------------------------------------------------*/
+
+/*  QVector<double> Sol_ecef;
     Sol_ecef.append(Sol_x_ECEF.toDouble());
     Sol_ecef.append(Sol_y_ECEF.toDouble());
     Sol_ecef.append(Sol_z_ECEF.toDouble());
@@ -617,6 +679,7 @@ if(nbline == 18)
     Sol_y_LLH = (QString::number(qRadiansToDegrees(c.ecef_to_geo(Sol_ecef)[1])));
     Sol_z_LLH = (QString::number(c.ecef_to_geo(Sol_ecef)[2]));
 
+ */
     //qDebug()<<"LLH_station_as_string"<<LLH_station_as_string<<endl;
 
 

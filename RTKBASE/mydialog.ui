@@ -77,31 +77,43 @@ on recorded file</string>
     <widget class="QLineEdit" name="LLH_Lat_lineEdit">
      <property name="geometry">
       <rect>
-       <x>650</x>
+       <x>620</x>
        <y>50</y>
-       <width>111</width>
+       <width>141</width>
        <height>25</height>
       </rect>
+     </property>
+     <property name="maxLength">
+      <number>17</number>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QLineEdit" name="LLH_Alt_lineEdit">
      <property name="geometry">
       <rect>
-       <x>650</x>
+       <x>622</x>
        <y>110</y>
-       <width>113</width>
+       <width>141</width>
        <height>25</height>
       </rect>
+     </property>
+     <property name="maxLength">
+      <number>17</number>
      </property>
     </widget>
     <widget class="QLineEdit" name="LLH_Lon_lineEdit">
      <property name="geometry">
       <rect>
-       <x>650</x>
+       <x>622</x>
        <y>80</y>
-       <width>113</width>
+       <width>141</width>
        <height>25</height>
       </rect>
+     </property>
+     <property name="maxLength">
+      <number>17</number>
      </property>
     </widget>
     <widget class="QLineEdit" name="ECEF_x_lineEdit">
@@ -109,9 +121,12 @@ on recorded file</string>
       <rect>
        <x>460</x>
        <y>50</y>
-       <width>171</width>
+       <width>151</width>
        <height>25</height>
       </rect>
+     </property>
+     <property name="readOnly">
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QLineEdit" name="ECEF_z_lineEdit">
@@ -119,7 +134,7 @@ on recorded file</string>
       <rect>
        <x>460</x>
        <y>110</y>
-       <width>171</width>
+       <width>151</width>
        <height>25</height>
       </rect>
      </property>
@@ -129,7 +144,7 @@ on recorded file</string>
       <rect>
        <x>460</x>
        <y>80</y>
-       <width>171</width>
+       <width>151</width>
        <height>25</height>
       </rect>
      </property>

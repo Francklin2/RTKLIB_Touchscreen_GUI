@@ -43,6 +43,10 @@ extern "C" void afficheNaviData(vt_t *vt);
 extern "C" void afficheStream(vt_t *vt);
 extern "C" int fermeVT();
 
+ QString Proj_x;
+ QString Proj_y;
+ QString Proj_z;
+
 
 
 MainThread ::MainThread(QObject* parent):
@@ -72,6 +76,7 @@ QThread(parent)
         else if(decomp[0]=="nummeas") _numOfMeasures = decomp[1].toInt();
         else if(decomp[0]=="cyclen") _cycleLength = decomp[1].toFloat();
         else if(decomp[0]=="oldpoint") _addMeasures = decomp[1].toInt();
+        else if(decomp[0]=="EPSG") _EPSG = decomp[1];
         else std::cout<<"Le paramètre <"<<decomp[0].toStdString()<<"> n'a pas été reconnu"<<std::endl;
     }
 }
@@ -152,7 +157,7 @@ void MainThread::run()
         if (m_choix==2) etatsatellite();
         if (m_choix==3) etatNaviData();
         if (m_choix==5) etatStream();
-        if (m_choix==6) sauvegardedansfichier(_filePath,_pointName,_numOfMeasures,_cycleLength,_addMeasures);
+        if (m_choix==6) sauvegardedansfichier(_filePath,_pointName,_numOfMeasures,_cycleLength,_addMeasures,_EPSG);
         if (m_choix==7) stop();
         }
 
@@ -288,7 +293,7 @@ void MainThread::saveposition()
     //sauvegardedansfichier();
 }
 
-void MainThread::sauvegardedansfichier(QString filePath, QString pointName, int numOfMeasures, float cycleLength, bool addMeasures)
+void MainThread::sauvegardedansfichier(QString filePath, QString pointName, int numOfMeasures, float cycleLength, bool addMeasures, QString EPSG)
 {
     std::cout<<"Commençons la sauvegarde..."<<std::endl;
     if (addMeasures==false)
@@ -345,19 +350,105 @@ void MainThread::sauvegardedansfichier(QString filePath, QString pointName, int 
             qDebug()<<NomFichier;
         }
 
+  /*------Create a buffer file with ECEF coord for cs2cs transform ------------------*/
+
+        std::ofstream q("saveECEFcoordbuffer.txt");
+          QFile ECEFcoordbuffer("saveECEFcoordbuffer.txt");
+          ECEFcoordbuffer.open(QIODevice::Append | QIODevice::Text);
+          QTextStream outecef(&ECEFcoordbuffer);
+       {
+          QString X=list[1];
+          X.replace(QString(","),QString("."));
+                    QString Y=list[2];
+          Y.replace(QString(","),QString("."));
+
+          QString Z=list[3];
+          Z.replace(QString(","),QString("."));
+
+          outecef<<X<<" "<<Y<<" "<<Z<<'\n';
+
+
+       ECEFcoordbuffer.close();
+   }
+
+          /*-------------------------------------------------------------------------------/
+                - Converte ECEF buffer file with cs2cs
+          /------------------------------------------------------------------------------*/
+
+
+QString EPSG1 = _EPSG;
+QStringList EPSG2 = EPSG1.split(" ");
+QString EPSG = EPSG2[0];
+QString epsgout1 = _EPSG;
+QString epsgout= epsgout1.right(4);
+
+              QProcess convert;
+
+              QStringList param;
+
+              if (epsgout=="4326")
+              {
+              param <<"+init=epsg:4328"<<"+to"<<("+init=epsg:"+epsgout)<<"-f"<<"%.8f"<<"saveECEFcoordbuffer.txt";
+              }
+              if ((epsgout=="2154")or(epsgout=="3942")or(epsgout=="3943")or(epsgout=="3944")or(epsgout=="3945")or(epsgout=="3946")or(epsgout=="3947")or(epsgout=="3948")or(epsgout=="3949")or(epsgout=="3950"))
+              {
+              param <<"+init=epsg:4328"<<"+to"<<("+init=epsg:"+epsgout)<<"saveECEFcoordbuffer.txt";
+              }
+
+               qDebug() << "param:" << param << "\n";
+
+              convert.start("cs2cs", param);
+              if (convert.waitForStarted())
+              {
+                 convert.waitForFinished();
+                 QString output;
+                 output = convert.readAllStandardOutput();
+
+                 QString line = output;
+
+                 qDebug() << "line:" << line << "\n";
+                 QStringList list = line.split(QRegExp("\\s"));
+
+                 double element;
+
+                 for(int i = 0; i < list.size(); i++)
+                 {
+                     element = list.at(i).toDouble();
+                     qDebug() << "element:" << element << "\n";
+                 }
+
+
+             Proj_x = (QString((list)[0]));
+             Proj_y = (QString((list)[1]));
+             Proj_z = (QString((list)[2]));
+
+
+ }
+    /*------------------------------------------------------------------------------*/
+
+
+
         //QFile fichiersauvegarde(NomFichier);
         QFile fichiersauvegarde(filePath);
-
-
-        //sleep(1);
-
         fichiersauvegarde.open(QIODevice::Append | QIODevice::Text);
 
 
         /*Save points in NomFichier in Folder*/
 
         QTextStream out(&fichiersauvegarde);
-        out << "point  : "<<pointNameCurrent<<" mesure : "<<m_k<<" heure rover : "<<list[13]<<" latitude :"<<list[4] <<" longitude :"<<list[5]<<" hauteur :"<<list[6]<<" X : "<<list[1]<<" Y :"<<list[2]<<" Z : "<<list[3]<<'\n';
+
+
+        if (epsgout=="4326")
+         {
+             out << "point  : "<<pointNameCurrent<<" mesure : "<<m_k<<" heure rover : "<<list[13]<<" latitude :"<<list[4] <<" longitude :"<<list[5]<<" hauteur :"<<list[6]<<" X : "<<list[1]<<" Y :"<<list[2]<<" Z : "<<list[3]<<" "<<EPSG<<" LAT : "<<Proj_y<<" LON : "<<Proj_x<<" ALT : "<<Proj_z<<'\n';
+         }
+
+        if ((epsgout=="2154")or(epsgout=="3942")or(epsgout=="3943")or(epsgout=="3944")or(epsgout=="3945")or(epsgout=="3946")or(epsgout=="3947")or(epsgout=="3948")or(epsgout=="3949")or(epsgout=="3950"))
+        {
+        out << "point  : "<<pointNameCurrent<<" mesure : "<<m_k<<" heure rover : "<<list[13]<<" latitude :"<<list[4] <<" longitude :"<<list[5]<<" hauteur :"<<list[6]<<" X : "<<list[1]<<" Y :"<<list[2]<<" Z : "<<list[3]<<" "<<EPSG<<" X : "<<Proj_x<<" Y : "<<Proj_y<<" ALT : "<<Proj_z<<'\n';
+        }
+
+
         emit savePointNbr(pointNameCurrent.append(" ").append(QString::number(m_k)));
         fichiersauvegarde.close();
 
@@ -379,6 +470,7 @@ void MainThread::changeSaveOptions(QStringList options)
      _numOfMeasures = options[2].toInt();
     _cycleLength = options[3].toFloat();
     _addMeasures = options[4].toInt();
+    _EPSG = options[5];
 }
 
 void MainThread::setSYStime()
