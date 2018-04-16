@@ -5,7 +5,7 @@ RTKLIB GUI (Graphic User Interface) for Raspberry Pi with touchscreen made with 
 Update news :
 
 March 2018 update
-- Add post processing on USA CORS stations, still under test but process looks correct now (still need a test from US to confirm that) 
+- Add post processing on USA CORS stations, still under test but process looks correct now (still need a test from US to confirm that) [(Video here)](https://www.youtube.com/edit?o=U&video_id=YKgk3UxPr64)
 - Median position is done by average of the XYZ results
 - More info on the screen on the download process, progress bar is more precise, debug window is on another tab 
 
