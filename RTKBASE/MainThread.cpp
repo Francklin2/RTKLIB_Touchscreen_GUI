@@ -388,11 +388,11 @@ QString epsgout= epsgout1.right(4);
 
               if (epsgout=="4326")
               {
-              param <<"+init=epsg:4328"<<"+to"<<("+init=epsg:"+epsgout)<<"-f"<<"%.8f"<<"saveECEFcoordbuffer.txt";
+              param <<"+init=epsg:4978"<<"+to"<<("+init=epsg:"+epsgout)<<"-f"<<"%.8f"<<"saveECEFcoordbuffer.txt";
               }
               if ((epsgout=="2154")or(epsgout=="3942")or(epsgout=="3943")or(epsgout=="3944")or(epsgout=="3945")or(epsgout=="3946")or(epsgout=="3947")or(epsgout=="3948")or(epsgout=="3949")or(epsgout=="3950"))
               {
-              param <<"+init=epsg:4328"<<"+to"<<("+init=epsg:"+epsgout)<<"saveECEFcoordbuffer.txt";
+              param <<"+init=epsg:4978"<<"+to"<<("+init=epsg:"+epsgout)<<"saveECEFcoordbuffer.txt";
               }
 
                qDebug() << "param:" << param << "\n";
