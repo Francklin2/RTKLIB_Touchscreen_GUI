@@ -433,11 +433,6 @@ background-color: rgb(230, 230, 230);</string>
      <string>Lambert93/CC50__EPSG:3950</string>
     </property>
    </item>
-   <item>
-    <property name="text">
-     <string>WGS84__EPSG:4326</string>
-    </property>
-   </item>
   </widget>
   <widget class="QLabel" name="label_8">
    <property name="geometry">

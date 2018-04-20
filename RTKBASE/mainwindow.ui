@@ -258,7 +258,7 @@ border: 1px solid black;</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="RTK_BASE_position">
+   <widget class="QPushButton" name="Post_Processing_Button">
     <property name="geometry">
      <rect>
       <x>100</x>
@@ -297,7 +297,7 @@ border-radius: 15px;</string>
    <zorder>PowerOFFButton</zorder>
    <zorder>TimeEdit</zorder>
    <zorder>lineEdit</zorder>
-   <zorder>RTK_BASE_position</zorder>
+   <zorder>Post_Processing_Button</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

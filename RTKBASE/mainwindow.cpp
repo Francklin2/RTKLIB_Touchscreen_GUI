@@ -91,6 +91,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->BasestationButton,SIGNAL(clicked()),this,SLOT(OuvreAfficheSolutiosStr2str()));
     QObject::connect(ui->HelpButton,SIGNAL(clicked()),this,SLOT(OuvreHelp()));
     QObject::connect(ui->PowerOFFButton,SIGNAL(clicked()),this,SLOT(Shutdown()));
+    QObject::connect(ui->Post_Processing_Button,SIGNAL(clicked()),this,SLOT(Post_Processing()));
 
 
 
@@ -172,7 +173,7 @@ void MainWindow::OuvreHelp()
 
 
 
-void MainWindow::on_RTK_BASE_position_clicked()                     //added by ENSG student SAIF AATI
+void MainWindow::Post_Processing()                     //added by ENSG student SAIF AATI
 {
 //    mDialog=new MyDialog(this);
 //    mDialog->show();

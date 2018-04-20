@@ -33,7 +33,7 @@ public slots:
     void OuvreHelp();
     void Shutdown();
 
-    void on_RTK_BASE_position_clicked();                                //added by ENSG student SAIF AATI
+    void Post_Processing();                                //added by ENSG student SAIF AATI
 
 private:
     Ui::MainWindow *ui;
