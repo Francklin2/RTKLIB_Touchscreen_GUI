@@ -506,6 +506,7 @@ void Station::station_data(QString station_obs_file,QString path )
     _coord_station.clear();
 
 
+
     QString nomDuFichier=path+station_obs_file;
     QFile file(nomDuFichier);
 
@@ -528,25 +529,26 @@ void Station::station_data(QString station_obs_file,QString path )
        if(line.contains("APPROX POSITION XYZ"))
        {
            //qDebug()<<"line:APPROX POSITION XYZ"<<line<<endl;
-           _coord_station<<line.mid(1,13);
-           _coord_station<<line.mid(15,13);
-           _coord_station<<line.mid(29,13);       }
+           _coord_station.append(line.split(QRegExp("\\s+"), QString::SkipEmptyParts)[0]);
+           _coord_station.append(line.split(QRegExp("\\s+"), QString::SkipEmptyParts)[1]);
+           _coord_station.append(line.split(QRegExp("\\s+"), QString::SkipEmptyParts)[2]);
+       }
 
-       if(line.contains("(latitude)"))
+/*       if(line.contains("(latitude)"))
        {
-           _coord_stationLLH.append(line.split(" ")[1]);
+           _coord_stationLLH.append(line.split(QRegExp("\\s+"), QString::SkipEmptyParts)[0]);
        }
 
        if(line.contains("(longitude)"))
        {
-           _coord_stationLLH.append(line.split(" ")[1]);
+           _coord_stationLLH.append(line.split(QRegExp("\\s+"), QString::SkipEmptyParts)[0]);
        }
 
        if(line.contains("(elevation)"))
        {
-           _coord_stationLLH.append(line.split(" ")[0]);
+           _coord_stationLLH.append(line.split(QRegExp("\\s+"), QString::SkipEmptyParts)[0]);
        }
-
+*/
 
 
        if(line.contains("ANTENNA: DELTA H/E/N"))

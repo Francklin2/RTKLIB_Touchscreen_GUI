@@ -40,12 +40,14 @@ public:
     QLineEdit *lineEdit;
     QPushButton *CancelButton;
     QPushButton *SaveButton;
+    QComboBox *EPSG_comboBox;
+    QLabel *label_8;
 
     void setupUi(QDialog *optionssauvepoints)
     {
         if (optionssauvepoints->objectName().isEmpty())
             optionssauvepoints->setObjectName(QStringLiteral("optionssauvepoints"));
-        optionssauvepoints->resize(500, 330);
+        optionssauvepoints->resize(500, 380);
         label_3 = new QLabel(optionssauvepoints);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setGeometry(QRect(10, 70, 211, 40));
@@ -99,7 +101,7 @@ public:
         lineEdit->setReadOnly(true);
         CancelButton = new QPushButton(optionssauvepoints);
         CancelButton->setObjectName(QStringLiteral("CancelButton"));
-        CancelButton->setGeometry(QRect(10, 280, 230, 41));
+        CancelButton->setGeometry(QRect(10, 320, 230, 41));
         QFont font1;
         font1.setBold(true);
         font1.setWeight(75);
@@ -109,11 +111,17 @@ public:
 "background-color: rgb(230, 230, 230);"));
         SaveButton = new QPushButton(optionssauvepoints);
         SaveButton->setObjectName(QStringLiteral("SaveButton"));
-        SaveButton->setGeometry(QRect(260, 280, 230, 41));
+        SaveButton->setGeometry(QRect(260, 320, 230, 41));
         SaveButton->setFont(font1);
         SaveButton->setStyleSheet(QLatin1String("border-radius: 15px;\n"
 "border: 1px solid black;\n"
 "background-color: rgb(230, 230, 230);"));
+        EPSG_comboBox = new QComboBox(optionssauvepoints);
+        EPSG_comboBox->setObjectName(QStringLiteral("EPSG_comboBox"));
+        EPSG_comboBox->setGeometry(QRect(190, 270, 301, 41));
+        label_8 = new QLabel(optionssauvepoints);
+        label_8->setObjectName(QStringLiteral("label_8"));
+        label_8->setGeometry(QRect(10, 270, 181, 40));
 
         retranslateUi(optionssauvepoints);
 
@@ -172,6 +180,20 @@ public:
         lineEdit->setText(QApplication::translate("optionssauvepoints", "SAVE POINT OPTIONS", Q_NULLPTR));
         CancelButton->setText(QApplication::translate("optionssauvepoints", "CANCEL", Q_NULLPTR));
         SaveButton->setText(QApplication::translate("optionssauvepoints", "SAVE", Q_NULLPTR));
+        EPSG_comboBox->clear();
+        EPSG_comboBox->insertItems(0, QStringList()
+         << QApplication::translate("optionssauvepoints", "Lambert93__EPSG:2154", Q_NULLPTR)
+         << QApplication::translate("optionssauvepoints", "Lambert93/CC42__EPSG:3942", Q_NULLPTR)
+         << QApplication::translate("optionssauvepoints", "Lambert93/CC43__EPSG:3943", Q_NULLPTR)
+         << QApplication::translate("optionssauvepoints", "Lambert93/CC44__EPSG:3944", Q_NULLPTR)
+         << QApplication::translate("optionssauvepoints", "Lambert93/CC45__EPSG:3945", Q_NULLPTR)
+         << QApplication::translate("optionssauvepoints", "Lambert93/CC46__EPSG:3946", Q_NULLPTR)
+         << QApplication::translate("optionssauvepoints", "Lambert93/CC47__EPSG:3947", Q_NULLPTR)
+         << QApplication::translate("optionssauvepoints", "Lambert93/CC48__EPSG:3948", Q_NULLPTR)
+         << QApplication::translate("optionssauvepoints", "Lambert93/CC49__EPSG:3949", Q_NULLPTR)
+         << QApplication::translate("optionssauvepoints", "Lambert93/CC50__EPSG:3950", Q_NULLPTR)
+        );
+        label_8->setText(QApplication::translate("optionssauvepoints", "Transform saved coord to ", Q_NULLPTR));
     } // retranslateUi
 
 };

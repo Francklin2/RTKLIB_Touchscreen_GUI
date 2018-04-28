@@ -40,7 +40,7 @@ public:
     QPushButton *HelpButton;
     QPushButton *PowerOFFButton;
     QLineEdit *lineEdit;
-    QPushButton *RTK_BASE_position;
+    QPushButton *Post_Processing_Button;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -54,7 +54,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         RoverButton = new QPushButton(centralWidget);
         RoverButton->setObjectName(QStringLiteral("RoverButton"));
-        RoverButton->setGeometry(QRect(20, 100, 261, 171));
+        RoverButton->setGeometry(QRect(20, 100, 261, 151));
         QFont font;
         font.setPointSize(18);
         font.setBold(true);
@@ -64,7 +64,7 @@ public:
 "border: 1px solid black;"));
         BasestationButton = new QPushButton(centralWidget);
         BasestationButton->setObjectName(QStringLiteral("BasestationButton"));
-        BasestationButton->setGeometry(QRect(310, 100, 271, 171));
+        BasestationButton->setGeometry(QRect(310, 100, 271, 151));
         BasestationButton->setFont(font);
         BasestationButton->setStyleSheet(QLatin1String("border-radius: 20px;\n"
 "border: 1px solid black;"));
@@ -126,9 +126,19 @@ public:
         lineEdit->setStyleSheet(QLatin1String("border-radius: 15px;\n"
 "border: 1px solid black;"));
         lineEdit->setAlignment(Qt::AlignCenter);
-        RTK_BASE_position = new QPushButton(centralWidget);
-        RTK_BASE_position->setObjectName(QStringLiteral("RTK_BASE_position"));
-        RTK_BASE_position->setGeometry(QRect(320, 270, 251, 51));
+        Post_Processing_Button = new QPushButton(centralWidget);
+        Post_Processing_Button->setObjectName(QStringLiteral("Post_Processing_Button"));
+        Post_Processing_Button->setGeometry(QRect(100, 270, 401, 71));
+        QFont font3;
+        font3.setPointSize(13);
+        font3.setBold(true);
+        font3.setWeight(75);
+        Post_Processing_Button->setFont(font3);
+        Post_Processing_Button->setStyleSheet(QLatin1String("background-color: rgb(238, 238, 236);\n"
+"border-style: solid;\n"
+"border-color: black;\n"
+"border-width: 1px;\n"
+"border-radius: 15px;"));
         MainWindow->setCentralWidget(centralWidget);
         RoverButton->raise();
         BasestationButton->raise();
@@ -141,10 +151,10 @@ public:
         PowerOFFButton->raise();
         TimeEdit->raise();
         lineEdit->raise();
-        RTK_BASE_position->raise();
+        Post_Processing_Button->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 800, 25));
+        menuBar->setGeometry(QRect(0, 0, 800, 22));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -172,8 +182,8 @@ public:
         HelpButton->setText(QApplication::translate("MainWindow", "HELP", Q_NULLPTR));
         PowerOFFButton->setText(QApplication::translate("MainWindow", "POWER OFF", Q_NULLPTR));
         lineEdit->setText(QApplication::translate("MainWindow", "RTKLIB", Q_NULLPTR));
-        RTK_BASE_position->setText(QApplication::translate("MainWindow", " Post Processing RTK_BASE position \n"
-"  using CORS stations ", Q_NULLPTR));
+        Post_Processing_Button->setText(QApplication::translate("MainWindow", " POST PROCESSING  USING CORS STATIONS  \n"
+" AUTOMATIC LOG/PROCESSING/BASE MODE", Q_NULLPTR));
     } // retranslateUi
 
 };

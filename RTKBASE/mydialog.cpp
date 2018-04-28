@@ -100,22 +100,84 @@ MyDialog::MyDialog(QWidget *parent) :
            qDebug()<<ligne;
            list<<ligne;
            i=i+1;
-        }
+       }
 
-              ui->Radius_dmax->setCurrentText(QString(list[0]));
-              ui->MinStation->setCurrentText(QString(list[1]));
-              ui->CaptureTime->setCurrentText(QString(list[2]));
-              ui->WaitingTime->setCurrentText(QString(list[3]));
-              ui->InSerialPortcomboBox2->setCurrentText(QString(list[4]));
-              ui->InBaudratecomboBox2->setCurrentText(QString(list[5]));
-              ui->InFormatcomboBox2->setCurrentText(QString(list[6]));
-              ui->Autostartbase_comboBox->setCurrentText(QString(list[7]));
 
-              ui->OutSerialPortcomboBox2->setCurrentText(QString(list[8]));
-              ui->OutBaudRatecomboBox2->setCurrentText(QString(list[9]));
-              ui->OutFormatcomboBox2->setCurrentText(QString(list[10]));
-              ui->RtcmMsgcomboBox2->setCurrentText(QString(list[11]));
-              ui->Choose_server->setCurrentText(QString(list[12]));
+int DmaxIndex;
+  if (list[0]=="10") {DmaxIndex=0;}
+  if (list[0]=="20") {DmaxIndex=1;}
+  if (list[0]=="30") {DmaxIndex=2;}
+  if (list[0]=="40") {DmaxIndex=3;}
+  if (list[0]=="50") {DmaxIndex=4;}
+  if (list[0]=="60") {DmaxIndex=5;}
+  if (list[0]=="70") {DmaxIndex=6;}
+  if (list[0]=="80") {DmaxIndex=7;}
+  if (list[0]=="90") {DmaxIndex=8;}
+  if (list[0]=="100") {DmaxIndex=9;}
+  if (list[0]=="120") {DmaxIndex=10;}
+  if (list[0]=="150") {DmaxIndex=11;}
+  if (list[0]=="200") {DmaxIndex=12;}
+  if (list[0]=="300") {DmaxIndex=13;}if (list[0]=="80") {DmaxIndex=7;}
+  if (list[0]=="400") {DmaxIndex=14;}
+  if (list[0]=="500") {DmaxIndex=15;}
+  if (list[0]=="1000") {DmaxIndex=16;}
+  if (list[0]=="6000") {DmaxIndex=17;}
+
+int MinStatIndex;
+  if (list[1]=="1") {MinStatIndex=0;}
+  if (list[1]=="1") {MinStatIndex=0;}
+if (list[1]=="1") {MinStatIndex=0;}
+if (list[1]=="2") {MinStatIndex=1;}
+if (list[1]=="3") {MinStatIndex=2;}
+if (list[1]=="4") {MinStatIndex=3;}
+if (list[1]=="5") {MinStatIndex=4;}
+if (list[1]=="6") {MinStatIndex=5;}
+
+int CaptTimeIndex;
+if (list[2]=="31") {CaptTimeIndex=0;}
+if (list[2]=="45") {CaptTimeIndex=1;}
+if (list[2]=="60") {CaptTimeIndex=2;}
+if (list[2]=="90") {CaptTimeIndex=3;}
+if (list[2]=="120") {CaptTimeIndex=4;}
+if (list[2]=="240") {CaptTimeIndex=5;}
+if (list[2]=="360") {CaptTimeIndex=6;}
+if (list[2]=="480") {CaptTimeIndex=7;}
+if (list[2]=="540") {CaptTimeIndex=8;}
+if (list[2]=="720") {CaptTimeIndex=9;}
+if (list[2]=="1440") {CaptTimeIndex=10;}
+
+int WaitTimeIndex;
+if (list[3]=="0") {WaitTimeIndex=0;}
+if (list[3]=="1") {WaitTimeIndex=1;}
+if (list[3]=="15") {WaitTimeIndex=2;}
+if (list[3]=="30") {WaitTimeIndex=3;}
+if (list[3]=="45") {WaitTimeIndex=4;}
+if (list[3]=="60") {WaitTimeIndex=5;}
+
+int ServerNameIndex;
+if (list[12]=="rgpdata.ign.fr") {ServerNameIndex=0;}
+if (list[12]=="geodesy.noaa.gov") {ServerNameIndex=1;}
+
+int AutoStartIndex;
+if (list[7]=="off") {AutoStartIndex=0;}
+if (list[7]=="on") {AutoStartIndex=1;}
+
+
+
+              ui->Radius_dmax->setCurrentIndex(DmaxIndex);
+              ui->MinStation->setCurrentIndex(MinStatIndex);
+              ui->CaptureTime->setCurrentIndex(CaptTimeIndex);
+              ui->WaitingTime->setCurrentIndex(WaitTimeIndex);
+              ui->InSerialPortcomboBox2->setEditText(list[4]);
+              ui->InBaudratecomboBox2->setEditText(list[5]);
+              ui->InFormatcomboBox2->setEditText(list[6]);
+              ui->Autostartbase_comboBox->setCurrentIndex(AutoStartIndex);
+
+              ui->OutSerialPortcomboBox2->setEditText(list[8]);
+              ui->OutBaudRatecomboBox2->setEditText(list[9]);
+              ui->OutFormatcomboBox2->setEditText(list[10]);
+              ui->RtcmMsgcomboBox2->setEditText(list[11]);
+              ui->Choose_server->setCurrentIndex(ServerNameIndex);
 
               ui->InfoBaseAuto_lineEdit->setText(QString("Base auto "+list[7]));
               ui->InfoCapture_lineEdit->setText(QString("Log "+list[2]+"mn and wait "+list[3]+"mn before process"));
@@ -161,7 +223,7 @@ ui->textBrowser_2->setText(QString("START PROCESSING SEQUENCE"));
 
 
     ui->textBrowser->setText("Please wait ... calculation in progress...");
-    qInstallMessageHandler(myMessageHandler);
+     qInstallMessageHandler(myMessageHandler);
 
    //  Start processing from here
 
@@ -201,8 +263,8 @@ ui->textBrowser_2->setText(QString("START PROCESSING SEQUENCE"));
 
 
 
-
-    QThread sleep;
+SleepThread sleep;
+    // QThread sleep;
 
     /*------------------------------------------------------------------------------/
         - Chek the existence of the package  directory
@@ -475,44 +537,47 @@ statnb++;
 
  ui->InfotextBrowser->setText("                     DOWNLOAD AND PROCESS DATA FROM STATION: ");
 
-    while(nbstation<Min_station2)
+
+ /*------------------------------------------------------------------------------/
+     Downloading for each 'Min-station' nearest station the following files:
+         - Observation file
+         - Navigation GPS file
+         - Navigation GLONASS file
+ /------------------------------------------------------------------------------*/
+
+
+ while(nbstation<Min_station2)
     {
-        /*------------------------------------------------------------------------------/
-            Downloading for each 'Min-station' nearest station the following files:
-                - Observation file
-                - Navigation GPS file
-                - Navigation GLONASS file
-        /------------------------------------------------------------------------------*/
 
         //Downloading of the observation file
 
         bool download_OBS=false;
         bool download_GPS=false;
         bool download_GLO=false;
-//        QString resultstat2;
 
 
 
 ui->textBrowser_2->setText(QString("DOWNLOADING OBS DATA FROM STATION %1").arg(st.vect_name[i]));
 
-        down.url=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[2];       //Download link
-        down.file_name=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[0]; //Name of the file to download
-        down.do_downloader();
+down.url=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[2];       //Download link
+down.file_name=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[0]; //Name of the file to download
+down.do_downloader();
 
-        if(down.downfailed==true)
-        {
-            qDebug()<<"We can't download data for this station:"<< st.vect_name[i]<<"we will try the next nearest station"<<endl;
-            down.downfailed=false;
-            download_OBS=false;
-            goto end;
-        }
+if(down.downfailed==true)
+{
+    qDebug()<<"We can't download data for this station:"<< st.vect_name[i]<<"we will try the next nearest station"<<endl;
+    down.downfailed=false;
+    download_OBS=false;
+    goto end;
+}
 
-        download_OBS=true;
+download_OBS=true;
 
-        down.unzip_file();                          //Decompressing process
+      down.unzip_file();                          //Decompressing process
 
 PBar= PBar+PbarStat;
 on_progressBar_valueChanged(PBar);
+
 
 if(Server=="rgpdata.ign.fr")
 {
@@ -588,12 +653,12 @@ ui->textBrowser_2->setText(QString("START PROCESSING DATA"));
         qDebug()<<"_antenna_type_station"<<st._antenna_type_station<<endl;
         qDebug()<<"_coord_antena"<<st._coord_antenna[0]<<","<<st._coord_antenna[1]<<","<<st._coord_antenna[2]<<endl;
         qDebug()<<"_coord_station"<<st._coord_station[0]<<","<<st._coord_station[1]<<","<<st._coord_station[2]<<endl;
-        qDebug()<<"_coord_stationLLH"<<st._coord_stationLLH[0]<<","<<st._coord_stationLLH[1]<<","<<st._coord_stationLLH[2]<<endl;
+//        qDebug()<<"_coord_stationLLH"<<st._coord_stationLLH[0]<<","<<st._coord_stationLLH[1]<<","<<st._coord_stationLLH[2]<<endl;
 
         cal._antenna_type_station=st._antenna_type_station;
         cal._coord_antenna=st._coord_antenna;
         cal._coord_station=st._coord_station;
-        cal._coord_stationLLH=st._coord_stationLLH;
+//        cal._coord_stationLLH=st._coord_stationLLH;
         qDebug()<<"_coord_station: "<<st._coord_station<<endl;
 
 

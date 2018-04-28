@@ -35,10 +35,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = RTKBASE1.0.0
-DISTDIR = /home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/.tmp/RTKBASE1.0.0
+DISTDIR = /home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/.tmp/RTKBASE1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/opt/Qt/5.9.1/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib/ -lrtk -lm -lrt -L/opt/Qt/5.9.1/gcc_64/lib -lQt5PrintSupport -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib/ -lrtk -lm -lrt -L/opt/Qt/5.9.1/gcc_64/lib -lQt5PrintSupport -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -76,7 +76,6 @@ SOURCES       = main.cpp \
 		mylineedit.cpp \
 		mycombobox.cpp \
 		approxcoord.cpp \
-		coord_coverter.cpp \
 		downloader.cpp \
 		gpstime.cpp \
 		mydialog.cpp \
@@ -131,7 +130,6 @@ OBJECTS       = main.o \
 		mylineedit.o \
 		mycombobox.o \
 		approxcoord.o \
-		coord_coverter.o \
 		downloader.o \
 		gpstime.o \
 		mydialog.o \
@@ -362,7 +360,6 @@ DIST          = /opt/Qt/5.9.1/gcc_64/mkspecs/features/spec_pre.prf \
 		mylineedit.h \
 		mycombobox.h \
 		approxcoord.h \
-		coord_coverter.h \
 		downloader.h \
 		gpstime.h \
 		mydialog.h \
@@ -394,7 +391,6 @@ DIST          = /opt/Qt/5.9.1/gcc_64/mkspecs/features/spec_pre.prf \
 		mylineedit.cpp \
 		mycombobox.cpp \
 		approxcoord.cpp \
-		coord_coverter.cpp \
 		downloader.cpp \
 		gpstime.cpp \
 		mydialog.cpp \
@@ -796,8 +792,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt/5.9.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h threadheuresysteme.h magraphicsscene.h options1.h affichesolutions.h options2.h vt.h MainThread.h MainthreadStr2str.h affichestr2str.h mainthreadreadfile.h optionsstr2str.h qcustomplot.h gestionconfig.h choixedite.h editeconfig.h choixstr2str.h choixconfig.h optionssauvepoints.h clavier.h mylineedit.h mycombobox.h approxcoord.h coord_coverter.h downloader.h gpstime.h mydialog.h mymessagehandler.h rnx2rtkp.h station.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp threadheuresysteme.cpp magraphicsscene.cpp options1.cpp affichesolutions.cpp options2.cpp vt.c rtkrcv.c MainThread.cpp str2str.c MainthreadStr2str.cpp affichestr2str.cpp mainthreadreadfile.cpp optionsstr2str.cpp qcustomplot.cpp gestionconfig.cpp choixedite.cpp editeconfig.cpp choixstr2str.cpp choixconfig.cpp optionssauvepoints.cpp clavier.cpp mylineedit.cpp mycombobox.cpp approxcoord.cpp coord_coverter.cpp downloader.cpp gpstime.cpp mydialog.cpp mymessagehandler.cpp rnx2rtkp.cpp station.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h threadheuresysteme.h magraphicsscene.h options1.h affichesolutions.h options2.h vt.h MainThread.h MainthreadStr2str.h affichestr2str.h mainthreadreadfile.h optionsstr2str.h qcustomplot.h gestionconfig.h choixedite.h editeconfig.h choixstr2str.h choixconfig.h optionssauvepoints.h clavier.h mylineedit.h mycombobox.h approxcoord.h downloader.h gpstime.h mydialog.h mymessagehandler.h rnx2rtkp.h station.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp threadheuresysteme.cpp magraphicsscene.cpp options1.cpp affichesolutions.cpp options2.cpp vt.c rtkrcv.c MainThread.cpp str2str.c MainthreadStr2str.cpp affichestr2str.cpp mainthreadreadfile.cpp optionsstr2str.cpp qcustomplot.cpp gestionconfig.cpp choixedite.cpp editeconfig.cpp choixstr2str.cpp choixconfig.cpp optionssauvepoints.cpp clavier.cpp mylineedit.cpp mycombobox.cpp approxcoord.cpp downloader.cpp gpstime.cpp mydialog.cpp mymessagehandler.cpp rnx2rtkp.cpp station.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui options1.ui affichesolutions.ui options2.ui affichestr2str.ui optionsstr2str.ui gestionconfig.ui choixedite.ui editeconfig.ui choixstr2str.ui choixconfig.ui optionssauvepoints.ui clavier.ui mylineedit.ui mycombobox.ui mydialog.ui mainwindow.ui $(DISTDIR)/
 
 
@@ -1208,7 +1204,7 @@ moc_mainwindow.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QMainWindow \
 		mainwindow.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 moc_threadheuresysteme.cpp: /opt/Qt/5.9.1/gcc_64/include/QtCore/QThread \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qthread.h \
@@ -1264,7 +1260,7 @@ moc_threadheuresysteme.cpp: /opt/Qt/5.9.1/gcc_64/include/QtCore/QThread \
 		threadheuresysteme.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include threadheuresysteme.h -o moc_threadheuresysteme.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include threadheuresysteme.h -o moc_threadheuresysteme.cpp
 
 moc_magraphicsscene.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qgraphicsscene.h \
@@ -1370,7 +1366,7 @@ moc_magraphicsscene.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QGraphicsScene \
 		magraphicsscene.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include magraphicsscene.h -o moc_magraphicsscene.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include magraphicsscene.h -o moc_magraphicsscene.cpp
 
 moc_options1.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
@@ -1476,7 +1472,7 @@ moc_options1.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		options1.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include options1.h -o moc_options1.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include options1.h -o moc_options1.cpp
 
 moc_affichesolutions.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
@@ -1710,7 +1706,7 @@ moc_affichesolutions.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		affichesolutions.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include affichesolutions.h -o moc_affichesolutions.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include affichesolutions.h -o moc_affichesolutions.cpp
 
 moc_options2.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
@@ -1816,7 +1812,7 @@ moc_options2.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		options2.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include options2.h -o moc_options2.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include options2.h -o moc_options2.cpp
 
 moc_MainThread.cpp: /opt/Qt/5.9.1/gcc_64/include/QtCore/QtCore \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QtCoreDepends \
@@ -2006,7 +2002,7 @@ moc_MainThread.cpp: /opt/Qt/5.9.1/gcc_64/include/QtCore/QtCore \
 		MainThread.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MainThread.h -o moc_MainThread.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MainThread.h -o moc_MainThread.cpp
 
 moc_MainthreadStr2str.cpp: /opt/Qt/5.9.1/gcc_64/include/QtCore/QtCore \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QtCoreDepends \
@@ -2196,7 +2192,7 @@ moc_MainthreadStr2str.cpp: /opt/Qt/5.9.1/gcc_64/include/QtCore/QtCore \
 		MainthreadStr2str.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MainthreadStr2str.h -o moc_MainthreadStr2str.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MainthreadStr2str.h -o moc_MainthreadStr2str.cpp
 
 moc_affichestr2str.cpp: mainthreadreadfile.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QtCore \
@@ -2439,7 +2435,7 @@ moc_affichestr2str.cpp: mainthreadreadfile.h \
 		affichestr2str.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include affichestr2str.h -o moc_affichestr2str.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include affichestr2str.h -o moc_affichestr2str.cpp
 
 moc_mainthreadreadfile.cpp: /opt/Qt/5.9.1/gcc_64/include/QtCore/QtCore \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QtCoreDepends \
@@ -2629,7 +2625,7 @@ moc_mainthreadreadfile.cpp: /opt/Qt/5.9.1/gcc_64/include/QtCore/QtCore \
 		mainthreadreadfile.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainthreadreadfile.h -o moc_mainthreadreadfile.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainthreadreadfile.h -o moc_mainthreadreadfile.cpp
 
 moc_optionsstr2str.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
@@ -2872,7 +2868,7 @@ moc_optionsstr2str.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		optionsstr2str.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include optionsstr2str.h -o moc_optionsstr2str.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include optionsstr2str.h -o moc_optionsstr2str.cpp
 
 moc_qcustomplot.cpp: /opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
@@ -3356,7 +3352,7 @@ moc_qcustomplot.cpp: /opt/Qt/5.9.1/gcc_64/include/QtCore/QObject \
 		qcustomplot.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include qcustomplot.h -o moc_qcustomplot.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include qcustomplot.h -o moc_qcustomplot.cpp
 
 moc_gestionconfig.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
@@ -3463,7 +3459,7 @@ moc_gestionconfig.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		gestionconfig.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include gestionconfig.h -o moc_gestionconfig.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include gestionconfig.h -o moc_gestionconfig.cpp
 
 moc_choixedite.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
@@ -3569,7 +3565,7 @@ moc_choixedite.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		choixedite.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include choixedite.h -o moc_choixedite.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include choixedite.h -o moc_choixedite.cpp
 
 moc_editeconfig.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
@@ -3675,7 +3671,7 @@ moc_editeconfig.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		editeconfig.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include editeconfig.h -o moc_editeconfig.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include editeconfig.h -o moc_editeconfig.cpp
 
 moc_choixstr2str.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
@@ -3781,7 +3777,7 @@ moc_choixstr2str.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		choixstr2str.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include choixstr2str.h -o moc_choixstr2str.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include choixstr2str.h -o moc_choixstr2str.cpp
 
 moc_choixconfig.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
@@ -3887,7 +3883,7 @@ moc_choixconfig.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		choixconfig.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include choixconfig.h -o moc_choixconfig.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include choixconfig.h -o moc_choixconfig.cpp
 
 moc_optionssauvepoints.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
@@ -3993,7 +3989,7 @@ moc_optionssauvepoints.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		optionssauvepoints.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include optionssauvepoints.h -o moc_optionssauvepoints.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include optionssauvepoints.h -o moc_optionssauvepoints.cpp
 
 moc_clavier.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
@@ -4099,7 +4095,7 @@ moc_clavier.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		clavier.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include clavier.h -o moc_clavier.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include clavier.h -o moc_clavier.cpp
 
 moc_mylineedit.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QWidget \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qwidget.h \
@@ -4211,7 +4207,7 @@ moc_mylineedit.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QWidget \
 		mylineedit.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mylineedit.h -o moc_mylineedit.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mylineedit.h -o moc_mylineedit.cpp
 
 moc_mycombobox.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QWidget \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qwidget.h \
@@ -4332,7 +4328,7 @@ moc_mycombobox.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QWidget \
 		mycombobox.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mycombobox.h -o moc_mycombobox.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mycombobox.h -o moc_mycombobox.cpp
 
 moc_downloader.cpp: /opt/Qt/5.9.1/gcc_64/include/QtNetwork/QNetworkAccessManager \
 		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qnetworkaccessmanager.h \
@@ -4440,7 +4436,7 @@ moc_downloader.cpp: /opt/Qt/5.9.1/gcc_64/include/QtNetwork/QNetworkAccessManager
 		downloader.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include downloader.h -o moc_downloader.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include downloader.h -o moc_downloader.cpp
 
 moc_mydialog.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
@@ -4718,7 +4714,7 @@ moc_mydialog.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		mydialog.h \
 		moc_predefs.h \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
-	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mydialog.h -o moc_mydialog.cpp
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mydialog.h -o moc_mydialog.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -11657,51 +11653,6 @@ approxcoord.o: approxcoord.cpp approxcoord.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QVector
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o approxcoord.o approxcoord.cpp
 
-coord_coverter.o: coord_coverter.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QtMath \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmath.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobal.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtcore-config.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsystemdetection.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qprocessordetection.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcompilerdetection.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtypeinfo.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsysinfo.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlogging.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qflags.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbasicatomic.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qgenericatomic.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_cxx11.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_msvc.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobalstatic.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmutex.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnumeric.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qversiontagging.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qalgorithms.h \
-		coord_coverter.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/QVector \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvector.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiterator.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlist.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrefcount.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qarraydata.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhashfunctions.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qchar.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpair.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearraylist.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearray.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnamespace.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstring.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringbuilder.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringlist.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qregexp.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringmatcher.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpoint.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o coord_coverter.o coord_coverter.cpp
-
 downloader.o: downloader.cpp downloader.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/QNetworkAccessManager \
 		/opt/Qt/5.9.1/gcc_64/include/QtNetwork/qnetworkaccessmanager.h \
@@ -12148,7 +12099,6 @@ mydialog.o: mydialog.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QDebug \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QCoreApplication \
 		approxcoord.h \
 		station.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/QtMath \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QTextEdit \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtextedit.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
@@ -12358,8 +12308,11 @@ mymessagehandler.o: mymessagehandler.cpp mymessagehandler.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfiledevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mymessagehandler.o mymessagehandler.cpp
 
-rnx2rtkp.o: rnx2rtkp.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QtMath \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmath.h \
+rnx2rtkp.o: rnx2rtkp.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QThread \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qthread.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnamespace.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobal.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig.h \
@@ -12381,12 +12334,6 @@ rnx2rtkp.o: rnx2rtkp.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QtMath \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmutex.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnumeric.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qversiontagging.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qalgorithms.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/QThread \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qthread.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnamespace.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstring.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qchar.h \
@@ -12395,6 +12342,7 @@ rnx2rtkp.o: rnx2rtkp.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QtMath \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qarraydata.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringbuilder.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qalgorithms.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiterator.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhashfunctions.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpair.h \
@@ -12539,6 +12487,7 @@ rnx2rtkp.o: rnx2rtkp.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QtMath \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlinkedlist.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlockfile.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qloggingcategory.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmath.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmessageauthenticationcode.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetaobject.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmimedata.h \
@@ -12756,7 +12705,6 @@ station.o: station.cpp station.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfiledevice.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qvector2d.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtouchdevice.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtCore/QtMath \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmath.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QTextEdit \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtextedit.h \

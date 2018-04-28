@@ -411,11 +411,6 @@ border-radius: 10px;</string>
      </property>
      <item>
       <property name="text">
-       <string>40</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
        <string>10</string>
       </property>
      </item>
@@ -427,6 +422,11 @@ border-radius: 10px;</string>
      <item>
       <property name="text">
        <string>30</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>40</string>
       </property>
      </item>
      <item>
@@ -472,6 +472,26 @@ border-radius: 10px;</string>
      <item>
       <property name="text">
        <string>200</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>300</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>400</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>500</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1000</string>
       </property>
      </item>
      <item>
@@ -628,7 +648,12 @@ border-radius: 10px;</string>
      </item>
      <item>
       <property name="text">
-       <string>1</string>
+       <string>720</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1440</string>
       </property>
      </item>
     </widget>

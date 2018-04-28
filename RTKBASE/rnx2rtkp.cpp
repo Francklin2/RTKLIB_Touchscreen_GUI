@@ -20,7 +20,7 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-#include <QtMath>
+// #include <QtMath>
 #include <QThread>
 
 #include "rnx2rtkp.h"
@@ -77,41 +77,70 @@ void Rnx2rtkp::configuration_file()
 
 
     /*-------------------------------------------------------------------------------/
-      - Convert ECEF to llh coordinates
+      - Convert ECEF to llh coordinates !!! Not used because we use ECEF now
     /------------------------------------------------------------------------------*/
-    QVector<QString> LLH_station_as_string;
-
-//        if(Server=="rgpdata.ign.fr")
-//        {
-    QVector<double> ecef;
-    ecef.append(_coord_station[0].toDouble());
-    ecef.append(_coord_station[1].toDouble());
-    ecef.append(_coord_station[2].toDouble());
-
-    Coord_coverter c;
-    //qDebug()<<c.ecef_to_geo(ecef);  //en rad
 
 
-    LLH_station_as_string.append(QString::number(qRadiansToDegrees(c.ecef_to_geo(ecef)[0])));
-    LLH_station_as_string.append(QString::number(qRadiansToDegrees(c.ecef_to_geo(ecef)[1])));
-    LLH_station_as_string.append(QString::number(c.ecef_to_geo(ecef)[2]));
-    qDebug()<<"LLH_station_as_string"<<LLH_station_as_string<<endl;
+    /*------Create a buffer file with ECEF coord for cs2cs transform ------------------*/
 
-  //      }
+          std::ofstream q("saveECEFcoordbuffer.txt");
+            QFile ECEFcoordbuffer("saveECEFcoordbuffer.txt");
+            ECEFcoordbuffer.open(QIODevice::Append | QIODevice::Text);
+            QTextStream outecef(&ECEFcoordbuffer);
+         {
+            QString X=_coord_station[0];
+            X.replace(QString(","),QString("."));
+            QString Y=_coord_station[1];
+            Y.replace(QString(","),QString("."));
+            QString Z=_coord_station[2];
+            Z.replace(QString(","),QString("."));
 
-//    if(Server=="geodesy.noaa.gov")
-//        {
-//
-//            LLH_station_as_string.append((_coord_stationLLH)[0]);
-//            LLH_station_as_string.append((_coord_stationLLH)[1]);
-//            LLH_station_as_string.append((_coord_stationLLH)[2]);
-//            qDebug()<<"LLH_station_as_string"<<LLH_station_as_string<<endl;
-
-  //      }
-
+            outecef<<X<<" "<<Y<<" "<<Z<<'\n';
 
 
+         ECEFcoordbuffer.close();
+     }
 
+            /*-------------------------------------------------------------------------------/
+                  - Converte ECEF buffer file with cs2cs
+            /------------------------------------------------------------------------------*/
+QVector<QString> LLH_station_as_string;
+LLH_station_as_string.clear();
+
+        QProcess convert;
+
+                QStringList param;
+
+                param <<"+init=epsg:4978"<<"+to"<<"+init=epsg:4326"<<"-f"<<"%.6f"<<"saveECEFcoordbuffer.txt";
+
+                 qDebug() << "param:" << param << "\n";
+
+                convert.start("cs2cs", param);
+                if (convert.waitForStarted())
+                {
+                   convert.waitForFinished();
+                   QString output;
+                   output = convert.readAllStandardOutput();
+
+                   QString line = output;
+
+                   qDebug() << "line:" << line << "\n";
+                   QStringList list = line.split(QRegExp("\\s"));
+
+                   double element;
+
+                   for(int i = 0; i < list.size(); i++)
+                   {
+                       element = list.at(i).toDouble();
+                       qDebug() << "element:" << element << "\n";
+                   }
+
+
+                   LLH_station_as_string<<(QString((list)[1]))<<(QString((list)[0]))<<(QString((list)[2]));
+                   qDebug() << "LLH_station_as_string:" << LLH_station_as_string << "\n";
+
+            }
+    /*------------------------------------------------------------------------------*/
 
     /*-------------------------------------------------------------------------------/
         Generate the configuration file for the RNX2RTKP calculation process
@@ -603,14 +632,12 @@ if(nbline == 18)
 
 
 std::ofstream E("sauvegarde_results_ECEF.txt");
-QFile fichierlastpositionECEF("sauvegarde_results_ECEF.txt*");
+QFile fichierlastpositionECEF("sauvegarde_results_ECEF.txt");
 fichierlastpositionECEF.open(QIODevice::Append | QIODevice::Text);
 QTextStream outE(&fichierlastpositionECEF);
 
 {
-    outE<<X_Y_Z_ecef_final[0]<<endl;
-    outE<<X_Y_Z_ecef_final[1]<<endl;
-    outE<<X_Y_Z_ecef_final[2]<<endl;
+    outE<<X_Y_Z_ecef_final[0]<<" "<<X_Y_Z_ecef_final[1]<<" "<<X_Y_Z_ecef_final[2];
 }
   fichierlastpositionECEF.close();
 
@@ -622,10 +649,10 @@ QTextStream outE(&fichierlastpositionECEF);
     /------------------------------------------------------------------------------*/
 
   QProcess convert;
-  convert.setWorkingDirectory( "/home/francklin/cs2cs_gui" );
+
 
   QStringList param;
-  param << "+proj=geocent"<<"+datum=WGS84"<<"+to"<<"+proj=latlong"<<"+datum=WGS84"<<"-f"<<"%.12f"<<"test";
+  param << "+proj=geocent"<<"+datum=WGS84"<<"+to"<<"+proj=latlong"<<"+datum=WGS84"<<"-f"<<"%.6f"<<"sauvegarde_results_ECEF.txt";
 
   convert.start("cs2cs", param);
   if (convert.waitForStarted())
@@ -663,24 +690,6 @@ QTextStream outE(&fichierlastpositionECEF);
 
 
 
-
-  /*------------------------------------------------------------------------------*/
-
-/*  QVector<double> Sol_ecef;
-    Sol_ecef.append(Sol_x_ECEF.toDouble());
-    Sol_ecef.append(Sol_y_ECEF.toDouble());
-    Sol_ecef.append(Sol_z_ECEF.toDouble());
-
-    Coord_coverter c;
-    //qDebug()<<c.ecef_to_geo(ecef);  //en rad
-
-    QVector<QString> LLH_station_as_string;
-    Sol_x_LLH = (QString::number(qRadiansToDegrees(c.ecef_to_geo(Sol_ecef)[0])));
-    Sol_y_LLH = (QString::number(qRadiansToDegrees(c.ecef_to_geo(Sol_ecef)[1])));
-    Sol_z_LLH = (QString::number(c.ecef_to_geo(Sol_ecef)[2]));
-
- */
-    //qDebug()<<"LLH_station_as_string"<<LLH_station_as_string<<endl;
 
 
 

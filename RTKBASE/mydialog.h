@@ -80,4 +80,12 @@ signals:
 
 };
 
+
+class SleepThread : public QThread {
+public:
+   void sleep(unsigned long secs) {
+     QThread::sleep(secs);
+   }
+};
+
 #endif // MYDIALOG_H

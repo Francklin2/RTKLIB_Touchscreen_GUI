@@ -61,7 +61,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QPixmap newPixmap = watermark.scaled(QSize(65,65),Qt::KeepAspectRatio);
     ui->ensglabel->setPixmap(newPixmap);
 
-
     // --------- voir partie "print solution" de RTKCVR pour récupérer données Time / FIX-FLOAT-... / Position...
     // https://openclassrooms.com/courses/la-programmation-systeme-en-c-sous-unix/les-threads-3 //
     //-----------------------------------Affichage heure système---------------------------------------------//

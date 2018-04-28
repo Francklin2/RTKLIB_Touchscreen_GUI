@@ -38,7 +38,7 @@ optionssauvepoints::optionssauvepoints(QString filePath,QString pointName, int n
     ui->NummeasBox->setEditText(QString::number(nummeas));
     ui->CyclenBox->setEditText(QString::number(cyclen));
     ui->OldpointBox->setCurrentIndex(oldpoint);
-    ui->EPSG_comboBox->setCurrentText(EPSG);
+    ui->EPSG_comboBox->setEditText(EPSG);
 
     QObject::connect(ui->CancelButton,SIGNAL(clicked()),this,SLOT(Cancel()));
     QObject::connect(ui->SaveButton,SIGNAL(clicked()),this,SLOT(Save()));

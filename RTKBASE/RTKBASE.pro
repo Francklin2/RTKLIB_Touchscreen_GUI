@@ -40,7 +40,6 @@ SOURCES += main.cpp\
     mylineedit.cpp \
     mycombobox.cpp \
     approxcoord.cpp \
-    coord_coverter.cpp \
     downloader.cpp \
     gpstime.cpp \
     mydialog.cpp \
@@ -71,7 +70,6 @@ HEADERS  += mainwindow.h \
     mylineedit.h \
     mycombobox.h \
     approxcoord.h \
-    coord_coverter.h \
     downloader.h \
     gpstime.h \
     mydialog.h \

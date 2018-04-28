@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainThread_t {
-    QByteArrayData data[25];
-    char stringdata0[317];
+    QByteArrayData data[26];
+    char stringdata0[322];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -53,9 +53,10 @@ QT_MOC_LITERAL(18, 234, 9), // "pointName"
 QT_MOC_LITERAL(19, 244, 13), // "numOfMeasures"
 QT_MOC_LITERAL(20, 258, 9), // "cycleLong"
 QT_MOC_LITERAL(21, 268, 11), // "addMeasures"
-QT_MOC_LITERAL(22, 280, 17), // "changeSaveOptions"
-QT_MOC_LITERAL(23, 298, 7), // "options"
-QT_MOC_LITERAL(24, 306, 10) // "setSYStime"
+QT_MOC_LITERAL(22, 280, 4), // "EPSG"
+QT_MOC_LITERAL(23, 285, 17), // "changeSaveOptions"
+QT_MOC_LITERAL(24, 303, 7), // "options"
+QT_MOC_LITERAL(25, 311, 10) // "setSYStime"
 
     },
     "MainThread\0emitdonneesStatus\0\0"
@@ -65,7 +66,7 @@ QT_MOC_LITERAL(24, 306, 10) // "setSYStime"
     "etatsatellite\0etatstatut\0etatNaviData\0"
     "etatStream\0saveposition\0sauvegardedansfichier\0"
     "filePath\0pointName\0numOfMeasures\0"
-    "cycleLong\0addMeasures\0changeSaveOptions\0"
+    "cycleLong\0addMeasures\0EPSG\0changeSaveOptions\0"
     "options\0setSYStime"
 };
 #undef QT_MOC_LITERAL
@@ -76,7 +77,7 @@ static const uint qt_meta_data_MainThread[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      21,   14, // methods
+      22,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -84,29 +85,30 @@ static const uint qt_meta_data_MainThread[] = {
        7,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  119,    2, 0x06 /* Public */,
-       3,    2,  122,    2, 0x06 /* Public */,
-       4,    1,  127,    2, 0x06 /* Public */,
-       6,    2,  130,    2, 0x06 /* Public */,
-       7,    1,  135,    2, 0x06 /* Public */,
-       8,    1,  138,    2, 0x06 /* Public */,
-       9,    1,  141,    2, 0x06 /* Public */,
+       1,    1,  124,    2, 0x06 /* Public */,
+       3,    2,  127,    2, 0x06 /* Public */,
+       4,    1,  132,    2, 0x06 /* Public */,
+       6,    2,  135,    2, 0x06 /* Public */,
+       7,    1,  140,    2, 0x06 /* Public */,
+       8,    1,  143,    2, 0x06 /* Public */,
+       9,    1,  146,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      10,    1,  144,    2, 0x0a /* Public */,
-      11,    0,  147,    2, 0x0a /* Public */,
-      12,    0,  148,    2, 0x0a /* Public */,
-      13,    0,  149,    2, 0x0a /* Public */,
-      14,    0,  150,    2, 0x0a /* Public */,
-      15,    0,  151,    2, 0x0a /* Public */,
-      16,    5,  152,    2, 0x0a /* Public */,
-      16,    4,  163,    2, 0x2a /* Public | MethodCloned */,
-      16,    3,  172,    2, 0x2a /* Public | MethodCloned */,
-      16,    2,  179,    2, 0x2a /* Public | MethodCloned */,
-      16,    1,  184,    2, 0x2a /* Public | MethodCloned */,
-      16,    0,  187,    2, 0x2a /* Public | MethodCloned */,
-      22,    1,  188,    2, 0x0a /* Public */,
-      24,    0,  191,    2, 0x0a /* Public */,
+      10,    1,  149,    2, 0x0a /* Public */,
+      11,    0,  152,    2, 0x0a /* Public */,
+      12,    0,  153,    2, 0x0a /* Public */,
+      13,    0,  154,    2, 0x0a /* Public */,
+      14,    0,  155,    2, 0x0a /* Public */,
+      15,    0,  156,    2, 0x0a /* Public */,
+      16,    6,  157,    2, 0x0a /* Public */,
+      16,    5,  170,    2, 0x2a /* Public | MethodCloned */,
+      16,    4,  181,    2, 0x2a /* Public | MethodCloned */,
+      16,    3,  190,    2, 0x2a /* Public | MethodCloned */,
+      16,    2,  197,    2, 0x2a /* Public | MethodCloned */,
+      16,    1,  202,    2, 0x2a /* Public | MethodCloned */,
+      16,    0,  205,    2, 0x2a /* Public | MethodCloned */,
+      23,    1,  206,    2, 0x0a /* Public */,
+      25,    0,  209,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QStringList,    2,
@@ -124,13 +126,14 @@ static const uint qt_meta_data_MainThread[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::Float, QMetaType::Bool, QMetaType::QString,   17,   18,   19,   20,   21,   22,
     QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::Float, QMetaType::Bool,   17,   18,   19,   20,   21,
     QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::Float,   17,   18,   19,   20,
     QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::Int,   17,   18,   19,
     QMetaType::Void, QMetaType::QString, QMetaType::QString,   17,   18,
     QMetaType::Void, QMetaType::QString,   17,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QStringList,   23,
+    QMetaType::Void, QMetaType::QStringList,   24,
     QMetaType::Void,
 
        0        // eod
@@ -155,14 +158,15 @@ void MainThread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 10: _t->etatNaviData(); break;
         case 11: _t->etatStream(); break;
         case 12: _t->saveposition(); break;
-        case 13: _t->sauvegardedansfichier((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< bool(*)>(_a[5]))); break;
-        case 14: _t->sauvegardedansfichier((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
-        case 15: _t->sauvegardedansfichier((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
-        case 16: _t->sauvegardedansfichier((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 17: _t->sauvegardedansfichier((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 18: _t->sauvegardedansfichier(); break;
-        case 19: _t->changeSaveOptions((*reinterpret_cast< QStringList(*)>(_a[1]))); break;
-        case 20: _t->setSYStime(); break;
+        case 13: _t->sauvegardedansfichier((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< bool(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6]))); break;
+        case 14: _t->sauvegardedansfichier((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< bool(*)>(_a[5]))); break;
+        case 15: _t->sauvegardedansfichier((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
+        case 16: _t->sauvegardedansfichier((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
+        case 17: _t->sauvegardedansfichier((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 18: _t->sauvegardedansfichier((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 19: _t->sauvegardedansfichier(); break;
+        case 20: _t->changeSaveOptions((*reinterpret_cast< QStringList(*)>(_a[1]))); break;
+        case 21: _t->setSYStime(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -245,13 +249,13 @@ int MainThread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 21)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 22;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 21)
+        if (_id < 22)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 21;
+        _id -= 22;
     }
     return _id;
 }
