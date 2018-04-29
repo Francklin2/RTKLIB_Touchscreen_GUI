@@ -1,0 +1,13 @@
+6000
+6
+60
+0
+serial://ttyACM0
+115200
+ubx
+off
+serial://ttyUSB0
+57600
+rtcm3
+1004,1006,1008,1012,1019,1020
+rgpdata.ign.fr
