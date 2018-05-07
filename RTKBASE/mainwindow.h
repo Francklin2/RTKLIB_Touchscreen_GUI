@@ -32,8 +32,9 @@ public slots:
     void OuvreAfficheSolutiosStr2str();
     void OuvreHelp();
     void Shutdown();
-
     void Post_Processing();                                //added by ENSG student SAIF AATI
+    void Startup_Options();
+
 
 private:
     Ui::MainWindow *ui;

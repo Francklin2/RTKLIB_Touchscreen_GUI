@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     mydialog.cpp \
     mymessagehandler.cpp \
     rnx2rtkp.cpp \
-    station.cpp
+    station.cpp \
+    optionsstartatboot.cpp
 
 HEADERS  += mainwindow.h \
     threadheuresysteme.h \
@@ -75,7 +76,8 @@ HEADERS  += mainwindow.h \
     mydialog.h \
     mymessagehandler.h \
     rnx2rtkp.h \
-    station.h
+    station.h \
+    optionsstartatboot.h
 
 FORMS    += mainwindow.ui \
     options1.ui \
@@ -92,7 +94,8 @@ FORMS    += mainwindow.ui \
     clavier.ui \
     mylineedit.ui \
     mycombobox.ui \
-    mydialog.ui
+    mydialog.ui \
+    optionsstartatboot.ui
 
 FORMS    += mainwindow.ui
 

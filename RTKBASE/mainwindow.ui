@@ -286,6 +286,32 @@ border-radius: 15px;</string>
  AUTOMATIC LOG/PROCESSING/BASE MODE</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="StartupOption_Button">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>330</y>
+      <width>151</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+    </property>
+    <property name="text">
+     <string>STARTUP 
+ OPTIONS</string>
+    </property>
+   </widget>
    <zorder>RoverButton</zorder>
    <zorder>BasestationButton</zorder>
    <zorder>TimeRetourEdit</zorder>
@@ -298,6 +324,7 @@ border-radius: 15px;</string>
    <zorder>TimeEdit</zorder>
    <zorder>lineEdit</zorder>
    <zorder>Post_Processing_Button</zorder>
+   <zorder>StartupOption_Button</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

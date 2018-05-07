@@ -40,7 +40,11 @@
 #include "affichesolutions.h"
 #include <QGridLayout>
 #include "choixconfig.h"
+#include "optionsstartatboot.h"
 
+QString StartupMode;
+QString ModeatBoot;
+QString RoverConfig;
 
 
 
@@ -91,6 +95,91 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->HelpButton,SIGNAL(clicked()),this,SLOT(OuvreHelp()));
     QObject::connect(ui->PowerOFFButton,SIGNAL(clicked()),this,SLOT(Shutdown()));
     QObject::connect(ui->Post_Processing_Button,SIGNAL(clicked()),this,SLOT(Post_Processing()));
+    QObject::connect(ui->StartupOption_Button,SIGNAL(clicked()),this,SLOT(Startup_Options()));
+
+
+
+    // Open startup options configuration file
+
+        {
+        int i=1;
+        QStringList list;
+        QString fileName = "saveoptionstartatboot.txt";
+        QFile readoption(fileName);
+        readoption.open(QIODevice::ReadOnly | QIODevice::Text);
+        //---------verifier ouverture fichier......
+        QTextStream flux(&readoption);
+        QString ligne;
+        while(! flux.atEnd())
+        {
+           ligne = flux.readLine();
+           //traitement de la ligne
+           qDebug()<<ligne;
+           list<<ligne;
+           i=i+1;
+       }
+
+
+StartupMode = list[0];
+ModeatBoot = list[1];
+RoverConfig = list[2];
+
+        readoption.close();
+
+    }
+
+  if(StartupMode=="ON")
+  {
+  if (ModeatBoot=="ROVER")
+     {
+  if(RoverConfig == "SINGLE")
+  {
+    ChoixConfig Start;
+    Start.ouvreSingle();
+   }
+  if(RoverConfig == "SBAS")
+  {
+    ChoixConfig Start;
+    Start.ouvreSBAS();
+   }
+  if(RoverConfig == "DGPS")
+  {
+    ChoixConfig Start;
+    Start.ouvreDGPS();
+   }
+  if(RoverConfig == "PPP STATIC")
+  {
+    ChoixConfig Start;
+    Start.ouvrePPP();
+   }
+  if(RoverConfig == "RTK STATIC")
+  {
+    ChoixConfig Start;
+    Start.ouvreRTKstatic();
+   }
+  if(RoverConfig == "RTK KINE")
+  {
+    ChoixConfig Start;
+    Start.ouvreRTKkinematic();
+   }
+  if(RoverConfig == "CUSTOM 1")
+  {
+    ChoixConfig Start;
+    Start.OuvreConfig1();
+   }
+  }
+
+if (ModeatBoot=="BASE")
+{
+
+    OptionsStr2str Start1;
+    Start1.exec();
+}
+
+
+
+  }
+
 
 
 
@@ -174,14 +263,21 @@ void MainWindow::OuvreHelp()
 
 void MainWindow::Post_Processing()                     //added by ENSG student SAIF AATI
 {
-//    mDialog=new MyDialog(this);
-//    mDialog->show();
 
-
-    MyDialog affichemydialog;
+   MyDialog  affichemydialog;
     affichemydialog.setModal(true);
     affichemydialog.setWindowFlags(Qt::FramelessWindowHint);
     affichemydialog.setWindowState(Qt::WindowFullScreen);
     affichemydialog.exec();
+}
+
+void MainWindow::Startup_Options()
+{
+    optionsstartatboot StartupOptions;
+    StartupOptions.setModal(true);
+    StartupOptions.setWindowFlags(Qt::FramelessWindowHint);
+    StartupOptions.setWindowState(Qt::WindowFullScreen);
+    StartupOptions.exec();
 
 }
+

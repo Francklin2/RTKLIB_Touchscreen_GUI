@@ -81,7 +81,8 @@ SOURCES       = main.cpp \
 		mydialog.cpp \
 		mymessagehandler.cpp \
 		rnx2rtkp.cpp \
-		station.cpp moc_mainwindow.cpp \
+		station.cpp \
+		optionsstartatboot.cpp moc_mainwindow.cpp \
 		moc_threadheuresysteme.cpp \
 		moc_magraphicsscene.cpp \
 		moc_options1.cpp \
@@ -103,7 +104,8 @@ SOURCES       = main.cpp \
 		moc_mylineedit.cpp \
 		moc_mycombobox.cpp \
 		moc_downloader.cpp \
-		moc_mydialog.cpp
+		moc_mydialog.cpp \
+		moc_optionsstartatboot.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		threadheuresysteme.o \
@@ -136,6 +138,7 @@ OBJECTS       = main.o \
 		mymessagehandler.o \
 		rnx2rtkp.o \
 		station.o \
+		optionsstartatboot.o \
 		moc_mainwindow.o \
 		moc_threadheuresysteme.o \
 		moc_magraphicsscene.o \
@@ -158,7 +161,8 @@ OBJECTS       = main.o \
 		moc_mylineedit.o \
 		moc_mycombobox.o \
 		moc_downloader.o \
-		moc_mydialog.o
+		moc_mydialog.o \
+		moc_optionsstartatboot.o
 DIST          = /opt/Qt/5.9.1/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt/5.9.1/gcc_64/mkspecs/common/unix.conf \
 		/opt/Qt/5.9.1/gcc_64/mkspecs/common/linux.conf \
@@ -365,7 +369,8 @@ DIST          = /opt/Qt/5.9.1/gcc_64/mkspecs/features/spec_pre.prf \
 		mydialog.h \
 		mymessagehandler.h \
 		rnx2rtkp.h \
-		station.h main.cpp \
+		station.h \
+		optionsstartatboot.h main.cpp \
 		mainwindow.cpp \
 		threadheuresysteme.cpp \
 		magraphicsscene.cpp \
@@ -396,7 +401,8 @@ DIST          = /opt/Qt/5.9.1/gcc_64/mkspecs/features/spec_pre.prf \
 		mydialog.cpp \
 		mymessagehandler.cpp \
 		rnx2rtkp.cpp \
-		station.cpp
+		station.cpp \
+		optionsstartatboot.cpp
 QMAKE_TARGET  = RTKBASE
 DESTDIR       = 
 TARGET        = RTKBASE
@@ -405,7 +411,7 @@ TARGET        = RTKBASE
 first: all
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_options1.h ui_affichesolutions.h ui_options2.h ui_affichestr2str.h ui_optionsstr2str.h ui_gestionconfig.h ui_choixedite.h ui_editeconfig.h ui_choixstr2str.h ui_choixconfig.h ui_optionssauvepoints.h ui_clavier.h ui_mylineedit.h ui_mycombobox.h ui_mydialog.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_options1.h ui_affichesolutions.h ui_options2.h ui_affichestr2str.h ui_optionsstr2str.h ui_gestionconfig.h ui_choixedite.h ui_editeconfig.h ui_choixstr2str.h ui_choixconfig.h ui_optionssauvepoints.h ui_clavier.h ui_mylineedit.h ui_mycombobox.h ui_mydialog.h ui_optionsstartatboot.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: RTKBASE.pro /opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++/qmake.conf /opt/Qt/5.9.1/gcc_64/mkspecs/features/spec_pre.prf \
@@ -792,9 +798,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt/5.9.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h threadheuresysteme.h magraphicsscene.h options1.h affichesolutions.h options2.h vt.h MainThread.h MainthreadStr2str.h affichestr2str.h mainthreadreadfile.h optionsstr2str.h qcustomplot.h gestionconfig.h choixedite.h editeconfig.h choixstr2str.h choixconfig.h optionssauvepoints.h clavier.h mylineedit.h mycombobox.h approxcoord.h downloader.h gpstime.h mydialog.h mymessagehandler.h rnx2rtkp.h station.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp threadheuresysteme.cpp magraphicsscene.cpp options1.cpp affichesolutions.cpp options2.cpp vt.c rtkrcv.c MainThread.cpp str2str.c MainthreadStr2str.cpp affichestr2str.cpp mainthreadreadfile.cpp optionsstr2str.cpp qcustomplot.cpp gestionconfig.cpp choixedite.cpp editeconfig.cpp choixstr2str.cpp choixconfig.cpp optionssauvepoints.cpp clavier.cpp mylineedit.cpp mycombobox.cpp approxcoord.cpp downloader.cpp gpstime.cpp mydialog.cpp mymessagehandler.cpp rnx2rtkp.cpp station.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.ui options1.ui affichesolutions.ui options2.ui affichestr2str.ui optionsstr2str.ui gestionconfig.ui choixedite.ui editeconfig.ui choixstr2str.ui choixconfig.ui optionssauvepoints.ui clavier.ui mylineedit.ui mycombobox.ui mydialog.ui mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h threadheuresysteme.h magraphicsscene.h options1.h affichesolutions.h options2.h vt.h MainThread.h MainthreadStr2str.h affichestr2str.h mainthreadreadfile.h optionsstr2str.h qcustomplot.h gestionconfig.h choixedite.h editeconfig.h choixstr2str.h choixconfig.h optionssauvepoints.h clavier.h mylineedit.h mycombobox.h approxcoord.h downloader.h gpstime.h mydialog.h mymessagehandler.h rnx2rtkp.h station.h optionsstartatboot.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp threadheuresysteme.cpp magraphicsscene.cpp options1.cpp affichesolutions.cpp options2.cpp vt.c rtkrcv.c MainThread.cpp str2str.c MainthreadStr2str.cpp affichestr2str.cpp mainthreadreadfile.cpp optionsstr2str.cpp qcustomplot.cpp gestionconfig.cpp choixedite.cpp editeconfig.cpp choixstr2str.cpp choixconfig.cpp optionssauvepoints.cpp clavier.cpp mylineedit.cpp mycombobox.cpp approxcoord.cpp downloader.cpp gpstime.cpp mydialog.cpp mymessagehandler.cpp rnx2rtkp.cpp station.cpp optionsstartatboot.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.ui options1.ui affichesolutions.ui options2.ui affichestr2str.ui optionsstr2str.ui gestionconfig.ui choixedite.ui editeconfig.ui choixstr2str.ui choixconfig.ui optionssauvepoints.ui clavier.ui mylineedit.ui mycombobox.ui mydialog.ui optionsstartatboot.ui mainwindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -826,9 +832,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /opt/Qt/5.9.1/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -std=c++0x -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h /opt/Qt/5.9.1/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_threadheuresysteme.cpp moc_magraphicsscene.cpp moc_options1.cpp moc_affichesolutions.cpp moc_options2.cpp moc_MainThread.cpp moc_MainthreadStr2str.cpp moc_affichestr2str.cpp moc_mainthreadreadfile.cpp moc_optionsstr2str.cpp moc_qcustomplot.cpp moc_gestionconfig.cpp moc_choixedite.cpp moc_editeconfig.cpp moc_choixstr2str.cpp moc_choixconfig.cpp moc_optionssauvepoints.cpp moc_clavier.cpp moc_mylineedit.cpp moc_mycombobox.cpp moc_downloader.cpp moc_mydialog.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_threadheuresysteme.cpp moc_magraphicsscene.cpp moc_options1.cpp moc_affichesolutions.cpp moc_options2.cpp moc_MainThread.cpp moc_MainthreadStr2str.cpp moc_affichestr2str.cpp moc_mainthreadreadfile.cpp moc_optionsstr2str.cpp moc_qcustomplot.cpp moc_gestionconfig.cpp moc_choixedite.cpp moc_editeconfig.cpp moc_choixstr2str.cpp moc_choixconfig.cpp moc_optionssauvepoints.cpp moc_clavier.cpp moc_mylineedit.cpp moc_mycombobox.cpp moc_downloader.cpp moc_mydialog.cpp moc_optionsstartatboot.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_threadheuresysteme.cpp moc_magraphicsscene.cpp moc_options1.cpp moc_affichesolutions.cpp moc_options2.cpp moc_MainThread.cpp moc_MainthreadStr2str.cpp moc_affichestr2str.cpp moc_mainthreadreadfile.cpp moc_optionsstr2str.cpp moc_qcustomplot.cpp moc_gestionconfig.cpp moc_choixedite.cpp moc_editeconfig.cpp moc_choixstr2str.cpp moc_choixconfig.cpp moc_optionssauvepoints.cpp moc_clavier.cpp moc_mylineedit.cpp moc_mycombobox.cpp moc_downloader.cpp moc_mydialog.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_threadheuresysteme.cpp moc_magraphicsscene.cpp moc_options1.cpp moc_affichesolutions.cpp moc_options2.cpp moc_MainThread.cpp moc_MainthreadStr2str.cpp moc_affichestr2str.cpp moc_mainthreadreadfile.cpp moc_optionsstr2str.cpp moc_qcustomplot.cpp moc_gestionconfig.cpp moc_choixedite.cpp moc_editeconfig.cpp moc_choixstr2str.cpp moc_choixconfig.cpp moc_optionssauvepoints.cpp moc_clavier.cpp moc_mylineedit.cpp moc_mycombobox.cpp moc_downloader.cpp moc_mydialog.cpp moc_optionsstartatboot.cpp
 moc_mainwindow.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QMainWindow \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qmainwindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -4716,11 +4722,117 @@ moc_mydialog.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
 		/opt/Qt/5.9.1/gcc_64/bin/moc
 	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mydialog.h -o moc_mydialog.cpp
 
+moc_optionsstartatboot.cpp: /opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtguiglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtcore-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qversiontagging.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtgui-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qwidget.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringbuilder.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhashfunctions.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmargins.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpaintdevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrect.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsize.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpalette.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcolor.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgb.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgba64.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qbrush.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvector.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qmatrix.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpolygon.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qregion.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdatastream.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qline.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtransform.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainterpath.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qimage.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixelformat.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixmap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qshareddata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfont.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontmetrics.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcursor.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qkeysequence.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qevent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlocale.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qset.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurlquery.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfile.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfiledevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qvector2d.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtouchdevice.h \
+		optionsstartatboot.h \
+		moc_predefs.h \
+		/opt/Qt/5.9.1/gcc_64/bin/moc
+	/opt/Qt/5.9.1/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.9.1/gcc_64/mkspecs/linux-g++ -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE -I/home/francklin/RTKBASE_Saif_cs2cs_QT5/RTKBASE/lib/rtklib -I/opt/Qt/5.9.1/gcc_64/include -I/opt/Qt/5.9.1/gcc_64/include/QtPrintSupport -I/opt/Qt/5.9.1/gcc_64/include/QtWidgets -I/opt/Qt/5.9.1/gcc_64/include/QtGui -I/opt/Qt/5.9.1/gcc_64/include/QtNetwork -I/opt/Qt/5.9.1/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include optionsstartatboot.h -o moc_optionsstartatboot.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_options1.h ui_affichesolutions.h ui_options2.h ui_affichestr2str.h ui_optionsstr2str.h ui_gestionconfig.h ui_choixedite.h ui_editeconfig.h ui_choixstr2str.h ui_choixconfig.h ui_optionssauvepoints.h ui_clavier.h ui_mylineedit.h ui_mycombobox.h ui_mydialog.h ui_mainwindow.h
+compiler_uic_make_all: ui_mainwindow.h ui_options1.h ui_affichesolutions.h ui_options2.h ui_affichestr2str.h ui_optionsstr2str.h ui_gestionconfig.h ui_choixedite.h ui_editeconfig.h ui_choixstr2str.h ui_choixconfig.h ui_optionssauvepoints.h ui_clavier.h ui_mylineedit.h ui_mycombobox.h ui_mydialog.h ui_optionsstartatboot.h ui_mainwindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_options1.h ui_affichesolutions.h ui_options2.h ui_affichestr2str.h ui_optionsstr2str.h ui_gestionconfig.h ui_choixedite.h ui_editeconfig.h ui_choixstr2str.h ui_choixconfig.h ui_optionssauvepoints.h ui_clavier.h ui_mylineedit.h ui_mycombobox.h ui_mydialog.h ui_mainwindow.h
+	-$(DEL_FILE) ui_mainwindow.h ui_options1.h ui_affichesolutions.h ui_options2.h ui_affichestr2str.h ui_optionsstr2str.h ui_gestionconfig.h ui_choixedite.h ui_editeconfig.h ui_choixstr2str.h ui_choixconfig.h ui_optionssauvepoints.h ui_clavier.h ui_mylineedit.h ui_mycombobox.h ui_mydialog.h ui_optionsstartatboot.h ui_mainwindow.h
 ui_mainwindow.h: mainwindow.ui \
 		/opt/Qt/5.9.1/gcc_64/bin/uic
 	/opt/Qt/5.9.1/gcc_64/bin/uic mainwindow.ui -o ui_mainwindow.h
@@ -5940,6 +6052,10 @@ ui_mydialog.h: mydialog.ui \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/qabstractitemmodel.h
 	/opt/Qt/5.9.1/gcc_64/bin/uic mydialog.ui -o ui_mydialog.h
 
+ui_optionsstartatboot.h: optionsstartatboot.ui \
+		/opt/Qt/5.9.1/gcc_64/bin/uic
+	/opt/Qt/5.9.1/gcc_64/bin/uic optionsstartatboot.ui -o ui_optionsstartatboot.h
+
 ui_mainwindow.h: mainwindow.ui \
 		/opt/Qt/5.9.1/gcc_64/bin/uic
 	/opt/Qt/5.9.1/gcc_64/bin/uic mainwindow.ui -o ui_mainwindow.h
@@ -6754,7 +6870,8 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qlayout.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qlayoutitem.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qboxlayout.h \
-		choixconfig.h
+		choixconfig.h \
+		optionsstartatboot.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 threadheuresysteme.o: threadheuresysteme.cpp /opt/Qt/5.9.1/gcc_64/include/QtCore/QVector \
@@ -12904,6 +13021,160 @@ station.o: station.cpp station.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtCore/QCoreApplication
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o station.o station.cpp
 
+optionsstartatboot.o: optionsstartatboot.cpp optionsstartatboot.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QDialog \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdialog.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtguiglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtcore-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qversiontagging.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtgui-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qwidget.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringbuilder.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhashfunctions.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmargins.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpaintdevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qrect.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsize.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpalette.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcolor.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgb.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qrgba64.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qbrush.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvector.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qmatrix.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpolygon.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qregion.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdatastream.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qline.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtransform.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpainterpath.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qimage.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixelformat.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpixmap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qshareddata.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfont.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontmetrics.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qfontinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qcursor.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qkeysequence.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qevent.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qlocale.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qset.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurl.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qurlquery.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfile.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfiledevice.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qvector2d.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtouchdevice.h \
+		ui_optionsstartatboot.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QVariant \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QAction \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qaction.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qicon.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QApplication \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qapplication.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qcoreapplication.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qeventloop.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qguiapplication.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qinputmethod.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QButtonGroup \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QComboBox \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qcombobox.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qvalidator.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qregularexpression.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qslider.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qstyle.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtabbar.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qrubberband.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QHeaderView \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qheaderview.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QLineEdit \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qlineedit.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextcursor.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextformat.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextoption.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QPushButton \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QFileDialog \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qfiledialog.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qdir.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/qfileinfo.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QTextStream \
+		/opt/Qt/5.9.1/gcc_64/include/QtCore/QFile
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o optionsstartatboot.o optionsstartatboot.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
@@ -12972,6 +13243,9 @@ moc_downloader.o: moc_downloader.cpp
 
 moc_mydialog.o: moc_mydialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mydialog.o moc_mydialog.cpp
+
+moc_optionsstartatboot.o: moc_optionsstartatboot.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_optionsstartatboot.o moc_optionsstartatboot.cpp
 
 ####### Install
 

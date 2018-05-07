@@ -627,6 +627,7 @@ ui->textBrowser_2->setText(QString("DOWNLOADING GLONASS NAV DATA FROM STATION %1
 
 PBar= PBar+PbarStat;
 on_progressBar_valueChanged(PBar);
+ui->textBrowser_2->setText(QString("DOWNLOAD DONE"));
 
  }
 
@@ -669,7 +670,7 @@ ui->textBrowser_2->setText(QString("START PROCESSING DATA"));
         /*-------------------------------------------------------------------------------/
            The RNX2RTKP calculation process
         /------------------------------------------------------------------------------*/
-
+ui->textBrowser_2->setText(QString("PROCESSING DATA"));
 
         cal.rnx2rtkp(nbstation);
 
