@@ -4,6 +4,11 @@ RTKLIB GUI (Graphic User Interface) for Raspberry Pi with touchscreen made with 
 
 Update news :
 
+May 2018 update
+- Added autostart a rover mode at boot, new button and page on main screen to set boot options
+- New branch to keep a Qt4 version compatible wth RPI2, now master branch is under QT5 
+
+
 March 2018 update
 - Add post processing on USA CORS stations, still under test but process looks correct now (still need a test from US to confirm that) [(Video here)](https://www.youtube.com/edit?o=U&video_id=YKgk3UxPr64)
 - Median position is done by average of the XYZ results
