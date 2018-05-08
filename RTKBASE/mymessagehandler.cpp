@@ -24,7 +24,7 @@
 
 
 
-void myMessageHandler(QtMsgType type, const QMessageLogContext &, const QString & msg)
+void myMsgHandler(QtMsgType type, const char *msg)
 {
     /*-----------------------------------------------------------------------------/
         - qInstallMessageHandler :Function that prints out debug messages,

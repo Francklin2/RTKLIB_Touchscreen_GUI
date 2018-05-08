@@ -10,4 +10,4 @@ serial://ttyUSB0
 57600
 rtcm3
 1004,1006,1008,1012,1019,1020
-geodesy.noaa.gov
+rgpdata.ign.fr

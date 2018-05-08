@@ -350,25 +350,25 @@ void MainThread::sauvegardedansfichier(QString filePath, QString pointName, int 
             qDebug()<<NomFichier;
         }
 
-  /*------Create a buffer file with ECEF coord for cs2cs transform ------------------*/
+  /*------Create a buffer file with WGS84 coord for cs2cs transform ------------------*/
 
-        std::ofstream q("saveECEFcoordbuffer.txt");
-          QFile ECEFcoordbuffer("saveECEFcoordbuffer.txt");
-          ECEFcoordbuffer.open(QIODevice::Append | QIODevice::Text);
-          QTextStream outecef(&ECEFcoordbuffer);
+        std::ofstream q("saveWGS84coordbuffer.txt");
+          QFile WGS84coordbuffer("saveWGS84coordbuffer.txt");
+          WGS84coordbuffer.open(QIODevice::Append | QIODevice::Text);
+          QTextStream outWGS84(&WGS84coordbuffer);
        {
-          QString X=list[1];
+          QString X=list[4];
           X.replace(QString(","),QString("."));
-                    QString Y=list[2];
+                    QString Y=list[5];
           Y.replace(QString(","),QString("."));
 
-          QString Z=list[3];
+          QString Z=list[6];
           Z.replace(QString(","),QString("."));
 
-          outecef<<X<<" "<<Y<<" "<<Z<<'\n';
+          outWGS84<<X<<" "<<Y<<" "<<Z<<'\n';
 
 
-       ECEFcoordbuffer.close();
+       WGS84coordbuffer.close();
    }
 
           /*-------------------------------------------------------------------------------/
@@ -388,11 +388,11 @@ QString epsgout= epsgout1.right(4);
 
               if (epsgout=="4326")
               {
-              param <<"+init=epsg:4978"<<"+to"<<("+init=epsg:"+epsgout)<<"-f"<<"%.8f"<<"saveECEFcoordbuffer.txt";
+              param <<"+init=epsg:4326"<<"+to"<<("+init=epsg:"+epsgout)<<"-f"<<"%.8f"<<"saveWGS84coordbuffer.txt";
               }
               if ((epsgout=="2154")or(epsgout=="3942")or(epsgout=="3943")or(epsgout=="3944")or(epsgout=="3945")or(epsgout=="3946")or(epsgout=="3947")or(epsgout=="3948")or(epsgout=="3949")or(epsgout=="3950"))
               {
-              param <<"+init=epsg:4978"<<"+to"<<("+init=epsg:"+epsgout)<<"saveECEFcoordbuffer.txt";
+              param <<"+init=epsg:4326"<<"+to"<<("+init=epsg:"+epsgout)<<"saveWGS84coordbuffer.txt";
               }
 
                qDebug() << "param:" << param << "\n";
@@ -422,8 +422,7 @@ QString epsgout= epsgout1.right(4);
              Proj_y = (QString((list)[1]));
              Proj_z = (QString((list)[2]));
 
-
- }
+          }
     /*------------------------------------------------------------------------------*/
 
 

@@ -223,7 +223,7 @@ ui->textBrowser_2->setText(QString("START PROCESSING SEQUENCE"));
 
 
     ui->textBrowser->setText("Please wait ... calculation in progress...");
-     qInstallMessageHandler(myMessageHandler);
+    qInstallMsgHandler(myMsgHandler);
 
    //  Start processing from here
 
@@ -537,47 +537,44 @@ statnb++;
 
  ui->InfotextBrowser->setText("                     DOWNLOAD AND PROCESS DATA FROM STATION: ");
 
-
- /*------------------------------------------------------------------------------/
-     Downloading for each 'Min-station' nearest station the following files:
-         - Observation file
-         - Navigation GPS file
-         - Navigation GLONASS file
- /------------------------------------------------------------------------------*/
-
-
- while(nbstation<Min_station2)
+    while(nbstation<Min_station2)
     {
+        /*------------------------------------------------------------------------------/
+            Downloading for each 'Min-station' nearest station the following files:
+                - Observation file
+                - Navigation GPS file
+                - Navigation GLONASS file
+        /------------------------------------------------------------------------------*/
 
         //Downloading of the observation file
 
         bool download_OBS=false;
         bool download_GPS=false;
         bool download_GLO=false;
+//        QString resultstat2;
 
 
 
 ui->textBrowser_2->setText(QString("DOWNLOADING OBS DATA FROM STATION %1").arg(st.vect_name[i]));
 
-down.url=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[2];       //Download link
-down.file_name=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[0]; //Name of the file to download
-down.do_downloader();
+        down.url=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[2];       //Download link
+        down.file_name=st.data_file_nearest_sation(doy,yyyy,X0.TIME_OF_FIRST_OBS,X0.TIME_OF_LAST_OBS,i)[0]; //Name of the file to download
+        down.do_downloader();
 
-if(down.downfailed==true)
-{
-    qDebug()<<"We can't download data for this station:"<< st.vect_name[i]<<"we will try the next nearest station"<<endl;
-    down.downfailed=false;
-    download_OBS=false;
-    goto end;
-}
+        if(down.downfailed==true)
+        {
+            qDebug()<<"We can't download data for this station:"<< st.vect_name[i]<<"we will try the next nearest station"<<endl;
+            down.downfailed=false;
+            download_OBS=false;
+            goto end;
+        }
 
-download_OBS=true;
+        download_OBS=true;
 
-      down.unzip_file();                          //Decompressing process
+        down.unzip_file();                          //Decompressing process
 
 PBar= PBar+PbarStat;
 on_progressBar_valueChanged(PBar);
-
 
 if(Server=="rgpdata.ign.fr")
 {
@@ -627,7 +624,6 @@ ui->textBrowser_2->setText(QString("DOWNLOADING GLONASS NAV DATA FROM STATION %1
 
 PBar= PBar+PbarStat;
 on_progressBar_valueChanged(PBar);
-ui->textBrowser_2->setText(QString("DOWNLOAD DONE"));
 
  }
 
@@ -670,7 +666,7 @@ ui->textBrowser_2->setText(QString("START PROCESSING DATA"));
         /*-------------------------------------------------------------------------------/
            The RNX2RTKP calculation process
         /------------------------------------------------------------------------------*/
-ui->textBrowser_2->setText(QString("PROCESSING DATA"));
+
 
         cal.rnx2rtkp(nbstation);
 

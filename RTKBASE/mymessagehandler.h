@@ -4,7 +4,7 @@
 #include <QtGlobal>
 #include <QFile>
 
-void myMessageHandler(QtMsgType type, const QMessageLogContext &, const QString & msg);
+void myMsgHandler(QtMsgType type, const char *msg);
 
 #endif // MYMESSAGEHANDLER
 
