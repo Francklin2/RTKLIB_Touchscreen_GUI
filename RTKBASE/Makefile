@@ -11220,6 +11220,9 @@ optionssauvepoints.o: optionssauvepoints.cpp optionssauvepoints.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qinputmethod.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QButtonGroup \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QCheckBox \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qcheckbox.h \
+		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QComboBox \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qcombobox.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
@@ -11250,7 +11253,6 @@ optionssauvepoints.o: optionssauvepoints.cpp optionssauvepoints.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtGui/qtextoption.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QPushButton \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qpushbutton.h \
-		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		mylineedit.h \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QWidget \
 		/opt/Qt/5.9.1/gcc_64/include/QtWidgets/QFileDialog \

@@ -1,6 +1,8 @@
-filepath            =/home/francklin/RTKBASE_Saif_cs2cs/RTKBASE/PointsFiles/point.txt
+filepath            =/home/pi/RTKLIB_Touchscreen_GUI/RTKBASE/PointsFiles/point.txt
 pointname           =Test_Point
 nummeas             =5
 cyclen              =2
 oldpoint            =0
 EPSG                =Lambert93__EPSG:2154
+AddGeoid            =0
+GeoidPath           =/home/pi/RTKLIB_Touchscreen_GUI/RTKBASE/PointsFiles/point.gtx

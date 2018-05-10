@@ -77,6 +77,9 @@ QThread(parent)
         else if(decomp[0]=="cyclen") _cycleLength = decomp[1].toFloat();
         else if(decomp[0]=="oldpoint") _addMeasures = decomp[1].toInt();
         else if(decomp[0]=="EPSG") _EPSG = decomp[1];
+        else if(decomp[0]=="AddGeoid") _AddGeoid = decomp[1].toInt();
+        else if(decomp[0]=="GeoidPath") _filePath_Geoid = decomp[1];
+
         else std::cout<<"Le paramètre <"<<decomp[0].toStdString()<<"> n'a pas été reconnu"<<std::endl;
     }
 }
@@ -157,7 +160,7 @@ void MainThread::run()
         if (m_choix==2) etatsatellite();
         if (m_choix==3) etatNaviData();
         if (m_choix==5) etatStream();
-        if (m_choix==6) sauvegardedansfichier(_filePath,_pointName,_numOfMeasures,_cycleLength,_addMeasures,_EPSG);
+        if (m_choix==6) sauvegardedansfichier(_filePath,_pointName,_numOfMeasures,_cycleLength,_addMeasures,_EPSG,_AddGeoid,_filePath_Geoid);
         if (m_choix==7) stop();
         }
 
@@ -293,7 +296,7 @@ void MainThread::saveposition()
     //sauvegardedansfichier();
 }
 
-void MainThread::sauvegardedansfichier(QString filePath, QString pointName, int numOfMeasures, float cycleLength, bool addMeasures, QString EPSG)
+void MainThread::sauvegardedansfichier(QString filePath, QString pointName, int numOfMeasures, float cycleLength, bool addMeasures, QString EPSG , bool AddGeoid , QString filePath_Geoid)
 {
     std::cout<<"Commençons la sauvegarde..."<<std::endl;
     if (addMeasures==false)
@@ -350,25 +353,25 @@ void MainThread::sauvegardedansfichier(QString filePath, QString pointName, int 
             qDebug()<<NomFichier;
         }
 
-  /*------Create a buffer file with ECEF coord for cs2cs transform ------------------*/
+  /*------Create a buffer file with WGS84 coord for cs2cs transform ------------------*/
 
-        std::ofstream q("saveECEFcoordbuffer.txt");
-          QFile ECEFcoordbuffer("saveECEFcoordbuffer.txt");
-          ECEFcoordbuffer.open(QIODevice::Append | QIODevice::Text);
-          QTextStream outecef(&ECEFcoordbuffer);
+        std::ofstream q("saveWGS84coordbuffer.txt");
+          QFile WGS84coordbuffer("saveWGS84coordbuffer.txt");
+          WGS84coordbuffer.open(QIODevice::Append | QIODevice::Text);
+          QTextStream outWGS84(&WGS84coordbuffer);
        {
-          QString X=list[1];
+          QString X=list[4];
           X.replace(QString(","),QString("."));
-                    QString Y=list[2];
+                    QString Y=list[5];
           Y.replace(QString(","),QString("."));
 
-          QString Z=list[3];
+          QString Z=list[6];
           Z.replace(QString(","),QString("."));
 
-          outecef<<X<<" "<<Y<<" "<<Z<<'\n';
+          outWGS84<<X<<" "<<Y<<" "<<Z<<'\n';
 
 
-       ECEFcoordbuffer.close();
+       WGS84coordbuffer.close();
    }
 
           /*-------------------------------------------------------------------------------/
@@ -381,6 +384,9 @@ QStringList EPSG2 = EPSG1.split(" ");
 QString EPSG = EPSG2[0];
 QString epsgout1 = _EPSG;
 QString epsgout= epsgout1.right(4);
+QString geoidpath1 = _filePath_Geoid;
+QStringList geoidpath2 = geoidpath1.split("=");
+QString geoidpath = geoidpath2[0];
 
               QProcess convert;
 
@@ -388,12 +394,26 @@ QString epsgout= epsgout1.right(4);
 
               if (epsgout=="4326")
               {
-              param <<"+init=epsg:4978"<<"+to"<<("+init=epsg:"+epsgout)<<"-f"<<"%.8f"<<"saveECEFcoordbuffer.txt";
-              }
+                if(AddGeoid==1)
+                {
+                param <<"+init=epsg:4326"<<"+to"<<("+init=epsg:"+epsgout)<<"+geoidgrids="+geoidpath<<"-f"<<"%.8f"<<"saveWGS84coordbuffer.txt";
+                }
+                else
+                  {
+                  param <<"+init=epsg:4326"<<"+to"<<("+init=epsg:"+epsgout)<<"-f"<<"%.8f"<<"saveWGS84coordbuffer.txt";
+                  }
+                }
               if ((epsgout=="2154")or(epsgout=="3942")or(epsgout=="3943")or(epsgout=="3944")or(epsgout=="3945")or(epsgout=="3946")or(epsgout=="3947")or(epsgout=="3948")or(epsgout=="3949")or(epsgout=="3950"))
               {
-              param <<"+init=epsg:4978"<<"+to"<<("+init=epsg:"+epsgout)<<"saveECEFcoordbuffer.txt";
-              }
+                  if(AddGeoid==1)
+                  {
+                  param <<"+init=epsg:4326"<<"+to"<<("+init=epsg:"+epsgout)<<"+geoidgrids="+geoidpath<<"saveWGS84coordbuffer.txt";
+                  }
+                  else
+                    {
+                  param <<"+init=epsg:4326"<<"+to"<<("+init=epsg:"+epsgout)<<"saveWGS84coordbuffer.txt";
+                    }
+                  }
 
                qDebug() << "param:" << param << "\n";
 
@@ -422,8 +442,7 @@ QString epsgout= epsgout1.right(4);
              Proj_y = (QString((list)[1]));
              Proj_z = (QString((list)[2]));
 
-
- }
+          }
     /*------------------------------------------------------------------------------*/
 
 
@@ -471,6 +490,8 @@ void MainThread::changeSaveOptions(QStringList options)
     _cycleLength = options[3].toFloat();
     _addMeasures = options[4].toInt();
     _EPSG = options[5];
+    _AddGeoid = options[6].toInt();
+    _filePath_Geoid = options[7];
 }
 
 void MainThread::setSYStime()
