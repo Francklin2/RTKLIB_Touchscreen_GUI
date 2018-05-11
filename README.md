@@ -7,6 +7,7 @@ Update news :
 May 2018 update
 - Added autostart a rover mode at boot, new button and page on main screen to set boot options
 - New branch to keep a Qt4 version compatible wth RPI2, now master branch is under QT5 
+- Added geoid correction file option in the rover mode >> status >> save point option 
 
 
 March 2018 update
