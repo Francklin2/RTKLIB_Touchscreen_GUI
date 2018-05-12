@@ -580,7 +580,7 @@ void AfficheSolutions::satchoice3()
 
 void AfficheSolutions::sauvegardeoptions()
 {
-    optionssauvepoints *FenetreSaveOptions = new optionssauvepoints(m_t->_filePath,m_t->_pointName,m_t->_numOfMeasures,m_t->_cycleLength,m_t->_addMeasures, m_t->_EPSG);
+    optionssauvepoints *FenetreSaveOptions = new optionssauvepoints(m_t->_filePath,m_t->_pointName,m_t->_numOfMeasures,m_t->_cycleLength,m_t->_addMeasures, m_t->_EPSG,m_t->_AddGeoid,m_t->_filePath_Geoid);
     QObject::connect(FenetreSaveOptions,SIGNAL(SaveOptions(QStringList)),m_t,SLOT(changeSaveOptions(QStringList)));
     FenetreSaveOptions->setModal(true);
     FenetreSaveOptions->setWindowFlags(Qt::FramelessWindowHint);

@@ -27,7 +27,7 @@
 #include <QTextStream>
 #include <QFile>
 
-optionssauvepoints::optionssauvepoints(QString filePath,QString pointName, int nummeas, float cyclen, int oldpoint,QString EPSG,QWidget *parent) :
+optionssauvepoints::optionssauvepoints(QString filePath,QString pointName, int nummeas, float cyclen, int oldpoint,QString EPSG,bool AddGeoid,QString GeoidPath,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::optionssauvepoints)
 {
@@ -39,11 +39,14 @@ optionssauvepoints::optionssauvepoints(QString filePath,QString pointName, int n
     ui->CyclenBox->setEditText(QString::number(cyclen));
     ui->OldpointBox->setCurrentIndex(oldpoint);
     ui->EPSG_comboBox->setEditText(EPSG);
+    ui->AddGeoidCorrectoin_checkBox->setChecked(AddGeoid);
+    ui->FilepathLine_geoid->setText(GeoidPath);
 
     QObject::connect(ui->CancelButton,SIGNAL(clicked()),this,SLOT(Cancel()));
     QObject::connect(ui->SaveButton,SIGNAL(clicked()),this,SLOT(Save()));
 
     QObject::connect(ui->FilepathButton,SIGNAL(clicked()),this,SLOT(ChoixFilepath()));
+    QObject::connect(ui->FilepathButton_geoid,SIGNAL(clicked()),this,SLOT(GeoidFilePath()));
 }
 
 optionssauvepoints::~optionssauvepoints()
@@ -65,6 +68,10 @@ void optionssauvepoints::Save()
     options<<ui->CyclenBox->currentText();
     options<<QString::number(ui->OldpointBox->currentIndex());
     options<<ui->EPSG_comboBox->currentText();
+    if(ui->AddGeoidCorrectoin_checkBox->isChecked())
+    {options<<"1";}
+     else {options<<"0";}
+    options<<ui->FilepathLine_geoid->text();
     emit SaveOptions(options);
 
     QFile sauveOptionFile(QString("../RTKBASE/data/SauveOptions"));
@@ -76,6 +83,8 @@ void optionssauvepoints::Save()
     flux<<qSetFieldWidth(20)<<left<<"cyclen"<<qSetFieldWidth(0)<<"="<<ui->CyclenBox->currentText()<<endl;
     flux<<qSetFieldWidth(20)<<left<<"oldpoint"<<qSetFieldWidth(0)<<"="<<ui->OldpointBox->currentIndex()<<endl;
     flux<<qSetFieldWidth(20)<<left<<"EPSG"<<qSetFieldWidth(0)<<"="<<ui->EPSG_comboBox->currentText()<<endl;
+    flux<<qSetFieldWidth(20)<<left<<"AddGeoid"<<qSetFieldWidth(0)<<"="<<ui->AddGeoidCorrectoin_checkBox->isChecked()<<endl;
+    flux<<qSetFieldWidth(20)<<left<<"GeoidPath"<<qSetFieldWidth(0)<<"="<<ui->FilepathLine_geoid->text()<<endl;
     sauveOptionFile.close();
     this->close();
 }
@@ -84,5 +93,12 @@ void optionssauvepoints::ChoixFilepath()
 {
     QString filePath = QFileDialog::getSaveFileName(this,tr("Measure File"),"../RTKBASE/PointsFiles",tr("Text Files (*.txt);;All Files (*)"));
     if (filePath!="") ui->FilepathLine->setText(filePath);
+
+}
+
+void optionssauvepoints::GeoidFilePath()
+{
+    QString GeoidPath = QFileDialog::getSaveFileName(this,tr("Geoid File"),"../RTKBASE/PointsFiles",tr("Geoid Files (*.gtx);;All Files (*)"));
+    if (GeoidPath!="") ui->FilepathLine_geoid->setText(GeoidPath);
 
 }

@@ -12,7 +12,7 @@ class optionssauvepoints : public QDialog
     Q_OBJECT
 
 public:
-    explicit optionssauvepoints(QString filePath = "",QString pointName ="", int nummeas = 1, float cyclen = 1, int oldpoint = 0,QString EPSG ="",QWidget *parent = 0);
+    explicit optionssauvepoints(QString filePath = "",QString pointName ="", int nummeas = 1, float cyclen = 1, int oldpoint = 0,QString EPSG ="",bool AddGeoid =0,QString GeoidPath ="",QWidget *parent = 0);
     ~optionssauvepoints();
 
 private:
@@ -20,6 +20,7 @@ private:
 
 public slots:
     void ChoixFilepath();
+    void GeoidFilePath();
     void Cancel();
     void Save();
 
