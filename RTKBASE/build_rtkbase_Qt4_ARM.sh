@@ -34,6 +34,7 @@ echo "  > Script will ask your passwork to install it"
 sudo apt-get install --assume-yes proj-bin libxtst-dev build-essential proj-bin libqt4-dev qt4-qmake libqt4-xml libqt4-opengl > "$LOG_PATH/apt.log" 2>&1
 echo "  > building required static lib rtklib"
 cd ./lib/rtklib
+echo "  > building required static lib rnx2rtkp"
 chmod +x make_library.sh > "$LOG_PATH/rtklib_rights.log" 2>&1
 ./make_library.sh > "$LOG_PATH/rtklib.log" 2>&1
 chmod +x make_library_process.sh > "$LOG_PATH/rtklib_rights.log" 2>&1
@@ -41,10 +42,15 @@ chmod +x make_library_process.sh > "$LOG_PATH/rtklib_rights.log" 2>&1
 cd ../../
 echo "  < done - `date`"
 echo
-echo "  > Check rights : "
-chmod +x RTKBASE.sh > "$LOG_PATH/rtklib_rights.log" 2>&1
+
 cd ../
 cd Package
+echo "  > copy ARM Package "
+cd bin-arm
+cp * ../
+cd ../
+echo "  > Check rights : "
+chmod +x RTKBASE.sh > "$LOG_PATH/rtklib_rights.log" 2>&1
 chmod +x RNX2CRX > "$LOG_PATH/rtklib_rights.log" 2>&1
 chmod +x CRX2RNX > "$LOG_PATH/rtklib_rights.log" 2>&1
 chmod +x teqc > "$LOG_PATH/rtklib_rights.log" 2>&1
