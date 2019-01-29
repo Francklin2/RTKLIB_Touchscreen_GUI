@@ -47,8 +47,8 @@ You can also download these Pré-installed image of RTKbase, RPI2 contain a mast
 For raspberry PI 2
 https://drive.google.com/open?id=0B5xmVAi4jATOcEQ1TWxaOXprMk0
 
-For raspberry PI 3
-https://drive.google.com/open?id=0B5xmVAi4jATOS0hIRHpYMEg2MXM
+For raspberry PI 3 (based on raspbian stretch)
+https://drive.google.com/open?id=1HOssKfLAgLO0DKe1ZVBqeMXHCmyP4w-P
 
 
 
