@@ -56,12 +56,11 @@ chmod +x CRX2RNX > "$LOG_PATH/rtklib_rights.log" 2>&1
 chmod +x teqc > "$LOG_PATH/rtklib_rights.log" 2>&1
 cd ../
 cd RTKBASE
-
+chmod +x build_rtkbase.sh > "$LOG_PATH/rtklib_rights.log" 2>&1
 
 echo "  > building RTKBASE"
-make clean > "$LOG_PATH/RTKBASE_clean.log" 2>&1
-qmake > "$LOG_PATH/RTKBASE_qmake.log" 2>&1
-make -j$CORES > "$LOG_PATH/RTKBASE.log" 2>&1
+./build_rtkbase.sh
+./build_rtkbase.sh
 echo "  < done - `date`"
 echo "  - script finished - `date`"
 exit
