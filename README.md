@@ -55,22 +55,27 @@ https://drive.google.com/open?id=1HOssKfLAgLO0DKe1ZVBqeMXHCmyP4w-P
 
 - Copy this image on a SD card, you can use Rufus for that : https://rufus.akeo.ie/
 - Insert the SD card in your Raspberry Pi and start it.
-- Open the terminal and clone the repository:
-```
+
+Install manually RTKBASE on a fresh image of Raspbian (tested on strech):
+- Open the terminal
+- do a sudo apt-get update and sudo apt-get upgrade
+- Download install scripts with:
+wget https://github.com/Francklin2/RTKLIB_Touchscreen_GUI/raw/master/RTKbase_installer.zip
+ - Unzip the installer file in home directory (/home/pi)
+ - Go to the folder /home/pi/Installer
+ - Update rights for the 3 scriptswith chmod +x 1-Download_rtkbase.sh   chmod +x 2-Build_rtkbase.sh   chmod +x 4-Install_LCD_driver.sh
+ - Lauch the 3 scripts in order to 1 downmload and build RTKbase 2 Install autostart and 3 install driver 
+ 
+ You can do it manually  with:
+ 
+ -  clone the repository:
 git clone https://github.com/Francklin2/RTKLIB_Touchscreen_GUI
-```
 - Go to the RTKBASE directory: 
-```
 cd  RTKLIB_Touchscreen_GUI/RTKBASE/
-```
 - Run the script to compil:
-```
-./build_rtkbase.sh
-```
+./build_rtkbase_Qt5_ARM.sh
 - Launch RTKBASE:
-```
 ./RTKBASE
-```
 
 # Autostart RTKBASE at boot :                                                                          
 
