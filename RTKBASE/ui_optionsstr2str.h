@@ -67,6 +67,8 @@ public:
     QPushButton *UpdateOptionspushButton;
     QLineEdit *lineEdit_17;
     MyComboBox *OutFilePathcomboBox;
+    QLineEdit *lineEdit_18;
+    MyComboBox *OutServerPathcomboBox;
     QTextBrowser *RtkrcvOptionstextBrowser;
     QLineEdit *lineEdit_16;
     QPushButton *pushButtonSave;
@@ -280,7 +282,7 @@ public:
         RtcmMsgcomboBox->setEditable(true);
         UpdateOptionspushButton = new QPushButton(tab_2);
         UpdateOptionspushButton->setObjectName(QStringLiteral("UpdateOptionspushButton"));
-        UpdateOptionspushButton->setGeometry(QRect(50, 160, 271, 34));
+        UpdateOptionspushButton->setGeometry(QRect(50, 120, 271, 34));
         UpdateOptionspushButton->setFont(font1);
         UpdateOptionspushButton->setStyleSheet(QLatin1String("border-radius: 15px;\n"
 "border: 1px solid black;\n"
@@ -296,10 +298,21 @@ public:
         OutFilePathcomboBox->setGeometry(QRect(390, 180, 321, 32));
         OutFilePathcomboBox->setFont(font1);
         OutFilePathcomboBox->setEditable(true);
+        lineEdit_18 = new QLineEdit(tab_2);
+        lineEdit_18->setObjectName(QStringLiteral("lineEdit_18"));
+        lineEdit_18->setGeometry(QRect(10, 160, 361, 20));
+        lineEdit_18->setFont(font1);
+        lineEdit_18->setAlignment(Qt::AlignCenter);
+        lineEdit_18->setReadOnly(true);
+        OutServerPathcomboBox = new MyComboBox(tab_2);
+        OutServerPathcomboBox->setObjectName(QStringLiteral("OutServerPathcomboBox"));
+        OutServerPathcomboBox->setGeometry(QRect(10, 180, 361, 32));
+        OutServerPathcomboBox->setFont(font1);
+        OutServerPathcomboBox->setEditable(true);
         tabWidget->addTab(tab_2, QString());
         RtkrcvOptionstextBrowser = new QTextBrowser(OptionsStr2str);
         RtkrcvOptionstextBrowser->setObjectName(QStringLiteral("RtkrcvOptionstextBrowser"));
-        RtkrcvOptionstextBrowser->setGeometry(QRect(30, 310, 591, 81));
+        RtkrcvOptionstextBrowser->setGeometry(QRect(20, 310, 621, 81));
         RtkrcvOptionstextBrowser->setFont(font1);
         RtkrcvOptionstextBrowser->setStyleSheet(QStringLiteral("border: 1px solid grey;"));
         lineEdit_16 = new QLineEdit(OptionsStr2str);
@@ -372,6 +385,7 @@ public:
          << QApplication::translate("OptionsStr2str", "serial://ttyAMA0", Q_NULLPTR)
          << QApplication::translate("OptionsStr2str", "serial://ttyACM0", Q_NULLPTR)
          << QApplication::translate("OptionsStr2str", "File", Q_NULLPTR)
+         << QApplication::translate("OptionsStr2str", "ntrips://", Q_NULLPTR)
         );
         OutFormatcomboBox->clear();
         OutFormatcomboBox->insertItems(0, QStringList()
@@ -424,6 +438,11 @@ public:
         OutFilePathcomboBox->insertItems(0, QStringList()
          << QApplication::translate("OptionsStr2str", "../RTKBASE/PointsFiles/rover.ubx", Q_NULLPTR)
          << QApplication::translate("OptionsStr2str", "/home/pi/rover.ubx", Q_NULLPTR)
+        );
+        lineEdit_18->setText(QApplication::translate("OptionsStr2str", "STRING FOR NTRIP SERVER", Q_NULLPTR));
+        OutServerPathcomboBox->clear();
+        OutServerPathcomboBox->insertItems(0, QStringList()
+         << QApplication::translate("OptionsStr2str", ":BETATEST@rtk2go.com/Myplace:2101#rtcm3\\", Q_NULLPTR)
         );
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("OptionsStr2str", "CONFIGURATION", Q_NULLPTR));
         lineEdit_16->setText(QApplication::translate("OptionsStr2str", "BASE CONFIGURATION", Q_NULLPTR));

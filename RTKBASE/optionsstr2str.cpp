@@ -43,6 +43,7 @@ QString Outbaudext;
 QString OutSerialPortext;
 QString OutFormatext;
 QString OutFilePathtext;
+QString OutServerPathtext;
 QString Inbaudext;
 QString InSerialPortext;
 QString InFormatext;
@@ -159,6 +160,8 @@ fichier1.close();
  OutFormatext = OutFormat;
  QString OutFilePath = ui->OutFilePathcomboBox ->currentText();
  OutFilePathtext = OutFilePath;
+ QString OutServerPath = ui->OutServerPathcomboBox ->currentText();
+ OutServerPathtext = OutServerPath;
  QString Inbaud = ui->InBaudratecomboBox ->currentText();
  Inbaudext = Inbaud;
  QString InSerialPort = ui->InSerialPortcomboBox ->currentText();
@@ -242,6 +245,8 @@ void OptionsStr2str::OuvreDefault1()
     OutFormatext = OutFormat;
     QString OutFilePath = ui->OutFilePathcomboBox ->currentText();
     OutFilePathtext = OutFilePath;
+    QString OutServerPath = ui->OutServerPathcomboBox ->currentText();
+    OutServerPathtext = OutServerPath;
     QString Inbaud = ui->InBaudratecomboBox ->currentText();
     Inbaudext = Inbaud;
     QString InSerialPort = ui->InSerialPortcomboBox ->currentText();
@@ -256,6 +261,10 @@ void OptionsStr2str::OuvreDefault1()
     if (OutSerialPort =="File")
 
         arga={"carlep,remierargtoujorsleprog","-in","serial://ttyACM0:115200:8:n:1:#ubx","-out","../RTKBASE/PointsFiles/rover.ubx"};
+
+    if (OutSerialPort =="ntrips://")
+
+        arga={"carlep,remierargtoujorsleprog","-in","serial://ttyACM0:115200:8:n:1:#ubx","-out","ntrips://",":BETATEST@rtk2go.com/Myplace:2101#rtcm3","-p","48.2","2.2","120.23","-msg","1004,1019,1012,1020,1006,1008"};
   else
         arga={"carlep,remierargtoujorsleprog","-in","serial://ttyACM0:115200:8:n:1:#ubx","-out","serial://ttyUSB0:38400:8:n:1:#rtcm3","-p","48.2","2.2","120.23","-msg","1004,1019,1012,1020,1006,1008"};
 
@@ -608,6 +617,8 @@ void OptionsStr2str::on_UpdateOptionspushButton_clicked()
     OutFormatext = OutFormat;
     QString OutFilePath = ui->OutFilePathcomboBox ->currentText();
     OutFilePathtext = OutFilePath;
+    QString OutServerPath = ui->OutServerPathcomboBox ->currentText();
+    OutServerPathtext = OutServerPath;
     QString Inbaud = ui->InBaudratecomboBox ->currentText();
     Inbaudext = Inbaud;
     QString InSerialPort = ui->InSerialPortcomboBox ->currentText();
@@ -628,7 +639,7 @@ void OptionsStr2str::on_UpdateOptionspushButton_clicked()
       DisplayRtkrcvStr.append(" -out ");
 
 
-      if ( (PositionMode==1) and (OutSerialPortext!="File") )
+      if ( (PositionMode==1) and (OutSerialPortext.contains("serial") ))
     {
          DisplayRtkrcvStr.append(&OutSerialPortext);
          DisplayRtkrcvStr.append(":");
@@ -645,7 +656,7 @@ void OptionsStr2str::on_UpdateOptionspushButton_clicked()
          DisplayRtkrcvStr.append(&AltiAuto);
       }
 
-      if ( (PositionMode==2) and (OutSerialPortext!="File") )
+      if ( (PositionMode==2) and (OutSerialPortext.contains("serial") ) )
       {
           DisplayRtkrcvStr.append(&OutSerialPortext);
           DisplayRtkrcvStr.append(":");
@@ -661,12 +672,43 @@ void OptionsStr2str::on_UpdateOptionspushButton_clicked()
          DisplayRtkrcvStr.append(" ");
          DisplayRtkrcvStr.append(&AltiManual);
       }
-      if ( (PositionMode==1 and OutSerialPortext=="File") or (PositionMode==2 and OutSerialPortext=="File") )       {
+      if ( (PositionMode==1 and OutSerialPortext=="File") or (PositionMode==2 and OutSerialPortext=="File") )
+
       {
           DisplayRtkrcvStr.append(&OutFilePath);
       }
+      if ( (PositionMode==1 and OutSerialPortext=="ntrips://") )
 
-   }
+      {
+          DisplayRtkrcvStr.append(&OutSerialPortext);
+          DisplayRtkrcvStr.append(&OutServerPathtext);
+          DisplayRtkrcvStr.append(" -p ");
+          DisplayRtkrcvStr.append(&LatAuto);
+          DisplayRtkrcvStr.append(" ");
+          DisplayRtkrcvStr.append(&LongAuto);
+          DisplayRtkrcvStr.append(" ");
+          DisplayRtkrcvStr.append(&AltiAuto);
+          DisplayRtkrcvStr.append(" -msg ");
+          DisplayRtkrcvStr.append(&RtcmMsgext);
+      }
+
+      if ( (PositionMode==2 and OutSerialPortext=="ntrips://") )
+
+      {
+          DisplayRtkrcvStr.append(&OutSerialPortext);
+          DisplayRtkrcvStr.append(&OutServerPathtext);
+
+          DisplayRtkrcvStr.append(" -p ");
+          DisplayRtkrcvStr.append(&LatManual);
+          DisplayRtkrcvStr.append(" ");
+          DisplayRtkrcvStr.append(&LongManual);
+          DisplayRtkrcvStr.append(" ");
+          DisplayRtkrcvStr.append(&AltiManual);
+          DisplayRtkrcvStr.append(" -msg ");
+          DisplayRtkrcvStr.append(&RtcmMsgext);
+      }
+
+
       ui->RtkrcvOptionstextBrowser->setText(DisplayRtkrcvStr);
 
 }

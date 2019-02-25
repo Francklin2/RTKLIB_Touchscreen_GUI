@@ -84,7 +84,7 @@ public:
         Msg4lineEdit->setFont(font2);
         textBrowser = new QTextBrowser(AfficheStr2str);
         textBrowser->setObjectName(QStringLiteral("textBrowser"));
-        textBrowser->setGeometry(QRect(50, 230, 381, 241));
+        textBrowser->setGeometry(QRect(50, 230, 541, 241));
         textBrowser->setFont(font2);
 
         retranslateUi(AfficheStr2str);

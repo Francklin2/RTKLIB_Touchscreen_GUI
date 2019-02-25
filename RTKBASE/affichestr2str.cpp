@@ -96,6 +96,7 @@ AfficheStr2str::AfficheStr2str(std::vector<string> arga, QWidget *parent) :
     string OutSerialPortstr=OutSerialPortext.toStdString() ;
     string OutFormatstr=OutFormatext.toStdString() ;
     string OutFilePathstr=OutFilePathtext.toStdString() ;
+    string OutServerPathstr=OutServerPathtext.toStdString() ;
     string Inbaudstr=Inbaudext.toStdString() ;
     string InSerialPortstr=InSerialPortext.toStdString() ;
     string InFormatstr=InFormatext.toStdString() ;
@@ -106,6 +107,13 @@ AfficheStr2str::AfficheStr2str(std::vector<string> arga, QWidget *parent) :
         std::vector<std::string> args1={"carlepremierargesttoujorsleprog","-in",InSerialPortstr+":"+Inbaudstr+":8:n:1:#"+InFormatstr,"-out",OutFilePathstr};
   args=args1;
     }
+
+    if (OutSerialPortstr =="ntrips://")
+    {
+        std::vector<std::string> args1={"carlepremierargesttoujorsleprog","-in",InSerialPortstr+":"+Inbaudstr+":8:n:1:#"+InFormatstr,"-out","ntrips://"+OutServerPathstr,"-p",latstr,lonstr,hstr,"-msg",RtcmMsgstr};
+  args=args1;
+    }
+
   else
     {
     std::vector<std::string> args1={"carlepremierargesttoujorsleprog","-in",InSerialPortstr+":"+Inbaudstr+":8:n:1:#"+InFormatstr,"-out",OutSerialPortstr+":"+Outbaudstr+":8:n:1:#"+OutFormatstr,"-msg",RtcmMsgstr,"-p",latstr,lonstr,hstr};
