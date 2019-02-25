@@ -1,0 +1,246 @@
+Debug: ----- The package was successfully installed  
+
+Debug:  date =  8 / 2 / 2018
+Debug:  heure=  0 : 15 : 17.5109
+Debug: ----- The ubx file exist -----
+Debug: 
+ "convbin ../PointsFiles/rover.ubx -r ubx -o ../work/rover.obs -n ../work/rover.nav"
+Debug: 
+-----The conversion process from ubx to .obs finished with success ----- 
+
+Debug: Approx coordinate X0= 4.20139e+06 , 194711 , 4.77899e+06
+Debug: Time of first obs=  22 : 27
+Debug: Time of last obs=  23 : 7
+Debug: Date of obs=  21 / 1 / 2018
+Debug:  FTP of RGP Stations coordinate: "ftp://rgpdata.ign.fr/pub/data/2018/020/coorrgf93_2018-020.txt"
+Debug: The download of  "coorrgf93_2018-020.txt"  is complete! 
+
+Debug: Number of stations within a radius of:  100000 m: 74  Stations 
+
+Debug: The stations are : QVector("MLVL", "CT5E", "CT54", "CT55", "SMNE", "PANA", "OPMT", "CT5B", "CT53", "CT52", "CHE2", "MELN", "CT5F", "LIZY", "CTX1", "CT50", "CT5H", "CT5I", "SIRT", "BRET", "CTY1", "CT57", "CT51", "CT5G", "CT56", "IXSG", "ISLA", "CT71", "CT58", "CT36", "CREI", "CT59", "FEGA", "TGRI", "CTX5", "CTXA", "CT73", "DHUI", "CT91", "CT10", "CTX2", "CT74", "VNTE", "CT24", "CT23", "CT72", "FETA", "BOVE", "BEAU", "CT13", "BEAV", "CT70", "CTB9", "CT3H", "CT11", "CT3O", "CT27", "MAGR", "CT26", "ROMY", "CT1A", "CTB6", "OISO", "CTB2", "CONN", "CT14", "CHPH", "MGIS", "AMIY", "MERY", "CT21", "CTB7", "CTZ1", "CT20") 
+
+Debug: The download of  "mlvl021v.18d.Z"  is complete! 
+
+Debug: "uncompress ../work/mlvl021v.18d.Z"
+Debug: ----- The standard uncompressing process of  "mlvl021v.18d.Z"  finished 
+
+Debug: "../work/./CRX2RNX ../work/mlvl021v.18d"
+Debug: ----- Hatanaka uncompression of "mlvl021v.18d"  file, done with sucess! 
+
+Debug: The download of  "mlvl021v.18n.Z"  is complete! 
+
+Debug: "uncompress ../work/mlvl021v.18n.Z"
+Debug: ----- The standard uncompressing process of  "mlvl021v.18n.Z"  finished 
+
+Debug: The download of  "mlvl021v.18g.Z"  is complete! 
+
+Debug: "uncompress ../work/mlvl021v.18g.Z"
+Debug: ----- The standard uncompressing process of  "mlvl021v.18g.Z"  finished 
+
+Debug: For the station:  "MLVL"  the data are: 
+
+Debug: _antenna_type_station "TRM57971.00" 
+
+Debug: _coord_antena "0.0750" , "0.0000" , "0.0000" 
+
+Debug: _coord_station "4201577.2090" , " 189859.8560" , "4779064.5670" 
+
+Debug: ----------- Genration of the configuration file -----------  
+
+Debug: An old configuration file exist 
+
+Debug: The existed configuration file was deleted 
+
+Debug: A new blank Cofiguration_file was created in the work space for the next station ! 
+
+Debug: The configuration file is ready for the rnx2rtkp process ! 
+
+Debug: The obs file:rover.obs exist 
+
+Debug: The observation station: "mlvl021v.18o"  exist 
+
+Debug: The GPS navigation file: "mlvl021v.18n"  exist 
+
+Debug: The GLONASS navigation file: "mlvl021v.18g"  exist 
+
+Debug: The configuration file of station "mlvl021v.18o"  exist 
+
+Debug: The rnx2rtk process: "rnx2rtkp -k ../work/Configuration.conf ../work/rover.obs ../work/mlvl021v.18o ../work/mlvl021v.18n ../work/mlvl021v.18g" 
+
+Debug: The rnx2rtk process finished with success !! 
+
+Debug: Number of station downloaded= 1 
+
+Debug: ---- ****** Next station: "CT5E"  ***** ----- 
+
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/021/data_30/ct5e021v.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT5E" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT54"  ***** ----- 
+
+Debug: The download of  "ct54021v.18d.Z"  is complete! 
+
+Debug: "uncompress ../work/ct54021v.18d.Z"
+Debug: ----- The standard uncompressing process of  "ct54021v.18d.Z"  finished 
+
+Debug: "../work/./CRX2RNX ../work/ct54021v.18d"
+Debug: ----- Hatanaka uncompression of "ct54021v.18d"  file, done with sucess! 
+
+Debug: The download of  "ct54021v.18n.Z"  is complete! 
+
+Debug: "uncompress ../work/ct54021v.18n.Z"
+Debug: ----- The standard uncompressing process of  "ct54021v.18n.Z"  finished 
+
+Debug: The download of  "ct54021v.18g.Z"  is complete! 
+
+Debug: "uncompress ../work/ct54021v.18g.Z"
+Debug: ----- The standard uncompressing process of  "ct54021v.18g.Z"  finished 
+
+Debug: For the station:  "CT54"  the data are: 
+
+Debug: _antenna_type_station "TRM55971.00" 
+
+Debug: _coord_antena "0.0000" , "0.0000" , "0.0000" 
+
+Debug: _coord_station "4213337.1270" , " 192345.2080" , "4768687.7740" 
+
+Debug: ----------- Genration of the configuration file -----------  
+
+Debug: An old configuration file exist 
+
+Debug: The existed configuration file was deleted 
+
+Debug: A new blank Cofiguration_file was created in the work space for the next station ! 
+
+Debug: The configuration file is ready for the rnx2rtkp process ! 
+
+Debug: The obs file:rover.obs exist 
+
+Debug: The observation station: "ct54021v.18o"  exist 
+
+Debug: The GPS navigation file: "ct54021v.18n"  exist 
+
+Debug: The GLONASS navigation file: "ct54021v.18g"  exist 
+
+Debug: The configuration file of station "ct54021v.18o"  exist 
+
+Debug: The rnx2rtk process: "rnx2rtkp -k ../work/Configuration.conf ../work/rover.obs ../work/ct54021v.18o ../work/ct54021v.18n ../work/ct54021v.18g" 
+
+Debug: The rnx2rtk process finished with success !! 
+
+Debug: Number of station downloaded= 2 
+
+Debug: ---- ****** Next station: "CT55"  ***** ----- 
+
+Debug: The download of  "ct55021v.18d.Z"  is complete! 
+
+Debug: "uncompress ../work/ct55021v.18d.Z"
+Debug: ----- The standard uncompressing process of  "ct55021v.18d.Z"  finished 
+
+Debug: "../work/./CRX2RNX ../work/ct55021v.18d"
+Debug: ----- Hatanaka uncompression of "ct55021v.18d"  file, done with sucess! 
+
+Debug: The download of  "ct55021v.18n.Z"  is complete! 
+
+Debug: "uncompress ../work/ct55021v.18n.Z"
+Debug: ----- The standard uncompressing process of  "ct55021v.18n.Z"  finished 
+
+Debug: The download of  "ct55021v.18g.Z"  is complete! 
+
+Debug: "uncompress ../work/ct55021v.18g.Z"
+Debug: ----- The standard uncompressing process of  "ct55021v.18g.Z"  finished 
+
+Debug: For the station:  "CT55"  the data are: 
+
+Debug: _antenna_type_station "TRM55971.00" 
+
+Debug: _coord_antena "0.0000" , "0.0000" , "0.0000" 
+
+Debug: _coord_station "4190293.8430" , " 201223.8300" , "4788453.8890" 
+
+Debug: ----------- Genration of the configuration file -----------  
+
+Debug: An old configuration file exist 
+
+Debug: The existed configuration file was deleted 
+
+Debug: A new blank Cofiguration_file was created in the work space for the next station ! 
+
+Debug: The configuration file is ready for the rnx2rtkp process ! 
+
+Debug: The obs file:rover.obs exist 
+
+Debug: The observation station: "ct55021v.18o"  exist 
+
+Debug: The GPS navigation file: "ct55021v.18n"  exist 
+
+Debug: The GLONASS navigation file: "ct55021v.18g"  exist 
+
+Debug: The configuration file of station "ct55021v.18o"  exist 
+
+Debug: The rnx2rtk process: "rnx2rtkp -k ../work/Configuration.conf ../work/rover.obs ../work/ct55021v.18o ../work/ct55021v.18n ../work/ct55021v.18g" 
+
+Debug: The rnx2rtk process finished with success !! 
+
+Debug: Number of station downloaded= 3 
+
+Debug: ---- ****** Next station: "SMNE"  ***** ----- 
+
+Debug: The download of  "smne021v.18d.Z"  is complete! 
+
+Debug: "uncompress ../work/smne021v.18d.Z"
+Debug: ----- The standard uncompressing process of  "smne021v.18d.Z"  finished 
+
+Debug: "../work/./CRX2RNX ../work/smne021v.18d"
+Debug: ----- Hatanaka uncompression of "smne021v.18d"  file, done with sucess! 
+
+Debug: The download of  "smne021v.18n.Z"  is complete! 
+
+Debug: "uncompress ../work/smne021v.18n.Z"
+Debug: ----- The standard uncompressing process of  "smne021v.18n.Z"  finished 
+
+Debug: The download of  "smne021v.18g.Z"  is complete! 
+
+Debug: "uncompress ../work/smne021v.18g.Z"
+Debug: ----- The standard uncompressing process of  "smne021v.18g.Z"  finished 
+
+Debug: For the station:  "SMNE"  the data are: 
+
+Debug: _antenna_type_station "TRM55971.00" 
+
+Debug: _coord_antena "0.1390" , "0.0000" , "0.0000" 
+
+Debug: _coord_station "4201792.2950" , " 177945.2380" , "4779286.6850" 
+
+Debug: ----------- Genration of the configuration file -----------  
+
+Debug: An old configuration file exist 
+
+Debug: The existed configuration file was deleted 
+
+Debug: A new blank Cofiguration_file was created in the work space for the next station ! 
+
+Debug: The configuration file is ready for the rnx2rtkp process ! 
+
+Debug: The obs file:rover.obs exist 
+
+Debug: The observation station: "smne021v.18o"  exist 
+
+Debug: The GPS navigation file: "smne021v.18n"  exist 
+
+Debug: The GLONASS navigation file: "smne021v.18g"  exist 
+
+Debug: The configuration file of station "smne021v.18o"  exist 
+
+Debug: The rnx2rtk process: "rnx2rtkp -k ../work/Configuration.conf ../work/rover.obs ../work/smne021v.18o ../work/smne021v.18n ../work/smne021v.18g" 
+
+Debug: The rnx2rtk process finished with success !! 
+
+Debug: Number of station downloaded= 4 
+
+Debug: The position of RTK_BASE station :
+Debug: "4201416.0063"
+Debug: "194699.5622"
+Debug: "4779011.7498"

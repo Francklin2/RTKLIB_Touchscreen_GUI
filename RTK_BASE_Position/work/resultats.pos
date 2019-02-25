@@ -1,0 +1,12 @@
+%mlvl021v.18o
+%  GPST                      x-ecef(m)      y-ecef(m)      z-ecef(m)   Q  ns   sdx(m)   sdy(m)   sdz(m)  sdxy(m)  sdyz(m)  sdzx(m) age(s)  ratio
+2018/01/21 21:35:05.200   4201415.7037    194702.9458   4779022.0694   1   4   0.0097   0.0028   0.0073   0.0050   0.0043   0.0083   4.40    3.1
+%ct54021v.18o
+%  GPST                      x-ecef(m)      y-ecef(m)      z-ecef(m)   Q  ns   sdx(m)   sdy(m)   sdz(m)  sdxy(m)  sdyz(m)  sdzx(m) age(s)  ratio
+2018/01/21 21:35:05.200   4201416.4068    194699.2844   4779011.6155   1   4   0.0080   0.0024   0.0060   0.0042   0.0036   0.0068  20.30    3.2
+%ct55021v.18o
+%  GPST                      x-ecef(m)      y-ecef(m)      z-ecef(m)   Q  ns   sdx(m)   sdy(m)   sdz(m)  sdxy(m)  sdyz(m)  sdzx(m) age(s)  ratio
+2018/01/21 21:35:05.200   4201416.1041    194698.7293   4779011.6663   1   4   0.0082   0.0025   0.0061   0.0043   0.0037   0.0070  13.30    3.1
+%smne021v.18o
+%  GPST                      x-ecef(m)      y-ecef(m)      z-ecef(m)   Q  ns   sdx(m)   sdy(m)   sdz(m)  sdxy(m)  sdyz(m)  sdzx(m) age(s)  ratio
+2018/01/21 21:35:05.200   4201415.9085    194699.8400   4779011.8334   1   4   0.0080   0.0024   0.0060   0.0042   0.0036   0.0068  20.20    3.2

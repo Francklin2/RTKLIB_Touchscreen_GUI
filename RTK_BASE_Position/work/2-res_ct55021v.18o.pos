@@ -1,0 +1,25 @@
+% program   : RTKLIB ver.2.4.2
+% inp file  : ../work/rover.obs
+% inp file  : ../work/ct55021v.18o
+% inp file  : ../work/ct55021v.18n
+% inp file  : ../work/ct55021v.18g
+% obs start : 2018/01/21 21:27:13.7 GPST (week1985  77233.7s)
+% obs end   : 2018/01/21 22:07:01.5 GPST (week1985  79621.5s)
+% pos mode  : static
+% freqs     : L1+L2
+% solution  : forward
+% elev mask : 15.0 deg
+% dynamics  : off
+% tidecorr  : off
+% ionos opt : broadcast
+% tropo opt : saastamoinen
+% ephemeris : broadcast
+% amb res   : continuous
+% val thres : 3.0
+% antenna1  :                       ( 0.0000  0.0000  0.0000)
+% antenna2  : TRM55971.00           ( 0.0000  0.0000  0.0000)
+% ref pos   :  4190297.5564   201223.8459  4788450.6601
+%
+% (x/y/z-ecef=WGS84,Q=1:fix,2:float,3:sbas,4:dgps,5:single,6:ppp,ns=# of satellites)
+%  GPST                      x-ecef(m)      y-ecef(m)      z-ecef(m)   Q  ns   sdx(m)   sdy(m)   sdz(m)  sdxy(m)  sdyz(m)  sdzx(m) age(s)  ratio
+2018/01/21 21:35:05.200   4201416.1041    194698.7293   4779011.6663   1   4   0.0082   0.0025   0.0061   0.0043   0.0037   0.0070  13.30    3.1
