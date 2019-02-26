@@ -3,6 +3,11 @@
 RTKLIB GUI (Graphic User Interface) for Raspberry Pi with touchscreen made with Qt4 by the ENSG students 
 
 Update news :
+February 2019 update
+- Added ntrip server option in base mode, choose ntrip in output stream and give a ntrip path (not tested yet)
+- Added a install script pack, tested on raspbian stretch and a RPI3you can get it with
+wget https://github.com/Francklin2/RTKLIB_Touchscreen_GUI/raw/master/RTKbase_installer.zip
+- the ENSG project for this year is to convert the C++ code into a python script based on the Taroz TouchRTKStation ( https://github.com/taroz/TouchRTKStation ) the release should be around May 
 
 May 2018 update
 - Added autostart a rover mode at boot, new button and page on main screen to set boot options
