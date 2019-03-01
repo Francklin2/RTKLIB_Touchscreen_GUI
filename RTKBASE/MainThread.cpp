@@ -353,7 +353,7 @@ void MainThread::sauvegardedansfichier(QString filePath, QString pointName, int 
             qDebug()<<NomFichier;
         }
 
-  /*------Create a buffer file with WGS84 coord for cs2cs transform ------------------*/
+  /*------Create a buffer file with WGS84 coord for 4cs2cs transform ------------------*/
 
         std::ofstream q("saveWGS84coordbuffer.txt");
           QFile WGS84coordbuffer("saveWGS84coordbuffer.txt");
@@ -403,7 +403,7 @@ QString geoidpath = geoidpath2[0];
                   param <<"+init=epsg:4326"<<"+to"<<("+init=epsg:"+epsgout)<<"-f"<<"%.8f"<<"saveWGS84coordbuffer.txt";
                   }
                 }
-              if ((epsgout=="2154")or(epsgout=="3942")or(epsgout=="3943")or(epsgout=="3944")or(epsgout=="3945")or(epsgout=="3946")or(epsgout=="3947")or(epsgout=="3948")or(epsgout=="3949")or(epsgout=="3950"))
+              if (epsgout!="4326")
               {
                   if(AddGeoid==1)
                   {
@@ -462,7 +462,7 @@ QString geoidpath = geoidpath2[0];
              out << "point  : "<<pointNameCurrent<<" mesure : "<<m_k<<" heure rover : "<<list[13]<<" latitude :"<<list[4] <<" longitude :"<<list[5]<<" hauteur :"<<list[6]<<" X : "<<list[1]<<" Y :"<<list[2]<<" Z : "<<list[3]<<" "<<EPSG<<" LAT : "<<Proj_y<<" LON : "<<Proj_x<<" ALT : "<<Proj_z<<'\n';
          }
 
-        if ((epsgout=="2154")or(epsgout=="3942")or(epsgout=="3943")or(epsgout=="3944")or(epsgout=="3945")or(epsgout=="3946")or(epsgout=="3947")or(epsgout=="3948")or(epsgout=="3949")or(epsgout=="3950"))
+        if (epsgout!="4326")
         {
         out << "point  : "<<pointNameCurrent<<" mesure : "<<m_k<<" heure rover : "<<list[13]<<" latitude :"<<list[4] <<" longitude :"<<list[5]<<" hauteur :"<<list[6]<<" X : "<<list[1]<<" Y :"<<list[2]<<" Z : "<<list[3]<<" "<<EPSG<<" X : "<<Proj_x<<" Y : "<<Proj_y<<" ALT : "<<Proj_z<<'\n';
         }

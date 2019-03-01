@@ -383,6 +383,14 @@ background-color: rgb(230, 230, 230);</string>
      <height>41</height>
     </rect>
    </property>
+   <property name="editable">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>(no_transform)__EPSG:4326</string>
+    </property>
+   </item>
    <item>
     <property name="text">
      <string>Lambert93__EPSG:2154</string>
@@ -431,6 +439,11 @@ background-color: rgb(230, 230, 230);</string>
    <item>
     <property name="text">
      <string>Lambert93/CC50__EPSG:3950</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>ETRS89__EPSG:4258</string>
     </property>
    </item>
   </widget>
