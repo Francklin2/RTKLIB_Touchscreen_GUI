@@ -1058,7 +1058,7 @@ background-color: rgb(230, 230, 230);</string>
      </property>
      <item>
       <property name="text">
-       <string>:BETATEST@rtk2go.com/Myplace:2101#rtcm3\</string>
+       <string>:BETATEST@rtk2go.com:2101/Myplace#rtcm3</string>
       </property>
      </item>
     </widget>
