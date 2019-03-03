@@ -4,10 +4,11 @@ RTKLIB GUI (Graphic User Interface) for Raspberry Pi with touchscreen made with 
 
 Update news :
 February 2019 update
-- Added ntrip server option in base mode, choose ntrip in output stream and give a ntrip path (not tested yet)
+- Added ntrip server option in base mode, choose ntrips in output stream and give a ntrip server path (tested with rtk2go.com).The default string goes to rtk2go.com caster with Myplace as mountpoint, just change the mountpoint name and add your station info with -sta "your station info" 
 - Added a install script pack, tested on raspbian stretch and a RPI3you can get it with
 wget https://github.com/Francklin2/RTKLIB_Touchscreen_GUI/raw/master/RTKbase_installer.zip
 - the ENSG project for this year is to convert the C++ code into a python script based on the Taroz TouchRTKStation ( https://github.com/taroz/TouchRTKStation ) the release should be around May 
+- You can type in a EPSG in the save point options, use the syntax EPSG:xxxx (example EPSG:4236) to get a projection transform with cs2cs in you saves point files (no virtual keyboard yet)
 
 May 2018 update
 - Added autostart a rover mode at boot, new button and page on main screen to set boot options
