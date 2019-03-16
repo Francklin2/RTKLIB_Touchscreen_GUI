@@ -215,7 +215,7 @@ void ChoixEdite::SauveNom(QString newName)
         flux2<<list[i]<<endl;
     }
     newConfigName.close();
-    OuvrirEditeur(QString("../RTKBASE/ConfFiles/Custom").append(QString::number(numSauve)).append(".ubx"));
+    OuvrirEditeur(QString("../RTKBASE/ConfFiles/Custom").append(QString::number(numSauve)).append(".conf"));
 }
 
 void ChoixEdite::Affiche()
