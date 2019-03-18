@@ -40,18 +40,6 @@ August 2017 update
 Take a look to the wiki pages for installation instructions and user manual :  https://github.com/Francklin2/RTKLIB_Touchscreen_GUI/wiki
 
 # Installation
-To install system on a raspberry pi 2 with the touchscreen you can download a raspian image with all the touchscreen drivers, Qt4 and all compilation dependencies preinstalled here :
-
-https://drive.google.com/file/d/0B5xmVAi4jATOcXE3a3BWS0VDUUk/view?usp=sharing
-
-It was based on this original image with only the library for the touchscreen: https://drive.google.com/file/d/0B2SuLGFxizpVMzRtODVkN0tZVjA/view?usp=sharing
-
-
-
-You can also download these Pré-installed image of RTKbase, RPI2 contain a master version (june 2016) with autoload and custom splash screen, the version for RPI3 contains Raspbian Jessie with drivers and the Beta version(august 2017)
-
-For raspberry PI 2
-https://drive.google.com/open?id=0B5xmVAi4jATOcEQ1TWxaOXprMk0
 
 For raspberry PI 3 (based on raspbian stretch)
 https://drive.google.com/open?id=1HOssKfLAgLO0DKe1ZVBqeMXHCmyP4w-P
@@ -79,9 +67,23 @@ git clone https://github.com/Francklin2/RTKLIB_Touchscreen_GUI
 - Go to the RTKBASE directory: 
 cd  RTKLIB_Touchscreen_GUI/RTKBASE/
 - Run the script to compil:
-./build_rtkbase_Qt5_ARM.sh
+./build_rtkbase_Qt5_ARM.sh  ( or ./build_rtkbase_Qt5_x86.sh on a desktop x86 PC )
 - Launch RTKBASE:
 ./RTKBASE
+
+To install system on a raspberry pi 2 with the touchscreen you can download a raspian image with all the touchscreen drivers, Qt4 and all compilation dependencies preinstalled here :
+
+https://drive.google.com/file/d/0B5xmVAi4jATOcXE3a3BWS0VDUUk/view?usp=sharing
+
+It was based on this original image with only the library for the touchscreen: https://drive.google.com/file/d/0B2SuLGFxizpVMzRtODVkN0tZVjA/view?usp=sharing
+
+
+
+You can also download these Pré-installed image of RTKbase, RPI2 contain a master version (june 2016) with autoload and custom splash screen, the version for RPI3 contains Raspbian Jessie with drivers and the Beta version(august 2017)
+
+For raspberry PI 2
+https://drive.google.com/open?id=0B5xmVAi4jATOcEQ1TWxaOXprMk0
+
 
 # Autostart RTKBASE at boot :                                                                          
 
