@@ -41,7 +41,7 @@ Take a look to the wiki pages for installation instructions and user manual :  h
 
 # Installation
 
-# For raspberry PI 3 (based on raspbian stretch)
+ For raspberry PI 3 (based on raspbian stretch)
 https://drive.google.com/open?id=1HOssKfLAgLO0DKe1ZVBqeMXHCmyP4w-P
 
 
@@ -50,7 +50,7 @@ https://drive.google.com/open?id=1HOssKfLAgLO0DKe1ZVBqeMXHCmyP4w-P
 - Copy this image on a SD card, you can use Rufus for that : https://rufus.akeo.ie/
 - Insert the SD card in your Raspberry Pi and start it.
 
-# Install manually RTKBASE on a fresh image of Raspbian (tested on strech):
+ Install manually RTKBASE on a fresh image of Raspbian (tested on strech):
 - Open the terminal
 - do a sudo apt-get update and sudo apt-get upgrade
 - Download install scripts with:
