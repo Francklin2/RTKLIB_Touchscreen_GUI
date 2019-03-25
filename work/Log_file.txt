@@ -1,0 +1,1097 @@
+Debug: ----- The package was successfully installed  
+
+Debug:  date =  23 / 3 / 2019
+Debug:  heure=  23 : 55 : 24.539
+Debug: ----- The ubx file exist -----
+Debug: 
+ "convbin ../RTKBASE/PointsFiles/rover.ubx -r ubx -o ../work/rover.obs -n ../work/rover.nav"
+Debug: 
+-----The conversion process from ubx to .obs finished with success ----- 
+
+Debug: Approx coordinate X0= 4.205e+06 , 164206 , 4.77702e+06
+Debug: Time of first obs=  15 : 52
+Debug: Time of last obs=  16 : 52
+Debug: Date of obs=  27 / 4 / 2018
+Debug: Age of obs=  -35
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug:  FTP of RGP Stations coordinate: "ftp://rgpdata.ign.fr/pub/data/2018/116/coorrgf93_2018-116.txt"
+Debug: The download of  "coorrgf93_2018-116.txt"  is complete! 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: Number of stations within a radius of:  50 Km: 30  Stations 
+
+Debug: The stations are : 
+
+Debug: Station  "OPMT" Dist: 7.67546 km 
+
+Debug: Station  "SIRT" Dist: 11.4112 km 
+
+Debug: Station  "PANA" Dist: 12.4385 km 
+
+Debug: Station  "SMNE" Dist: 14.2892 km 
+
+Debug: Station  "IXSG" Dist: 15.8711 km 
+
+Debug: Station  "CTY1" Dist: 17.7659 km 
+
+Debug: Station  "TGRI" Dist: 21.3364 km 
+
+Debug: Station  "BRET" Dist: 23.2828 km 
+
+Debug: Station  "CTX5" Dist: 25.6429 km 
+
+Debug: Station  "MLVL" Dist: 25.9615 km 
+
+Debug: Station  "CT71" Dist: 27.9737 km 
+
+Debug: Station  "CTX1" Dist: 30.1379 km 
+
+Debug: Station  "CT54" Dist: 30.5082 km 
+
+Debug: Station  "CT10" Dist: 31.019 km 
+
+Debug: Station  "ISLA" Dist: 32.4054 km 
+
+Debug: Station  "CT36" Dist: 32.8313 km 
+
+Debug: Station  "CTXA" Dist: 33.1878 km 
+
+Debug: Station  "CT52" Dist: 34.4494 km 
+
+Debug: Station  "CT24" Dist: 37.8326 km 
+
+Debug: Station  "CT5E" Dist: 38.4592 km 
+
+Debug: Station  "CT55" Dist: 41.4401 km 
+
+Debug: Station  "CT74" Dist: 44.0188 km 
+
+Debug: Station  "CT57" Dist: 44.0792 km 
+
+Debug: Station  "MELN" Dist: 44.2486 km 
+
+Debug: Station  "CT23" Dist: 45.3906 km 
+
+Debug: Station  "DHUI" Dist: 46.2227 km 
+
+Debug: Station  "CT72" Dist: 46.9978 km 
+
+Debug: Station  "CT53" Dist: 47.0427 km 
+
+Debug: Station  "CT13" Dist: 49.6079 km 
+
+Debug: Station  "CT5I" Dist: 49.7816 km 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/opmt117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "OPMT" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "SIRT"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/sirt117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "SIRT" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "PANA"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/pana117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "PANA" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "SMNE"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/smne117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "SMNE" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "IXSG"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ixsg117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "IXSG" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CTY1"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/cty1117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CTY1" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "TGRI"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/tgri117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "TGRI" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "BRET"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/bret117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "BRET" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CTX5"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ctx5117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CTX5" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "MLVL"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/mlvl117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "MLVL" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT71"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ct71117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT71" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CTX1"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ctx1117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CTX1" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT54"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ct54117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT54" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT10"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ct10117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT10" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "ISLA"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/isla117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "ISLA" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT36"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ct36117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT36" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CTXA"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ctxa117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CTXA" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT52"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ct52117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT52" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT24"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ct24117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT24" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT5E"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ct5e117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT5E" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT55"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ct55117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT55" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT74"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ct74117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT74" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT57"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ct57117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT57" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "MELN"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/meln117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "MELN" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT23"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ct23117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT23" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "DHUI"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/dhui117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "DHUI" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT72"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ct72117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT72" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT53"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ct53117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT53" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT13"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ct13117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT13" we will try the next nearest station 
+
+Debug: ---- ****** Next station: "CT5I"  ***** ----- 
+
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: "50"
+Debug: "4"
+Debug: "60"
+Debug: "0"
+Debug: "serial://ttyACM0"
+Debug: "115200"
+Debug: "ubx"
+Debug: "off"
+Debug: "serial://ttyUSB0"
+Debug: "57600"
+Debug: "rtcm3"
+Debug: "1004,1006,1008,1012,1019,1020"
+Debug: "rgpdata.ign.fr"
+Debug: ERROR!
+Debug: "Error while downloading ftp://rgpdata.ign.fr/pub/data/2018/117/data_30/ct5i117p.18d.Z: Could not get file size." 
+
+Debug: We can't download data for this station: "CT5I" we will try the next nearest station 
+
+Fatal: ASSERT failure in QVector<T>::operator[]: "index out of range", file /usr/include/x86_64-linux-gnu/qt5/QtCore/qvector.h, line 401

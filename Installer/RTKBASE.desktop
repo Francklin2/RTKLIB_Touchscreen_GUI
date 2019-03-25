@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=RTKBASE
+Type=Application
+Exec=/home/pi/RTKLIB_Touchscreen_GUI/RTKBASE/RTKBASE.sh
+Terminal=false
