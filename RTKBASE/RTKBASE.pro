@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT      += core gui
+QT      += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
@@ -37,7 +38,15 @@ SOURCES += main.cpp\
     optionssauvepoints.cpp \
     clavier.cpp \
     mylineedit.cpp \
-    mycombobox.cpp
+    mycombobox.cpp \
+    approxcoord.cpp \
+    downloader.cpp \
+    gpstime.cpp \
+    mydialog.cpp \
+    mymessagehandler.cpp \
+    rnx2rtkp.cpp \
+    station.cpp \
+    optionsstartatboot.cpp
 
 HEADERS  += mainwindow.h \
     threadheuresysteme.h \
@@ -60,7 +69,15 @@ HEADERS  += mainwindow.h \
     optionssauvepoints.h \
     clavier.h \
     mylineedit.h \
-    mycombobox.h
+    mycombobox.h \
+    approxcoord.h \
+    downloader.h \
+    gpstime.h \
+    mydialog.h \
+    mymessagehandler.h \
+    rnx2rtkp.h \
+    station.h \
+    optionsstartatboot.h
 
 FORMS    += mainwindow.ui \
     options1.ui \
@@ -76,7 +93,9 @@ FORMS    += mainwindow.ui \
     optionssauvepoints.ui \
     clavier.ui \
     mylineedit.ui \
-    mycombobox.ui
+    mycombobox.ui \
+    mydialog.ui \
+    optionsstartatboot.ui
 
 FORMS    += mainwindow.ui
 

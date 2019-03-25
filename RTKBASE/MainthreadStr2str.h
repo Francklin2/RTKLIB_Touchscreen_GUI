@@ -5,6 +5,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <QMutex>
+#include <QFile>
 
 using namespace std;
 

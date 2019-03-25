@@ -1,3 +1,25 @@
+// RTKBASE is a GUI interface for RTKLIB made for the Raspberry pî and a touchscreen
+//   Copyright (C) 2016
+//   David ENSG PPMD-2016 (first rtkbase release)
+//   Francklin N'guyen van <francklin2@wanadoo.fr>
+//   Sylvain Poulain <sylvain.poulain@giscan.com>
+//   Vladimir ENSG PPMD-2017 (editable configuration)
+//   Saif Aati ENSG PPMD-2018 (post processing)
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
 #include "affichesolutions.h"
 #include "ui_affichesolutions.h"
 #include "magraphicsscene.h"
@@ -558,7 +580,7 @@ void AfficheSolutions::satchoice3()
 
 void AfficheSolutions::sauvegardeoptions()
 {
-    optionssauvepoints *FenetreSaveOptions = new optionssauvepoints(m_t->_filePath,m_t->_pointName,m_t->_numOfMeasures,m_t->_cycleLength,m_t->_addMeasures);
+    optionssauvepoints *FenetreSaveOptions = new optionssauvepoints(m_t->_filePath,m_t->_pointName,m_t->_numOfMeasures,m_t->_cycleLength,m_t->_addMeasures, m_t->_EPSG,m_t->_AddGeoid,m_t->_filePath_Geoid);
     QObject::connect(FenetreSaveOptions,SIGNAL(SaveOptions(QStringList)),m_t,SLOT(changeSaveOptions(QStringList)));
     FenetreSaveOptions->setModal(true);
     FenetreSaveOptions->setWindowFlags(Qt::FramelessWindowHint);

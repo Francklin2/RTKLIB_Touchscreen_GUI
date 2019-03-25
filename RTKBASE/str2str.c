@@ -409,16 +409,15 @@ int fermeStr2str()
     } 
 */
     /* stop stream server */
-    strsvrstop(&strsvr,cmd?cmd:NULL);
-
-/*
+    strsvrstop(&strsvr,cmd);
+   /*
     for (i=0;i<n;i++) {
-    strconvfree(conv[i]);
-    }*/
-  /*  if (trlevel>0) {
+        strconvfree(conv[i]);
+    }
+    if (trlevel>0) {
         traceclose();
     }
-*/
+    */
     fprintf(stderr,"stream server stop\n");
     return 0;
 }

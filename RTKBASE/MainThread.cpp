@@ -1,8 +1,10 @@
 // RTKBASE is a GUI interface for RTKLIB made for the Raspberry pî and a touchscreen  
 //   Copyright (C) 2016  
-//   David ENSG PPMD-15  
+//   David ENSG PPMD-2016 (first rtkbase release)
 //   Francklin N'guyen van <francklin2@wanadoo.fr>
 //   Sylvain Poulain <sylvain.poulain@giscan.com>
+//   Vladimir ENSG PPMD-2017 (editable configuration)
+//   Saif Aati ENSG PPMD-2018 (post processing)
 //
 //    This program is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
@@ -41,6 +43,10 @@ extern "C" void afficheNaviData(vt_t *vt);
 extern "C" void afficheStream(vt_t *vt);
 extern "C" int fermeVT();
 
+ QString Proj_x;
+ QString Proj_y;
+ QString Proj_z;
+
 
 
 MainThread ::MainThread(QObject* parent):
@@ -70,6 +76,10 @@ QThread(parent)
         else if(decomp[0]=="nummeas") _numOfMeasures = decomp[1].toInt();
         else if(decomp[0]=="cyclen") _cycleLength = decomp[1].toFloat();
         else if(decomp[0]=="oldpoint") _addMeasures = decomp[1].toInt();
+        else if(decomp[0]=="EPSG") _EPSG = decomp[1];
+        else if(decomp[0]=="AddGeoid") _AddGeoid = decomp[1].toInt();
+        else if(decomp[0]=="GeoidPath") _filePath_Geoid = decomp[1];
+
         else std::cout<<"Le paramètre <"<<decomp[0].toStdString()<<"> n'a pas été reconnu"<<std::endl;
     }
 }
@@ -150,7 +160,7 @@ void MainThread::run()
         if (m_choix==2) etatsatellite();
         if (m_choix==3) etatNaviData();
         if (m_choix==5) etatStream();
-        if (m_choix==6) sauvegardedansfichier(_filePath,_pointName,_numOfMeasures,_cycleLength,_addMeasures);
+        if (m_choix==6) sauvegardedansfichier(_filePath,_pointName,_numOfMeasures,_cycleLength,_addMeasures,_EPSG,_AddGeoid,_filePath_Geoid);
         if (m_choix==7) stop();
         }
 
@@ -286,7 +296,7 @@ void MainThread::saveposition()
     //sauvegardedansfichier();
 }
 
-void MainThread::sauvegardedansfichier(QString filePath, QString pointName, int numOfMeasures, float cycleLength, bool addMeasures)
+void MainThread::sauvegardedansfichier(QString filePath, QString pointName, int numOfMeasures, float cycleLength, bool addMeasures, QString EPSG , bool AddGeoid , QString filePath_Geoid)
 {
     std::cout<<"Commençons la sauvegarde..."<<std::endl;
     if (addMeasures==false)
@@ -343,19 +353,121 @@ void MainThread::sauvegardedansfichier(QString filePath, QString pointName, int 
             qDebug()<<NomFichier;
         }
 
+  /*------Create a buffer file with WGS84 coord for 4cs2cs transform ------------------*/
+
+        std::ofstream q("saveWGS84coordbuffer.txt");
+          QFile WGS84coordbuffer("saveWGS84coordbuffer.txt");
+          WGS84coordbuffer.open(QIODevice::Append | QIODevice::Text);
+          QTextStream outWGS84(&WGS84coordbuffer);
+       {
+          QString X=list[4];
+          X.replace(QString(","),QString("."));
+                    QString Y=list[5];
+          Y.replace(QString(","),QString("."));
+
+          QString Z=list[6];
+          Z.replace(QString(","),QString("."));
+
+          outWGS84<<X<<" "<<Y<<" "<<Z<<'\n';
+
+
+       WGS84coordbuffer.close();
+   }
+
+          /*-------------------------------------------------------------------------------/
+                - Converte ECEF buffer file with cs2cs
+          /------------------------------------------------------------------------------*/
+
+
+QString EPSG1 = _EPSG;
+QStringList EPSG2 = EPSG1.split(" ");
+QString EPSG = EPSG2[0];
+QString epsgout1 = _EPSG;
+QString epsgout= epsgout1.right(4);
+QString geoidpath1 = _filePath_Geoid;
+QStringList geoidpath2 = geoidpath1.split("=");
+QString geoidpath = geoidpath2[0];
+
+              QProcess convert;
+
+              QStringList param;
+
+              if (epsgout=="4326")
+              {
+                if(AddGeoid==1)
+                {
+                param <<"+init=epsg:4326"<<"+to"<<("+init=epsg:"+epsgout)<<"+geoidgrids="+geoidpath<<"-f"<<"%.8f"<<"saveWGS84coordbuffer.txt";
+                }
+                else
+                  {
+                  param <<"+init=epsg:4326"<<"+to"<<("+init=epsg:"+epsgout)<<"-f"<<"%.8f"<<"saveWGS84coordbuffer.txt";
+                  }
+                }
+              if (epsgout!="4326")
+              {
+                  if(AddGeoid==1)
+                  {
+                  param <<"+init=epsg:4326"<<"+to"<<("+init=epsg:"+epsgout)<<"+geoidgrids="+geoidpath<<"saveWGS84coordbuffer.txt";
+                  }
+                  else
+                    {
+                  param <<"+init=epsg:4326"<<"+to"<<("+init=epsg:"+epsgout)<<"saveWGS84coordbuffer.txt";
+                    }
+                  }
+
+               qDebug() << "param:" << param << "\n";
+
+              convert.start("cs2cs", param);
+              if (convert.waitForStarted())
+              {
+                 convert.waitForFinished();
+                 QString output;
+                 output = convert.readAllStandardOutput();
+
+                 QString line = output;
+
+                 qDebug() << "line:" << line << "\n";
+                 QStringList list = line.split(QRegExp("\\s"));
+
+                 double element;
+
+                 for(int i = 0; i < list.size(); i++)
+                 {
+                     element = list.at(i).toDouble();
+                     qDebug() << "element:" << element << "\n";
+                 }
+
+
+             Proj_x = (QString((list)[0]));
+             Proj_y = (QString((list)[1]));
+             Proj_z = (QString((list)[2]));
+
+          }
+    /*------------------------------------------------------------------------------*/
+
+
+
         //QFile fichiersauvegarde(NomFichier);
         QFile fichiersauvegarde(filePath);
-
-
-        //sleep(1);
-
         fichiersauvegarde.open(QIODevice::Append | QIODevice::Text);
 
 
         /*Save points in NomFichier in Folder*/
 
         QTextStream out(&fichiersauvegarde);
-        out << "point  : "<<pointNameCurrent<<" mesure : "<<m_k<<" heure rover : "<<list[13]<<" latitude :"<<list[4] <<" longitude :"<<list[5]<<" hauteur :"<<list[6]<<" X : "<<list[1]<<" Y :"<<list[2]<<" Z : "<<list[3]<<'\n';
+
+
+        if (epsgout=="4326")
+         {
+             out << "point  : "<<pointNameCurrent<<" mesure : "<<m_k<<" heure rover : "<<list[13]<<" latitude :"<<list[4] <<" longitude :"<<list[5]<<" hauteur :"<<list[6]<<" X : "<<list[1]<<" Y :"<<list[2]<<" Z : "<<list[3]<<" "<<EPSG<<" LAT : "<<Proj_y<<" LON : "<<Proj_x<<" ALT : "<<Proj_z<<'\n';
+         }
+
+        if (epsgout!="4326")
+        {
+        out << "point  : "<<pointNameCurrent<<" mesure : "<<m_k<<" heure rover : "<<list[13]<<" latitude :"<<list[4] <<" longitude :"<<list[5]<<" hauteur :"<<list[6]<<" X : "<<list[1]<<" Y :"<<list[2]<<" Z : "<<list[3]<<" "<<EPSG<<" X : "<<Proj_x<<" Y : "<<Proj_y<<" ALT : "<<Proj_z<<'\n';
+        }
+
+
         emit savePointNbr(pointNameCurrent.append(" ").append(QString::number(m_k)));
         fichiersauvegarde.close();
 
@@ -377,6 +489,9 @@ void MainThread::changeSaveOptions(QStringList options)
      _numOfMeasures = options[2].toInt();
     _cycleLength = options[3].toFloat();
     _addMeasures = options[4].toInt();
+    _EPSG = options[5];
+    _AddGeoid = options[6].toInt();
+    _filePath_Geoid = options[7];
 }
 
 void MainThread::setSYStime()

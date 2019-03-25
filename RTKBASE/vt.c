@@ -57,11 +57,14 @@
 *          char   *dev      I   device ("": standard tty)
 * return : virtual console (NULL: error)
 *-----------------------------------------------------------------------------*/
-extern vt_t *vt_open(int sock, const char *dev)
-{
+extern vt_t *vt_open(vt_t *vt, int sock, const char *dev)
+/*extern int vt_open(vt_t *vt, int sock, const char *dev)*/
+  {
     const char mode[]={C_IAC,C_WILL,C_SUPPGA,C_IAC,C_WILL,C_ECHO};
     struct termios tio={0};
-    vt_t *vt;
+    vt_t;
+ /*   vt_t *vt;*/
+
     int i;
     
     trace(3,"vt_open: sock=%d dev=%s\n",sock,dev);

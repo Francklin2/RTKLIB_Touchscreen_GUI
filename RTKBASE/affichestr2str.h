@@ -4,7 +4,7 @@
 #include <QDialog>
 #include "MainthreadStr2str.h"
 #include "magraphicsscene.h"
-#include "optionsstr2str.h"
+/*#include "optionsstr2str.h"*/
 
 namespace Ui {
 class AfficheStr2str;

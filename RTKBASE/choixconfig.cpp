@@ -1,3 +1,25 @@
+// RTKBASE is a GUI interface for RTKLIB made for the Raspberry pî and a touchscreen
+//   Copyright (C) 2016
+//   David ENSG PPMD-2016 (first rtkbase release)
+//   Francklin N'guyen van <francklin2@wanadoo.fr>
+//   Sylvain Poulain <sylvain.poulain@giscan.com>
+//   Vladimir ENSG PPMD-2017 (editable configuration)
+//   Saif Aati ENSG PPMD-2018 (post processing)
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
 #include "choixconfig.h"
 #include "ui_choixconfig.h"
 #include "affichesolutions.h"
@@ -102,110 +124,110 @@ void ChoixConfig::OuvreChoixEdit(QString modeleFile)
 
 void ChoixConfig::ouvreSingle()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Single.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Single.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Single.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Single.conf"));
 }
 
 void ChoixConfig::ouvreSBAS()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/SBAS.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/SBAS.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/SBAS.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/SBAS.conf"));
 }
 
 void ChoixConfig::ouvreDGPS()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/DGPS.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/DGPS.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/DGPS.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/DGPS.conf"));
 }
 
 void ChoixConfig::ouvrePPP()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/PPP-Static.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/PPP-Static.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/PPP-Static.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/PPP-Static.conf"));
 }
 
 void ChoixConfig::ouvreRTKstatic()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/RTK-Static.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/RTK-Static.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/RTK-Static.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/RTK-Static.conf"));
 }
 
 void ChoixConfig::ouvreRTKkinematic()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/RTK-Kinematic.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/RTK-Kinematic.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/RTK-Kinematic.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/RTK-Kinematic.conf"));
 }
 
 void ChoixConfig::OuvreConfig1()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom1.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom1.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom1.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom1.conf"));
 }
 
 void ChoixConfig::OuvreConfig2()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom2.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom2.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom2.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom2.conf"));
 }
 
 void ChoixConfig::OuvreConfig3()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom3.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom3.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom3.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom3.conf"));
 }
 
 void ChoixConfig::OuvreConfig4()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom4.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom4.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom4.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom4.conf"));
 }
 
 void ChoixConfig::OuvreConfig5()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom5.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom5.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom5.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom5.conf"));
 }
 
 void ChoixConfig::OuvreConfig6()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom6.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom6.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom6.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom6.conf"));
 }
 
 void ChoixConfig::OuvreConfig7()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom7.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom7.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom7.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom7.conf"));
 }
 
 void ChoixConfig::OuvreConfig8()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom8.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom8.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom8.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom8.conf"));
 }
 
 void ChoixConfig::OuvreConfig9()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom9.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom9.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom9.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom9.conf"));
 }
 
 void ChoixConfig::OuvreConfig10()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom10.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom10.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom10.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom10.conf"));
 }
 
 void ChoixConfig::OuvreConfig11()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom11.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom11.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom11.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom11.conf"));
 }
 
 void ChoixConfig::OuvreConfig12()
 {
-    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom12.ubx"));
-    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom12.ubx"));
+    if(rover_edit==0) OuvreAfficheSolutions(QString("../RTKBASE/ConfFiles/Custom12.conf"));
+    else OuvreChoixEdit(QString("../RTKBASE/ConfFiles/Custom12.conf"));
 }
 
 void ChoixConfig::OuvreEdit()

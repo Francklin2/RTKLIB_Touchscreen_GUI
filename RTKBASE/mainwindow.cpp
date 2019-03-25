@@ -1,3 +1,25 @@
+// RTKBASE is a GUI interface for RTKLIB made for the Raspberry pî and a touchscreen
+//   Copyright (C) 2016
+//   David ENSG PPMD-2016 (first rtkbase release)
+//   Francklin N'guyen van <francklin2@wanadoo.fr>
+//   Sylvain Poulain <sylvain.poulain@giscan.com>
+//   Vladimir ENSG PPMD-2017 (editable configuration)
+//   Saif Aati ENSG PPMD-2018 (post processing)
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QTime>
@@ -18,7 +40,11 @@
 #include "affichesolutions.h"
 #include <QGridLayout>
 #include "choixconfig.h"
+#include "optionsstartatboot.h"
 
+QString StartupMode;
+QString ModeatBoot;
+QString RoverConfig;
 
 
 
@@ -38,7 +64,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QPixmap watermark("../RTKBASE/images/Raspberry-Pi.jpg");
     QPixmap newPixmap = watermark.scaled(QSize(65,65),Qt::KeepAspectRatio);
     ui->ensglabel->setPixmap(newPixmap);
-
 
     // --------- voir partie "print solution" de RTKCVR pour récupérer données Time / FIX-FLOAT-... / Position...
     // https://openclassrooms.com/courses/la-programmation-systeme-en-c-sous-unix/les-threads-3 //
@@ -69,6 +94,95 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->BasestationButton,SIGNAL(clicked()),this,SLOT(OuvreAfficheSolutiosStr2str()));
     QObject::connect(ui->HelpButton,SIGNAL(clicked()),this,SLOT(OuvreHelp()));
     QObject::connect(ui->PowerOFFButton,SIGNAL(clicked()),this,SLOT(Shutdown()));
+    QObject::connect(ui->Post_Processing_Button,SIGNAL(clicked()),this,SLOT(Post_Processing()));
+    QObject::connect(ui->StartupOption_Button,SIGNAL(clicked()),this,SLOT(Startup_Options()));
+
+
+
+    // Open startup options configuration file
+
+        {
+        int i=1;
+        QStringList list;
+        QString fileName = "saveoptionstartatboot.txt";
+        QFile readoption(fileName);
+        readoption.open(QIODevice::ReadOnly | QIODevice::Text);
+        //---------verifier ouverture fichier......
+        QTextStream flux(&readoption);
+        QString ligne;
+        while(! flux.atEnd())
+        {
+           ligne = flux.readLine();
+           //traitement de la ligne
+           qDebug()<<ligne;
+           list<<ligne;
+           i=i+1;
+       }
+
+
+StartupMode = list[0];
+ModeatBoot = list[1];
+RoverConfig = list[2];
+
+        readoption.close();
+
+    }
+
+  if(StartupMode=="ON")
+  {
+  if (ModeatBoot=="ROVER")
+     {
+  if(RoverConfig == "SINGLE")
+  {
+    ChoixConfig Start;
+    Start.ouvreSingle();
+   }
+  if(RoverConfig == "SBAS")
+  {
+    ChoixConfig Start;
+    Start.ouvreSBAS();
+   }
+  if(RoverConfig == "DGPS")
+  {
+    ChoixConfig Start;
+    Start.ouvreDGPS();
+   }
+  if(RoverConfig == "PPP STATIC")
+  {
+    ChoixConfig Start;
+    Start.ouvrePPP();
+   }
+  if(RoverConfig == "RTK STATIC")
+  {
+    ChoixConfig Start;
+    Start.ouvreRTKstatic();
+   }
+  if(RoverConfig == "RTK KINE")
+  {
+    ChoixConfig Start;
+    Start.ouvreRTKkinematic();
+   }
+  if(RoverConfig == "CUSTOM 1")
+  {
+    ChoixConfig Start;
+    Start.OuvreConfig1();
+   }
+  }
+
+if (ModeatBoot=="BASE")
+{
+
+    OptionsStr2str Start1;
+    Start1.exec();
+}
+
+
+
+  }
+
+
+
+
 
 }
 
@@ -144,3 +258,26 @@ void MainWindow::OuvreHelp()
     //this->hide();
     //qApp->quit();//Removed : quit button close RTKBASE
 }
+
+
+
+void MainWindow::Post_Processing()                     //added by ENSG student SAIF AATI
+{
+
+   MyDialog  affichemydialog;
+    affichemydialog.setModal(true);
+    affichemydialog.setWindowFlags(Qt::FramelessWindowHint);
+    affichemydialog.setWindowState(Qt::WindowFullScreen);
+    affichemydialog.exec();
+}
+
+void MainWindow::Startup_Options()
+{
+    optionsstartatboot StartupOptions;
+    StartupOptions.setModal(true);
+    StartupOptions.setWindowFlags(Qt::FramelessWindowHint);
+    StartupOptions.setWindowState(Qt::WindowFullScreen);
+    StartupOptions.exec();
+
+}
+

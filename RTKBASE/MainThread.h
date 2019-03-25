@@ -46,6 +46,9 @@ public:
    int _numOfMeasures = 1;
    float _cycleLength = 1;
    bool _addMeasures = false;
+   QString _EPSG = QString("");
+   bool _AddGeoid = false;
+   QString _filePath_Geoid = QString("");
 
 private:
    //-------------------suite aux conseils de Jean-Michael
@@ -66,7 +69,7 @@ public slots:
     void etatNaviData();
     void etatStream();
     void saveposition();
-    void sauvegardedansfichier(QString filePath = QString("testSauvegarde.txt"), QString pointName = QString(""), int numOfMeasures = 1, float cycleLong = 1,bool addMeasures = false);
+    void sauvegardedansfichier(QString filePath = QString("testSauvegarde.txt"), QString pointName = QString(""), int numOfMeasures = 1, float cycleLong = 1, bool addMeasures = false, QString EPSG = QString(""), bool AddGeoid = false, QString filePath_Geoid = QString("testSauvegarde.txt"));
     void changeSaveOptions(QStringList options);
     void setSYStime();
 

@@ -36,6 +36,7 @@
 *                           add option -w
 *           2017/09/01 1.21 add command ssr
 *-----------------------------------------------------------------------------*/
+
 #include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
@@ -49,11 +50,12 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <errno.h>
-#include "vt.h"
+
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
 #include "lib/rtklib/rtklib.h"
 #include <stdio.h>
-/********************************************************************************************/
+/**************************************************/
+#include "vt.h"
 
 #define PRGNAME     "rtkrcv"            /* program name */
 #define CMDPROMPT   "rtkrcv> "          /* command prompt */
@@ -61,7 +63,9 @@
 #define MAXARG      10                  /* max number of args in a command */
 #define MAXCMD      256                 /* max length of a command */
 #define MAXSTR      1024                /* max length of a stream */
-#define OPTSDIR     "."                 /* default config directory */
+/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
+#define OPTSDIR     ""                 /* default config directory */
+/****************************************************/
 #define OPTSFILE    "rtkrcv.conf"       /* default config file */
 #define NAVIFILE    "rtkrcv.nav"        /* navigation save file */
 #define STATFILE    "rtkrcv_%Y%m%d%h%M.stat"  /* solution status file */
@@ -124,7 +128,7 @@ static char sta_name[256]="";           /* station name */
 
 static prcopt_t prcopt;                 /* processing options */
 static solopt_t solopt[2]={{0}};        /* solution options */
-static filopt_t filopt  ={""};          /* file options */
+static filopt_t filopt={""};          /* file options */
 
 /* help text -----------------------------------------------------------------*/
 static const char *usage[]={
@@ -731,39 +735,39 @@ static void prstatus(vt_t *vt)
     if (norm(rtk.sol.rr,3)>0.0) ecef2pos(rtk.sol.rr,pos); else pos[0]=pos[1]=pos[2]=0.0;
     vt_printf(vt,"%-28s: %.8f,%.8f,%.3f\n","pos llh single (deg,m) rover",
             pos[0]*R2D,pos[1]*R2D,pos[2]);
+			
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
 
+
             double a=pos[0]*R2D;
+
             double b=pos[1]*R2D;
             double c=pos[2];
 /*---------------------------------------------------------------------------------------------------*/
-    
+			
+			
     ecef2enu(pos,rtk.sol.rr+3,vel);
     vt_printf(vt,"%-28s: %.3f,%.3f,%.3f\n","vel enu (m/s) rover",vel[0],vel[1],vel[2]);
-    
+	
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
             double d=vel[0];
             double e=vel[1];
             double f=vel[2];
-/*---------------------------------------------------------------------------------------------------*/
-
-    
-    
+/*---------------------------------------------------------------------------------------------------*/	
+	
+	
     vt_printf(vt,"%-28s: %.3f,%.3f,%.3f\n","pos xyz float (m) rover",
             rtk.x?rtk.x[0]:0,rtk.x?rtk.x[1]:0,rtk.x?rtk.x[2]:0);
     vt_printf(vt,"%-28s: %.3f,%.3f,%.3f\n","pos xyz float std (m) rover",
             rtk.P?SQRT(rtk.P[0]):0,rtk.P?SQRT(rtk.P[1+1*rtk.nx]):0,rtk.P?SQRT(rtk.P[2+2*rtk.nx]):0);
     vt_printf(vt,"%-28s: %.3f,%.3f,%.3f\n","pos xyz fixed (m) rover",
             rtk.xa?rtk.xa[0]:0,rtk.xa?rtk.xa[1]:0,rtk.xa?rtk.xa[2]:0);
-
-/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/    
+/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/			
             double Xroverfixed=rtk.xa?rtk.xa[0]:0;
             double Yroverfixed=rtk.xa?rtk.xa[1]:0;
-            double Zroverfixed=rtk.xa?rtk.xa[2]:0;
-/********************************************************************************************/
-
-	    
-    
+            double Zroverfixed=rtk.xa?rtk.xa[2]:0;			
+/****************************************************/			
+			
     vt_printf(vt,"%-28s: %.3f,%.3f,%.3f\n","pos xyz fixed std (m) rover",
             rtk.Pa?SQRT(rtk.Pa[0]):0,rtk.Pa?SQRT(rtk.Pa[1+1*rtk.na]):0,rtk.Pa?SQRT(rtk.Pa[2+2*rtk.na]):0);
     vt_printf(vt,"%-28s: %.3f,%.3f,%.3f\n","pos xyz (m) base",
@@ -792,8 +796,7 @@ static void prstatus(vt_t *vt)
     vt_printf(vt,"%-28s: %.3f\n","baseline length float (m)",bl1);
     vt_printf(vt,"%-28s: %.3f\n","baseline length fixed (m)",bl2);
     vt_printf(vt,"%-28s: %d\n","monitor port",moniport);
-    
-    
+
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
 
     FILE* fichier = NULL;
@@ -824,7 +827,7 @@ static void prstatus(vt_t *vt)
         fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","vel enu (m/s) rover",d,e,f);
         fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz float (m) rover",
                 rtk.x?rtk.x[0]:0,rtk.x?rtk.x[1]:0,rtk.x?rtk.x[2]:0);
-        fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz float std (m) rover",
+        fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz float (m) rover",
                 rtk.P?SQRT(rtk.P[0]):0,rtk.P?SQRT(rtk.P[1+1*rtk.nx]):0,rtk.P?SQRT(rtk.P[2+2*rtk.nx]):0);
         fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz fixed (m) rover",
                 rtk.xa?rtk.xa[0]:0,rtk.xa?rtk.xa[1]:0,rtk.xa?rtk.xa[2]:0);
@@ -835,15 +838,16 @@ static void prstatus(vt_t *vt)
                 rtk.Pa?SQRT(rtk.Pa[0]):0,rtk.Pa?SQRT(rtk.Pa[1+1*rtk.na]):0,rtk.Pa?SQRT(rtk.Pa[2+2*rtk.na]):0);
         fprintf(fichier,"%-28s: %.3f,%.3f,%.3f\n","pos xyz (m) base",
                 rtk.rb[0],rtk.rb[1],rtk.rb[2]);
-        /*fprintf(fichier,"%-15s %-9s: %s\n","# of rtcm messages",type[i],s);*/
+        fprintf(fichier,"%-15s %-9s\n","rtcm mgs:",s);
 
 
         fclose(fichier);
     }
 /*--------------------------------------------------*/
+
 }
 
-
+/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
 void affichestatus(vt_t *vt)
 {
     int i=0;
@@ -853,7 +857,7 @@ void affichestatus(vt_t *vt)
     prstatus(vt);
 
 }
-
+/****************************************************/
 
 /* print satellite -----------------------------------------------------------*/
 static void prsatellite(vt_t *vt, int nf)
@@ -878,28 +882,37 @@ static void prsatellite(vt_t *vt, int nf)
     for (j=0;j<nf;j++) vt_printf(vt,"  Lock%d",frq[j]);
     for (j=0;j<nf;j++) vt_printf(vt," Rj%d"   ,frq[j]);
     vt_printf(vt,"%s\n",ESC_RESET);
-    
+
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
 
         FILE* fichier = NULL;
         fichier = fopen("essaiprojet.txt", "w");
 /*--------------------------------------------------*/
-    
 
     
     for (i=0;i<MAXSAT;i++) {
         if (rtk.ssat[i].azel[1]<=0.0) continue;
         satno2id(i+1,id);
         vt_printf(vt,"%3s %2s",id,rtk.ssat[i].vs?"OK":"-");
-	
+		
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
             fprintf(fichier,"%3s %2s\n",id,rtk.ssat[i].vs?"OK":"-");
-/*--------------------------------------------------*/
-
-	
-	az=rtk.ssat[i].azel[0]*R2D; if (az<0.0) az+=360.0;
+/*--------------------------------------------------*/		
+		
+        az=rtk.ssat[i].azel[0]*R2D; if (az<0.0) az+=360.0;
         el=rtk.ssat[i].azel[1]*R2D;
         vt_printf(vt," %5.1f %4.1f",az,el);
+        /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
+         /*   fprintf(fichier," Azimuth : %5.1f Elevation : %4.1f\n",az,el);*/
+        /*--------------------------------------------------*/		
+
+        /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
+            fprintf(fichier,"%5.1f\n",az);
+            fprintf(fichier,"%4.1f\n",el);
+
+        /*--------------------------------------------------*/
+		
+		
         for (j=0;j<nf;j++) vt_printf(vt," %2s",rtk.ssat[i].vsat[j]?"OK":"-");
         for (j=0;j<nf;j++) {
             fix=rtk.ssat[i].fix[j];
@@ -911,27 +924,16 @@ static void prsatellite(vt_t *vt, int nf)
         for (j=0;j<nf;j++) vt_printf(vt," %6d",rtk.ssat[i].lock [j]);
         for (j=0;j<nf;j++) vt_printf(vt," %3d",rtk.ssat[i].rejc [j]);
         vt_printf(vt,"\n");
-
-/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
-
-         /*   fprintf(fichier," Azimuth : %5.1f Elevation : %4.1f\n",az,el);*/
-        /*--------------------------------------------------*/
-
-/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
-
-            fprintf(fichier,"%5.1f\n",az);
-            fprintf(fichier,"%4.1f\n",el);
-
-        /*--------------------------------------------------*/
-
-
     }
-
+	
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
                 fclose(fichier);
-/*--------------------------------------------------*/
-
+/*--------------------------------------------------*/	
+	
 }
+
+
+/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
 void affichesat(vt_t *vt)
 {
     int i=0;
@@ -941,6 +943,8 @@ void affichesat(vt_t *vt)
 
     prsatellite(vt,nf);
 }
+/****************************************************/
+
 
 /* print observation data ----------------------------------------------------*/
 static void probserv(vt_t *vt, int nf)
@@ -1033,8 +1037,7 @@ static void prnavidata(vt_t *vt)
             utc[3],leaps);
 }
 
-
-
+/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
 void afficheNaviData(vt_t *vt)
 {
     int i=0;
@@ -1044,8 +1047,7 @@ void afficheNaviData(vt_t *vt)
     prnavidata(vt);
 
 }
-
-
+/****************************************************/
 
 
 /* print error/warning messages ----------------------------------------------*/
@@ -1081,15 +1083,14 @@ static void prstream(vt_t *vt)
     int i,format[9]={0};
     
     trace(4,"prstream:\n");
-
-
+	
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
     FILE* fichier = NULL;
     fichier = fopen("essaiprojet.txt", "w");
     if (fichier != NULL)
     {
     /*---------------------------------------------------*/
-
+	
     
     rtksvrlock(&svr);
     for (i=0;i<8;i++) stream[i]=svr.stream[i];
@@ -1102,7 +1103,7 @@ static void prstream(vt_t *vt)
     vt_printf(vt,"\n%s%-12s %-8s %-5s %s %10s %7s %10s %7s %-24s %s%s\n",ESC_BOLD,
               "Stream","Type","Fmt","S","In-byte","In-bps","Out-byte","Out-bps",
               "Path","Message",ESC_RESET);
-
+	
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
     fprintf(fichier,"%-12s %-6s %-5s %s %9s %7s %9s %7s %s\n",
                     "Stream","Type","Fmt","S","In-byte","In-bps","Out-byte","Out-bps",
@@ -1110,22 +1111,23 @@ static void prstream(vt_t *vt)
     /*fprintf(fichier,\n"%s%-12s %-6s %-5s %s %9s %7s %9s %7s %s%s\n",ESC_BOLD,
                     "Stream","Type","Fmt","S","In-byte","In-bps","Out-byte","Out-bps",
                     "Message",ESC_RESET);*/
-/*---------------------------------------------------*/
-
+/*---------------------------------------------------*/		  
+			  
+			  
     for (i=0;i<9;i++) {
         vt_printf(vt,"%-12s %-8s %-5s %s %10d %7d %10d %7d %-24.24s %s\n",
             ch[i],type[stream[i].type],i<3?fmt[format[i]]:(i<5||i==8?sol[format[i]]:"-"),
             stream[i].state<0?"E":(stream[i].state?"C":"-"),
             stream[i].inb,stream[i].inr,stream[i].outb,stream[i].outr,
-	   stream[i].path,stream[i].msg);
-	
+            stream[i].path,stream[i].msg);
+			
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
             fprintf(fichier,"%-12s %-6s %-5s %s %9d %7d %9d %7d %s\n",
                     ch[i],type[stream[i].type],i<3?fmt[format[i]]:(i<5||i==8?sol[format[i]]:"-"),
                     stream[i].state<0?"E":(stream[i].state?"C":"-"),
                     stream[i].inb,stream[i].inr,stream[i].outb,stream[i].outr,stream[i].msg);
 /*---------------------------------------------------*/
-	
+			
     }
 
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
@@ -1134,8 +1136,10 @@ static void prstream(vt_t *vt)
         }
 /*--------------------------------------------------*/
 
+
 }
 
+/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
 
 void afficheStream(vt_t *vt)
 {
@@ -1146,9 +1150,7 @@ void afficheStream(vt_t *vt)
     prstream(vt);
 
 }
-
-
-
+/****************************************************/
 
 
 /* print ssr correction ------------------------------------------------------*/
@@ -1618,7 +1620,7 @@ static con_t *con_open(int sock, const char *dev)
     
     if (!(con=(con_t *)malloc(sizeof(con_t)))) return NULL;
     
-    if (!(con->vt=vt_open(sock,dev))) {
+    if (!(con->vt=vt_open(&vt,sock,dev))) {
         free(con);
         return NULL;
     }
@@ -1809,22 +1811,16 @@ static void accept_sock(int ssock, con_t **con)
 *     
 *-----------------------------------------------------------------------------*/
 
+
 /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
 /*name only*/
 int mainRTKlib(int argc, char **argv)
-
+ /* vt.state=0;*/
+/****************************************************/
 {
-      vt.state=0;
-/********************************************************************************************/
-  
-    con_t *con[MAXCON]={0};
+con_t *con[MAXCON]={0};
     int i,start=0,port=0,outstat=0,trace=0,sock=0;
     char *dev="",file[MAXSTR]="";
-
-/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
-    for (i=0;i<argc;i++)
-        printf(" * '%s'\n",argv[i]);
-/********************************************************************************************/
     
     for (i=1;i<argc;i++) {
         if      (!strcmp(argv[i],"-s")) start=1;
@@ -1894,7 +1890,7 @@ int mainRTKlib(int argc, char **argv)
     
     /* start rtk server */
     if (start) {
-        startsvr(&vt);
+        startsvr(NULL);
     }
     while (!intflg) {
         /* accept remote console connection */
@@ -1902,7 +1898,7 @@ int mainRTKlib(int argc, char **argv)
         sleepms(100);
     }
     /* stop rtk server */
-    stopsvr(&vt);
+    stopsvr(NULL);
     
     /* close consoles */
     for (i=0;i<MAXCON;i++) {
@@ -1910,15 +1906,15 @@ int mainRTKlib(int argc, char **argv)
     }
     if (moniport>0) closemoni();
     if (outstat>0) rtkclosestat();
+    
+   
 
 
-
-
-    /* save navigation data */
-   if (!savenav(NAVIFILE,&svr.nav)) {
+ /* save navigation data */
+    if (!savenav(NAVIFILE,&svr.nav)) {
         fprintf(stderr,"navigation data save error: %s\n",NAVIFILE);
     }
-
+    traceclose();
     return 0;
 }
 
@@ -1986,7 +1982,7 @@ int ouvreVT(int argc, char **argv)
     signal(SIGHUP ,SIG_IGN);
     signal(SIGPIPE,SIG_IGN);
 
-    vt_open(port,dev);
+    vt_open(&vt,port,dev);
     vt_printf(&vt,"Truc ouvert\n");
     return 0;
 }
@@ -2004,5 +2000,9 @@ int fermeVT()
 
     if (trace>0) traceclose();
 
-
+    /* save navigation data */
+    if (!savenav(NAVIFILE,&svr.nav)) {
+        fprintf(stderr,"navigation data save error: %s\n",NAVIFILE);
+    }
+    return 0;
 }

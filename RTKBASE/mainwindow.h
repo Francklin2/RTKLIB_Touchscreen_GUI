@@ -7,6 +7,8 @@
 #include "MainthreadStr2str.h"
 #include <QtGui>
 
+#include "mydialog.h"                                                    //added by ENSG student SAIF AATI
+
 
 namespace Ui {
 class MainWindow;
@@ -30,9 +32,14 @@ public slots:
     void OuvreAfficheSolutiosStr2str();
     void OuvreHelp();
     void Shutdown();
+    void Post_Processing();                                //added by ENSG student SAIF AATI
+    void Startup_Options();
+
 
 private:
     Ui::MainWindow *ui;
+
+    MyDialog *mDialog;// Create a pointer to a MAINWINDOW object       //added by ENSG student SAIF AATI
 
 
 

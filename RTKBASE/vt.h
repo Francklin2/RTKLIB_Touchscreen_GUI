@@ -11,7 +11,6 @@
 #include <termios.h>
 #include "lib/rtklib/rtklib.h"
 
-
 #define MAXBUFF     4096                /* size of line buffer */
 #define MAXHIST     256                 /* size of history buffer */
 
@@ -36,7 +35,9 @@ vt_t vt;
 
 
 /* function prototypes -------------------------------------------------------*/
-extern vt_t *vt_open(int sock, const char *dev);
+/*extern int vt_open(vt_t *vt, int sock, const char *dev);*/
+/*-------------------------------------------------------*/
+extern vt_t *vt_open(vt_t *vt, int sock, const char *dev);
 extern void vt_close(vt_t *vt);
 extern int vt_getc(vt_t *vt, char *c);
 extern int vt_gets(vt_t *vt, char *buff, int n);

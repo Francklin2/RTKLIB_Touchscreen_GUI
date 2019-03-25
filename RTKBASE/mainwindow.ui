@@ -20,7 +20,7 @@
       <x>20</x>
       <y>100</y>
       <width>261</width>
-      <height>171</height>
+      <height>151</height>
      </rect>
     </property>
     <property name="font">
@@ -44,7 +44,7 @@ border: 1px solid black;</string>
       <x>310</x>
       <y>100</y>
       <width>271</width>
-      <height>171</height>
+      <height>151</height>
      </rect>
     </property>
     <property name="font">
@@ -258,6 +258,60 @@ border: 1px solid black;</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QPushButton" name="Post_Processing_Button">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>270</y>
+      <width>401</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(238, 238, 236);
+border-style: solid;
+border-color: black;
+border-width: 1px;
+border-radius: 15px;</string>
+    </property>
+    <property name="text">
+     <string> POST PROCESSING  USING CORS STATIONS  
+ AUTOMATIC LOG/PROCESSING/BASE MODE</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="StartupOption_Button">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>330</y>
+      <width>151</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 15px;
+border: 1px solid black;
+background-color: rgb(230, 230, 230);</string>
+    </property>
+    <property name="text">
+     <string>STARTUP 
+ OPTIONS</string>
+    </property>
+   </widget>
    <zorder>RoverButton</zorder>
    <zorder>BasestationButton</zorder>
    <zorder>TimeRetourEdit</zorder>
@@ -269,6 +323,8 @@ border: 1px solid black;</string>
    <zorder>PowerOFFButton</zorder>
    <zorder>TimeEdit</zorder>
    <zorder>lineEdit</zorder>
+   <zorder>Post_Processing_Button</zorder>
+   <zorder>StartupOption_Button</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -276,7 +332,7 @@ border: 1px solid black;</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>30</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

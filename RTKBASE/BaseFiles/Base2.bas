@@ -1,13 +1,10 @@
-auto-lat            =666
-auto-long           =42
-auto-alt            =69
-manual-lat          =123
-manual-long         =456
-manual-alt          =789
+manual-lat          =48,5555
+manual-long         =2,833
+manual-alt          =151,500
 inpstr-port         =serial://ttyACM0
 inpstr-baud         =115200
 inpstr-format       =ubx
-outstr-port         =serial://ttyUSB0
+outstr-port         =ntrips:// 
 outstr-baud         =57600
 outstr-format       =rtcm3
 rtcm-msg            =1004,1006,1008,1012,1019,1020
