@@ -25,11 +25,10 @@
 *                           separate codes for virtual console to vt.c
 *-----------------------------------------------------------------------------*/
 #include <signal.h>
-/*-----------------rajouté par moi----------------------*/
+/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
 #include "lib/rtklib/rtklib.h"
 #include "vt.h"
-/*-----------------rajouté par moi----------------------*/
-#include <stdlib.h>
+/*****************Modified by ENSG / PPMD / FRANCE Student***********************************/#include <stdlib.h>
 #include <stdio.h>
 
 static const char rcsid[]="$Id:$";
@@ -826,11 +825,11 @@ static void prsatellite(vt_t *vt, int nf)
         el=rtk.ssat[i].azel[1]*R2D;
         vt_printf(vt," %5.1f %4.1f\n",az,el);
 
-        /*---------------------RAJOUTE par MOI---------------*/
+        /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
          /*   fprintf(fichier," Azimuth : %5.1f Elevation : %4.1f\n",az,el);*/
         /*--------------------------------------------------*/
 
-        /*---------------------RAJOUTE par MOI---------------*/
+        /*****************Modified by ENSG / PPMD / FRANCE Student***********************************/
             fprintf(fichier,"%5.1f\n",az);
             fprintf(fichier,"%4.1f\n",el);
 
