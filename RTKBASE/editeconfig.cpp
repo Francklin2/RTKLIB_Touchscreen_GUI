@@ -444,9 +444,10 @@ void EditeConfig::Save()
     flux<<qSetFieldWidth(20)<<left<<"inpstr2-format"<<qSetFieldWidth(0)<<"="<<ui->Inpstr2formatBox->currentText()
        <<"     # (0:rtcm2,1:rtcm3,2:oem4,3:oem3,4:ubx,5:ss2,6:hemis,7:skytraq,8:sp3)"<<endl;
     flux<<qSetFieldWidth(20)<<left<<"inpstr3-format"<<qSetFieldWidth(0)<<"="<<ui->Inpstr3formatBox->currentText()
-       <<"     # (0:rtcm2,1:rtcm3,2:oem4,3:oem3,4:ubx,5:ss2,6:hemis,7:skytraq,8:sp3)"<<endl;
-
-    flux<<qSetFieldWidth(20)<<left<<"inpstr2-nmeareq"<<qSetFieldWidth(0)<<"="<<"off"<<endl;
+       <<"     # (0:off,1:llh,2:single)"<<endl;
+    flux<<qSetFieldWidth(20)<<left<<"inpstr2-nmeareq"<<qSetFieldWidth(0)<<"="<<ui->NMEAreq->currentText()
+       <<"     # (0:rtcm2,1:rtcm3,2:oem4,3:oem3,4:ubx,5:ss2,6:hemis,7:skytraq,8:sp3)"
+       <<endl;
     flux<<qSetFieldWidth(20)<<left<<"inpstr2-nmealat"<<qSetFieldWidth(0)<<"="<<"0"<<endl;
     flux<<qSetFieldWidth(20)<<left<<"inpstr2-nmealon"<<qSetFieldWidth(0)<<"="<<"0"<<endl;
 
@@ -979,6 +980,15 @@ void EditeConfig::Charge(QString filePath)
         else if(decomp[0]=="inpstr1-format") ui->Inpstr1formatBox->setEditText(decomp[1]);
         else if(decomp[0]=="inpstr2-format") ui->Inpstr2formatBox->setEditText(decomp[1]);
         else if(decomp[0]=="inpstr3-format") ui->Inpstr3formatBox->setEditText(decomp[1]);
+
+        else if(decomp[0]=="inpstr2-nmeareq")
+        {
+            if((decomp[1]=="0")||(decomp[1]=="off")) ui->NMEAreq->setCurrentIndex(0);
+            else if((decomp[1]=="1")||(decomp[1]=="llh")) ui->NMEAreq->setCurrentIndex(1);
+            else if((decomp[1]=="2")||(decomp[1]=="single")) ui->NMEAreq->setCurrentIndex(2);
+            else std::cout<<"Valeur de <outstr1-type> incomprise"<<std::endl;
+        }
+
 
         else if(decomp[0]=="outstr1-type")
         {

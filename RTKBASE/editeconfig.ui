@@ -54,7 +54,7 @@ border: 1px solid black;
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>9</number>
    </property>
    <widget class="QWidget" name="Setting1Tab">
     <attribute name="title">
@@ -5756,7 +5756,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>220</x>
-       <y>30</y>
+       <y>60</y>
        <width>150</width>
        <height>40</height>
       </rect>
@@ -5800,7 +5800,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>30</y>
+       <y>60</y>
        <width>190</width>
        <height>40</height>
       </rect>
@@ -5813,7 +5813,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>220</x>
-       <y>150</y>
+       <y>180</y>
        <width>150</width>
        <height>40</height>
       </rect>
@@ -5852,7 +5852,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>150</y>
+       <y>180</y>
        <width>190</width>
        <height>40</height>
       </rect>
@@ -5865,7 +5865,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>90</y>
+       <y>120</y>
        <width>190</width>
        <height>40</height>
       </rect>
@@ -5878,7 +5878,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>220</x>
-       <y>90</y>
+       <y>120</y>
        <width>150</width>
        <height>40</height>
       </rect>
@@ -5927,7 +5927,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>610</x>
-       <y>90</y>
+       <y>120</y>
        <width>150</width>
        <height>40</height>
       </rect>
@@ -5971,7 +5971,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>410</x>
-       <y>90</y>
+       <y>120</y>
        <width>190</width>
        <height>40</height>
       </rect>
@@ -5984,7 +5984,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>410</x>
-       <y>30</y>
+       <y>60</y>
        <width>201</width>
        <height>40</height>
       </rect>
@@ -5997,7 +5997,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>610</x>
-       <y>30</y>
+       <y>60</y>
        <width>150</width>
        <height>40</height>
       </rect>
@@ -6031,7 +6031,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>610</x>
-       <y>150</y>
+       <y>180</y>
        <width>150</width>
        <height>40</height>
       </rect>
@@ -6085,7 +6085,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>410</x>
-       <y>150</y>
+       <y>180</y>
        <width>190</width>
        <height>40</height>
       </rect>
@@ -6098,7 +6098,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>240</x>
-       <y>210</y>
+       <y>240</y>
        <width>131</width>
        <height>40</height>
       </rect>
@@ -6137,7 +6137,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>210</y>
+       <y>240</y>
        <width>211</width>
        <height>40</height>
       </rect>
@@ -6150,7 +6150,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>410</x>
-       <y>210</y>
+       <y>240</y>
        <width>131</width>
        <height>40</height>
       </rect>
@@ -6163,7 +6163,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>550</x>
-       <y>210</y>
+       <y>240</y>
        <width>211</width>
        <height>41</height>
       </rect>
@@ -6173,7 +6173,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>270</y>
+       <y>300</y>
        <width>491</width>
        <height>41</height>
       </rect>
@@ -6186,7 +6186,7 @@ border: 1px solid black;
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>270</y>
+       <y>300</y>
        <width>221</width>
        <height>40</height>
       </rect>
@@ -6194,6 +6194,53 @@ border: 1px solid black;
      <property name="text">
       <string>SBAS Satellite Selection (0 : All)</string>
      </property>
+    </widget>
+    <widget class="QLabel" name="label_118">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>190</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>NMEA required</string>
+     </property>
+    </widget>
+    <widget class="MyComboBox" name="NMEAreq">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>10</y>
+       <width>101</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>off</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>llh</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>single</string>
+      </property>
+     </item>
     </widget>
    </widget>
   </widget>
