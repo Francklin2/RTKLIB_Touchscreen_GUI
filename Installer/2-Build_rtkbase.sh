@@ -14,7 +14,7 @@ chmod +x build_rtkbase_Qt5_x86_32.sh
 	    if [[ "$UNAME" == *"x86_64"* ]] ; then
 	    echo "Build for Linux 64 bits" | ./build_rtkbase_Qt5_${UNAME}.sh
 	    elif [[ "$UNAME" == *"arm"* ]] ; then
-	    echo "Build for ARM | ./build_rtkbase_Qt5_ARM.sh"
+	    echo "Build for ARM" | ./build_rtkbase_Qt5_ARM.sh
 	    elif [[ "$UNAME" == *"i"* ]] ; then
 	    echo "Build for Linux 32 bits" | ./build_rtkbase_Qt5_x86_32.sh
 	    fi
