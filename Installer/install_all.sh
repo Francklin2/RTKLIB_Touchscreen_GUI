@@ -6,7 +6,7 @@ while true
 do
 
 PS3='Please enter your choice:'
-options=("Download RTKbase" "Build RTKbase" "Install autostart at boot" "Install 5 inch LCD driver" "Quit")
+options=("Download RTKbase" "Update RTKbase" "Build RTKbase" "Install autostart at boot" "Install 5 inch LCD driver" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -20,7 +20,42 @@ do
 	    chmod +x build_rtkbase_Qt5_x86_64.sh
 	    chmod +x build_rtkbase_Qt5_x86_32.sh
 	    break
-            ;;	
+            ;;
+        "Update RTKbase")
+            echo "Update RTKBASE folder from github"
+            echo "Backup config and data"
+            cd $HOME
+            mkdir Installer
+            cd Installer
+            mkdir Backup
+            cd Backup
+            mkdir BaseFiles
+            mkdir ConfFiles
+            mkdir PointsFiles
+            mkdir data
+            cp $HOME/RTKLIB_Touchscreen_GUI/RTKBASE/BaseFiles/* $HOME/Installer/Backup/BaseFiles
+            cp $HOME/RTKLIB_Touchscreen_GUI/RTKBASE/ConfFiles/* $HOME/Installer/Backup/ConfFiles
+            cp $HOME/RTKLIB_Touchscreen_GUI/RTKBASE/PointsFiles/* $HOME/Installer/Backup/PointsFiles
+            cp $HOME/RTKLIB_Touchscreen_GUI/RTKBASE/data/* $HOME/Installer/Backup/data
+            
+            echo "Erase old RTKBASE folder"
+            cd $HOME
+            rm -r -f RTKLIB_Touchscreen_GUI
+
+            echo "Update new RTKBASE folder from github"
+            git clone https://github.com/Francklin2/RTKLIB_Touchscreen_GUI.git
+            
+            echo "Copy backup files to new RTKBASE folder"
+            cp $HOME/Installer/Backup/BaseFiles/* $HOME/RTKLIB_Touchscreen_GUI/RTKBASE/BaseFiles
+            cp $HOME/Installer/Backup/ConfFiles/* $HOME/RTKLIB_Touchscreen_GUI/RTKBASE/ConfFiles
+            cp $HOME/Installer/Backup/PointsFiles/* $HOME/RTKLIB_Touchscreen_GUI/RTKBASE/PointsFiles
+            cp $HOME/Installer/Backup/data/* $HOME/RTKLIB_Touchscreen_GUI/RTKBASE/data
+            cd $HOME/RTKLIB_Touchscreen_GUI/RTKBASE
+            chmod +x build_rtkbase_Qt5_ARM.sh
+	    chmod +x build_rtkbase_Qt5_x86_64.sh
+	    chmod +x build_rtkbase_Qt5_x86_32.sh
+            break
+            ;;
         "Build RTKbase")
             echo "Starting RTKbase build"
 	    cd $HOME/RTKLIB_Touchscreen_GUI/RTKBASE
