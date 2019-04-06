@@ -1,4 +1,4 @@
-./rtksvr.c ./pntpos.c ./streamsvr.c ./ionex.c ./preceph.c ./rcvraw.c ./qzslex.c ./rtcm3e.c ./download.c ./stream.c ./tle.c ./rinex.c ./solution.c ./convkml.c ./rtcm.c ./datum.c ./ppp.c ./rtcm2.c ./rtcm3.c ./rcv/septentrio.c ./rcv/crescent.c ./rcv/ss2.c ./rcv/rt17.c ./rcv/ublox.c ./rcv/skytraq.c ./rcv/nvs.c ./rcv/rcvlex.c ./rcv/gw10.c ./rcv/binex.c ./rcv/javad.c ./rcv/novatel.c ./ephemeris.c ./rtkpos.c ./sbas.c ./lambda.c ./postpos.c ./ppp_ar.c ./convrnx.c ./geoid.c ./rtkcmn.c ./options.c
+./rtksvr.c ./pntpos.c ./streamsvr.c ./ionex.c ./preceph.c ./rcvraw.c ./qzslex.c ./rtcm3e.c ./download.c ./gis.c ./stream.c ./tle.c ./rinex.c ./solution.c ./convkml.c ./rtcm.c ./datum.c ./ppp.c ./rtcm2.c ./rtcm3.c ./rcv/septentrio.c ./rcv/crescent.c ./rcv/tersus.c ./rcv/cmr.c ./rcv/ss2.c ./rcv/rt17.c ./rcv/ublox.c ./rcv/skytraq.c ./rcv/nvs.c ./rcv/rcvlex.c ./rcv/gw10.c ./rcv/binex.c ./rcv/javad.c ./rcv/novatel.c ./ephemeris.c ./rtkpos.c ./sbas.c ./lambda.c ./convgpx.c ./postpos.c ./tides.c ./ppp_ar.c ./convrnx.c ./geoid.c ./rtkcmn.c ./options.c ./ppp_corr.c
 essai compile  ./rtksvr.c
 gcc -Wall -c ./rtksvr.c -o ./rtksvr.o
 essai compile  ./pntpos.c
@@ -12,28 +12,28 @@ gcc -Wall -c ./preceph.c -o ./preceph.o
 essai compile  ./rcvraw.c
 gcc -Wall -c ./rcvraw.c -o ./rcvraw.o
 ./rcvraw.c: In function ‘decode_glostr’:
-./rcvraw.c:344:52: warning: variable ‘M’ set but not used [-Wunused-but-set-variable]
+./rcvraw.c:461:52: warning: variable ‘M’ set but not used [-Wunused-but-set-variable]
      int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
                                                     ^
-./rcvraw.c:344:44: warning: variable ‘NT’ set but not used [-Wunused-but-set-variable]
+./rcvraw.c:461:44: warning: variable ‘NT’ set but not used [-Wunused-but-set-variable]
      int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
                                             ^
-./rcvraw.c:344:41: warning: variable ‘ln’ set but not used [-Wunused-but-set-variable]
+./rcvraw.c:461:41: warning: variable ‘ln’ set but not used [-Wunused-but-set-variable]
      int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
                                          ^
-./rcvraw.c:344:20: warning: variable ‘P4’ set but not used [-Wunused-but-set-variable]
+./rcvraw.c:461:20: warning: variable ‘P4’ set but not used [-Wunused-but-set-variable]
      int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
                     ^
-./rcvraw.c:344:17: warning: variable ‘P3’ set but not used [-Wunused-but-set-variable]
+./rcvraw.c:461:17: warning: variable ‘P3’ set but not used [-Wunused-but-set-variable]
      int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
                  ^
-./rcvraw.c:344:14: warning: variable ‘P2’ set but not used [-Wunused-but-set-variable]
+./rcvraw.c:461:14: warning: variable ‘P2’ set but not used [-Wunused-but-set-variable]
      int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
               ^
-./rcvraw.c:344:11: warning: variable ‘P1’ set but not used [-Wunused-but-set-variable]
+./rcvraw.c:461:11: warning: variable ‘P1’ set but not used [-Wunused-but-set-variable]
      int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
            ^
-./rcvraw.c:344:9: warning: variable ‘P’ set but not used [-Wunused-but-set-variable]
+./rcvraw.c:461:9: warning: variable ‘P’ set but not used [-Wunused-but-set-variable]
      int P,P1,P2,P3,P4,tk_h,tk_m,tk_s,tb,ln,NT,slot,M,week;
          ^
 essai compile  ./qzslex.c
@@ -41,27 +41,45 @@ gcc -Wall -c ./qzslex.c -o ./qzslex.o
 essai compile  ./rtcm3e.c
 gcc -Wall -c ./rtcm3e.c -o ./rtcm3e.o
 ./rtcm3e.c: In function ‘encode_type1045’:
-./rtcm3e.c:994:42: warning: variable ‘bgd2’ set but not used [-Wunused-but-set-variable]
+./rtcm3e.c:1010:42: warning: variable ‘bgd2’ set but not used [-Wunused-but-set-variable]
      int cus,cuc,cis,cic,af0,af1,af2,bgd1,bgd2,oshs,osdvs;
                                           ^
 ./rtcm3e.c: In function ‘encode_ssr2’:
-./rtcm3e.c:1235:36: warning: variable ‘iode’ set but not used [-Wunused-but-set-variable]
+./rtcm3e.c:1424:36: warning: variable ‘iode’ set but not used [-Wunused-but-set-variable]
      int i,j,iod=0,nsat,prn,np,offp,iode,dclk[3];
                                     ^
 essai compile  ./download.c
 gcc -Wall -c ./download.c -o ./download.o
 ./download.c: In function ‘get_list’:
-./download.c:322:9: warning: unused variable ‘stat’ [-Wunused-variable]
+./download.c:320:9: warning: unused variable ‘stat’ [-Wunused-variable]
      int stat;
          ^
 ./download.c: In function ‘test_local’:
-./download.c:505:22: warning: unused variable ‘remot_p’ [-Wunused-variable]
+./download.c:503:22: warning: unused variable ‘remot_p’ [-Wunused-variable]
      char remot[1024],remot_p[1024],dir_t[1024],local[1024],str[1024];
                       ^
 ./download.c: In function ‘dl_test’:
-./download.c:776:12: warning: unused variable ‘tow’ [-Wunused-variable]
+./download.c:774:12: warning: unused variable ‘tow’ [-Wunused-variable]
      double tow;
             ^
+essai compile  ./gis.c
+gcc -Wall -c ./gis.c -o ./gis.o
+./gis.c: In function ‘gis_read’:
+./gis.c:312:25: warning: unused variable ‘q’ [-Wunused-variable]
+     char path[1024],*p,*q;
+                         ^
+./gis.c: In function ‘gis_read_record’:
+./gis.c:289:17: warning: ignoring return value of ‘fread’, declared with attribute warn_unused_result [-Wunused-result]
+                 fread(buff,1,1,fp);
+                 ^
+./gis.c: In function ‘read_poly’:
+./gis.c:143:9: warning: ignoring return value of ‘fread’, declared with attribute warn_unused_result [-Wunused-result]
+         fread(buff,4,1,fp);
+         ^
+./gis.c: In function ‘read_polygon’:
+./gis.c:206:9: warning: ignoring return value of ‘fread’, declared with attribute warn_unused_result [-Wunused-result]
+         fread(buff,4,1,fp);
+         ^
 essai compile  ./stream.c
 gcc -Wall -c ./stream.c -o ./stream.o
 essai compile  ./tle.c
@@ -89,207 +107,103 @@ essai compile  ./rtcm2.c
 gcc -Wall -c ./rtcm2.c -o ./rtcm2.o
 essai compile  ./rtcm3.c
 gcc -Wall -c ./rtcm3.c -o ./rtcm3.o
+./rtcm3.c: In function ‘decode_type1029’:
+./rtcm3.c:856:39: warning: variable ‘cunit’ set but not used [-Wunused-but-set-variable]
+     int i=24+12,j,staid,mjd,tod,nchar,cunit;
+                                       ^
+./rtcm3.c:856:29: warning: variable ‘tod’ set but not used [-Wunused-but-set-variable]
+     int i=24+12,j,staid,mjd,tod,nchar,cunit;
+                             ^
+./rtcm3.c:856:25: warning: variable ‘mjd’ set but not used [-Wunused-but-set-variable]
+     int i=24+12,j,staid,mjd,tod,nchar,cunit;
+                         ^
 ./rtcm3.c: In function ‘decode_type1045’:
-./rtcm3.c:1011:45: warning: variable ‘rsv’ set but not used [-Wunused-but-set-variable]
+./rtcm3.c:1062:45: warning: variable ‘rsv’ set but not used [-Wunused-but-set-variable]
      int i=24+12,prn,sat,week,e5a_hs,e5a_dvs,rsv,sys=SYS_GAL;
                                              ^
+./rtcm3.c: In function ‘decode_ssr7’:
+./rtcm3.c:1697:15: warning: variable ‘sdc’ set but not used [-Wunused-but-set-variable]
+     int dispe,sdc,yaw_ang,yaw_rate;
+               ^
+./rtcm3.c:1696:74: warning: variable ‘swl’ set but not used [-Wunused-but-set-variable]
+     int i,j,k,type,mode,sync,iod,nsat,prn,sat,nbias,ncode,np,mw,offp,sii,swl;
+                                                                          ^
+./rtcm3.c:1696:70: warning: variable ‘sii’ set but not used [-Wunused-but-set-variable]
+     int i,j,k,type,mode,sync,iod,nsat,prn,sat,nbias,ncode,np,mw,offp,sii,swl;
+                                                                      ^
 ./rtcm3.c: In function ‘decode_msm_head’:
-./rtcm3.c:1672:16: warning: variable ‘dow’ set but not used [-Wunused-but-set-variable]
+./rtcm3.c:1903:16: warning: variable ‘dow’ set but not used [-Wunused-but-set-variable]
      int i=24,j,dow,mask,staid,type,ncell=0;
                 ^
 essai compile  ./rcv/septentrio.c
 gcc -Wall -c ./rcv/septentrio.c -o ./rcv/septentrio.o
-./rcv/septentrio.c: In function ‘decode_measepoch’:
-./rcv/septentrio.c:240:30: warning: variable ‘ObsInfo2’ set but not used [-Wunused-but-set-variable]
-     unsigned int CarrierMSB, ObsInfo2, CodeOffsetLSB, CarrierLSB;
-                              ^
-./rcv/septentrio.c:236:19: warning: unused variable ‘lastTow’ [-Wunused-variable]
-     static double lastTow=0./0.;
-                   ^
-./rcv/septentrio.c:235:28: warning: variable ‘rxch’ set but not used [-Wunused-but-set-variable]
-     unsigned char codeMSB, rxch;
-                            ^
-./rcv/septentrio.c:234:43: warning: variable ‘BlockLength’ set but not used [-Wunused-but-set-variable]
-     unsigned int codeLSB, SB2Num, SB1Num, BlockLength, sys, h;
-                                           ^
-./rcv/septentrio.c:234:35: warning: variable ‘SB1Num’ set but not used [-Wunused-but-set-variable]
-     unsigned int codeLSB, SB2Num, SB1Num, BlockLength, sys, h;
-                                   ^
-./rcv/septentrio.c:233:48: warning: variable ‘antID2’ set but not used [-Wunused-but-set-variable]
-     unsigned char signType1, antID, signType2, antID2;
-                                                ^
-./rcv/septentrio.c:233:30: warning: variable ‘antID’ set but not used [-Wunused-but-set-variable]
-     unsigned char signType1, antID, signType2, antID2;
-                              ^
-./rcv/septentrio.c:232:55: warning: variable ‘ReservedBits2’ set but not used [-Wunused-but-set-variable]
-     int SB1length,SB2length,CommonFlags,ReservedBits1,ReservedBits2;
-                                                       ^
-./rcv/septentrio.c:232:41: warning: variable ‘ReservedBits1’ set but not used [-Wunused-but-set-variable]
-     int SB1length,SB2length,CommonFlags,ReservedBits1,ReservedBits2;
-                                         ^
-./rcv/septentrio.c:232:29: warning: variable ‘CommonFlags’ set but not used [-Wunused-but-set-variable]
-     int SB1length,SB2length,CommonFlags,ReservedBits1,ReservedBits2;
-                             ^
-./rcv/septentrio.c:231:13: warning: unused variable ‘tstr’ [-Wunused-variable]
-     char *q,tstr[32];
-             ^
-./rcv/septentrio.c:231:11: warning: unused variable ‘q’ [-Wunused-variable]
-     char *q,tstr[32];
-           ^
-./rcv/septentrio.c:229:68: warning: unused variable ‘dTowInt’ [-Wunused-variable]
-     int i,ii,j,prn,sat,n=0,nsat,week, lli, code, freq, pos, index, dTowInt;
-                                                                    ^
-./rcv/septentrio.c:229:61: warning: unused variable ‘index’ [-Wunused-variable]
-     int i,ii,j,prn,sat,n=0,nsat,week, lli, code, freq, pos, index, dTowInt;
-                                                             ^
-./rcv/septentrio.c:229:56: warning: unused variable ‘pos’ [-Wunused-variable]
-     int i,ii,j,prn,sat,n=0,nsat,week, lli, code, freq, pos, index, dTowInt;
-                                                        ^
-./rcv/septentrio.c:229:50: warning: unused variable ‘freq’ [-Wunused-variable]
-     int i,ii,j,prn,sat,n=0,nsat,week, lli, code, freq, pos, index, dTowInt;
-                                                  ^
-./rcv/septentrio.c:229:39: warning: unused variable ‘lli’ [-Wunused-variable]
-     int i,ii,j,prn,sat,n=0,nsat,week, lli, code, freq, pos, index, dTowInt;
-                                       ^
-./rcv/septentrio.c:227:50: warning: unused variable ‘CurrentTime’ [-Wunused-variable]
-     double tow,tt,psr, adr, tadj=0.0,toff=0.0,tn,CurrentTime, dopplerType1;
-                                                  ^
-./rcv/septentrio.c:227:47: warning: unused variable ‘tn’ [-Wunused-variable]
-     double tow,tt,psr, adr, tadj=0.0,toff=0.0,tn,CurrentTime, dopplerType1;
-                                               ^
-./rcv/septentrio.c:227:38: warning: unused variable ‘toff’ [-Wunused-variable]
-     double tow,tt,psr, adr, tadj=0.0,toff=0.0,tn,CurrentTime, dopplerType1;
-                                      ^
-./rcv/septentrio.c:227:29: warning: unused variable ‘tadj’ [-Wunused-variable]
-     double tow,tt,psr, adr, tadj=0.0,toff=0.0,tn,CurrentTime, dopplerType1;
-                             ^
-./rcv/septentrio.c: In function ‘getSignalCode’:
-./rcv/septentrio.c:596:9: warning: variable ‘_freq’ set but not used [-Wunused-but-set-variable]
-     int _freq, _code;
-         ^
-./rcv/septentrio.c: In function ‘decode_glonav’:
-./rcv/septentrio.c:820:12: warning: unused variable ‘toc’ [-Wunused-variable]
-     double toc;
-            ^
-./rcv/septentrio.c: In function ‘decode_sbasnav’:
-./rcv/septentrio.c:874:12: warning: unused variable ‘toc’ [-Wunused-variable]
-     double toc;
-            ^
-./rcv/septentrio.c: In function ‘decode_gpsrawcanav’:
-./rcv/septentrio.c:937:18: warning: variable ‘id’ set but not used [-Wunused-but-set-variable]
-     int i=0,ii=0,id,resp;
-                  ^
-./rcv/septentrio.c:934:9: warning: unused variable ‘prn’ [-Wunused-variable]
-     int prn,sat;
-         ^
-./rcv/septentrio.c: In function ‘decode_georaw’:
-./rcv/septentrio.c:997:21: warning: unused variable ‘resp’ [-Wunused-variable]
-     int i=0,ii=0,id,resp;
-                     ^
-./rcv/septentrio.c:997:18: warning: unused variable ‘id’ [-Wunused-variable]
-     int i=0,ii=0,id,resp;
-                  ^
-./rcv/septentrio.c:997:13: warning: unused variable ‘ii’ [-Wunused-variable]
-     int i=0,ii=0,id,resp;
-             ^
-./rcv/septentrio.c:996:20: warning: unused variable ‘pt’ [-Wunused-variable]
-     unsigned char *pt=_buf;
-                    ^
-./rcv/septentrio.c:994:13: warning: unused variable ‘sat’ [-Wunused-variable]
-     int prn,sat;
-             ^
-./rcv/septentrio.c: In function ‘decode_glorawcanav’:
-./rcv/septentrio.c:1025:9: warning: unused variable ‘i’ [-Wunused-variable]
-     int i,j,k;
-         ^
-./rcv/septentrio.c:1021:40: warning: unused variable ‘fid’ [-Wunused-variable]
-     unsigned char *p=(raw->buff)+6,*r,*fid;
-                                        ^
-./rcv/septentrio.c: In function ‘decode_gpsion’:
-./rcv/septentrio.c:1076:19: warning: variable ‘prn’ set but not used [-Wunused-but-set-variable]
-     unsigned char prn, *p=(raw->buff)+8;            /* points at TOW location */
-                   ^
-./rcv/septentrio.c: In function ‘decode_galion’:
-./rcv/septentrio.c:1093:19: warning: variable ‘prn’ set but not used [-Wunused-but-set-variable]
-     unsigned char prn, *p=(raw->buff)+6;            /* points at TOW location */
-                   ^
-./rcv/septentrio.c: In function ‘decode_sbf’:
-./rcv/septentrio.c:1210:9: warning: unused variable ‘revision’ [-Wunused-variable]
-     int revision = U2(raw->buff+4) >> 13;
-         ^
-./rcv/septentrio.c: At top level:
-./rcv/septentrio.c:97:13: warning: ‘setU1’ defined but not used [-Wunused-function]
- static void setU1(unsigned char *p, unsigned char  u) {*p=u;}
-             ^
-./rcv/septentrio.c:98:13: warning: ‘setU2’ defined but not used [-Wunused-function]
- static void setU2(unsigned char *p, unsigned short u) {memcpy(p,&u,2);}
-             ^
-./rcv/septentrio.c:99:13: warning: ‘setU4’ defined but not used [-Wunused-function]
- static void setU4(unsigned char *p, unsigned int   u) {memcpy(p,&u,4);}
-             ^
-./rcv/septentrio.c:100:13: warning: ‘setI1’ defined but not used [-Wunused-function]
- static void setI1(unsigned char *p, char           i) {*p=(unsigned char)i;}
-             ^
-./rcv/septentrio.c:101:13: warning: ‘setI2’ defined but not used [-Wunused-function]
- static void setI2(unsigned char *p, short          i) {memcpy(p,&i,2);}
-             ^
-./rcv/septentrio.c:102:13: warning: ‘setI4’ defined but not used [-Wunused-function]
- static void setI4(unsigned char *p, int            i) {memcpy(p,&i,4);}
-             ^
-./rcv/septentrio.c:103:13: warning: ‘setR4’ defined but not used [-Wunused-function]
- static void setR4(unsigned char *p, float          r) {memcpy(p,&r,4);}
-             ^
-./rcv/septentrio.c:104:13: warning: ‘setR8’ defined but not used [-Wunused-function]
- static void setR8(unsigned char *p, double         r) {memcpy(p,&r,8);}
-             ^
-./rcv/septentrio.c:152:13: warning: ‘setcs’ defined but not used [-Wunused-function]
- static void setcs(unsigned char *buff, int len)
-             ^
-./rcv/septentrio.c:166:12: warning: ‘obsindex’ defined but not used [-Wunused-function]
- static int obsindex(obs_t *obs, gtime_t time, int sat)
-            ^
-./rcv/septentrio.c:187:12: warning: ‘checkpri’ defined but not used [-Wunused-function]
- static int checkpri(const char *opt, int sys, int code, int freq)
-            ^
 essai compile  ./rcv/crescent.c
 gcc -Wall -c ./rcv/crescent.c -o ./rcv/crescent.o
 ./rcv/crescent.c: In function ‘decode_crespos’:
-./rcv/crescent.c:70:23: warning: variable ‘vel’ set but not used [-Wunused-but-set-variable]
+./rcv/crescent.c:69:23: warning: variable ‘vel’ set but not used [-Wunused-but-set-variable]
      double tow,pos[3],vel[3],std;
                        ^
 ./rcv/crescent.c: In function ‘decode_cresgloeph’:
-./rcv/crescent.c:479:27: warning: variable ‘time’ set but not used [-Wunused-but-set-variable]
+./rcv/crescent.c:478:27: warning: variable ‘time’ set but not used [-Wunused-but-set-variable]
      int i,j,k,sat,prn,frq,time,no;
                            ^
+essai compile  ./rcv/tersus.c
+gcc -Wall -c ./rcv/tersus.c -o ./rcv/tersus.o
+./rcv/tersus.c: In function ‘decode_gpsephemb’:
+./rcv/tersus.c:376:30: warning: variable ‘as’ set but not used [-Wunused-but-set-variable]
+     int prn,week,zweek,iode2,as;
+                              ^
+./rcv/tersus.c:376:18: warning: variable ‘zweek’ set but not used [-Wunused-but-set-variable]
+     int prn,week,zweek,iode2,as;
+                  ^
+./rcv/tersus.c:375:20: warning: variable ‘n’ set but not used [-Wunused-but-set-variable]
+     double tow,toc,n,ura,tt;
+                    ^
+essai compile  ./rcv/cmr.c
+gcc -Wall -c ./rcv/cmr.c -o ./rcv/cmr.o
 essai compile  ./rcv/ss2.c
 gcc -Wall -c ./rcv/ss2.c -o ./rcv/ss2.o
 ./rcv/ss2.c: In function ‘decode_ss2sbas’:
-./rcv/ss2.c:197:13: warning: variable ‘time’ set but not used [-Wunused-but-set-variable]
+./rcv/ss2.c:195:13: warning: variable ‘time’ set but not used [-Wunused-but-set-variable]
      gtime_t time;
              ^
 essai compile  ./rcv/rt17.c
 gcc -Wall -c ./rcv/rt17.c -o ./rcv/rt17.o
+./rcv/rt17.c: In function ‘DecodeType17’:
+./rcv/rt17.c:1659:12: warning: variable ‘ClockOffset’ set but not used [-Wunused-but-set-variable]
+     double ClockOffset, tow;
+            ^
 essai compile  ./rcv/ublox.c
 gcc -Wall -c ./rcv/ublox.c -o ./rcv/ublox.o
 ./rcv/ublox.c: In function ‘decode_trkmeas’:
-./rcv/ublox.c:436:45: warning: variable ‘lock1’ set but not used [-Wunused-but-set-variable]
+./rcv/ublox.c:605:45: warning: variable ‘lock1’ set but not used [-Wunused-but-set-variable]
      int i,j,n=0,nch,sys,prn,sat,qi,frq,flag,lock1,lock2,week;
                                              ^
-./rcv/ublox.c:436:36: warning: variable ‘frq’ set but not used [-Wunused-but-set-variable]
+./rcv/ublox.c:605:36: warning: variable ‘frq’ set but not used [-Wunused-but-set-variable]
      int i,j,n=0,nch,sys,prn,sat,qi,frq,flag,lock1,lock2,week;
                                     ^
-./rcv/ublox.c:433:19: warning: variable ‘adrs’ set but not used [-Wunused-but-set-variable]
+./rcv/ublox.c:602:19: warning: variable ‘adrs’ set but not used [-Wunused-but-set-variable]
      static double adrs[MAXSAT]={0};
                    ^
 ./rcv/ublox.c: In function ‘decode_trkd5’:
-./rcv/ublox.c:551:45: warning: variable ‘frq’ set but not used [-Wunused-but-set-variable]
+./rcv/ublox.c:726:45: warning: variable ‘frq’ set but not used [-Wunused-but-set-variable]
      int i,j,n=0,type,off,len,sys,prn,sat,qi,frq,flag,week;
                                              ^
-./rcv/ublox.c:548:19: warning: variable ‘adrs’ set but not used [-Wunused-but-set-variable]
+./rcv/ublox.c:723:19: warning: variable ‘adrs’ set but not used [-Wunused-but-set-variable]
      static double adrs[MAXSAT]={0};
                    ^
 essai compile  ./rcv/skytraq.c
 gcc -Wall -c ./rcv/skytraq.c -o ./rcv/skytraq.o
+./rcv/skytraq.c: In function ‘decode_stqrawx’:
+./rcv/skytraq.c:231:31: warning: variable ‘sig’ set but not used [-Wunused-but-set-variable]
+     int i,j,ver,week,nsat,sys,sig,prn,sat,n=0;
+                               ^
+./rcv/skytraq.c:231:13: warning: variable ‘ver’ set but not used [-Wunused-but-set-variable]
+     int i,j,ver,week,nsat,sys,sig,prn,sat,n=0;
+             ^
+./rcv/skytraq.c:230:16: warning: variable ‘peri’ set but not used [-Wunused-but-set-variable]
+     double tow,peri,pr1,cp1;
+                ^
 essai compile  ./rcv/nvs.c
 gcc -Wall -c ./rcv/nvs.c -o ./rcv/nvs.o
 ./rcv/nvs.c: In function ‘decode_xf5raw’:
@@ -303,99 +217,95 @@ gcc -Wall -c ./rcv/gw10.c -o ./rcv/gw10.o
 essai compile  ./rcv/binex.c
 gcc -Wall -c ./rcv/binex.c -o ./rcv/binex.o
 ./rcv/binex.c: In function ‘decode_bnx_01_02’:
-./rcv/binex.c:480:17: warning: variable ‘leap’ set but not used [-Wunused-but-set-variable]
+./rcv/binex.c:493:17: warning: variable ‘leap’ set but not used [-Wunused-but-set-variable]
      int prn,day,leap;
                  ^
-./rcv/binex.c:480:13: warning: variable ‘day’ set but not used [-Wunused-but-set-variable]
+./rcv/binex.c:493:13: warning: variable ‘day’ set but not used [-Wunused-but-set-variable]
      int prn,day,leap;
              ^
-./rcv/binex.c:479:20: warning: variable ‘tau_gps’ set but not used [-Wunused-but-set-variable]
+./rcv/binex.c:492:20: warning: variable ‘tau_gps’ set but not used [-Wunused-but-set-variable]
      double tod,tof,tau_gps;
                     ^
 ./rcv/binex.c: In function ‘decode_bnx_01_03’:
-./rcv/binex.c:534:18: warning: variable ‘iodn’ set but not used [-Wunused-but-set-variable]
+./rcv/binex.c:547:18: warning: variable ‘iodn’ set but not used [-Wunused-but-set-variable]
      int prn,week,iodn;
                   ^
-./rcv/binex.c:533:16: warning: variable ‘tod’ set but not used [-Wunused-but-set-variable]
+./rcv/binex.c:546:16: warning: variable ‘tod’ set but not used [-Wunused-but-set-variable]
      double tow,tod,tof;
                 ^
 ./rcv/binex.c: In function ‘decode_bnx_01_05’:
-./rcv/binex.c:651:16: warning: variable ‘toc’ set but not used [-Wunused-but-set-variable]
+./rcv/binex.c:669:16: warning: variable ‘toc’ set but not used [-Wunused-but-set-variable]
      double tow,toc,sqrtA;
                 ^
 ./rcv/binex.c: In function ‘decode_bnx_7f_05’:
-./rcv/binex.c:1042:56: warning: variable ‘tsys’ set but not used [-Wunused-but-set-variable]
+./rcv/binex.c:1061:56: warning: variable ‘tsys’ set but not used [-Wunused-but-set-variable]
      int i,nsat,nobs,prn,sys,sat,clkrst=0,rsys=0,nsys=0,tsys[16]={0};
                                                         ^
-./rcv/binex.c:1042:42: warning: variable ‘rsys’ set but not used [-Wunused-but-set-variable]
+./rcv/binex.c:1061:42: warning: variable ‘rsys’ set but not used [-Wunused-but-set-variable]
      int i,nsat,nobs,prn,sys,sat,clkrst=0,rsys=0,nsys=0,tsys[16]={0};
                                           ^
-./rcv/binex.c:1042:33: warning: variable ‘clkrst’ set but not used [-Wunused-but-set-variable]
+./rcv/binex.c:1061:33: warning: variable ‘clkrst’ set but not used [-Wunused-but-set-variable]
      int i,nsat,nobs,prn,sys,sat,clkrst=0,rsys=0,nsys=0,tsys[16]={0};
                                  ^
-./rcv/binex.c:1038:23: warning: variable ‘toff’ set but not used [-Wunused-but-set-variable]
+./rcv/binex.c:1057:23: warning: variable ‘toff’ set but not used [-Wunused-but-set-variable]
      double clkoff=0.0,toff[16]={0};
                        ^
-./rcv/binex.c:1038:12: warning: variable ‘clkoff’ set but not used [-Wunused-but-set-variable]
+./rcv/binex.c:1057:12: warning: variable ‘clkoff’ set but not used [-Wunused-but-set-variable]
      double clkoff=0.0,toff[16]={0};
             ^
 essai compile  ./rcv/javad.c
 gcc -Wall -c ./rcv/javad.c -o ./rcv/javad.o
 essai compile  ./rcv/novatel.c
 gcc -Wall -c ./rcv/novatel.c -o ./rcv/novatel.o
-./rcv/novatel.c: In function ‘decode_galephemerisb’:
-./rcv/novatel.c:723:22: warning: variable ‘rcv_inav’ set but not used [-Wunused-but-set-variable]
-     int prn,rcv_fnav,rcv_inav,svh_e1b,svh_e5a,svh_e5b,dvs_e1b,dvs_e5a,dvs_e5b;
-                      ^
 ./rcv/novatel.c: In function ‘decode_galalmanacb’:
-./rcv/novatel.c:812:55: warning: variable ‘ioda’ set but not used [-Wunused-but-set-variable]
+./rcv/novatel.c:829:55: warning: variable ‘ioda’ set but not used [-Wunused-but-set-variable]
      int prn,rcv_fnav,rcv_inav,svh_e1b,svh_e5a,svh_e5b,ioda;
                                                        ^
-./rcv/novatel.c:812:22: warning: variable ‘rcv_inav’ set but not used [-Wunused-but-set-variable]
+./rcv/novatel.c:829:22: warning: variable ‘rcv_inav’ set but not used [-Wunused-but-set-variable]
      int prn,rcv_fnav,rcv_inav,svh_e1b,svh_e5a,svh_e5b,ioda;
                       ^
-./rcv/novatel.c:812:13: warning: variable ‘rcv_fnav’ set but not used [-Wunused-but-set-variable]
+./rcv/novatel.c:829:13: warning: variable ‘rcv_fnav’ set but not used [-Wunused-but-set-variable]
      int prn,rcv_fnav,rcv_inav,svh_e1b,svh_e5a,svh_e5b,ioda;
              ^
 ./rcv/novatel.c: In function ‘decode_galclockb’:
-./rcv/novatel.c:854:42: warning: variable ‘wn0g’ set but not used [-Wunused-but-set-variable]
+./rcv/novatel.c:871:42: warning: variable ‘wn0g’ set but not used [-Wunused-but-set-variable]
      int leaps,tot,wnt,wnlsf,dn,dtlsf,t0g,wn0g;
                                           ^
-./rcv/novatel.c:854:38: warning: variable ‘t0g’ set but not used [-Wunused-but-set-variable]
+./rcv/novatel.c:871:38: warning: variable ‘t0g’ set but not used [-Wunused-but-set-variable]
      int leaps,tot,wnt,wnlsf,dn,dtlsf,t0g,wn0g;
                                       ^
-./rcv/novatel.c:854:32: warning: variable ‘dtlsf’ set but not used [-Wunused-but-set-variable]
+./rcv/novatel.c:871:32: warning: variable ‘dtlsf’ set but not used [-Wunused-but-set-variable]
      int leaps,tot,wnt,wnlsf,dn,dtlsf,t0g,wn0g;
                                 ^
-./rcv/novatel.c:854:29: warning: variable ‘dn’ set but not used [-Wunused-but-set-variable]
+./rcv/novatel.c:871:29: warning: variable ‘dn’ set but not used [-Wunused-but-set-variable]
      int leaps,tot,wnt,wnlsf,dn,dtlsf,t0g,wn0g;
                              ^
-./rcv/novatel.c:854:23: warning: variable ‘wnlsf’ set but not used [-Wunused-but-set-variable]
+./rcv/novatel.c:871:23: warning: variable ‘wnlsf’ set but not used [-Wunused-but-set-variable]
      int leaps,tot,wnt,wnlsf,dn,dtlsf,t0g,wn0g;
                        ^
-./rcv/novatel.c:854:9: warning: variable ‘leaps’ set but not used [-Wunused-but-set-variable]
+./rcv/novatel.c:871:9: warning: variable ‘leaps’ set but not used [-Wunused-but-set-variable]
      int leaps,tot,wnt,wnlsf,dn,dtlsf,t0g,wn0g;
          ^
-./rcv/novatel.c:853:22: warning: variable ‘a1g’ set but not used [-Wunused-but-set-variable]
+./rcv/novatel.c:870:22: warning: variable ‘a1g’ set but not used [-Wunused-but-set-variable]
      double a0,a1,a0g,a1g;
                       ^
-./rcv/novatel.c:853:18: warning: variable ‘a0g’ set but not used [-Wunused-but-set-variable]
+./rcv/novatel.c:870:18: warning: variable ‘a0g’ set but not used [-Wunused-but-set-variable]
      double a0,a1,a0g,a1g;
                   ^
 ./rcv/novatel.c: In function ‘decode_galionob’:
-./rcv/novatel.c:886:11: warning: variable ‘sf’ set but not used [-Wunused-but-set-variable]
+./rcv/novatel.c:903:11: warning: variable ‘sf’ set but not used [-Wunused-but-set-variable]
      int i,sf[5];
            ^
 ./rcv/novatel.c: In function ‘decode_galfnavrawpageb’:
-./rcv/novatel.c:911:11: warning: variable ‘sigch’ set but not used [-Wunused-but-set-variable]
+./rcv/novatel.c:928:11: warning: variable ‘sigch’ set but not used [-Wunused-but-set-variable]
      int i,sigch,satid,page;
            ^
 ./rcv/novatel.c: In function ‘decode_galinavrawwordb’:
-./rcv/novatel.c:938:11: warning: variable ‘sigch’ set but not used [-Wunused-but-set-variable]
+./rcv/novatel.c:955:11: warning: variable ‘sigch’ set but not used [-Wunused-but-set-variable]
      int i,sigch,satid,sigtype,type,week=0,tow=0;
            ^
 ./rcv/novatel.c: In function ‘decode_rawcnavframeb’:
-./rcv/novatel.c:975:11: warning: variable ‘sigch’ set but not used [-Wunused-but-set-variable]
+./rcv/novatel.c:992:11: warning: variable ‘sigch’ set but not used [-Wunused-but-set-variable]
      int i,sigch,prn,frmid;
            ^
 essai compile  ./ephemeris.c
@@ -403,15 +313,19 @@ gcc -Wall -c ./ephemeris.c -o ./ephemeris.o
 essai compile  ./rtkpos.c
 gcc -Wall -c ./rtkpos.c -o ./rtkpos.o
 ./rtkpos.c: In function ‘relpos’:
-./rtkpos.c:1490:12: warning: assuming signed overflow does not occur when assuming that (X + c) >= X is always true [-Wstrict-overflow]
+./rtkpos.c:1571:12: warning: assuming signed overflow does not occur when assuming that (X + c) >= X is always true [-Wstrict-overflow]
  static int relpos(rtk_t *rtk, const obsd_t *obs, int nu, int nr,
             ^
 essai compile  ./sbas.c
 gcc -Wall -c ./sbas.c -o ./sbas.o
 essai compile  ./lambda.c
 gcc -Wall -c ./lambda.c -o ./lambda.o
+essai compile  ./convgpx.c
+gcc -Wall -c ./convgpx.c -o ./convgpx.o
 essai compile  ./postpos.c
 gcc -Wall -c ./postpos.c -o ./postpos.o
+essai compile  ./tides.c
+gcc -Wall -c ./tides.c -o ./tides.o
 essai compile  ./ppp_ar.c
 gcc -Wall -c ./ppp_ar.c -o ./ppp_ar.o
 essai compile  ./convrnx.c
@@ -422,6 +336,8 @@ essai compile  ./rtkcmn.c
 gcc -Wall -c ./rtkcmn.c -o ./rtkcmn.o
 essai compile  ./options.c
 gcc -Wall -c ./options.c -o ./options.o
+essai compile  ./ppp_corr.c
+gcc -Wall -c ./ppp_corr.c -o ./ppp_corr.o
 fini compil
 ar: le modificateur « u » est ignoré puisque « D » est le défaut (consultez « U »)
 fini ar
