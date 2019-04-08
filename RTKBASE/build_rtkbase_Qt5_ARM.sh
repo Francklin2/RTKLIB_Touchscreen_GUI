@@ -31,7 +31,7 @@ uname -a > "$LOG_PATH/sysinfo.txt"
 echo
 echo "  > Install dependencies : "
 echo "  > Script will ask your passwork to install it"
-sudo apt-get install --assume-yes proj-bin qtdeclarative5-dev qttools5-dev-tools libgles2-mesa libgles2-mesa-dev build-essential qt5-default > "$LOG_PATH/apt.log" 2>&1
+sudo apt-get install --assume-yes proj-bin qtdeclarative5-dev qttools5-dev-tools libgles2-mesa libgles2-mesa-dev build-essential qt5-default gfortran > "$LOG_PATH/apt.log" 2>&1
 echo "  > building required static lib rtklib"
 cd ./lib/rtklib
 chmod +x make_library.sh > "$LOG_PATH/rtklib_rights.log" 2>&1
@@ -60,7 +60,9 @@ chmod +x build_rtkbase.sh > "$LOG_PATH/rtklib_rights.log" 2>&1
 
 echo "  > building RTKBASE"
 
-#./build_rtkbase.sh
+./build_rtkbase.sh
+./build_rtkbase.sh
+
 echo "  < done - `date`"
 echo "  - script finished - `date`"
 exit
