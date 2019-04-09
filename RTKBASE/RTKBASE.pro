@@ -15,8 +15,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-        threadheuresysteme.cpp \
+    mainwindow.cpp \
+    threadheuresysteme.cpp \
     magraphicsscene.cpp \
     options1.cpp \
     affichesolutions.cpp \
@@ -97,7 +97,6 @@ FORMS    += mainwindow.ui \
     mydialog.ui \
     optionsstartatboot.ui
 
-FORMS    += mainwindow.ui
 
 LIBS += -L$$PWD/lib/rtklib/ -lrtk -lm -lrt -lpthread
 INCLUDEPATH += $$PWD/lib/rtklib
