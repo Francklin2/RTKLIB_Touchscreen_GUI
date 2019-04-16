@@ -61,7 +61,6 @@ chmod +x build_rtkbase.sh > "$LOG_PATH/rtklib_rights.log" 2>&1
 echo "  > building RTKBASE"
 
 ./build_rtkbase.sh
-./build_rtkbase.sh
 
 echo "  < done - `date`"
 echo "  - script finished - `date`"
